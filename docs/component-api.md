@@ -1,0 +1,671 @@
+# Component API — Uni+ Design System
+
+> Contrato canônico de **todo componente do design system**: anatomia HTML,
+> classes, ARIA, slots, e — para a versão Angular — inputs/outputs.
+>
+> Quando você implementar em Angular, copie a anatomia HTML para o template
+> e exponha exatamente os inputs/outputs descritos. Se precisar de mais,
+> abra ADR antes.
+
+---
+
+## Botões — `.btn`
+
+### Anatomia
+```html
+<button class="btn btn--<variant> btn--<size>" [disabled]>
+  <svg class="btn__icon" aria-hidden="true">…</svg>
+  <span>Texto da ação</span>
+</button>
+```
+
+### Variantes
+| Modifier | Quando usar |
+|---|---|
+| `btn--primary` (default) | 1 por view — ação principal |
+| `btn--secondary` | Ação alternativa (borda primary) |
+| `btn--tertiary` | Ações leves (sem borda) |
+| `btn--danger` | Ações irreversíveis |
+| `btn--sm` / `btn--md` / `btn--lg` | piso de 44px nos três (WCAG 2.5.5); sm/md só reduzem tipografia e padding, lg sobe para 48px |
+| `btn--icon-only btn--circle` | Botão circular só com ícone (≥44, inclusive com `btn--sm`) |
+| `btn--icon-only btn--rect` | Quadrado com radius pequeno (close de modal) |
+| `btn--full` | `width: 100%` |
+| `btn--pill` / `btn--rect` | Override do radius (pill é default) |
+
+### Estados
+Todos cobertos por CSS: default, hover, focus-visible (3px ring), active, disabled.
+
+### Angular
+```typescript
+@Component({ selector: 'ui-button', standalone: true })
+export class ButtonComponent {
+  variant = input<'primary' | 'secondary' | 'tertiary' | 'danger'>('primary');
+  size = input<'sm' | 'md' | 'lg' | 'default'>('default');
+  iconOnly = input<boolean>(false);
+  full = input<boolean>(false);
+  disabled = input<boolean>(false);
+  type = input<'button' | 'submit' | 'reset'>('button');
+  ariaLabel = input<string | undefined>(undefined);     // obrigatório se iconOnly
+}
+```
+
+### ARIA contract
+- `aria-label` **obrigatório** em `btn--icon-only`
+- `aria-pressed` em toggle buttons
+- Nunca `(click)` em `<div>` — sempre `<button>` ou `<a>`
+
+---
+
+## Form fields — `.field` + `.input` / `.select` / `.textarea`
+
+### Anatomia
+```html
+<div class="field" [class.is-error]="hasError">
+  <label class="field__label" [class.is-required]="required" for="cpf">CPF</label>
+  <input class="input" id="cpf" name="cpf" required
+         aria-describedby="cpf-hint cpf-error" aria-invalid="false"
+         data-format="cpf">
+  <p id="cpf-hint" class="field__hint">11 dígitos.</p>
+  <p id="cpf-error" class="field__error" hidden>CPF inválido.</p>
+</div>
+```
+
+### Input com addon
+```html
+<div class="input-group">
+  <span class="input-group__addon"><svg/></span>
+  <input class="input">
+</div>
+```
+
+### Angular
+```typescript
+@Component({ selector: 'ui-form-field', standalone: true })
+export class FormFieldComponent {
+  label = input.required<string>();
+  required = input<boolean>(false);
+  hint = input<string | undefined>(undefined);
+  error = input<string | undefined>(undefined);    // when set, marks invalid + reveals
+  for_ = input.required<string>();                 // id of inner input
+  // <ng-content> projeta o <input> que vai ter aria-describedby auto-gerado
+}
+```
+
+### ARIA contract
+- `<label for>` **obrigatório** apontando ao `id` do input
+- `aria-describedby` chaine: `<hint-id> <error-id>`
+- `aria-invalid` reflete o estado
+- `aria-required` derivado de `required`
+- **`aria-describedby` deve incluir todos os ids relevantes**; UniForm faz isso automaticamente
+
+---
+
+## Tag — `.tag`
+
+### Anatomia
+```html
+<span class="tag tag--<variant>">
+  <span class="tag__dot" aria-hidden="true"></span>
+  Label
+</span>
+```
+
+### Variantes
+- Soft (default): `success` / `warning` / `danger` / `info` / `primary` / neutro
+- Solid (call-out, uppercase): adicionar `tag--solid`
+
+### Angular
+```typescript
+@Component({ selector: 'ui-tag', standalone: true })
+export class TagComponent {
+  variant = input<'success' | 'warning' | 'danger' | 'info' | 'primary' | 'neutral'>('neutral');
+  solid = input<boolean>(false);
+  withDot = input<boolean>(true);
+}
+```
+
+---
+
+## Alert — `.alert`
+
+### Anatomia
+```html
+<div class="alert alert--<variant>" role="alert" aria-live="polite">
+  <svg class="alert__icon" aria-hidden="true">…</svg>
+  <div class="alert__body">
+    <p class="alert__title">Inscrição confirmada</p>
+    <p class="alert__msg">Você se inscreveu no edital SISU 2026.1.</p>
+  </div>
+</div>
+```
+
+### Angular
+```typescript
+@Component({ selector: 'ui-alert', standalone: true })
+export class AlertComponent {
+  variant = input<'success' | 'warning' | 'danger' | 'info'>('info');
+  title = input<string | undefined>(undefined);
+  // <ng-content> projeta a mensagem
+}
+```
+
+### ARIA contract
+- `role="alert"` + `aria-live="polite"` para info/success/warning
+- `aria-live="assertive"` apenas em `danger` que exige atenção imediata
+- **Não** use `role="alert"` em alerts decorativos não dinâmicos
+
+---
+
+## Card — `.card`
+
+```html
+<article class="card card--interactive" tabindex="0">
+  <div class="card__header"><!-- tags + meta --></div>
+  <h3 class="card__title">Título</h3>
+  <p class="card__desc">Descrição</p>
+  <div class="card__footer"><!-- ações --></div>
+</article>
+```
+
+`card--interactive`: hover sobe a border-color para primary + shadow-1. Foco recebe o ring.
+
+---
+
+## Edital row — `.edital-row`
+
+**Recomendação:** prefira lista (`.edital-row`) ao card grid em telas com >5 itens.
+Melhor para leitores de tela e baixa visão.
+
+```html
+<article class="edital-row" role="listitem" tabindex="0">
+  <div class="edital-row__body">
+    <div class="edital-row__head">
+      <span class="tag tag--solid tag--success">Inscrições abertas</span>
+      <span class="card__meta">Edital 12/2026</span>
+    </div>
+    <h3 class="edital-row__title">SISU 2026.1</h3>
+    <p class="edital-row__desc">…</p>
+    <div class="edital-row__meta">…</div>
+  </div>
+  <div class="edital-row__actions">…</div>
+</article>
+```
+
+Wrapper container precisa ter `role="list"`.
+
+---
+
+## Pager (cursor-based) — `.pager`
+
+Documentado completamente em `docs/cursor-pagination.md`. **Nunca paginação numerada.**
+
+```html
+<nav class="pager" aria-label="Paginação">
+  <button class="pager__btn" data-pager="prev" [disabled]="!hasPrev" aria-label="Página anterior">
+    <svg/> Anterior
+  </button>
+  <span class="pager__status" aria-live="polite">
+    <span class="pager__page">Página 1</span> · 20 resultados nesta página
+  </span>
+  <button class="pager__btn" data-pager="next" [disabled]="!hasNext" aria-label="Próxima página">
+    Próximo <svg/>
+  </button>
+</nav>
+```
+
+---
+
+## Status timeline — `.uni-timeline`
+
+```html
+<ol class="uni-timeline">
+  <li class="uni-timeline__item is-<state>">       <!-- done | current | blocked | danger -->
+    <div class="uni-timeline__dot">N | check</div>
+    <div class="uni-timeline__body">
+      <div class="uni-timeline__head">
+        <h4 class="uni-timeline__title">Etapa</h4>
+        <span class="uni-timeline__when">12 mar · 14:32</span>
+      </div>
+      <p class="uni-timeline__desc">…</p>
+    </div>
+  </li>
+</ol>
+```
+
+Estados: `is-done` (verde, check), `is-current` (primary, número), `is-blocked` (cinza),
+`is-danger` (vermelho, reprovação).
+
+---
+
+## Dialog / Modal / Bottom-sheet — `.uni-dialog`
+
+`<dialog>` nativo. `.showModal()` faz focus trap automaticamente.
+
+```html
+<dialog class="uni-dialog" id="confirm-cancel" aria-labelledby="cc-title">
+  <div class="uni-dialog__panel">
+    <div class="uni-dialog__header">
+      <h3 class="uni-dialog__title" id="cc-title">Cancelar inscrição?</h3>
+      <button class="btn btn--tertiary btn--icon-only btn--rect" aria-label="Fechar">×</button>
+    </div>
+    <div class="uni-dialog__body">…</div>
+    <div class="uni-dialog__footer">
+      <button class="btn btn--tertiary">Voltar</button>
+      <button class="btn btn--danger">Sim, cancelar</button>
+    </div>
+  </div>
+</dialog>
+```
+
+### Angular
+```typescript
+@Component({ selector: 'ui-dialog', standalone: true })
+export class DialogComponent {
+  @ViewChild('dialog') dialog!: ElementRef<HTMLDialogElement>;
+  open() { this.dialog.nativeElement.showModal(); }
+  close() { this.dialog.nativeElement.close(); }
+}
+```
+
+Em mobile (<640px) vira bottom-sheet automaticamente.
+
+---
+
+## Drawer — `.uni-drawer`
+
+Same nativeshell as Dialog, side-anchored. Acionado via `data-drawer-trigger`.
+
+```html
+<button data-drawer-trigger="user-drawer" aria-haspopup="dialog" aria-expanded="false">
+  Menu
+</button>
+
+<dialog class="uni-drawer" id="user-drawer" aria-labelledby="drawer-title">
+  <div class="uni-drawer__panel">
+    <div class="uni-drawer__header">
+      <h3 class="uni-drawer__title" id="drawer-title">Menu</h3>
+      <button data-drawer-close aria-label="Fechar">×</button>
+    </div>
+    <div class="uni-drawer__body">…</div>
+  </div>
+</dialog>
+```
+
+`.uni-drawer--right` para ancorar à direita (padrão é à esquerda).
+
+**`aria-expanded` é sincronizado INLINE no close handler**, não via evento `close`
+do dialog. Razão: alguns browsers não disparam `close` confiável.
+
+---
+
+## Topbar / Gov.br stripe / Accessibility bar
+
+3 faixas obrigatórias no topo de toda tela pública/autenticada.
+
+```html
+<!-- Gov.br stripe -->
+<div class="gov-bar" role="region" aria-label="Identificação do Governo Federal">…</div>
+
+<!-- Accessibility bar -->
+<div class="a11y-bar" role="toolbar" aria-label="Preferências de acessibilidade">
+  <span class="a11y-bar__label">Acessibilidade</span>
+  <div role="group" aria-label="Tamanho da fonte">
+    <button data-a11y="font-scale" data-value="md" aria-pressed="true">A</button>
+    <button data-a11y="font-scale" data-value="lg">A+</button>
+    <button data-a11y="font-scale" data-value="xl">A++</button>
+  </div>
+  <div role="group" aria-label="Tema">
+    <button data-a11y="theme" data-value="light">Claro</button>
+    <button data-a11y="theme" data-value="dark">Escuro</button>
+    <button data-a11y="theme" data-value="auto" aria-pressed="true">Sistema</button>
+  </div>
+  <button data-a11y="contrast" data-value="on">Contraste</button>
+  <button data-a11y="font-mode" data-value="legible">Fonte legível</button>
+</div>
+
+<!-- Brand topbar -->
+<header class="topbar" role="banner">…</header>
+```
+
+Lógica em `uniplus-a11y.js`. Em produção, vira `A11yService` Angular que
+escreve no `<html>` via `Renderer2.setAttribute(document.documentElement, …)`.
+
+---
+
+## Page header — `.page-header`
+
+Cabeçalho canônico para página ou bloco principal: título, descrição opcional e
+slot de ações à direita. No mobile, empilha conteúdo e ações.
+
+```html
+<div class="page-header">
+  <div class="page-header__content">
+    <h1 class="page-header__title">Painel de processos</h1>
+    <p class="page-header__desc">Visão geral dos editais, inscrições e prazos.</p>
+  </div>
+  <div class="page-header__actions">
+    <button class="btn btn--primary">Novo edital</button>
+  </div>
+</div>
+```
+
+Use `h1` uma vez por página. Em seções internas, mantenha a mesma anatomia com
+`h2.page-header__title`.
+
+---
+
+## Breadcrumb — `.breadcrumb`
+
+```html
+<nav class="breadcrumb" aria-label="Breadcrumb">
+  <ol class="breadcrumb__list">
+    <li class="breadcrumb__item"><a href="#" class="breadcrumb__link">Início</a></li>
+    <li class="breadcrumb__item"><a href="#" class="breadcrumb__link">Editais</a></li>
+    <li class="breadcrumb__item"><span class="breadcrumb__current" aria-current="page">SISU 2026.1</span></li>
+  </ol>
+</nav>
+```
+
+> 4 níveis: truncar com "…" (item com `aria-label="Níveis intermediários"`).
+> Último item: `aria-current="page"`, não-interativo.
+
+---
+
+## Dropdown menu — `.menu`
+
+```html
+<div class="menu-wrapper">
+  <button id="user-menu-btn" aria-haspopup="menu" aria-expanded="false" aria-controls="user-menu">
+    <span class="avatar">JF</span> Jeferson
+  </button>
+  <ul class="menu" role="menu" id="user-menu" aria-labelledby="user-menu-btn" hidden>
+    <li class="menu__group-title" role="presentation">Conta</li>
+    <li role="none"><a class="menu__item" role="menuitem" href="#">Meu perfil</a></li>
+    <li class="menu__divider" role="separator"></li>
+    <li role="none"><a class="menu__item menu__item--danger" role="menuitem">Sair</a></li>
+  </ul>
+</div>
+```
+
+### ARIA contract
+- Trigger: `aria-haspopup="menu"` + `aria-expanded` + `aria-controls`
+- Container: `role="menu"` + `aria-labelledby`
+- Items: `role="menuitem"` em `<a>` ou `<button>`
+- Group title: `role="presentation"` + classe
+- Foco vai pro primeiro item ao abrir, Esc fecha + restaura foco no trigger, ↑↓ navegam, → entra em submenu (futuro)
+
+---
+
+## Toast — `UniToast.show()`
+
+```typescript
+UniToast.show({
+  type: 'success' | 'warning' | 'danger' | 'info',
+  title: string,
+  message: string,
+  duration: number,  // ms; 0 = sticky. Default 6000; danger é sempre sticky.
+});
+```
+
+Regions auto-mounted:
+- `aria-live="polite"` para success/warning/info
+- `aria-live="assertive"` separada para danger
+
+Em Angular: `ToastService` injection-tokeniza isso.
+
+---
+
+## Carrossel — `.carousel`
+
+**Manual sempre. Nunca auto-rotate (WCAG 2.2.2). Máximo 3 slides.**
+
+```html
+<div class="carousel" role="region" aria-roledescription="carousel" aria-label="Editais em destaque">
+  <div class="carousel__viewport">
+    <div class="carousel__track">
+      <div class="carousel__slide" role="group" aria-roledescription="slide" aria-label="1 de 3: …">…</div>
+      <!-- até 3 -->
+    </div>
+  </div>
+  <div class="carousel__controls">
+    <button class="carousel__nav" aria-label="Slide anterior" disabled>‹</button>
+    <div class="carousel__dots" role="tablist">
+      <button class="carousel__dot" role="tab" aria-current="true" aria-label="Slide 1: …"></button>
+    </div>
+    <span class="carousel__status" aria-live="polite">Slide 1 de 3</span>
+    <button class="carousel__nav" aria-label="Próximo slide">›</button>
+  </div>
+</div>
+```
+
+Setas do teclado funcionam quando carrossel tem foco.
+
+---
+
+## Segmented control / View toggle — `.segmented`
+
+```html
+<div class="segmented" role="group" aria-label="Modo de visualização">
+  <button class="segmented__btn" aria-pressed="true">Lista</button>
+  <button class="segmented__btn" aria-pressed="false">Cards</button>
+</div>
+```
+
+Radio behavior: apenas um ativo de cada vez. Persiste em `localStorage` se for preferência.
+
+---
+
+## Tabela responsiva mobile-first — `.table-responsive`
+
+Wrapper canônico para tabelas administrativas. Em desktop renderiza como tabela;
+em mobile cada `<tr>` vira card, usando `data-label` em cada `<td>`.
+
+```html
+<div class="table-responsive">
+  <table>
+    <thead>
+      <tr><th>Edital</th><th class="table-responsive__num">Inscritos</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td data-label="Edital">
+          <span class="table-responsive__primary">SISU 2026.1</span>
+          <span class="table-responsive__meta">Edital 12/2026</span>
+        </td>
+        <td data-label="Inscritos" class="table-responsive__num">12.483</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+```
+
+Todo `<td>` precisa de `data-label`; sem isso, o card mobile perde contexto.
+Use `.table-responsive__num` para números tabulares alinhados à direita.
+
+---
+
+## Stepper — `.stepper`
+
+Use `.stepper` horizontal em desktop e `.stepper stepper--vertical` no mobile
+quando houver muitos passos. O wizard de inscrição usa 12 etapas e mostra apenas
+o recorte relevante no mobile.
+
+```html
+<div class="stepper" aria-label="Etapas da inscrição">
+  <div class="stepper__step is-done"><div class="stepper__dot is-done">1</div><span class="stepper__label">Dados</span></div>
+  <div class="stepper__bar is-done"></div>
+  <div class="stepper__step is-current"><div class="stepper__dot is-current">2</div><span class="stepper__label">Contato</span></div>
+  …
+</div>
+```
+
+```html
+<div class="stepper stepper--vertical" aria-label="Etapas da inscrição">
+  <div class="stepper__step is-done"><div class="stepper__dot is-done">1</div><span class="stepper__label">Dados pessoais</span></div>
+  <div class="stepper__bar is-done"></div>
+  <div class="stepper__step is-current"><div class="stepper__dot is-current">2</div><span class="stepper__label">Contato</span></div>
+</div>
+```
+
+Preview canônico: `preview/pattern-wizard.html`.
+
+---
+
+## Sidebar colapsável (Admin)
+
+Pattern documentado em `ui_kits/admin/index.html`. Implementação Angular:
+
+```typescript
+@Component({ selector: 'slc-sidebar' })
+export class SidebarComponent {
+  readonly collapsed = signal<boolean>(this.loadState());
+  toggle() { this.collapsed.update(v => !v); this.saveState(); }
+  private loadState() { return localStorage.getItem('uniplus.admin.sidebar') === 'collapsed'; }
+  private saveState() { localStorage.setItem('uniplus.admin.sidebar', this.collapsed() ? 'collapsed' : 'expanded'); }
+}
+```
+
+Tooltip on hover quando colapsada via CSS `[data-tooltip]:hover::after`.
+
+---
+
+## File uploader — `.uni-uploader`
+
+Drag-and-drop + button trigger + lista com progress + error states. Spec completa
+em `preview/comp-uploader.html`.
+
+---
+
+## Back-to-top — `.uni-back-to-top`
+
+Floating action. Aparece após 400px scroll. Auto-mounted via `uniplus-backtotop.js`.
+
+Inicie o botão com `hidden`: o script alterna `hidden` conforme o scroll (fonte de
+verdade para presença), usa `.is-visible` apenas para o fade visual e mantém
+`aria-hidden`/`tabindex` coerentes. Nenhum CSS adicional é necessário.
+
+```html
+<button class="uni-back-to-top" data-back-to-top type="button" hidden
+        aria-label="Voltar ao topo da página">
+  <svg aria-hidden="true"><!-- seta para cima --></svg>
+</button>
+```
+
+---
+
+## Empty state
+
+```html
+<div class="empty-state" role="status">
+  <div class="empty-state__icon" aria-hidden="true"><svg/></div>
+  <h3 class="empty-state__title">Você ainda não tem inscrições</h3>
+  <p class="empty-state__desc">Veja os editais abertos e escolha um para começar.</p>
+  <button class="btn btn--primary">Ver editais abertos</button>
+</div>
+```
+
+> **Variante de erro de rede:** adicionar `empty-state--error` no container. Ícone vira danger, título vira danger-700. Botão passa a "Tentar de novo".
+>
+> Cobertura: preview/comp-empty.html.
+
+---
+
+## Avatar — `.avatar`
+
+```html
+<span class="avatar avatar--<size>">JF</span>    <!-- initial -->
+<span class="avatar"><img src="…" alt=""></span>  <!-- foto -->
+```
+
+Sizes: `avatar--sm` (32), default (40), `avatar--lg` (56).
+Cor da inicial é determinística (hash do nome — implementar como pipe Angular).
+
+---
+
+## Divider — `.divider`
+
+`<hr class="divider">` ou `.divider--vertical` em flex containers.
+
+---
+
+## Skeleton loader — `.skeleton`
+
+```html
+<div class="skeleton skeleton--text" aria-hidden="true" style="width: 240px"></div>
+<div class="skeleton skeleton--card" aria-hidden="true"></div>
+```
+
+Gradient de `--skeleton-from` → `--skeleton-to` (theme-aware desde F-003). Em
+`prefers-reduced-motion`, animação some e o background fica estático.
+
+**Modifiers:**
+- `--text` (1em, margin-block 0.25em)
+- `--title` (1.5em, width 60%)
+- `--circle` (radius circle)
+- `--card` (height 120px, radius lg)
+
+Use dentro de wrapper com `aria-busy="true"` + `aria-label="Carregando"`.
+
+---
+
+## Tooltip — `[data-tooltip]`
+
+```html
+<button data-tooltip="Recolher menu"
+        data-tooltip-position="right"
+        aria-label="Recolher menu">
+  <svg/>
+</button>
+```
+
+Posições suportadas: `top` (default), `bottom`, `left`, `right`.
+NUNCA substitui `aria-label` em icônico-only — mantenha ambos para leitores de tela.
+
+---
+
+## Spinner — `.spinner`
+
+```html
+<span class="spinner" role="status" aria-label="Carregando"></span>
+```
+
+Indeterminado. Sizes: `--sm` (14px), `--md` (20px), `--lg` (32px). Em `prefers-reduced-motion`
+roda mais devagar em vez de parar (ainda precisa indicar atividade).
+
+Dentro de botão, use `<button class="btn" data-loading="true">…<span class="spinner"></span></button>` —
+o CSS preserva a largura do botão e troca o conteúdo.
+
+---
+
+## Padrões compostos (não-componentes — composição)
+
+### Filter bar
+Documentado em `preview/comp-filter-bar.html`. Use `.filter-bar` + `.filter-chip` +
+`.input-group` para search. **Sempre `role="search"` no container.**
+
+### Error summary
+Documentado em `preview/comp-form-validation.html`. Auto-gerado por `UniForm.applyErrors()`.
+
+### KPI card
+```html
+<div class="kpi"><span class="kpi__label">EDITAIS ATIVOS</span><span class="kpi__num">12</span><span class="kpi__delta">↑ 2</span></div>
+```
+**Único lugar com UPPERCASE permitido** (eyebrow). Números com `font-variant-numeric: tabular-nums`.
+
+---
+
+## O que vem por aí (backlog priorizado)
+
+Pós-auditoria (25 mai 2026). Skeleton, Spinner e Empty-state já saíram do TODO
+(F-023, F-041). Restantes:
+
+1. **DatePicker** — wrapper PrimeNG Calendar + passthrough
+2. **Combobox / Autocomplete** — combobox pattern WAI-ARIA
+3. **Confirmation destrutiva** — modal + "type DELETE"
+4. **Cookie banner LGPD** — consentimento obrigatório
+5. **GovBrButton** — login oficial com selo
+6. **Stepper vertical** mobile (12+ passos do wizard)
+7. **Toast queue limit** (max 3 visíveis)
+8. **Self-host das fontes** (F-011 — LGPD)
+9. **Tema `contrast` validado com usuários reais do NAIA**
+10. **Stylelint config materializado** (F-044)

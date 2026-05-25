@@ -1,0 +1,43 @@
+<!DOCTYPE html><html lang="pt-BR"><head><meta charset="utf-8"><title>Pager</title><link rel="stylesheet" href="../tokens.css"><link rel="stylesheet" href="../base.css"><link rel="stylesheet" href="../components.css"><link rel="stylesheet" href="_card.css"></head><body>
+<div class="card-frame">
+  <div class="tag-eyebrow">PAGER · CURSOR-BASED</div>
+  <nav class="pager" aria-label="Paginação" style="border:1px solid var(--border-subtle);border-radius:var(--radius-md)">
+    <button class="pager__btn" data-pager="prev" disabled aria-label="Página anterior">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg>
+      Anterior
+    </button>
+    <span class="pager__status" aria-live="polite">
+      <span class="pager__page">Página 1</span> · 10 resultados nesta página
+    </span>
+    <button class="pager__btn" data-pager="next" aria-label="Próxima página">
+      Próximo
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
+    </button>
+  </nav>
+  <nav class="pager" aria-label="Paginação no meio" style="border:1px solid var(--border-subtle);border-radius:var(--radius-md)">
+    <button class="pager__btn" aria-label="Página anterior">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg>
+      Anterior
+    </button>
+    <span class="pager__status" aria-live="polite"><span class="pager__page">Página 3</span> · 10 resultados nesta página</span>
+    <button class="pager__btn" aria-label="Próxima página">Próximo<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></button>
+  </nav>
+  <nav class="pager" aria-label="Última página" style="border:1px solid var(--border-subtle);border-radius:var(--radius-md)">
+    <button class="pager__btn" aria-label="Página anterior">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg>
+      Anterior
+    </button>
+    <span class="pager__status" aria-live="polite"><span class="pager__page">Página 5</span> · 3 resultados nesta página</span>
+    <button class="pager__btn" disabled aria-label="Próxima página">Próximo<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></button>
+  </nav>
+  <div class="mono">
+    <strong>Cursor-based / keyset pagination.</strong> A API retorna apenas <code>hasNext / hasPrev</code> + <code>nextCursor / prevCursor</code>, não o total. Por isso a UI mostra:
+    <ul style="margin:6px 0 0 16px;padding:0">
+      <li>Anterior + Próximo (disabled nos extremos)</li>
+      <li>"Página N" (contador no client) + "N resultados nesta página"</li>
+      <li><strong>Nunca</strong> "de M" ou números saltadores — implicaria total conhecido</li>
+    </ul>
+    Padrão usado por GitHub, Stripe, Twitter, etc. Otimização crítica em tabelas com 1M+ linhas.
+  </div>
+</div>
+</body></html>

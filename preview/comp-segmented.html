@@ -1,0 +1,16 @@
+<!DOCTYPE html><html lang="pt-BR"><head><meta charset="utf-8"><title>preview/comp-segmented.html</title><link rel="stylesheet" href="../tokens.css"><link rel="stylesheet" href="../base.css"><link rel="stylesheet" href="../components.css"><link rel="stylesheet" href="_card.css"></head><body>
+<div class="card-frame">
+  <div class="tag-eyebrow">SEGMENTED CONTROL · VIEW TOGGLE</div>
+  <div class="row" style="gap:16px;align-items:center">
+    <div class="segmented" role="group" aria-label="Modo de visualização">
+      <button class="segmented__btn" aria-pressed="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>Lista</button>
+      <button class="segmented__btn" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>Cards</button>
+    </div>
+    <div class="segmented" role="group" aria-label="Período">
+      <button class="segmented__btn" aria-pressed="false">7d</button>
+      <button class="segmented__btn" aria-pressed="true">30d</button>
+      <button class="segmented__btn" aria-pressed="false">90d</button>
+    </div>
+  </div>
+  <div class="mono">aria-pressed + visual ativo (azul, sombra, semibold). Padrão = lista (melhor p/ leitor de tela). Persistência em localStorage.</div>
+</div></body></html>

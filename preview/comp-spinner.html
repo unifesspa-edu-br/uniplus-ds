@@ -1,0 +1,15 @@
+<!DOCTYPE html><html lang="pt-BR"><head><meta charset="utf-8"><title>preview/comp-spinner.html</title><link rel="stylesheet" href="../tokens.css"><link rel="stylesheet" href="../base.css"><link rel="stylesheet" href="../components.css"><link rel="stylesheet" href="_card.css"></head><body>
+<div class="card-frame">
+  <div class="tag-eyebrow">SPINNER · SIZES + BUTTON LOADING</div>
+  <div class="row" style="gap:var(--space-5);align-items:center">
+    <span class="row" style="gap:var(--space-2)"><span class="spinner spinner--sm" role="status" aria-label="Carregando" style="color:var(--color-primary)"></span><span class="mono">sm</span></span>
+    <span class="row" style="gap:var(--space-2)"><span class="spinner spinner--md" role="status" aria-label="Carregando" style="color:var(--color-primary)"></span><span class="mono">md</span></span>
+    <span class="row" style="gap:var(--space-2)"><span class="spinner spinner--lg" role="status" aria-label="Carregando" style="color:var(--color-primary)"></span><span class="mono">lg</span></span>
+  </div>
+  <div class="row" style="gap:var(--space-3);align-items:center">
+    <button class="btn btn--primary" data-loading="true" aria-busy="true"><span>Enviar inscrição</span><span class="spinner spinner--sm" aria-hidden="true"></span></button>
+    <button class="btn btn--secondary" data-loading="true" aria-busy="true"><span>Salvar rascunho</span><span class="spinner spinner--sm" aria-hidden="true"></span></button>
+    <button class="btn btn--primary">Estado normal</button>
+  </div>
+  <div class="mono">Standalone usa <code>role="status"</code> + <code>aria-label</code>. Dentro do botão, <code>data-loading="true"</code> preserva largura e <code>aria-busy="true"</code> anuncia a ação em andamento.</div>
+</div></body></html>

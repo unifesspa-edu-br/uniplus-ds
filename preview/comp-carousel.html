@@ -1,0 +1,29 @@
+<!DOCTYPE html><html lang="pt-BR"><head><meta charset="utf-8"><title>preview/comp-carousel.html</title><link rel="stylesheet" href="../tokens.css"><link rel="stylesheet" href="../base.css"><link rel="stylesheet" href="../components.css"><link rel="stylesheet" href="_card.css"></head><body>
+<div class="card-frame">
+  <div class="tag-eyebrow">CAROUSEL · MANUAL ONLY · WCAG 2.2.2</div>
+  <div class="carousel" role="region" aria-roledescription="carousel" aria-label="Demo">
+    <div class="carousel__viewport">
+      <div class="carousel__track">
+        <div class="carousel__slide" role="group" aria-roledescription="slide" style="padding:24px;background:var(--surface-banner)">
+          <div style="display:flex;gap:16px;align-items:center">
+            <div style="flex:1">
+              <span class="tag tag--solid tag--success">Inscrições abertas</span>
+              <div style="font-size:22px;font-weight:700;color:var(--text-heading);margin:8px 0 6px">SISU 2026.1</div>
+              <div style="font-size:14px;color:var(--text-secondary);line-height:1.5">Cursos de graduação. Encerra 16 abr.</div>
+            </div>
+            <div style="width:80px;height:80px;border-radius:12px;background:var(--surface-card);border:1px solid var(--border-subtle);display:flex;align-items:center;justify-content:center">
+              <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="var(--color-success-600)" stroke-width="2.5" stroke-linecap="round"><path d="M5 12l5 5 10-10"/></svg>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="carousel__controls">
+      <button type="button" class="carousel__nav" aria-label="Slide anterior" disabled><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M15 18l-6-6 6-6"/></svg></button>
+      <div class="carousel__dots"><button class="carousel__dot" aria-current="true" aria-label="Slide 1"></button><button class="carousel__dot" aria-label="Slide 2"></button><button class="carousel__dot" aria-label="Slide 3"></button></div>
+      <span class="carousel__status">Slide 1 de 3</span>
+      <button type="button" class="carousel__nav" aria-label="Próximo slide"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M9 6l6 6-6 6"/></svg></button>
+    </div>
+  </div>
+  <div class="mono">Manual apenas. <strong>Nunca</strong> auto-rotate (WCAG 2.2.2). prev/next + dots, aria-live anunciando troca de slide. Setas do teclado quando o carrossel tem foco. Máximo 3 slides.</div>
+</div></body></html>

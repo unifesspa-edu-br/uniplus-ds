@@ -1,0 +1,20 @@
+<!DOCTYPE html><html lang="pt-BR"><head><meta charset="utf-8"><title>preview/comp-button-states.html</title><link rel="stylesheet" href="../tokens.css"><link rel="stylesheet" href="../base.css"><link rel="stylesheet" href="../components.css"><link rel="stylesheet" href="_card.css"></head><body>
+<div class="card-frame">
+  <div class="tag-eyebrow">BUTTON · STATES</div>
+  <div class="row" style="gap:12px">
+    <button class="btn btn--primary">Confirmar inscrição</button>
+    <button class="btn btn--primary" style="background:var(--color-primary-700)">hover</button>
+    <button class="btn btn--primary" style="box-shadow:var(--focus-ring)">focused</button>
+    <button class="btn btn--primary" style="background:var(--color-primary-800)">active</button>
+    <button class="btn btn--primary" disabled>disabled</button>
+  </div>
+  <div class="mono">default · hover · focus · active · disabled</div>
+  <div class="tag-eyebrow" style="margin-top:8px">SIZES</div>
+  <div class="row" style="gap:10px">
+    <button class="btn btn--primary btn--sm">SM · 44 mín</button>
+    <button class="btn btn--primary btn--md">MD · 44 mín</button>
+    <button class="btn btn--primary">Default · 44</button>
+    <button class="btn btn--primary btn--lg">LG · 48</button>
+  </div>
+  <div class="mono">sm/md reduzem tipografia e padding, mas mantêm o piso de toque de 44px (WCAG 2.5.5). lg sobe para 48px.</div>
+</div></body></html>

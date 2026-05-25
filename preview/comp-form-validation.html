@@ -1,0 +1,39 @@
+<!DOCTYPE html><html lang="pt-BR"><head><meta charset="utf-8"><title>preview/comp-form-validation.html</title><link rel="stylesheet" href="../tokens.css"><link rel="stylesheet" href="../base.css"><link rel="stylesheet" href="../components.css"><link rel="stylesheet" href="_card.css"></head><body>
+<div class="card-frame">
+  <div class="tag-eyebrow">FORM VALIDATION · ARIA + FOCUS</div>
+  <form id="demo-form" novalidate>
+    <div class="field">
+      <label class="field__label is-required" for="f-nome">Nome completo</label>
+      <input class="input" id="f-nome" name="nome" required aria-describedby="f-nome-hint">
+      <p id="f-nome-hint" class="field__hint">Como aparece no seu documento de identidade.</p>
+    </div>
+    <div class="field" style="margin-top:var(--space-4)">
+      <label class="field__label is-required" for="f-cpf">CPF</label>
+      <input class="input" id="f-cpf" name="cpf" required data-format="cpf" inputmode="numeric" maxlength="14" placeholder="000.000.000-00" aria-describedby="f-cpf-hint">
+      <p id="f-cpf-hint" class="field__hint">11 dígitos. A máscara é aplicada automaticamente.</p>
+    </div>
+    <div class="field" style="margin-top:var(--space-4)">
+      <label class="field__label is-required" for="f-email">E-mail</label>
+      <input class="input" id="f-email" name="email" type="email" required aria-describedby="f-email-hint">
+      <p id="f-email-hint" class="field__hint">Vamos enviar a confirmação da sua inscrição aqui.</p>
+    </div>
+    <div class="row" style="gap:var(--space-3);margin-top:var(--space-5)">
+      <button type="submit" class="btn btn--primary">Validar</button>
+      <button type="button" class="btn btn--tertiary" id="demo-clear">Limpar</button>
+    </div>
+  </form>
+  <div class="mono">Submit vazio mostra: erro por campo (aria-invalid=true, .field__error visível, aria-describedby aponta pro erro), error-summary no topo (role=alert, foco automaticamente), links da summary movem foco pro campo correspondente. CPF inválido também falha.</div>
+</div>
+<script src="../assets/uniplus-form.js"></script>
+<script>
+  (function () {
+    const f = document.getElementById('demo-form');
+    f.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const { ok, errors } = UniForm.validate(f);
+      if (!ok) UniForm.applyErrors(f, errors);
+      else UniForm.clear(f);
+    });
+    document.getElementById('demo-clear').addEventListener('click', () => { f.reset(); UniForm.clear(f); });
+  })();
+</script></body></html>

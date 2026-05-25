@@ -1,0 +1,49 @@
+<!DOCTYPE html><html lang="pt-BR"><head><meta charset="utf-8"><title>preview/comp-drawer.html</title><link rel="stylesheet" href="../tokens.css"><link rel="stylesheet" href="../base.css"><link rel="stylesheet" href="../components.css"><link rel="stylesheet" href="_card.css"></head><body>
+<div class="card-frame">
+  <div class="tag-eyebrow">DRAWER / OFF-CANVAS</div>
+  <div class="row" style="gap:var(--space-3)">
+    <button class="btn btn--primary" data-drawer-trigger="demo-drawer-left">Abrir drawer esquerdo</button>
+    <button class="btn btn--secondary" data-drawer-trigger="demo-drawer-right">Abrir drawer direito</button>
+  </div>
+  <div class="mono">&lt;dialog class="uni-drawer"&gt; nativo → focus trap automático, Esc fecha, backdrop bloqueia. uni-drawer--right ancora na direita. Animação respeita prefers-reduced-motion.</div>
+
+  <dialog class="uni-drawer" id="demo-drawer-left" aria-labelledby="ddl-title">
+    <div class="uni-drawer__panel">
+      <div class="uni-drawer__header"><h3 class="uni-drawer__title" id="ddl-title">Menu</h3><button class="btn btn--tertiary btn--icon-only btn--rect" aria-label="Fechar" data-drawer-close><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg></button></div>
+      <div class="uni-drawer__body"><ul class="uni-drawer__nav"><li><a href="#" class="is-active">Início</a></li><li><a href="#">Editais</a></li><li><a href="#">Inscrições</a></li><li><a href="#">Ajuda</a></li></ul></div>
+    </div>
+  </dialog>
+  <dialog class="uni-drawer uni-drawer--right" id="demo-drawer-right" aria-labelledby="ddr-title">
+    <div class="uni-drawer__panel">
+      <div class="uni-drawer__header"><h3 class="uni-drawer__title" id="ddr-title">Notificações</h3><button class="btn btn--tertiary btn--icon-only btn--rect" aria-label="Fechar" data-drawer-close><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg></button></div>
+      <div class="uni-drawer__body" style="padding:var(--space-5)"><p style="margin:0;color:var(--text-secondary);font-size:var(--text-sm)">Você não tem notificações novas.</p></div>
+    </div>
+  </dialog>
+
+  <script>
+    (function () {
+      function closeDrawer(dlg) {
+        if (!dlg) return;
+        dlg.close();
+        const trigger = document.querySelector(`[data-drawer-trigger="${dlg.id}"]`);
+        if (trigger) trigger.setAttribute('aria-expanded', 'false');
+      }
+      document.addEventListener('click', (e) => {
+        const open = e.target.closest('[data-drawer-trigger]');
+        if (open) {
+          const dlg = document.getElementById(open.dataset.drawerTrigger);
+          if (dlg) { dlg.showModal(); open.setAttribute('aria-expanded', 'true'); }
+        }
+        const close = e.target.closest('[data-drawer-close]');
+        if (close) closeDrawer(close.closest('dialog'));
+      });
+      document.querySelectorAll('.uni-drawer').forEach((d) => {
+        d.addEventListener('click', (ev) => { if (ev.target === d) closeDrawer(d); });
+        d.addEventListener('close', () => {
+          const trigger = document.querySelector(`[data-drawer-trigger="${d.id}"]`);
+          if (trigger) trigger.setAttribute('aria-expanded', 'false');
+        });
+      });
+    })();
+  </script>
+</div></body></html>

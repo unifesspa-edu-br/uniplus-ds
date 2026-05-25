@@ -1,0 +1,59 @@
+{
+  "$schema": "https://json.schemastore.org/stylelintrc",
+  "extends": ["stylelint-config-standard"],
+  "rules": {
+    "color-no-hex": [
+      true,
+      {
+        "message": "Use --color-*/--surface-*/--text-* tokens. Hex literal proibido fora de tokens.css.",
+        "severity": "error"
+      }
+    ],
+    "color-named": "never",
+    "comment-whitespace-inside": null,
+    "property-no-vendor-prefix": null,
+    "comment-empty-line-before": null,
+    "declaration-block-single-line-max-declarations": null,
+    "rule-empty-line-before": null,
+    "at-rule-empty-line-before": null,
+    "media-feature-range-notation": null,
+    "selector-not-notation": null,
+    "value-keyword-case": null,
+    "color-hex-length": null,
+    "color-function-alias-notation": null,
+    "color-function-notation": null,
+    "custom-property-empty-line-before": null,
+    "function-calc-no-unspaced-operator": null,
+    "declaration-no-important": null,
+    "declaration-block-no-redundant-longhand-properties": null,
+    "declaration-property-value-disallowed-list": null,
+    "custom-property-pattern": [
+      "^(color|surface|border|text|font|space|radius|shadow|duration|ease|touch|content|measure|z|focus|weight|leading|avatar|skeleton|btn)-",
+      {
+        "message": "Custom properties devem seguir o naming pattern --<categoria>-<escala>."
+      }
+    ],
+    "selector-class-pattern": null,
+    "no-duplicate-selectors": true,
+    "shorthand-property-no-redundant-values": true,
+    "no-descending-specificity": null,
+    "alpha-value-notation": "number",
+    "selector-not-notation": null,
+    "media-feature-range-notation": null
+  },
+  "ignoreFiles": [
+    "node_modules/**",
+    "dist/**",
+    "preview/**",
+    "ui_kits/**"
+  ],
+  "overrides": [
+    {
+      "files": ["tokens.css"],
+      "rules": {
+        "color-no-hex": null,
+        "custom-property-pattern": null
+      }
+    }
+  ]
+}

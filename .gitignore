@@ -1,0 +1,22 @@
+# Dependencies
+node_modules/
+
+# Local validation artifacts
+output/
+tmp/
+*.log
+
+# Local source uploads and working inputs
+uploads/
+
+# Local review handoffs
+plano-correcao-review.md
+
+# Environment and OS/editor noise
+.env
+.env.*
+!.env.example
+.DS_Store
+Thumbs.db
+*.swp
+*.swo

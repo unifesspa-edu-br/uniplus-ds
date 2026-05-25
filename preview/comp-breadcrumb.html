@@ -1,0 +1,26 @@
+<!DOCTYPE html><html lang="pt-BR"><head><meta charset="utf-8"><title>preview/comp-breadcrumb.html</title><link rel="stylesheet" href="../tokens.css"><link rel="stylesheet" href="../base.css"><link rel="stylesheet" href="../components.css"><link rel="stylesheet" href="_card.css"></head><body>
+<div class="card-frame">
+  <div class="tag-eyebrow">BREADCRUMB</div>
+  <nav class="breadcrumb" aria-label="Breadcrumb · 2 níveis">
+    <ol class="breadcrumb__list">
+      <li class="breadcrumb__item"><a href="#" class="breadcrumb__link">Início</a></li>
+      <li class="breadcrumb__item"><span class="breadcrumb__current" aria-current="page">Editais</span></li>
+    </ol>
+  </nav>
+  <nav class="breadcrumb" aria-label="Breadcrumb · 3 níveis">
+    <ol class="breadcrumb__list">
+      <li class="breadcrumb__item"><a href="#" class="breadcrumb__link">Início</a></li>
+      <li class="breadcrumb__item"><a href="#" class="breadcrumb__link">Editais</a></li>
+      <li class="breadcrumb__item"><span class="breadcrumb__current" aria-current="page">SISU 2026.1</span></li>
+    </ol>
+  </nav>
+  <nav class="breadcrumb" aria-label="Breadcrumb · 4+ níveis com truncamento">
+    <ol class="breadcrumb__list">
+      <li class="breadcrumb__item"><a href="#" class="breadcrumb__link">Início</a></li>
+      <li class="breadcrumb__item"><a href="#" class="breadcrumb__link" aria-label="Níveis intermediários">…</a></li>
+      <li class="breadcrumb__item"><a href="#" class="breadcrumb__link">SISU 2026.1</a></li>
+      <li class="breadcrumb__item"><span class="breadcrumb__current" aria-current="page">Documentos</span></li>
+    </ol>
+  </nav>
+  <div class="mono">&lt;nav aria-label="Breadcrumb"&gt; · ol semantica · último item com aria-current="page" e não-interativo. Truncamento em "…" quando &gt;4 níveis.</div>
+</div></body></html>

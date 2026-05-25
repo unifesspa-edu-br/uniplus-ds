@@ -1,0 +1,14 @@
+<!DOCTYPE html><html lang="pt-BR"><head><meta charset="utf-8"><title>preview/colors-feedback.html</title><link rel="stylesheet" href="../tokens.css"><link rel="stylesheet" href="../base.css"><link rel="stylesheet" href="../components.css"><link rel="stylesheet" href="_card.css"><style>
+/* swatch demonstration: raw feedback values are intentionally shown here for palette inspection. */
+.fb-solid{height:40px;border-radius:6px;color:#ffffff;display:flex;align-items:center;justify-content:center;font-weight:600;font-size:12px}.fb-soft{height:32px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:11px;margin-top:4px}.fb-success-solid{background:#168821}.fb-success-soft{background:#e7f4e9;color:#0a5a16;border:1px solid color-mix(in srgb,#0a5a16 14%,transparent)}.fb-warning-solid{background:#c2850c}.fb-warning-soft{background:#fef0c8;color:#5a3e08;border:1px solid color-mix(in srgb,#5a3e08 14%,transparent)}.fb-danger-solid{background:#e52207}.fb-danger-soft{background:#fcf0ee;color:#c92a2a;border:1px solid color-mix(in srgb,#c92a2a 14%,transparent)}.fb-info-solid{background:#1351b4}.fb-info-soft{background:#eff6ff;color:#0c326f;border:1px solid color-mix(in srgb,#0c326f 14%,transparent)}
+</style></head><body>
+<div class="card-frame">
+  <div class="tag-eyebrow">FEEDBACK · NEVER COLOR ALONE</div>
+  <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px">
+    <div><div class="fb-solid fb-success-solid">success</div><div class="fb-soft fb-success-soft">soft</div><div class="mono" style="margin-top:4px">success solid<br>success soft</div></div>
+    <div><div class="fb-solid fb-warning-solid">warning</div><div class="fb-soft fb-warning-soft">soft</div><div class="mono" style="margin-top:4px">warning solid<br>warning soft</div></div>
+    <div><div class="fb-solid fb-danger-solid">danger</div><div class="fb-soft fb-danger-soft">soft</div><div class="mono" style="margin-top:4px">danger solid<br>danger soft</div></div>
+    <div><div class="fb-solid fb-info-solid">info</div><div class="fb-soft fb-info-soft">soft</div><div class="mono" style="margin-top:4px">info solid<br>info soft</div></div>
+  </div>
+  <div style="font-size:12px;color:var(--text-secondary)">Every feedback color pairs <strong>solid</strong> (for dot/icon) with <strong>soft</strong> (background). Always render with icon + text; color alone is never the message.</div>
+</div></body></html>

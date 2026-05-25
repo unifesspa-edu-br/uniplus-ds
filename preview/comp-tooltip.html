@@ -1,0 +1,11 @@
+<!DOCTYPE html><html lang="pt-BR"><head><meta charset="utf-8"><title>preview/comp-tooltip.html</title><link rel="stylesheet" href="../tokens.css"><link rel="stylesheet" href="../base.css"><link rel="stylesheet" href="../components.css"><link rel="stylesheet" href="_card.css"></head><body>
+<div class="card-frame">
+  <div class="tag-eyebrow">TOOLTIP · [DATA-TOOLTIP]</div>
+  <div class="row" style="gap:var(--space-7);padding:var(--space-7) var(--space-4) var(--space-3)">
+    <button class="btn btn--secondary btn--icon-only btn--circle" aria-label="Notificações" data-tooltip="Notificações"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 8a6 6 0 00-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/></svg></button>
+    <button class="btn btn--secondary btn--icon-only btn--circle" aria-label="Filtrar" data-tooltip="Filtrar editais"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg></button>
+    <button class="btn btn--secondary" data-tooltip="Atalho: Ctrl+N">Novo edital</button>
+    <span data-tooltip="CPF: dígito verificador inválido" data-tooltip-position="bottom" style="font-family:var(--font-mono);font-size:14px;color:var(--text-primary);text-decoration:underline dotted">123.456.789-00</span>
+  </div>
+  <div class="mono">Tooltip aparece em <code>:hover</code> e <code>:focus-visible</code> (teclado). <strong>NÃO substitui aria-label</strong> — manter os dois. data-tooltip-position: top (default), bottom, left, right.</div>
+</div></body></html>

@@ -1,0 +1,15 @@
+<!DOCTYPE html><html lang="pt-BR"><head><meta charset="utf-8"><title>Back to top</title><link rel="stylesheet" href="../tokens.css"><link rel="stylesheet" href="../base.css"><link rel="stylesheet" href="../components.css"><link rel="stylesheet" href="_card.css"></head><body>
+<div class="card-frame">
+  <div class="tag-eyebrow">BACK TO TOP · FLOATING ACTION</div>
+  <div style="display:flex;gap:var(--space-5);align-items:center">
+    <button class="uni-back-to-top is-visible" aria-label="Voltar ao topo" style="position:static;opacity:1;transform:none;pointer-events:auto">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 15l-6-6-6 6"/></svg>
+    </button>
+    <div style="flex:1">
+      <div style="font-weight:600;color:var(--text-heading)">Voltar ao topo</div>
+      <div style="font-size:var(--text-sm);color:var(--text-secondary);margin-top:4px">Botão flutuante no canto inferior direito que aparece após scroll de 400px. Restaura foco para &lt;main&gt; após subir, respeita prefers-reduced-motion.</div>
+    </div>
+  </div>
+  <div class="mono">aria-hidden alterna com a visibilidade · tabIndex sai do tab order quando escondido · 48×48 mobile, 52×52 desktop · z-index sticky (abaixo de modal/toast).</div>
+</div>
+</body></html>

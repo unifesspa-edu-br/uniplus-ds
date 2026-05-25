@@ -1,0 +1,33 @@
+<!DOCTYPE html><html lang="pt-BR"><head><meta charset="utf-8"><title>preview/comp-empty-state.html</title><link rel="stylesheet" href="../tokens.css"><link rel="stylesheet" href="../base.css"><link rel="stylesheet" href="../components.css"><link rel="stylesheet" href="_card.css"></head><body>
+<div class="card-frame">
+  <div class="tag-eyebrow">EMPTY STATE · VARIANTS</div>
+  <div class="row" style="align-items:stretch;gap:var(--space-3)">
+    <section class="empty-state" role="status" aria-labelledby="empty-default-title" style="flex:1;min-width:0;border:1px solid var(--border-subtle);border-radius:var(--radius-md);padding:var(--space-5) var(--space-4)">
+      <div class="empty-state__icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/><path d="M9 16l2 2 4-4"/></svg>
+      </div>
+      <h3 class="empty-state__title" id="empty-default-title">Você ainda não tem inscrições</h3>
+      <p class="empty-state__desc">Veja os editais abertos e escolha um para começar.</p>
+      <button class="btn btn--primary btn--sm">Ver editais</button>
+    </section>
+
+    <section class="empty-state empty-state--error" role="alert" aria-labelledby="empty-error-title" style="flex:1;min-width:0;border:1px solid var(--border-subtle);border-radius:var(--radius-md);padding:var(--space-5) var(--space-4)">
+      <div class="empty-state__icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 9v4"/><path d="M12 17h.01"/><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0Z"/></svg>
+      </div>
+      <h3 class="empty-state__title" id="empty-error-title">Não foi possível carregar</h3>
+      <p class="empty-state__desc">A conexão caiu. Tente novamente em instantes.</p>
+      <button class="btn btn--danger btn--sm">Tentar de novo</button>
+    </section>
+
+    <section class="empty-state" role="status" aria-labelledby="empty-search-title" style="flex:1;min-width:0;border:1px solid var(--border-subtle);border-radius:var(--radius-md);padding:var(--space-5) var(--space-4)">
+      <div class="empty-state__icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/><path d="M8 11h6"/></svg>
+      </div>
+      <h3 class="empty-state__title" id="empty-search-title">Nenhum edital encontrado</h3>
+      <p class="empty-state__desc">Revise os filtros ou busque por outro termo.</p>
+      <button class="btn btn--secondary btn--sm">Limpar filtros</button>
+    </section>
+  </div>
+  <div class="mono">Use <code>role="status"</code> para vazio informativo e <code>role="alert"</code> quando a falha exigir atenção imediata.</div>
+</div></body></html>

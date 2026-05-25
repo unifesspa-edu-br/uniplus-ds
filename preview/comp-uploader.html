@@ -1,0 +1,41 @@
+<!DOCTYPE html><html lang="pt-BR"><head><meta charset="utf-8"><title>preview/comp-uploader.html</title><link rel="stylesheet" href="../tokens.css"><link rel="stylesheet" href="../base.css"><link rel="stylesheet" href="../components.css"><link rel="stylesheet" href="_card.css"></head><body>
+<div class="card-frame">
+  <div class="tag-eyebrow">FILE UPLOADER</div>
+  <div class="uni-uploader">
+    <label class="uni-uploader__drop" tabindex="0">
+      <div class="uni-uploader__icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg></div>
+      <div>
+        <p class="uni-uploader__title">Solte os arquivos aqui ou clique para escolher</p>
+        <p class="uni-uploader__hint">PDF, JPG, PNG · máximo 10 MB por arquivo</p>
+      </div>
+      <input type="file" class="uni-uploader__input" multiple aria-label="Selecionar arquivos">
+    </label>
+    <ul class="uni-uploader__list" aria-label="Arquivos selecionados">
+      <li class="uni-uploader__item is-success">
+        <svg class="uni-uploader__item-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+        <div class="uni-uploader__item-body">
+          <div class="uni-uploader__item-name">comprovante-residencia.pdf</div>
+          <div class="uni-uploader__item-meta">240 KB · Enviado</div>
+          <div class="uni-uploader__progress"><div style="width:100%"></div></div>
+        </div>
+        <button class="btn btn--tertiary btn--icon-only btn--rect btn--sm" aria-label="Remover arquivo"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg></button>
+      </li>
+      <li class="uni-uploader__item">
+        <svg class="uni-uploader__item-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+        <div class="uni-uploader__item-body">
+          <div class="uni-uploader__item-name">historico-escolar.pdf</div>
+          <div class="uni-uploader__item-meta">1.2 MB · Enviando… 67%</div>
+          <div class="uni-uploader__progress"><div style="width:67%"></div></div>
+        </div>
+      </li>
+      <li class="uni-uploader__item is-error" role="alert">
+        <svg class="uni-uploader__item-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>
+        <div class="uni-uploader__item-body">
+          <div class="uni-uploader__item-name">foto-3x4.jpeg</div>
+          <div class="uni-uploader__item-meta">Tamanho maior que 10 MB. Reduza e tente novamente.</div>
+        </div>
+        <button class="btn btn--tertiary btn--icon-only btn--rect btn--sm" aria-label="Remover arquivo"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg></button>
+      </li>
+    </ul>
+  </div>
+</div></body></html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html><html lang="pt-BR"><head><meta charset="utf-8"><title>preview/comp-status-timeline.html</title><link rel="stylesheet" href="../tokens.css"><link rel="stylesheet" href="../base.css"><link rel="stylesheet" href="../components.css"><link rel="stylesheet" href="_card.css"></head><body>
+<div class="card-frame">
+  <div class="tag-eyebrow">STATUS DA INSCRIÇÃO</div>
+  <ol class="uni-timeline">
+    <li class="uni-timeline__item is-done">
+      <div class="uni-timeline__dot" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M5 12l5 5 10-10"/></svg></div>
+      <div class="uni-timeline__body">
+        <div class="uni-timeline__head"><h4 class="uni-timeline__title">Inscrição enviada</h4><span class="uni-timeline__when">12 mar 2026 · 14:32</span></div>
+        <p class="uni-timeline__desc">Você enviou a inscrição nº 2026.012.4521. Confirmação por e-mail em nalanda@…</p>
+      </div>
+    </li>
+    <li class="uni-timeline__item is-done">
+      <div class="uni-timeline__dot" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M5 12l5 5 10-10"/></svg></div>
+      <div class="uni-timeline__body">
+        <div class="uni-timeline__head"><h4 class="uni-timeline__title">Documentos recebidos</h4><span class="uni-timeline__when">14 mar 2026 · 09:18</span></div>
+        <p class="uni-timeline__desc">Comprovante de residência, histórico escolar e foto 3x4 recebidos.</p>
+      </div>
+    </li>
+    <li class="uni-timeline__item is-current">
+      <div class="uni-timeline__dot" aria-hidden="true">3</div>
+      <div class="uni-timeline__body">
+        <div class="uni-timeline__head"><h4 class="uni-timeline__title">Em análise documental</h4><span class="tag tag--warning"><span class="tag__dot" style="background:var(--color-warning-600)"></span>Em andamento</span></div>
+        <p class="uni-timeline__desc">A equipe do CEPS está verificando seus documentos. Você será notificada por e-mail em até 5 dias úteis.</p>
+        <div class="uni-timeline__actions">
+          <button class="btn btn--secondary btn--sm">Ver documentos enviados</button>
+        </div>
+      </div>
+    </li>
+    <li class="uni-timeline__item is-blocked">
+      <div class="uni-timeline__dot" aria-hidden="true">4</div>
+      <div class="uni-timeline__body">
+        <div class="uni-timeline__head"><h4 class="uni-timeline__title">Homologação</h4></div>
+        <p class="uni-timeline__desc">Aguardando término da etapa anterior.</p>
+      </div>
+    </li>
+    <li class="uni-timeline__item is-blocked">
+      <div class="uni-timeline__dot" aria-hidden="true">5</div>
+      <div class="uni-timeline__body">
+        <div class="uni-timeline__head"><h4 class="uni-timeline__title">Resultado</h4></div>
+        <p class="uni-timeline__desc">Publicação do resultado: 28 abr 2026.</p>
+      </div>
+    </li>
+  </ol>
+  <div class="mono">Máquina de estados: done → current → pending/blocked. Conexão vertical muda de cinza p/ verde nos done. Variantes is-danger p/ reprovação + is-recurso p/ recurso aberto.</div>
+</div></body></html>

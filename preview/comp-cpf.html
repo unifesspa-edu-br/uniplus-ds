@@ -1,0 +1,21 @@
+<!DOCTYPE html><html lang="pt-BR"><head><meta charset="utf-8"><title>preview/comp-cpf.html</title><link rel="stylesheet" href="../tokens.css"><link rel="stylesheet" href="../base.css"><link rel="stylesheet" href="../components.css"><link rel="stylesheet" href="_card.css"></head><body>
+<div class="card-frame">
+  <div class="tag-eyebrow">CPF INPUT</div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-5)">
+    <div class="field">
+      <label class="field__label is-required" for="cpf-default">CPF</label>
+      <input class="input" id="cpf-default" data-format="cpf" inputmode="numeric" maxlength="14" placeholder="000.000.000-00" aria-describedby="cpf-default-hint">
+      <p id="cpf-default-hint" class="field__hint">Máscara aplicada automáticamente.</p>
+    </div>
+    <div class="field is-error">
+      <label class="field__label is-required" for="cpf-invalid">CPF · erro</label>
+      <input class="input" id="cpf-invalid" value="123.456.789-00" aria-invalid="true">
+      <p class="field__error">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>
+        CPF inválido. Verifique os números e tente novamente.
+      </p>
+    </div>
+  </div>
+  <div class="mono">data-format="cpf" → máscara on input. UniForm.isValidCPF(s) faz a checagem oficial dos dois dígitos verificadores (módulo 11). Compatible com o &lt;ui-cpf-input&gt; existente em libs/shared-ui.</div>
+</div>
+<script src="../assets/uniplus-form.js"></script></body></html>

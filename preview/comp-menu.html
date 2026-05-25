@@ -1,0 +1,33 @@
+<!DOCTYPE html><html lang="pt-BR"><head><meta charset="utf-8"><title>preview/comp-menu.html</title><link rel="stylesheet" href="../tokens.css"><link rel="stylesheet" href="../base.css"><link rel="stylesheet" href="../components.css"><link rel="stylesheet" href="_card.css"></head><body>
+<div class="card-frame">
+  <div class="tag-eyebrow">DROPDOWN MENU</div>
+  <div class="row" style="gap:var(--space-5);align-items:flex-start;flex-wrap:wrap">
+    <div class="menu-wrapper">
+      <button class="btn btn--secondary" id="m1-btn" aria-haspopup="menu" aria-expanded="true" aria-controls="m1">
+        Ações <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M19 9l-7 7-7-7"/></svg>
+      </button>
+      <ul class="menu" role="menu" id="m1" aria-labelledby="m1-btn" style="position:relative;top:var(--space-2);left:0;display:block">
+        <li role="none"><a class="menu__item" role="menuitem" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.12 2.12 0 113 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>Editar</a></li>
+        <li role="none"><a class="menu__item" role="menuitem" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>Duplicar</a></li>
+        <li role="none"><a class="menu__item" role="menuitem" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>Exportar</a></li>
+        <li class="menu__divider" role="separator"></li>
+        <li role="none"><a class="menu__item menu__item--danger" role="menuitem" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-2 14a2 2 0 01-2 2H9a2 2 0 01-2-2L5 6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2"/></svg>Excluir</a></li>
+      </ul>
+    </div>
+    <div class="menu-wrapper">
+      <button class="user-chip" aria-haspopup="menu" aria-expanded="true" aria-controls="m2">
+        <span class="user-chip__avatar">N</span>
+        Nalanda
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M19 9l-7 7-7-7"/></svg>
+      </button>
+      <ul class="menu" role="menu" id="m2" style="position:relative;top:var(--space-2);left:0;display:block">
+        <li class="menu__group-title" role="presentation">Conta</li>
+        <li role="none"><a class="menu__item" role="menuitem" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Meu perfil</a></li>
+        <li role="none"><a class="menu__item" role="menuitem" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/></svg>Preferências</a></li>
+        <li class="menu__divider" role="separator"></li>
+        <li role="none"><a class="menu__item menu__item--danger" role="menuitem" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4M16 17l5-5-5-5M21 12H9"/></svg>Sair</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="mono">role=menu · role=menuitem · role=separator · trigger com aria-haspopup="menu" + aria-expanded · Esc fecha · click fora fecha · foco vai pro primeiro item ao abrir.</div>
+</div></body></html>

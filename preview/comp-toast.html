@@ -1,0 +1,15 @@
+<!DOCTYPE html><html lang="pt-BR"><head><meta charset="utf-8"><title>preview/comp-toast.html</title><link rel="stylesheet" href="../tokens.css"><link rel="stylesheet" href="../base.css"><link rel="stylesheet" href="../components.css"><link rel="stylesheet" href="_card.css"></head><body>
+<div class="card-frame">
+  <div class="tag-eyebrow">TOAST · ARIA-LIVE</div>
+  <div class="row" style="gap:var(--space-2);flex-wrap:wrap">
+    <button class="btn btn--secondary" onclick="UniToast.show({type:'success',title:'Inscrição enviada',message:'Você será notificada por e-mail em até 5 dias úteis.'})">Sucesso</button>
+    <button class="btn btn--secondary" onclick="UniToast.show({type:'warning',title:'Documentos pendentes',message:'Faltam 2 documentos para concluir.'})">Aviso</button>
+    <button class="btn btn--secondary" onclick="UniToast.show({type:'danger',title:'Não foi possível enviar',message:'Verifique sua conexão e tente novamente.'})">Erro (sticky)</button>
+    <button class="btn btn--secondary" onclick="UniToast.show({type:'info',title:'Dica',message:'Você pode salvar e voltar depois.'})">Info</button>
+  </div>
+  <div class="mono">Region polite p/ success/warning/info · region assertive separada p/ danger (anuncia imediatamente). Default 6s; danger é sticky (duration:0). Posição: top-right em desktop, bottom-full em mobile.</div>
+  <div style="background:var(--surface-subtle);padding:var(--space-3);border-radius:var(--radius-md);font-size:var(--text-sm);color:var(--text-secondary)">
+    <strong>API:</strong> <code style="font-family:var(--font-mono);font-size:12px">UniToast.show({ type, title, message, duration })</code>
+  </div>
+</div>
+<script src="../assets/uniplus-toast.js"></script></body></html>

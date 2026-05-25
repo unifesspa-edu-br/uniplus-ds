@@ -1,0 +1,31 @@
+<!DOCTYPE html><html lang="pt-BR"><head><meta charset="utf-8"><title>preview/comp-dialog.html</title><link rel="stylesheet" href="../tokens.css"><link rel="stylesheet" href="../base.css"><link rel="stylesheet" href="../components.css"><link rel="stylesheet" href="_card.css"></head><body>
+<div class="card-frame">
+  <div class="tag-eyebrow">DIALOG / MODAL / BOTTOM-SHEET</div>
+  <button class="btn btn--primary" id="open-dlg">Abrir diálogo de exemplo</button>
+  <div class="mono">&lt;dialog class="uni-dialog"&gt; nativo. .showModal() coloca foco automático, Esc fecha, backdrop bloqueia interativos atrás. Em &lt;640px vira bottom-sheet.</div>
+  <dialog class="uni-dialog" id="demo-dlg" aria-labelledby="demo-dlg-title">
+    <div class="uni-dialog__panel">
+      <div class="uni-dialog__header">
+        <h3 class="uni-dialog__title" id="demo-dlg-title">Cancelar inscrição?</h3>
+        <button class="btn btn--tertiary btn--icon-only btn--rect" aria-label="Fechar" id="close-dlg"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg></button>
+      </div>
+      <div class="uni-dialog__body">
+        <p>Você está prestes a cancelar sua inscrição no edital <strong>SISU 2026.1</strong>. Esta ação não pode ser desfeita.</p>
+        <p>Você pode salvar sua inscrição como rascunho e voltar depois — nada é perdido enquanto o prazo não encerrar.</p>
+      </div>
+      <div class="uni-dialog__footer">
+        <button class="btn btn--tertiary" id="cancel-dlg">Voltar</button>
+        <button class="btn btn--danger">Sim, cancelar inscrição</button>
+      </div>
+    </div>
+  </dialog>
+  <script>
+    (function(){
+      const d = document.getElementById('demo-dlg');
+      document.getElementById('open-dlg').addEventListener('click', () => d.showModal());
+      document.getElementById('close-dlg').addEventListener('click', () => d.close());
+      document.getElementById('cancel-dlg').addEventListener('click', () => d.close());
+      d.addEventListener('click', (e) => { if (e.target === d) d.close(); });
+    })();
+  </script>
+</div></body></html>

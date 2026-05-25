@@ -1,0 +1,1665 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="auto">
+<head>
+<meta charset="utf-8">
+<title>Auditoria do Design System — Uni+</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="tokens.css">
+<link rel="stylesheet" href="base.css">
+<link rel="stylesheet" href="components.css">
+<style>
+  body { background: var(--surface-page); }
+
+  /* ─── Hero ───────────────────────────────────────────────────────────── */
+  .audit-hero {
+    background:
+      radial-gradient(80% 120% at 0% 0%, color-mix(in srgb, var(--color-primary) 14%, transparent), transparent 60%),
+      radial-gradient(60% 100% at 100% 0%, color-mix(in srgb, var(--color-info-600) 10%, transparent), transparent 60%),
+      var(--surface-card);
+    border-bottom: 1px solid var(--border-subtle);
+    padding: var(--space-7) 0 var(--space-8);
+  }
+  .audit-hero__eyebrow {
+    font-size: var(--text-xs); font-weight: var(--weight-bold);
+    letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--color-primary);
+    margin-bottom: var(--space-3);
+  }
+  .audit-hero__title {
+    font-size: var(--text-3xl); font-weight: var(--weight-bold);
+    color: var(--text-heading); margin: 0; line-height: 1.1; letter-spacing: -0.015em;
+    max-width: 22ch;
+  }
+  .audit-hero__lead {
+    font-size: var(--text-md); color: var(--text-secondary);
+    line-height: var(--leading-relaxed); margin: var(--space-4) 0 0;
+    max-width: 64ch;
+  }
+  .audit-hero__meta {
+    display: flex; flex-wrap: wrap; gap: var(--space-3) var(--space-5);
+    margin-top: var(--space-5);
+    font-size: var(--text-sm); color: var(--text-secondary);
+  }
+  .audit-hero__meta strong { color: var(--text-primary); font-weight: var(--weight-semibold); }
+
+  /* ─── KPI grid ───────────────────────────────────────────────────────── */
+  .kpis {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-3);
+    margin-top: var(--space-6);
+  }
+  @media (min-width: 768px) { .kpis { grid-template-columns: repeat(5, 1fr); } }
+  .kpi-cell {
+    background: var(--surface-card);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-lg);
+    padding: var(--space-4);
+    display: flex; flex-direction: column; gap: var(--space-1);
+    position: relative; overflow: hidden;
+  }
+  .kpi-cell::before {
+    content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 3px;
+    background: var(--kpi-accent, var(--color-primary));
+  }
+  .kpi-cell__label { font-size: var(--text-xs); font-weight: var(--weight-bold); letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-secondary); }
+  .kpi-cell__num { font-size: var(--text-3xl); font-weight: var(--weight-bold); color: var(--text-heading); font-variant-numeric: tabular-nums; line-height: 1; }
+  .kpi-cell__hint { font-size: var(--text-xs); color: var(--text-muted); }
+
+  .kpi-cell--total { --kpi-accent: var(--color-primary); }
+  .kpi-cell--p0 { --kpi-accent: var(--color-danger-500); }
+  .kpi-cell--p0 .kpi-cell__num { color: var(--color-danger-700); }
+  .kpi-cell--p1 { --kpi-accent: var(--color-warning-600); }
+  .kpi-cell--p1 .kpi-cell__num { color: var(--color-warning-700); }
+  .kpi-cell--p2 { --kpi-accent: var(--color-info-600); }
+  .kpi-cell--p2 .kpi-cell__num { color: var(--color-info-700); }
+  .kpi-cell--p3 { --kpi-accent: var(--text-muted); }
+  .kpi-cell--p3 .kpi-cell__num { color: var(--text-secondary); }
+
+  /* ─── Legend ─────────────────────────────────────────────────────────── */
+  .legend {
+    display: flex; flex-wrap: wrap; gap: var(--space-2) var(--space-3);
+    margin-top: var(--space-5);
+  }
+
+  /* ─── Layout: sticky TOC + content ───────────────────────────────────── */
+  .audit-body { display: grid; grid-template-columns: 1fr; gap: var(--space-6); padding-block: var(--space-7); }
+  @media (min-width: 1024px) {
+    .audit-body { grid-template-columns: 240px minmax(0, 1fr); gap: var(--space-8); }
+  }
+
+  .toc {
+    position: sticky; top: var(--space-4);
+    align-self: start;
+    background: var(--surface-card);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-lg);
+    padding: var(--space-4);
+  }
+  .toc__title { font-size: var(--text-xs); font-weight: var(--weight-bold); letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-secondary); margin: 0 0 var(--space-2); }
+  .toc__list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 2px; }
+  .toc__list a {
+    display: flex; justify-content: space-between; align-items: center; gap: var(--space-2);
+    padding: var(--space-2) var(--space-3);
+    border-radius: var(--radius-sm);
+    color: var(--text-primary); text-decoration: none;
+    font-size: var(--text-sm); font-weight: var(--weight-medium);
+  }
+  .toc__list a:hover { background: var(--surface-subtle); color: var(--color-primary); }
+  .toc__list a small {
+    font-size: var(--text-xs); color: var(--text-muted); font-variant-numeric: tabular-nums;
+  }
+  @media (max-width: 1023px) { .toc { position: static; } }
+
+  /* ─── Sections ───────────────────────────────────────────────────────── */
+  .section { scroll-margin-top: var(--space-5); }
+  .section + .section { margin-top: var(--space-7); }
+  .section__head { display: flex; flex-direction: column; gap: var(--space-1); margin-bottom: var(--space-4); padding-bottom: var(--space-3); border-bottom: 1px solid var(--border-subtle); }
+  .section__head h2 { font-size: var(--text-xl); font-weight: var(--weight-bold); color: var(--text-heading); margin: 0; letter-spacing: -0.005em; }
+  .section__head p { font-size: var(--text-sm); color: var(--text-secondary); margin: 0; max-width: 70ch; }
+
+  /* ─── Finding card ───────────────────────────────────────────────────── */
+  .findings { display: flex; flex-direction: column; gap: var(--space-3); }
+  .finding {
+    background: var(--surface-card);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    transition: border-color var(--duration-fast) var(--ease-standard);
+  }
+  .finding:hover { border-color: var(--border-default); }
+
+  .finding__head {
+    display: flex; align-items: flex-start; gap: var(--space-3);
+    padding: var(--space-4) var(--space-5);
+  }
+  .finding__sev { flex-shrink: 0; }
+  .finding__head-text { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: var(--space-1); }
+  .finding__id {
+    font-family: var(--font-mono); font-size: var(--text-xs);
+    color: var(--text-muted); letter-spacing: 0.04em;
+  }
+  .finding__title {
+    font-size: var(--text-md); font-weight: var(--weight-semibold);
+    color: var(--text-heading); margin: 0; line-height: 1.35;
+  }
+
+  .finding__body {
+    display: grid; grid-template-columns: 1fr;
+    gap: var(--space-3);
+    padding: 0 var(--space-5) var(--space-5);
+    border-top: 1px dashed var(--border-subtle);
+    padding-top: var(--space-4);
+  }
+  @media (min-width: 768px) {
+    .finding__body { grid-template-columns: 1fr 1fr; gap: var(--space-4) var(--space-5); }
+    .finding__rec { grid-column: 1 / -1; }
+  }
+
+  .finding__field { display: flex; flex-direction: column; gap: var(--space-2); }
+  .finding__field-label {
+    font-size: var(--text-xs); font-weight: var(--weight-bold);
+    letter-spacing: 0.06em; text-transform: uppercase;
+    color: var(--text-secondary);
+    display: flex; align-items: center; gap: 6px;
+  }
+  .finding__field-label::before {
+    content: ""; width: 6px; height: 6px; border-radius: 50%;
+    background: var(--text-muted);
+  }
+  .finding__field--where .finding__field-label::before { background: var(--color-primary); }
+  .finding__field--impact .finding__field-label::before { background: var(--color-warning-600); }
+  .finding__field--rec .finding__field-label::before { background: var(--color-success-solid); }
+
+  .finding__field p { font-size: var(--text-sm); color: var(--text-primary); margin: 0; line-height: var(--leading-normal); }
+  .finding__field p + p { margin-top: var(--space-2); }
+  .finding__field code {
+    font-family: var(--font-mono); font-size: 12.5px;
+    background: var(--surface-subtle);
+    padding: 2px 6px; border-radius: var(--radius-xs);
+    color: var(--text-heading);
+    word-break: break-word;
+  }
+  .finding__where {
+    font-family: var(--font-mono); font-size: var(--text-xs);
+    color: var(--text-primary);
+    background: var(--surface-subtle);
+    padding: var(--space-2) var(--space-3);
+    border-radius: var(--radius-sm);
+    border-left: 2px solid var(--color-primary);
+    line-height: 1.6;
+    word-break: break-word;
+  }
+  .finding__where + .finding__where { margin-top: var(--space-1); }
+  .finding__field--rec p { color: var(--text-primary); }
+
+  /* ─── Roadmap ────────────────────────────────────────────────────────── */
+  .roadmap { display: grid; grid-template-columns: 1fr; gap: var(--space-4); }
+  @media (min-width: 768px) { .roadmap { grid-template-columns: repeat(3, 1fr); } }
+  .lane { background: var(--surface-card); border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); padding: var(--space-5); display: flex; flex-direction: column; gap: var(--space-3); }
+  .lane__head { display: flex; align-items: center; justify-content: space-between; gap: var(--space-2); }
+  .lane__title { font-size: var(--text-base); font-weight: var(--weight-bold); color: var(--text-heading); margin: 0; }
+  .lane__desc { font-size: var(--text-sm); color: var(--text-secondary); margin: 0; line-height: var(--leading-normal); }
+  .lane__list { list-style: none; padding: 0; margin: var(--space-2) 0 0; display: flex; flex-direction: column; gap: var(--space-2); }
+  .lane__list li {
+    display: flex; align-items: flex-start; gap: var(--space-2);
+    font-size: var(--text-sm); color: var(--text-primary); line-height: var(--leading-normal);
+  }
+  .lane__list li::before {
+    content: ""; flex-shrink: 0; width: 16px; height: 16px;
+    border-radius: 50%; border: 1.5px solid var(--border-default);
+    background: var(--surface-page); margin-top: 2px;
+  }
+  .lane--p0 { border-top: 3px solid var(--color-danger-500); }
+  .lane--p1 { border-top: 3px solid var(--color-warning-600); }
+  .lane--p2 { border-top: 3px solid var(--color-info-600); }
+  .lane__list li small {
+    font-family: var(--font-mono); font-size: 10.5px;
+    color: var(--text-muted); margin-left: 4px;
+  }
+
+  /* ─── Footer ─────────────────────────────────────────────────────────── */
+  .audit-footer {
+    background: var(--surface-inverse); color: #fff;
+    padding: var(--space-7) 0; margin-top: var(--space-8);
+  }
+  .audit-footer h5 { font-size: var(--text-xs); font-weight: var(--weight-bold); text-transform: uppercase; letter-spacing: 0.06em; opacity: 0.75; margin: 0 0 var(--space-3); }
+  .audit-footer p { font-size: var(--text-sm); opacity: 0.9; margin: 0; line-height: var(--leading-relaxed); max-width: 64ch; }
+
+  /* Small utilities for this report */
+  .ctx-row { display: flex; flex-wrap: wrap; gap: var(--space-2); margin-top: var(--space-3); }
+  .pill-stat {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 4px 10px; border-radius: var(--radius-pill);
+    font-size: var(--text-xs); font-weight: var(--weight-semibold);
+    background: var(--surface-subtle); color: var(--text-secondary);
+  }
+  .pill-stat strong { color: var(--text-heading); }
+</style>
+</head>
+<body data-screen-label="01 Auditoria do Design System">
+
+<a href="#main" class="skip-link">Pular para o conteúdo principal</a>
+
+<!-- Gov.br stripe -->
+<div class="gov-bar" role="region" aria-label="Identificação do Governo Federal">
+  <span class="gov-bar__brand">gov.br</span>
+  <span class="gov-bar__sep" aria-hidden="true">|</span>
+  <span class="gov-bar__org">UNIFESSPA · Uni+</span>
+</div>
+
+<!-- Topbar -->
+<header class="topbar" role="banner">
+  <div class="topbar__brand">
+    <div class="topbar__mark" aria-hidden="true">U+</div>
+    <div class="topbar__titles">
+      <div class="topbar__title">Uni+ Design System</div>
+      <div class="topbar__subtitle">Auditoria · 25 mai 2026</div>
+    </div>
+  </div>
+  <span class="tag tag--info">v0 · pré-produção</span>
+</header>
+
+<!-- ──────────────────────────────────────────────────────────────────── -->
+<!-- Hero -->
+<!-- ──────────────────────────────────────────────────────────────────── -->
+<section class="audit-hero">
+  <div class="container">
+    <div class="audit-hero__eyebrow">Auditoria · UI / UX · Acessibilidade</div>
+    <h1 class="audit-hero__title">Onde o DS sustenta e onde ainda quebra antes de subir.</h1>
+    <p class="audit-hero__lead">
+      Revisão completa de <strong>tokens.css</strong>, <strong>base.css</strong>, <strong>components.css</strong>,
+      preview cards, UI kits e documentação. Foco em consistência entre temas (light/dark/contrast),
+      contrato de acessibilidade (WCAG 2.1 AA piso, AAA onde viável; e-MAG 3.1), mobile-first e
+      qualidade de componentização. Nenhum arquivo foi alterado — este relatório é a base
+      para o backlog de correção.
+    </p>
+
+    <div class="audit-hero__meta">
+      <span><strong>Escopo:</strong> 11 arquivos do DS · 45 preview cards · 2 UI kits · 5 docs</span>
+      <span><strong>Critérios:</strong> WCAG 2.1, e-MAG 3.1, Gov.br DS 3.7, LGPD, briefing-ux.md</span>
+    </div>
+
+    <!-- KPIs -->
+    <div class="kpis" role="list" aria-label="Resumo de achados">
+      <div class="kpi-cell kpi-cell--total" role="listitem">
+        <span class="kpi-cell__label">Total</span>
+        <span class="kpi-cell__num">42</span>
+        <span class="kpi-cell__hint">achados</span>
+      </div>
+      <div class="kpi-cell kpi-cell--p0" role="listitem">
+        <span class="kpi-cell__label">P0 · Crítico</span>
+        <span class="kpi-cell__num">6</span>
+        <span class="kpi-cell__hint">bloqueia produção</span>
+      </div>
+      <div class="kpi-cell kpi-cell--p1" role="listitem">
+        <span class="kpi-cell__label">P1 · Alto</span>
+        <span class="kpi-cell__num">14</span>
+        <span class="kpi-cell__hint">qualidade / consistência</span>
+      </div>
+      <div class="kpi-cell kpi-cell--p2" role="listitem">
+        <span class="kpi-cell__label">P2 · Médio</span>
+        <span class="kpi-cell__num">15</span>
+        <span class="kpi-cell__hint">polish / documentação</span>
+      </div>
+      <div class="kpi-cell kpi-cell--p3" role="listitem">
+        <span class="kpi-cell__label">P3 · Nota</span>
+        <span class="kpi-cell__num">7</span>
+        <span class="kpi-cell__hint">backlog / cleanup</span>
+      </div>
+    </div>
+
+    <!-- Legend -->
+    <div class="legend" role="region" aria-label="Legenda de severidade">
+      <span class="tag tag--solid tag--danger">P0 · crítico</span>
+      <span class="tag tag--solid tag--warning">P1 · alto</span>
+      <span class="tag tag--solid tag--info">P2 · médio</span>
+      <span class="tag">P3 · nota</span>
+    </div>
+
+    <!-- Quick verdict alert -->
+    <div class="alert alert--warning" role="region" aria-label="Veredicto rápido" style="margin-top: var(--space-6);">
+      <svg class="alert__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+      <div class="alert__body">
+        <p class="alert__title">Veredicto: forte fundação, falhas concentradas no tema escuro.</p>
+        <p class="alert__msg">
+          O sistema light é maduro e bem documentado. Os 6 críticos estão todos na ponte entre
+          tokens e componentes: neutros sem variante escura, ring de foco que sobrescreve o raio
+          do elemento, e o tema high-contrast que não cobre feedback. Nada irreparável —
+          ~2 dias de trabalho focado.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ──────────────────────────────────────────────────────────────────── -->
+<!-- Body -->
+<!-- ──────────────────────────────────────────────────────────────────── -->
+<main id="main" class="container audit-body">
+
+  <!-- TOC ───────────────────────────────────────────────────────────── -->
+  <aside class="toc" aria-label="Sumário">
+    <h2 class="toc__title">Áreas auditadas</h2>
+    <ul class="toc__list">
+      <li><a href="#sec-criticos">Críticos (P0) <small>6</small></a></li>
+      <li><a href="#sec-tokens">Tokens <small>9</small></a></li>
+      <li><a href="#sec-base">Base & a11y <small>4</small></a></li>
+      <li><a href="#sec-components">Components <small>11</small></a></li>
+      <li><a href="#sec-dark">Tema escuro <small>4</small></a></li>
+      <li><a href="#sec-hc">Alto contraste <small>3</small></a></li>
+      <li><a href="#sec-kits">UI kits <small>3</small></a></li>
+      <li><a href="#sec-docs">Docs & preview <small>5</small></a></li>
+      <li><a href="#sec-roadmap"><strong>Roadmap proposto</strong></a></li>
+    </ul>
+  </aside>
+
+  <div>
+
+    <!-- ════════════════════════════════════════════════════════════════ -->
+    <!-- CRÍTICOS -->
+    <!-- ════════════════════════════════════════════════════════════════ -->
+    <section class="section" id="sec-criticos" aria-labelledby="h-criticos">
+      <div class="section__head">
+        <h2 id="h-criticos">Críticos (P0) — bloqueiam produção</h2>
+        <p>Seis defeitos materiais que afetam usuários reais hoje. Quatro deles são consequência da mesma raiz: a paleta de neutros não tem variantes para o tema escuro, então qualquer componente que referencia <code style="font-family:var(--font-mono);font-size:12.5px">--color-neutral-*</code> diretamente herda valores claros no dark.</p>
+      </div>
+
+      <div class="findings">
+
+        <!-- F-001 -->
+        <article class="finding" id="f-001">
+          <div class="finding__head">
+            <span class="tag tag--solid tag--danger finding__sev">P0</span>
+            <div class="finding__head-text">
+              <span class="finding__id">F-001 · base.css</span>
+              <h3 class="finding__title">Ring de foco sobrescreve o <code>border-radius</code> do elemento</h3>
+            </div>
+          </div>
+          <div class="finding__body">
+            <div class="finding__field finding__field--where">
+              <span class="finding__field-label">Onde</span>
+              <div class="finding__where">base.css : 55–59<br><br>:where(a, button, [role="button"], input, select, textarea, summary, [tabindex]):focus-visible {<br>&nbsp;&nbsp;outline: var(--focus-ring-width) solid var(--focus-ring-color);<br>&nbsp;&nbsp;outline-offset: var(--focus-ring-offset);<br>&nbsp;&nbsp;<strong style="color:var(--color-danger-700)">border-radius: var(--radius-xs);</strong>  ← problema<br>}</div>
+            </div>
+            <div class="finding__field finding__field--impact">
+              <span class="finding__field-label">Impacto</span>
+              <p>Todo botão <code>.btn</code> (raio pill 9999px), avatar (raio 50%), uploader (radius-lg), back-to-top (circle) <strong>achata para 2 px no momento em que recebe foco por teclado</strong>. Visual confuso, parece bug, e usuários com cognição reduzida podem interpretar como erro do sistema.</p>
+            </div>
+            <div class="finding__field finding__field--rec">
+              <span class="finding__field-label">Recomendação</span>
+              <p>Remover a declaração <code>border-radius</code> da regra <code>:focus-visible</code>. O <code>outline</code> dos browsers modernos já segue o raio nativo do elemento — não é preciso forçar nada. Se a intenção era padronizar o ring em elementos sem raio explícito, fazer isso apenas em um conjunto restrito (<code>input</code>, <code>textarea</code>, <code>summary</code>) e não em <code>button</code> / <code>[role="button"]</code>.</p>
+            </div>
+          </div>
+        </article>
+
+        <!-- F-002 -->
+        <article class="finding" id="f-002">
+          <div class="finding__head">
+            <span class="tag tag--solid tag--danger finding__sev">P0</span>
+            <div class="finding__head-text">
+              <span class="finding__id">F-002 · components.css</span>
+              <h3 class="finding__title">Botão <code>:disabled</code> ilegível no tema escuro</h3>
+            </div>
+          </div>
+          <div class="finding__body">
+            <div class="finding__field finding__field--where">
+              <span class="finding__field-label">Onde</span>
+              <div class="finding__where">components.css : ~58 (.btn[disabled], .btn:disabled)<br><br>background: var(--color-neutral-200);  /* #e2e8f0 */<br>color:      var(--color-neutral-500);  /* #8899a8 */</div>
+            </div>
+            <div class="finding__field finding__field--impact">
+              <span class="finding__field-label">Impacto</span>
+              <p>Os tokens <code>--color-neutral-*</code> não são redefinidos no bloco <code>[data-theme="dark"]</code>. No escuro o botão desabilitado renderiza fundo cinza-claro <code>#e2e8f0</code> com texto cinza-azulado <code>#8899a8</code> — contraste ~<strong>1.6 : 1</strong>, falha WCAG 1.4.3 e 1.4.11. Idêntico padrão afeta <code>.btn--tertiary --btn-bg-active</code>.</p>
+            </div>
+            <div class="finding__field finding__field--rec">
+              <span class="finding__field-label">Recomendação</span>
+              <p>Criar tokens semânticos de "disabled" que flutuem por tema: <code>--surface-disabled</code> + <code>--text-disabled</code>. No light apontam para neutral-200/500; no dark, para slate-700/400. Substituir todas as referências diretas a <code>--color-neutral-*</code> nos componentes por tokens semânticos. Aplica-se também a <code>.input:disabled</code>, <code>.pager__btn:disabled</code>, etc.</p>
+            </div>
+          </div>
+        </article>
+
+        <!-- F-003 -->
+        <article class="finding" id="f-003">
+          <div class="finding__head">
+            <span class="tag tag--solid tag--danger finding__sev">P0</span>
+            <div class="finding__head-text">
+              <span class="finding__id">F-003 · components.css</span>
+              <h3 class="finding__title">Skeleton loader invisível no tema escuro</h3>
+            </div>
+          </div>
+          <div class="finding__body">
+            <div class="finding__field finding__field--where">
+              <span class="finding__field-label">Onde</span>
+              <div class="finding__where">components.css : ~580 (.skeleton)<br><br>background: linear-gradient(90deg,<br>&nbsp;&nbsp;var(--color-neutral-100) 0%,<br>&nbsp;&nbsp;var(--color-neutral-200) 50%,<br>&nbsp;&nbsp;var(--color-neutral-100) 100%);</div>
+            </div>
+            <div class="finding__field finding__field--impact">
+              <span class="finding__field-label">Impacto</span>
+              <p>Mesma raiz do F-002. No dark o skeleton vira um bloco claro <code>#f1f5f9 → #e2e8f0</code> sobre fundo <code>#1e293b</code> — contraste tão alto que parece conteúdo final, não placeholder. Quebra a percepção de "carregando" justamente no momento mais sensível da UX.</p>
+            </div>
+            <div class="finding__field finding__field--rec">
+              <span class="finding__field-label">Recomendação</span>
+              <p>Introduzir <code>--skeleton-from</code> e <code>--skeleton-to</code> como tokens semânticos. Light: neutral-100/200. Dark: slate-800/700 (sutilmente mais claro que <code>--surface-card</code>). Bonus: usar <code>color-mix(in oklab, var(--surface-card) 92%, var(--text-primary))</code> para derivar automaticamente do par superfície/texto vigente.</p>
+            </div>
+          </div>
+        </article>
+
+        <!-- F-004 -->
+        <article class="finding" id="f-004">
+          <div class="finding__head">
+            <span class="tag tag--solid tag--danger finding__sev">P0</span>
+            <div class="finding__head-text">
+              <span class="finding__id">F-004 · components.css</span>
+              <h3 class="finding__title">Avatar com iniciais ilegível no tema escuro</h3>
+            </div>
+          </div>
+          <div class="finding__body">
+            <div class="finding__field finding__field--where">
+              <span class="finding__field-label">Onde</span>
+              <div class="finding__where">components.css (.avatar, .user-chip__avatar, .topbar__mark hover)<br><br>background: var(--color-primary-100);   /* dark: #1e3a5f */<br>color:      var(--color-primary-800);   /* dark: #2563eb */</div>
+            </div>
+            <div class="finding__field finding__field--impact">
+              <span class="finding__field-label">Impacto</span>
+              <p>No dark, <code>primary-100</code> vira azul-escuro <code>#1e3a5f</code> e <code>primary-800</code> vira azul-vivo <code>#2563eb</code>. Iniciais "JF" em azul-vivo sobre azul-escuro: contraste estimado ~<strong>1.8 : 1</strong>, falha AA. Atinge avatar do user-chip, sidebar e qualquer card com autor.</p>
+            </div>
+            <div class="finding__field finding__field--rec">
+              <span class="finding__field-label">Recomendação</span>
+              <p>Tokenizar <code>--avatar-bg</code> e <code>--avatar-fg</code>. No light: primary-100 + primary-800 (como hoje). No dark: <code>color-mix(in srgb, var(--color-primary) 25%, var(--surface-card))</code> + <code>#fff</code>. Alternativa: aplicar opacidade 0.15 ao primary atual como fundo e usar branco como texto — funciona nos dois temas com uma única regra.</p>
+            </div>
+          </div>
+        </article>
+
+        <!-- F-005 -->
+        <article class="finding" id="f-005">
+          <div class="finding__head">
+            <span class="tag tag--solid tag--danger finding__sev">P0</span>
+            <div class="finding__head-text">
+              <span class="finding__id">F-005 · components.css</span>
+              <h3 class="finding__title">Stepper "is-done" falha contraste no escuro</h3>
+            </div>
+          </div>
+          <div class="finding__body">
+            <div class="finding__field finding__field--where">
+              <span class="finding__field-label">Onde</span>
+              <div class="finding__where">components.css (.stepper__dot.is-done)<br><br>background: var(--color-success-600);  /* dark: #4ade80 (verde-claro) */<br>color: #fff;</div>
+            </div>
+            <div class="finding__field finding__field--impact">
+              <span class="finding__field-label">Impacto</span>
+              <p>O token <code>--color-success-600</code> foi redefinido para verde-claro no dark (para servir como cor de texto sobre fundo escuro). Aqui ele é usado como <em>fundo</em>, com texto branco — contraste ~<strong>2.1 : 1</strong>. Falha AA. O mesmo efeito atinge a linha conectora <code>::before</code> do timeline.</p>
+            </div>
+            <div class="finding__field finding__field--rec">
+              <span class="finding__field-label">Recomendação</span>
+              <p>Trocar <code>--color-success-600</code> por <code>--color-success-solid</code> aqui (já existe como token "fica-escuro-em-ambos-os-temas", justamente para texto branco sobre fundo colorido). A mesma correção aplica-se a <code>.toast-region</code> e qualquer fundo de feedback que carregue texto branco.</p>
+            </div>
+          </div>
+        </article>
+
+        <!-- F-006 -->
+        <article class="finding" id="f-006">
+          <div class="finding__head">
+            <span class="tag tag--solid tag--danger finding__sev">P0</span>
+            <div class="finding__head-text">
+              <span class="finding__id">F-006 · tokens.css</span>
+              <h3 class="finding__title"><code>--border-strong</code> falha 1.4.11 no tema light</h3>
+            </div>
+          </div>
+          <div class="finding__body">
+            <div class="finding__field finding__field--where">
+              <span class="finding__field-label">Onde</span>
+              <div class="finding__where">tokens.css : ~75 (--border-strong: var(--color-neutral-400) /* #94a3b8 */)<br>contraste vs #ffffff = <strong>2.7 : 1</strong> · WCAG 1.4.11 exige ≥ 3.0 : 1</div>
+            </div>
+            <div class="finding__field finding__field--impact">
+              <span class="finding__field-label">Impacto</span>
+              <p>Já registrado em <code>docs/contrast.md</code> como pendente. Aplica-se em <em>borda hover de input</em> e bordas de form preenchido. Em telas claras, usuários com baixa visão não percebem o estado hover do campo. Bloqueia auditoria final do CTIC.</p>
+            </div>
+            <div class="finding__field finding__field--rec">
+              <span class="finding__field-label">Recomendação</span>
+              <p>Mudar <code>--border-strong</code> de <code>#94a3b8</code> para <code>#64748b</code> (slate-600) no light. Novo contraste vs branco: <strong>4.4 : 1</strong>. Atualizar a matriz em <code>docs/contrast.md</code> e marcar o item pendente como concluído. Verificar visualmente que o hover do input continua percebível e distinto de focus-ring.</p>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- ════════════════════════════════════════════════════════════════ -->
+    <!-- TOKENS -->
+    <!-- ════════════════════════════════════════════════════════════════ -->
+    <section class="section" id="sec-tokens" aria-labelledby="h-tokens">
+      <div class="section__head">
+        <h2 id="h-tokens">Tokens — paleta, tipografia, espaçamento</h2>
+        <p>O arquivo está bem estruturado e generoso. Os problemas estão na semântica: tokens com nomes diferentes apontando para o mesmo valor (drift na hora de evoluir), neutros sem track escuro, e o bloco do tema escuro repetido literalmente duas vezes.</p>
+      </div>
+
+      <div class="findings">
+
+        <article class="finding">
+          <div class="finding__head">
+            <span class="tag tag--solid tag--warning finding__sev">P1</span>
+            <div class="finding__head-text">
+              <span class="finding__id">F-007 · tokens.css</span>
+              <h3 class="finding__title">Bloco do dark theme duplicado byte-a-byte</h3>
+            </div>
+          </div>
+          <div class="finding__body">
+            <div class="finding__field finding__field--where">
+              <span class="finding__field-label">Onde</span>
+              <div class="finding__where">tokens.css : ~242 (:root[data-theme="dark"])<br>tokens.css : ~290 (@media prefers-color-scheme: dark + [data-theme="auto"])</div>
+            </div>
+            <div class="finding__field finding__field--impact">
+              <span class="finding__field-label">Impacto</span>
+              <p>São ~50 linhas idênticas em dois lugares. Toda mudança no escuro precisa ser feita em duplicata. Risco alto de divergência silenciosa entre o que o usuário vê quando escolhe "escuro" manualmente vs. quando o sistema dele está no escuro.</p>
+            </div>
+            <div class="finding__field finding__field--rec">
+              <span class="finding__field-label">Recomendação</span>
+              <p>Extrair o corpo do escuro para um placeholder via <code>@layer</code> ou usar o pattern de seletor combinado: <code>:root[data-theme="dark"], :root[data-theme="auto"]:where(...)</code> dentro de uma única <code>@media</code>. Solução mais simples: definir os tokens em uma classe utilitária <code>.theme-dark</code> e aplicar via dois seletores na mesma regra.</p>
+            </div>
+          </div>
+        </article>
+
+        <article class="finding">
+          <div class="finding__head">
+            <span class="tag tag--solid tag--warning finding__sev">P1</span>
+            <div class="finding__head-text">
+              <span class="finding__id">F-008 · tokens.css</span>
+              <h3 class="finding__title"><code>--surface-banner</code> colapsa em <code>--surface-card</code> no dark</h3>
+            </div>
+          </div>
+          <div class="finding__body">
+            <div class="finding__field finding__field--where">
+              <span class="finding__field-label">Onde</span>
+              <div class="finding__where">tokens.css (dark) : --surface-banner: #1e293b;<br>tokens.css (dark) : --surface-card:   #1e293b;</div>
+            </div>
+            <div class="finding__field finding__field--impact">
+              <span class="finding__field-label">Impacto</span>
+              <p>O comentário no token explica corretamente que "banner em dark NÃO pode usar azul-marca". Mas colapsar com card destrói a hierarquia visual: o carrossel de editais em destaque, no dark, fica indistinguível dos cards abaixo dele. Toda a intenção do hero some.</p>
+            </div>
+            <div class="finding__field finding__field--rec">
+              <span class="finding__field-label">Recomendação</span>
+              <p>Usar <code>color-mix(in srgb, var(--color-primary) 12%, var(--surface-card))</code> — gera um <code>#1e293b</code> levemente azulado, visualmente distinto do card sem cair em "azul-on-azul". Ou um slate ligeiramente mais escuro (<code>#172033</code>) para diferenciar como "fundo mais profundo".</p>
+            </div>
+          </div>
+        </article>
+
+        <article class="finding">
+          <div class="finding__head">
+            <span class="tag tag--solid tag--warning finding__sev">P1</span>
+            <div class="finding__head-text">
+              <span class="finding__id">F-009 · tokens.css</span>
+              <h3 class="finding__title">Três tokens com o mesmo valor e semânticas diferentes</h3>
+            </div>
+          </div>
+          <div class="finding__body">
+            <div class="finding__field finding__field--where">
+              <span class="finding__field-label">Onde</span>
+              <div class="finding__where">--color-primary-800 = #0c326f<br>--text-heading      = var(--color-primary-800)<br>--color-info-700    = #0c326f  (mesmo hex literal)</div>
+            </div>
+            <div class="finding__field finding__field--impact">
+              <span class="finding__field-label">Impacto</span>
+              <p>Hoje os três casam, mas se amanhã alguém quiser escurecer <em>só</em> o heading (ou só o info), terá que descobrir que dois tokens compartilhavam o valor literal — não a derivação. <strong>Drift por descuido</strong> é o defeito mais comum em DS maduros.</p>
+            </div>
+            <div class="finding__field finding__field--rec">
+              <span class="finding__field-label">Recomendação</span>
+              <p>Reescrever <code>--color-info-700</code> como <code>var(--color-primary-800)</code> em vez de hex literal. Mesmo princípio para <code>--text-link</code> e <code>--color-info-600</code> no dark (ambos <code>#93c5fd</code>): apontar um para o outro, não duplicar. Adicionar uma regra no Stylelint que impeça hex repetido entre tokens.</p>
+            </div>
+          </div>
+        </article>
+
+        <article class="finding">
+          <div class="finding__head">
+            <span class="tag tag--solid tag--warning finding__sev">P1</span>
+            <div class="finding__head-text">
+              <span class="finding__id">F-010 · tokens.css</span>
+              <h3 class="finding__title"><code>--text-muted</code> falha AA quando usado em texto normal</h3>
+            </div>
+          </div>
+          <div class="finding__body">
+            <div class="finding__field finding__field--where">
+              <span class="finding__field-label">Onde</span>
+              <div class="finding__where">--text-muted = #94a3b8 → 3.4 : 1 vs #fff<br>usado em: .field__hint, .card__meta, .uni-uploader__item-meta, .pager (caption)</div>
+            </div>
+            <div class="finding__field finding__field--impact">
+              <span class="finding__field-label">Impacto</span>
+              <p>3.4:1 só passa AA-Large (≥18px regular ou ≥14px bold). O hint do form e o meta do card são <strong>texto normal de 12 px</strong> — falham 1.4.3.</p>
+            </div>
+            <div class="finding__field finding__field--rec">
+              <span class="finding__field-label">Recomendação</span>
+              <p>Subir <code>--text-muted</code> para <code>#64748b</code> (slate-600 — 4.7:1 vs branco). Onde o efeito "muito sutil" for desejado (placeholder de input, p.ex.), criar um <code>--text-placeholder</code> separado e documentar explicitamente que <em>só</em> serve para placeholder (que é UI, não texto-conteúdo, e tem 3:1 como floor).</p>
+            </div>
+          </div>
+        </article>
+
+        <article class="finding">
+          <div class="finding__head">
+            <span class="tag tag--solid tag--info finding__sev">P2</span>
+            <div class="finding__head-text">
+              <span class="finding__id">F-011 · tokens.css</span>
+              <h3 class="finding__title">Inter carregado da CDN do Google com pesos sobrando</h3>
+            </div>
+          </div>
+          <div class="finding__body">
+            <div class="finding__field finding__field--where">
+              <span class="finding__field-label">Onde</span>
+              <div class="finding__where">tokens.css : 23<br>@import url("https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,600&family=JetBrains+Mono:wght@400;600&display=swap");</div>
+            </div>
+            <div class="finding__field finding__field--impact">
+              <span class="finding__field-label">Impacto</span>
+              <p>Dois problemas. (1) Privacidade — para um produto federal sob LGPD, depender da CDN do Google envia IP do candidato ao Google em toda navegação. (2) Bandwidth — está carregando peso 800 e itálicos que o DS declara não usar (apenas 400/500/600/700, sem itálico).</p>
+            </div>
+            <div class="finding__field finding__field--rec">
+              <span class="finding__field-label">Recomendação</span>
+              <p>Self-host: baixar Inter (axis variable wght 400–700) e JetBrains Mono (400/600), servir via <code>libs/shared-ui/src/fonts/</code> com <code>@font-face font-display: swap</code>. Reduzir o import a 4 pesos. Documentar no <code>docs/contributing.md</code> que adicionar peso novo passa por ADR de bundle-size.</p>
+            </div>
+          </div>
+        </article>
+
+        <article class="finding">
+          <div class="finding__head">
+            <span class="tag finding__sev">P3</span>
+            <div class="finding__head-text">
+              <span class="finding__id">F-012 · tokens.css</span>
+              <h3 class="finding__title">Tokens declarados mas nunca consumidos</h3>
+            </div>
+          </div>
+          <div class="finding__body">
+            <div class="finding__field finding__field--where">
+              <span class="finding__field-label">Onde</span>
+              <div class="finding__where">--color-primary-200, -300, -400  (sem uso em components.css)<br>--color-neutral-600, -700, -900, -950<br>--touch-comfortable (48px)</div>
+            </div>
+            <div class="finding__field finding__field--impact">
+              <span class="finding__field-label">Impacto</span>
+              <p>Tokens órfãos viram lixo cognitivo na hora de escolher. Quem chega novo no projeto pensa "tem 50 cores, qual eu uso?".</p>
+            </div>
+            <div class="finding__field finding__field--rec">
+              <span class="finding__field-label">Recomendação</span>
+              <p>Decidir caso a caso: ou usar (introduzir em components.css onde fizer sentido), ou remover. <code>--touch-comfortable</code> deveria virar default em CTAs de mobile — está alinhado com a regra de copy "mobile = polegar".</p>
+            </div>
+          </div>
+        </article>
+
+        <article class="finding">
+          <div class="finding__head">
+            <span class="tag finding__sev">P3</span>
+            <div class="finding__head-text">
+              <span class="finding__id">F-013 · tokens.css</span>
+              <h3 class="finding__title">Sem token para "superfície elevada"</h3>
+            </div>
+          </div>
+          <div class="finding__body">
+            <div class="finding__field finding__field--where">
+              <span class="finding__field-label">Onde</span>
+              <div class="finding__where">--surface-card é usado para card, modal, drawer, toast e popover indiscriminadamente.</div>
+            </div>
+            <div class="finding__field finding__field--impact">
+              <span class="finding__field-label">Impacto</span>
+              <p>No light não dá pra distinguir um popover sobre um card. No dark com <code>--shadow-3: rgba(0,0,0,.7)</code> a sombra somem em fundo escuro, então a sobreposição depende exclusivamente de um <code>border-subtle</code> de 1px.</p>
+            </div>
+            <div class="finding__field finding__field--rec">
+              <span class="finding__field-label">Recomendação</span>
+              <p>Introduzir <code>--surface-elevated</code> (light: <code>#ffffff</code> + shadow; dark: <code>#28344a</code>, ligeiramente mais claro que <code>--surface-card</code>) e usar em modal, drawer, dropdown, toast, tooltip.</p>
+            </div>
+          </div>
+        </article>
+
+        <article class="finding">
+          <div class="finding__head">
+            <span class="tag finding__sev">P3</span>
+            <div class="finding__head-text">
+              <span class="finding__id">F-014 · tokens.css</span>
+              <h3 class="finding__title"><code>--shadow-*</code> invisível no escuro</h3>
+            </div>
+          </div>
+          <div class="finding__body">
+            <div class="finding__field finding__field--where">
+              <span class="finding__field-label">Onde</span>
+              <div class="finding__where">dark: --shadow-3 = 0 12px 32px rgba(0,0,0,.7)</div>
+            </div>
+            <div class="finding__field finding__field--impact">
+              <span class="finding__field-label">Impacto</span>
+              <p>Sombra preta sobre fundo quase-preto não é percebida. Modal e drawer no dark perdem profundidade.</p>
+            </div>
+            <div class="finding__field finding__field--rec">
+              <span class="finding__field-label">Recomendação</span>
+              <p>Combinar sombra preta com um <em>glow</em> sutil escurecedor da borda: <code>0 12px 32px rgba(0,0,0,.7), 0 0 0 1px rgba(0,0,0,.4)</code>. Ou subir a luminância do <code>--surface-elevated</code> (F-013) para criar contraste por luz, não por sombra — convenção comum em Material You / iOS dark.</p>
+            </div>
+          </div>
+        </article>
+
+        <article class="finding">
+          <div class="finding__head">
+            <span class="tag finding__sev">P3</span>
+            <div class="finding__head-text">
+              <span class="finding__id">F-015 · tokens.md</span>
+              <h3 class="finding__title">Alternativa AAA <code>#595959</code> mencionada mas não tokenizada</h3>
+            </div>
+          </div>
+          <div class="finding__body">
+            <div class="finding__field finding__field--where">
+              <span class="finding__field-label">Onde</span>
+              <div class="finding__where">docs/tokens.md : seção "Text" — "AAA-safe alternative: quando precisar de ≥7:1, use #595959 (não tokenizado; abrir issue se virar pattern)."</div>
+            </div>
+            <div class="finding__field finding__field--impact">
+              <span class="finding__field-label">Impacto</span>
+              <p>Recomendar hex literal num doc de tokens contradiz a regra "nada de hex hardcoded" do mesmo doc. Quem ler vai colar inline.</p>
+            </div>
+            <div class="finding__field finding__field--rec">
+              <span class="finding__field-label">Recomendação</span>
+              <p>Tokenizar como <code>--text-aaa</code> com par dark equivalente, ou subir o default de <code>--text-secondary</code> para já passar AAA (decisão de produto — depende se a faixa "AA mas não AAA" é aceitável para texto de descrição).</p>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- ════════════════════════════════════════════════════════════════ -->
+    <!-- BASE -->
+    <!-- ════════════════════════════════════════════════════════════════ -->
+    <section class="section" id="sec-base" aria-labelledby="h-base">
+      <div class="section__head">
+        <h2 id="h-base">Base & utilidades de acessibilidade</h2>
+        <p>Arquivo curto e correto em essência. Os ajustes aqui são de polish — o crítico já foi listado em F-001.</p>
+      </div>
+
+      <div class="findings">
+
+        <article class="finding">
+          <div class="finding__head">
+            <span class="tag tag--solid tag--info finding__sev">P2</span>
+            <div class="finding__head-text">
+              <span class="finding__id">F-016 · base.css</span>
+              <h3 class="finding__title">Skip-link com <code>position: absolute</code> em vez de <code>fixed</code></h3>
+            </div>
+          </div>
+          <div class="finding__body">
+            <div class="finding__field finding__field--where">
+              <span class="finding__field-label">Onde</span>
+              <div class="finding__where">base.css : 67–79 (.skip-link)</div>
+            </div>
+            <div class="finding__field finding__field--impact">
+              <span class="finding__field-label">Impacto</span>
+              <p>Em uma página muito curta o skip-link aparece corretamente. Mas em qualquer rota com scroll, se o usuário aciona o Tab depois de rolar, o link "aparece" fora do viewport. Comum em forms longos do wizard de inscrição.</p>
+            </div>
+            <div class="finding__field finding__field--rec">
+              <span class="finding__field-label">Recomendação</span>
+              <p>Trocar para <code>position: fixed</code> (top:-100px → top: var(--space-3) on focus). Cobre os 12 passos do wizard sem regressão visual.</p>
+            </div>
+          </div>
+        </article>
+
+        <article class="finding">
+          <div class="finding__head">
+            <span class="tag tag--solid tag--info finding__sev">P2</span>
+            <div class="finding__head-text">
+              <span class="finding__id">F-017 · base.css</span>
+              <h3 class="finding__title"><code>text-rendering: optimizeLegibility</code> custa caro em Android</h3>
+            </div>
+          </div>
+          <div class="finding__body">
+            <div class="finding__field finding__field--where">
+              <span class="finding__field-label">Onde</span>
+              <div class="finding__where">base.css : 40</div>
+            </div>
+            <div class="finding__field finding__field--impact">
+              <span class="finding__field-label">Impacto</span>
+              <p>Conhecido por travar parse e impactar TBT em Chrome Android com texto longo. Para um portal público que prevê telas longas (edital de 30 páginas), isso é mensurável.</p>
+            </div>
+            <div class="finding__field finding__field--rec">
+              <span class="finding__field-label">Recomendação</span>
+              <p>Remover. Inter é desenhado para renderizar bem em todo subpixel hinting sem optimizeLegibility. Manter apenas <code>-webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;</code>.</p>
+            </div>
+          </div>
+        </article>
+
+        <article class="finding">
+          <div class="finding__head">
+            <span class="tag finding__sev">P3</span>
+            <div class="finding__head-text">
+              <span class="finding__id">F-018 · base.css</span>
+              <h3 class="finding__title">Utilitários sem <code>line-height</code></h3>
+            </div>
+          </div>
+          <div class="finding__body">
+            <div class="finding__field finding__field--where">
+              <span class="finding__field-label">Onde</span>
+              <div class="finding__where">.u-label e .u-eyebrow</div>
+            </div>
+            <div class="finding__field finding__field--impact">
+              <span class="finding__field-label">Impacto</span>
+              <p>Herdam <code>--leading-normal</code> (1.5). Em eyebrow uppercase isso fica espaçado demais quando usado em KPI cards.</p>
+            </div>
+            <div class="finding__field finding__field--rec">
+              <span class="finding__field-label">Recomendação</span>
+              <p>Adicionar <code>line-height: var(--leading-snug)</code> em <code>.u-label</code> e <code>.u-eyebrow</code>.</p>
+            </div>
+          </div>
+        </article>
+
+        <article class="finding">
+          <div class="finding__head">
+            <span class="tag finding__sev">P3</span>
+            <div class="finding__head-text">
+              <span class="finding__id">F-019 · base.css</span>
+              <h3 class="finding__title">Sem <code>scrollbar-gutter: stable</code> no body</h3>
+            </div>
+          </div>
+          <div class="finding__body">
+            <div class="finding__field finding__field--where">
+              <span class="finding__field-label">Onde</span>
+              <div class="finding__where">body { ... }  /* sem scrollbar-gutter */</div>
+            </div>
+            <div class="finding__field finding__field--impact">
+              <span class="finding__field-label">Impacto</span>
+              <p>Quando um modal abre e o scroll do body é travado, o conteúdo "pula" pela largura da scrollbar. Pequeno mas perceptível.</p>
+            </div>
+            <div class="finding__field finding__field--rec">
+              <span class="finding__field-label">Recomendação</span>
+              <p>Adicionar <code>scrollbar-gutter: stable</code> ao <code>html</code> em <code>base.css</code>. Cobre o caso sem precisar de JS.</p>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- ════════════════════════════════════════════════════════════════ -->
+    <!-- COMPONENTS -->
+    <!-- ════════════════════════════════════════════════════════════════ -->
+    <section class="section" id="sec-components" aria-labelledby="h-components">
+      <div class="section__head">
+        <h2 id="h-components">Components — botões, forms, tags, etc.</h2>
+        <p>Cobertura ampla e bem documentada. Aqui o tema dominante é hex hardcoded em alguns spots e padrões secundários (left/right tooltip, dismiss em alert, empty-state) que existem na doc mas não no CSS.</p>
+      </div>
+
+      <div class="findings">
+
+        <article class="finding">
+          <div class="finding__head">
+            <span class="tag tag--solid tag--warning finding__sev">P1</span>
+            <div class="finding__head-text">
+              <span class="finding__id">F-020 · components.css</span>
+              <h3 class="finding__title">Hex literal em vários componentes</h3>
+            </div>
+          </div>
+          <div class="finding__body">
+            <div class="finding__field finding__field--where">
+              <span class="finding__field-label">Onde</span>
+              <div class="finding__where">.btn--danger          --btn-bg-hover: #dc2626<br>.input[aria-invalid]  box-shadow: 0 0 0 3px rgba(229, 34, 7, 0.25)<br>.a11y-bar             background: #0b2754<br>.a11y-bar             border: 1px solid rgba(255,255,255,0.4)<br>checkbox / switch     #fff em texto/marca</div>
+            </div>
+            <div class="finding__field finding__field--impact">
+              <span class="finding__field-label">Impacto</span>
+              <p>O lint proposto em <code>docs/tokens.md</code> (color-no-hex) reprovaria todos esses. Os pontos do <code>.a11y-bar</code> deixam a faixa de acessibilidade fora do sistema de temas — ironicamente, o lugar onde o tema importa mais.</p>
+            </div>
+            <div class="finding__field finding__field--rec">
+              <span class="finding__field-label">Recomendação</span>
+              <p>Substituir por tokens. <code>#dc2626</code> → <code>var(--color-danger-600)</code> com hover via <code>color-mix</code>. <code>rgba(229,34,7,.25)</code> → <code>color-mix(in srgb, var(--color-danger-500) 25%, transparent)</code>. <code>#0b2754</code> → tokenizar como <code>--surface-accessibility-bar</code> com variantes claro/escuro/contraste.</p>
+            </div>
+          </div>
+        </article>
+
+        <article class="finding">
+          <div class="finding__head">
+            <span class="tag tag--solid tag--warning finding__sev">P1</span>
+            <div class="finding__head-text">
+              <span class="finding__id">F-021 · components.css + uniplus-toast.js</span>
+              <h3 class="finding__title">Duas <code>.toast-region</code> empilham no mesmo canto</h3>
+            </div>
+          </div>
+          <div class="finding__body">
+            <div class="finding__field finding__field--where">
+              <span class="finding__field-label">Onde</span>
+              <div class="finding__where">uniplus-toast.js : ensureRegion(assertive) cria duas &lt;ul&gt;<br>components.css   : .toast-region tem mesmo top/right em desktop</div>
+            </div>
+            <div class="finding__field finding__field--impact">
+              <span class="finding__field-label">Impacto</span>
+              <p>Quando um toast danger (assertive) coexiste com um info (polite), ambos disputam o mesmo top-right canto e visualmente se sobrepõem.</p>
+            </div>
+            <div class="finding__field finding__field--rec">
+              <span class="finding__field-label">Recomendação</span>
+              <p>Manter <em>uma única</em> região visual com duas <code>ul</code> aninhadas (<code>aria-live</code> diferentes). Ou marcar <code>.toast-region[data-priority="assertive"]</code> e empilhá-las com flex no container externo. ARIA permite múltiplas live-regions; só a apresentação visual precisa colapsar.</p>
+            </div>
+          </div>
+        </article>
+
+        <article class="finding">
+          <div class="finding__head">
+            <span class="tag tag--solid tag--warning finding__sev">P1</span>
+            <div class="finding__head-text">
+              <span class="finding__id">F-022 · components.css</span>
+              <h3 class="finding__title">Segmented control abaixo do floor de 44 px</h3>
+            </div>
+          </div>
+          <div class="finding__body">
+            <div class="finding__field finding__field--where">
+              <span class="finding__field-label">Onde</span>
+              <div class="finding__where">.segmented__btn { min-height: 36px; }</div>
+            </div>
+            <div class="finding__field finding__field--impact">
+              <span class="finding__field-label">Impacto</span>
+              <p>O README declara "WCAG 2.5.5 AAA" como piso (44×44). Segmented está 8px abaixo. Sr. Pedro (70, catarata) — persona oficial do briefing — falha o alvo.</p>
+            </div>
+            <div class="finding__field finding__field--rec">
+              <span class="finding__field-label">Recomendação</span>
+              <p>Subir para <code>var(--touch-min)</code> (44px). Se a altura visual de 44 for "pesada" no design, manter <code>min-height: 36px</code> mas estender o hit-area com <code>padding</code> (área clicável de 44 sem aumentar a altura visual).</p>
+            </div>
+          </div>
+        </article>
+
+        <article class="finding">
+          <div class="finding__head">
+            <span class="tag tag--solid tag--warning finding__sev">P1</span>
+            <div class="finding__head-text">
+              <span class="finding__id">F-023 · components.css</span>
+              <h3 class="finding__title">Empty-state pattern existe na doc, não no CSS</h3>
+            </div>
+          </div>
+          <div class="finding__body">
+            <div class="finding__field finding__field--where">
+              <span class="finding__field-label">Onde</span>
+              <div class="finding__where">docs/component-api.md descreve .empty-state__icon, .empty-state, etc.<br>components.css NÃO contém nenhuma regra .empty-state*</div>
+            </div>
+            <div class="finding__field finding__field--impact">
+              <span class="finding__field-label">Impacto</span>
+              <p>Quem usar o markup que a doc prescreve não vai obter o visual. Empty-state é estado crítico — primeira tela quando o candidato logou e ainda não se inscreveu em nada.</p>
+            </div>
+            <div class="finding__field finding__field--rec">
+              <span class="finding__field-label">Recomendação</span>
+              <p>Implementar as classes mínimas: <code>.empty-state</code> (flex column center), <code>.empty-state__icon</code> (círculo neutro, 56×56), <code>.empty-state__title</code>, <code>.empty-state__desc</code>. Adicionar variante "erro de rede" com ícone vermelho. Cobrir no preview card.</p>
+            </div>
+          </div>
+        </article>
+
+        <article class="finding">
+          <div class="finding__head">
+            <span class="tag tag--solid tag--warning finding__sev">P1</span>
+            <div class="finding__head-text">
+              <span class="finding__id">F-024 · components.css</span>
+              <h3 class="finding__title">Tooltip "left" e "right" documentados mas não implementados</h3>
+            </div>
+          </div>
+          <div class="finding__body">
+            <div class="finding__field finding__field--where">
+              <span class="finding__field-label">Onde</span>
+              <div class="finding__where">CSS tem apenas [data-tooltip-position="top|bottom"]<br>docs/component-api.md cita "top (default) | bottom | left | right"</div>
+            </div>
+            <div class="finding__field finding__field--impact">
+              <span class="finding__field-label">Impacto</span>
+              <p>Sidebar colapsada (admin) usa tooltip à direita via CSS próprio embedded no kit — replicação que devia estar no DS.</p>
+            </div>
+            <div class="finding__field finding__field--rec">
+              <span class="finding__field-label">Recomendação</span>
+              <p>Adicionar regras left/right ao tooltip e migrar o CSS da sidebar colapsada para usar o tooltip oficial. Cobre o admin sem código duplicado.</p>
+            </div>
+          </div>
+        </article>
+
+        <article class="finding">
+          <div class="finding__head">
+            <span class="tag tag--solid tag--warning finding__sev">P1</span>
+            <div class="finding__head-text">
+              <span class="finding__id">F-025 · components.css</span>
+              <h3 class="finding__title">Carrossel oculta slides via <code>height: 0</code></h3>
+            </div>
+          </div>
+          <div class="finding__body">
+            <div class="finding__field finding__field--where">
+              <span class="finding__field-label">Onde</span>
+              <div class="finding__where">.carousel__slide[aria-hidden="true"] { visibility: hidden; height: 0; padding: 0; }</div>
+            </div>
+            <div class="finding__field finding__field--impact">
+              <span class="finding__field-label">Impacto</span>
+              <p>Os slides são filhos do <code>.carousel__track</code> que usa <code>transform: translateX()</code> para navegar. Colapsar slide para height:0 muda a largura do track e quebra o cálculo do translate. O componente fica entre dois padrões (transform-slider vs. show-one-hide-rest) e nenhum funciona bem.</p>
+            </div>
+            <div class="finding__field finding__field--rec">
+              <span class="finding__field-label">Recomendação</span>
+              <p>Escolher: (a) translateX puro — todos os slides mantêm width fixo, ARIA apenas marca aria-hidden sem mexer no layout. Ou (b) snap scroll com <code>scroll-snap-type: x mandatory</code> e remove o translate. Padrão (a) é mais previsível para 2-3 slides.</p>
+            </div>
+          </div>
+        </article>
+
+        <article class="finding">
+          <div class="finding__head">
+            <span class="tag tag--solid tag--info finding__sev">P2</span>
+            <div class="finding__head-text">
+              <span class="finding__id">F-026 · components.css</span>
+              <h3 class="finding__title">Modificador <code>.btn--pill</code> redundante</h3>
+            </div>
+          </div>
+          <div class="finding__body">
+            <div class="finding__field finding__field--where">
+              <span class="finding__field-label">Onde</span>
+              <div class="finding__where">.btn { --btn-radius: var(--radius-pill); }<br>.btn--pill { border-radius: var(--radius-pill); }</div>
+            </div>
+            <div class="finding__field finding__field--impact">
+              <span class="finding__field-label">Impacto</span>
+              <p>Pill é o default. Documentação cita <code>.btn--pill</code> como modificador. Inconsistência entre código e doc.</p>
+            </div>
+            <div class="finding__field finding__field--rec">
+              <span class="finding__field-label">Recomendação</span>
+              <p>Inverter a default: tornar <code>.btn--rect</code> opcional e <code>.btn--pill</code> nada (já é pill). Ou inverter completamente: usar radius-md como default (mais "Gov.br institucional", menos "iOS"), <code>.btn--pill</code> como modificador. Decisão de design — confirmar com Pedro/UX.</p>
+            </div>
+          </div>
+        </article>
+
+        <article class="finding">
+          <div class="finding__head">
+            <span class="tag tag--solid tag--info finding__sev">P2</span>
+            <div class="finding__head-text">
+              <span class="finding__id">F-027 · components.css</span>
+              <h3 class="finding__title">Breadcrumb item atual sem distinção tipográfica</h3>
+            </div>
+          </div>
+          <div class="finding__body">
+            <div class="finding__field finding__field--where">
+              <span class="finding__field-label">Onde</span>
+              <div class="finding__where">.breadcrumb__link    { color: var(--color-primary); text-decoration: none; }<br>.breadcrumb__current { color: var(--text-primary); font-weight: medium; }</div>
+            </div>
+            <div class="finding__field finding__field--impact">
+              <span class="finding__field-label">Impacto</span>
+              <p>A distinção atual é por <em>cor</em>, com font-weight quase igual. Para daltônicos (João, 24 — persona oficial), a separação some.</p>
+            </div>
+            <div class="finding__field finding__field--rec">
+              <span class="finding__field-label">Recomendação</span>
+              <p>Subir <code>.breadcrumb__current</code> para <code>weight-semibold</code> ou bold. Manter <code>aria-current="page"</code>. Não-cor cobre o requisito 1.4.1.</p>
+            </div>
+          </div>
+        </article>
+
+        <article class="finding">
+          <div class="finding__head">
+            <span class="tag tag--solid tag--info finding__sev">P2</span>
+            <div class="finding__head-text">
+              <span class="finding__id">F-028 · components.css</span>
+              <h3 class="finding__title">Valores fora da escala em padding/margem</h3>
+            </div>
+          </div>
+          <div class="finding__body">
+            <div class="finding__field finding__field--where">
+              <span class="finding__field-label">Onde</span>
+              <div class="finding__where">.stepper__bar    margin-bottom: 20px<br>.filter-chip     padding: 7px 14px<br>.tag             padding: 4px 10px<br>.tag--solid      padding-inline: var(--space-3) — ok<br>.user-chip       padding: 4px 12px 4px 4px</div>
+            </div>
+            <div class="finding__field finding__field--impact">
+              <span class="finding__field-label">Impacto</span>
+              <p>O <code>tokens.md</code> declara "Nada fora da escala. Se você precisa de 22px, está usando mal." Hoje há ~6 violações no próprio components.css.</p>
+            </div>
+            <div class="finding__field finding__field--rec">
+              <span class="finding__field-label">Recomendação</span>
+              <p>Trocar para múltiplos de 4 (espaços 1,2,3). Onde for absolutamente necessário um valor entre tokens (typically chip/tag), introduzir <code>--space-half-2: 6px</code> e <code>--space-half-3: 10px</code> como exceções tokenizadas. Lint não vai reclamar de var().</p>
+            </div>
+          </div>
+        </article>
+
+        <article class="finding">
+          <div class="finding__head">
+            <span class="tag tag--solid tag--info finding__sev">P2</span>
+            <div class="finding__head-text">
+              <span class="finding__id">F-029 · components.css</span>
+              <h3 class="finding__title">Hierarquia visual entre alertas pouco assertiva</h3>
+            </div>
+          </div>
+          <div class="finding__body">
+            <div class="finding__field finding__field--where">
+              <span class="finding__field-label">Onde</span>
+              <div class="finding__where">.alert--success / --warning / --danger / --info  todas usam mesmo padding, mesmo border-left: 4px.</div>
+            </div>
+            <div class="finding__field finding__field--impact">
+              <span class="finding__field-label">Impacto</span>
+              <p>Em uma tela com 3 alertas simultâneos (que acontece — pós-submit do wizard), todos competem por atenção. Danger devia "pesar mais" visualmente.</p>
+            </div>
+            <div class="finding__field finding__field--rec">
+              <span class="finding__field-label">Recomendação</span>
+              <p>Em <code>.alert--danger</code>: subir border-left para 6px, adicionar leve shadow-1. Em <code>.alert--success</code>: manter padrão atual (informação positiva, sem ruído). Hierarquia: danger > warning > info ≈ success.</p>
+            </div>
+          </div>
+        </article>
+
+        <article class="finding">
+          <div class="finding__head">
+            <span class="tag finding__sev">P3</span>
+            <div class="finding__head-text">
+              <span class="finding__id">F-030 · components.css</span>
+              <h3 class="finding__title">Dialog em mobile usa <code>flex-direction: column-reverse</code> no footer</h3>
+            </div>
+          </div>
+          <div class="finding__body">
+            <div class="finding__field finding__field--where">
+              <span class="finding__field-label">Onde</span>
+              <div class="finding__where">.uni-dialog__footer { flex-direction: column-reverse; }</div>
+            </div>
+            <div class="finding__field finding__field--impact">
+              <span class="finding__field-label">Impacto</span>
+              <p>Ação primária (último filho na ordem do DOM, padrão web) aparece <em>em cima</em> em mobile. Inverte expectativa de iOS (cancel-acima/confirm-abaixo) e do Material (botão de ação no canto inferior direito).</p>
+            </div>
+            <div class="finding__field finding__field--rec">
+              <span class="finding__field-label">Recomendação</span>
+              <p>Decisão de produto. Se mantiver, documentar <em>explicitamente</em> em <code>docs/component-api.md</code> com print mostrando ordem mobile vs desktop. Briefing-ux.md provavelmente tem a referência — alinhar.</p>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- ════════════════════════════════════════════════════════════════ -->
+    <!-- DARK -->
+    <!-- ════════════════════════════════════════════════════════════════ -->
+    <section class="section" id="sec-dark" aria-labelledby="h-dark">
+      <div class="section__head">
+        <h2 id="h-dark">Tema escuro</h2>
+        <p>Os 4 críticos relacionados a dark já estão na seção P0. Aqui ficam os ajustes complementares para o tema ficar realmente "produção-ready".</p>
+      </div>
+
+      <div class="findings">
+
+        <article class="finding">
+          <div class="finding__head">
+            <span class="tag tag--solid tag--warning finding__sev">P1</span>
+            <div class="finding__head-text">
+              <span class="finding__id">F-031 · contrast.md</span>
+              <h3 class="finding__title">Matriz de contraste do dark incompleta</h3>
+            </div>
+          </div>
+          <div class="finding__body">
+            <div class="finding__field finding__field--where">
+              <span class="finding__field-label">Onde</span>
+              <div class="finding__where">docs/contrast.md (seção "Tema dark")  — texto×card listado, mas falta:<br>· text-secondary × surface-subtle<br>· text-muted × surface-card<br>· border-* × surface-page</div>
+            </div>
+            <div class="finding__field finding__field--impact">
+              <span class="finding__field-label">Impacto</span>
+              <p>O briefing exige "toda combinação texto/fundo usada em produção deve estar listada com ratio computado". Hoje só ~70% do dark está documentado.</p>
+            </div>
+            <div class="finding__field finding__field--rec">
+              <span class="finding__field-label">Recomendação</span>
+              <p>Completar a matriz. Sugestão: usar axe-core para gerar relatório automatizado e versionar como <code>contrast.report.json</code> regenerado em CI.</p>
+            </div>
+          </div>
+        </article>
+
+        <article class="finding">
+          <div class="finding__head">
+            <span class="tag tag--solid tag--info finding__sev">P2</span>
+            <div class="finding__head-text">
+              <span class="finding__id">F-032 · tokens.css</span>
+              <h3 class="finding__title">Bordas no dark perdem hierarquia</h3>
+            </div>
+          </div>
+          <div class="finding__body">
+            <div class="finding__field finding__field--where">
+              <span class="finding__field-label">Onde</span>
+              <div class="finding__where">dark: --border-subtle #334155 / --border-default #475569 / --border-strong #64748b</div>
+            </div>
+            <div class="finding__field finding__field--impact">
+              <span class="finding__field-label">Impacto</span>
+              <p>A diferença subtle→default→strong é ~18% luma cada. Em dark com surface-page <code>#0f172a</code>, a borda subtle some.</p>
+            </div>
+            <div class="finding__field finding__field--rec">
+              <span class="finding__field-label">Recomendação</span>
+              <p>Subir border-subtle no dark para <code>#3f4d65</code>. Garante ≥1.4:1 vs surface-page (suficiente para "borda decorativa") e visualmente perceptível.</p>
+            </div>
+          </div>
+        </article>
+
+        <article class="finding">
+          <div class="finding__head">
+            <span class="tag tag--solid tag--info finding__sev">P2</span>
+            <div class="finding__head-text">
+              <span class="finding__id">F-033 · tokens.css</span>
+              <h3 class="finding__title">Surface-overlay no dark muito opaco</h3>
+            </div>
+          </div>
+          <div class="finding__body">
+            <div class="finding__field finding__field--where">
+              <span class="finding__field-label">Onde</span>
+              <div class="finding__where">dark: --surface-overlay = rgba(0,0,0,0.7)</div>
+            </div>
+            <div class="finding__field finding__field--impact">
+              <span class="finding__field-label">Impacto</span>
+              <p>Modal sobre fundo escuro com overlay 70% → contraste excessivo entre modal (mais claro) e backdrop. Visualmente "flutua" demais. Convenção é overlay menos opaco no dark (40-50%).</p>
+            </div>
+            <div class="finding__field finding__field--rec">
+              <span class="finding__field-label">Recomendação</span>
+              <p>Baixar para 0.55-0.6 no dark.</p>
+            </div>
+          </div>
+        </article>
+
+        <article class="finding">
+          <div class="finding__head">
+            <span class="tag finding__sev">P3</span>
+            <div class="finding__head-text">
+              <span class="finding__id">F-034 · tokens.css</span>
+              <h3 class="finding__title"><code>color-scheme: light</code> redundante no [data-theme="dark"]</h3>
+            </div>
+          </div>
+          <div class="finding__body">
+            <div class="finding__field finding__field--where">
+              <span class="finding__field-label">Onde</span>
+              <div class="finding__where">tokens.css : 233 — :root[data-theme="dark"], :root[data-theme="auto"] { color-scheme: light; }<br>tokens.css : 237 — :root[data-theme="dark"] { color-scheme: dark; }</div>
+            </div>
+            <div class="finding__field finding__field--impact">
+              <span class="finding__field-label">Impacto</span>
+              <p>A primeira regra inclui [data-theme="dark"] e seta color-scheme: light, depois a segunda regra sobrescreve para dark. Funciona, mas é confuso ler.</p>
+            </div>
+            <div class="finding__field finding__field--rec">
+              <span class="finding__field-label">Recomendação</span>
+              <p>Limpar: <code>:root[data-theme="auto"] { color-scheme: light; }</code> e <code>:root[data-theme="dark"] { color-scheme: dark; }</code> separados, sem grupo.</p>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- ════════════════════════════════════════════════════════════════ -->
+    <!-- HIGH CONTRAST -->
+    <!-- ════════════════════════════════════════════════════════════════ -->
+    <section class="section" id="sec-hc" aria-labelledby="h-hc">
+      <div class="section__head">
+        <h2 id="h-hc">Tema alto contraste</h2>
+        <p>Este é o tema mais frágil hoje. Cobre texto base, mas qualquer componente que use cores de feedback (alert, tag, timeline) ainda renderiza com paleta light/dark — quebrando o propósito do modo.</p>
+      </div>
+
+      <div class="findings">
+
+        <article class="finding">
+          <div class="finding__head">
+            <span class="tag tag--solid tag--warning finding__sev">P1</span>
+            <div class="finding__head-text">
+              <span class="finding__id">F-035 · tokens.css</span>
+              <h3 class="finding__title">Feedback (success/warning/danger/info) não definidos no contrast</h3>
+            </div>
+          </div>
+          <div class="finding__body">
+            <div class="finding__field finding__field--where">
+              <span class="finding__field-label">Onde</span>
+              <div class="finding__where">:root[data-theme="contrast"] { ... }<br>— redefine surface/text/border/primary/focus<br>— NÃO redefine --color-success-*, --color-warning-*, etc.</div>
+            </div>
+            <div class="finding__field finding__field--impact">
+              <span class="finding__field-label">Impacto</span>
+              <p>Quando Carla (NVDA + zoom 200%, persona oficial) ativa o modo contraste e abre um alert de sucesso, vê texto verde-escuro <code>#0a5a16</code> sobre fundo verde-claro <code>#e7f4e9</code> — quebra a regra "fundo preto, texto amarelo" do modo. O alert vira uma ilha de paleta light dentro de uma tela contrast.</p>
+            </div>
+            <div class="finding__field finding__field--rec">
+              <span class="finding__field-label">Recomendação</span>
+              <p>Definir todos os tokens de feedback no bloco contrast. Convenção: todos os "50" viram <code>#000</code>, os "600"/"700" viram <code>#ffff00</code>, com border explícito (porque tudo é preto). Aceitar que o modo contrast deliberadamente <em>colapsa</em> as semânticas de cor — a hierarquia agora é tipográfica e por ícone, não cromática.</p>
+            </div>
+          </div>
+        </article>
+
+        <article class="finding">
+          <div class="finding__head">
+            <span class="tag tag--solid tag--info finding__sev">P2</span>
+            <div class="finding__head-text">
+              <span class="finding__id">F-036 · tokens.css</span>
+              <h3 class="finding__title">Bordas do contrast todas iguais</h3>
+            </div>
+          </div>
+          <div class="finding__body">
+            <div class="finding__field finding__field--where">
+              <span class="finding__field-label">Onde</span>
+              <div class="finding__where">--border-subtle = --border-default = --border-strong = #ffff00</div>
+            </div>
+            <div class="finding__field finding__field--impact">
+              <span class="finding__field-label">Impacto</span>
+              <p>O ponto da hierarquia (subtle/default/strong) some. No contrast, todos os elementos têm borda da mesma força — visualmente "tudo grita".</p>
+            </div>
+            <div class="finding__field finding__field--rec">
+              <span class="finding__field-label">Recomendação</span>
+              <p>Manter strong = #ffff00 (3px) para foco e estados ativos. Default = #ffff00 (1px). Subtle = <code>#666666</code> (decorativo) ou usar dashed para distinguir sem cor. Validar com usuários do NAIA antes de fechar.</p>
+            </div>
+          </div>
+        </article>
+
+        <article class="finding">
+          <div class="finding__head">
+            <span class="tag finding__sev">P3</span>
+            <div class="finding__head-text">
+              <span class="finding__id">F-037 · tokens.css</span>
+              <h3 class="finding__title"><code>color-scheme</code> errado no contrast</h3>
+            </div>
+          </div>
+          <div class="finding__body">
+            <div class="finding__field finding__field--where">
+              <span class="finding__field-label">Onde</span>
+              <div class="finding__where">:root[data-theme="contrast"] { color-scheme: light; }</div>
+            </div>
+            <div class="finding__field finding__field--impact">
+              <span class="finding__field-label">Impacto</span>
+              <p>Fundo preto + <code>color-scheme: light</code> faz scrollbars nativas renderizarem claras sobre fundo preto — contraste forte com o resto. Convenção: <code>color-scheme: dark</code> em temas de fundo preto.</p>
+            </div>
+            <div class="finding__field finding__field--rec">
+              <span class="finding__field-label">Recomendação</span>
+              <p>Mudar para <code>color-scheme: dark</code>.</p>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- ════════════════════════════════════════════════════════════════ -->
+    <!-- UI KITS -->
+    <!-- ════════════════════════════════════════════════════════════════ -->
+    <section class="section" id="sec-kits" aria-labelledby="h-kits">
+      <div class="section__head">
+        <h2 id="h-kits">UI kits — Portal & Admin</h2>
+        <p>Os dois kits demonstram bem o sistema; defeitos aqui são pequenos mas perceptíveis.</p>
+      </div>
+
+      <div class="findings">
+
+        <article class="finding">
+          <div class="finding__head">
+            <span class="tag tag--solid tag--warning finding__sev">P1</span>
+            <div class="finding__head-text">
+              <span class="finding__id">F-038 · ui_kits/portal</span>
+              <h3 class="finding__title">Links institucionais escondidos em mobile</h3>
+            </div>
+          </div>
+          <div class="finding__body">
+            <div class="finding__field finding__field--where">
+              <span class="finding__field-label">Onde</span>
+              <div class="finding__where">components.css : @media (max-width: 640px) { .gov-bar__links a:not(:first-child) { display: none; } }<br>Esconde "Acessibilidade" e "Privacidade" em mobile.</div>
+            </div>
+            <div class="finding__field finding__field--impact">
+              <span class="finding__field-label">Impacto</span>
+              <p>"Acessibilidade" é direito do usuário e "Privacidade" cobre obrigação LGPD. Esconder em mobile (onde a maioria do tráfego do candidato Unifesspa vai estar) cria fricção legal. Gov.br DS exige presença em todas as breakpoints.</p>
+            </div>
+            <div class="finding__field finding__field--rec">
+              <span class="finding__field-label">Recomendação</span>
+              <p>Manter visíveis em mobile. Se faltar espaço, colapsar em um menu "...", não esconder. Alternativa: mover esses dois links para o footer (que sempre é visível) e manter na gov-bar só "Mapa do site".</p>
+            </div>
+          </div>
+        </article>
+
+        <article class="finding">
+          <div class="finding__head">
+            <span class="tag tag--solid tag--info finding__sev">P2</span>
+            <div class="finding__head-text">
+              <span class="finding__id">F-039 · ui_kits/portal</span>
+              <h3 class="finding__title">Subnav com scroll horizontal sem indicação visual</h3>
+            </div>
+          </div>
+          <div class="finding__body">
+            <div class="finding__field finding__field--where">
+              <span class="finding__field-label">Onde</span>
+              <div class="finding__where">.subnav { overflow-x: auto; scrollbar-width: thin; }</div>
+            </div>
+            <div class="finding__field finding__field--impact">
+              <span class="finding__field-label">Impacto</span>
+              <p>Em mobile, links "cortados" no canto direito não sinalizam que existem mais. Usuários não descobrem. Comum em portais com 6+ seções.</p>
+            </div>
+            <div class="finding__field finding__field--rec">
+              <span class="finding__field-label">Recomendação</span>
+              <p>Adicionar fade gradient no canto direito quando há mais conteúdo: <code>mask-image: linear-gradient(90deg, #000 0 95%, transparent)</code>. Ou setas pequenas que aparecem quando há overflow (mais explícito, melhor para baixa visão).</p>
+            </div>
+          </div>
+        </article>
+
+        <article class="finding">
+          <div class="finding__head">
+            <span class="tag tag--solid tag--info finding__sev">P2</span>
+            <div class="finding__head-text">
+              <span class="finding__id">F-040 · ui_kits/admin</span>
+              <h3 class="finding__title">Sidebar tooltip duplica padrão do DS</h3>
+            </div>
+          </div>
+          <div class="finding__body">
+            <div class="finding__field finding__field--where">
+              <span class="finding__field-label">Onde</span>
+              <div class="finding__where">ui_kits/admin/index.html :85–110 — bloco CSS dentro de &lt;style&gt; do kit cria seu próprio tooltip da sidebar colapsada.</div>
+            </div>
+            <div class="finding__field finding__field--impact">
+              <span class="finding__field-label">Impacto</span>
+              <p>Funciona, mas reimplementa o padrão <code>[data-tooltip]</code> que está em components.css. Quando o componente Angular for criado, vai precisar decidir qual versão herdar.</p>
+            </div>
+            <div class="finding__field finding__field--rec">
+              <span class="finding__field-label">Recomendação</span>
+              <p>Resolver F-024 (left/right) primeiro. Aí o sidebar colapsado consome <code>[data-tooltip][data-tooltip-position="right"]</code> nativo.</p>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- ════════════════════════════════════════════════════════════════ -->
+    <!-- DOCS & PREVIEW -->
+    <!-- ════════════════════════════════════════════════════════════════ -->
+    <section class="section" id="sec-docs" aria-labelledby="h-docs">
+      <div class="section__head">
+        <h2 id="h-docs">Docs & preview cards</h2>
+        <p>Doc é uma das partes mais fortes do projeto. Os achados são todos de "doc-out-of-sync" com o código.</p>
+      </div>
+
+      <div class="findings">
+
+        <article class="finding">
+          <div class="finding__head">
+            <span class="tag tag--solid tag--warning finding__sev">P1</span>
+            <div class="finding__head-text">
+              <span class="finding__id">F-041 · docs/component-api.md</span>
+              <h3 class="finding__title">Skeleton e Spinner descritos como "TODO" mas já existem</h3>
+            </div>
+          </div>
+          <div class="finding__body">
+            <div class="finding__field finding__field--where">
+              <span class="finding__field-label">Onde</span>
+              <div class="finding__where">component-api.md : "Skeleton loader — TODO" / "Loading spinner — pendente"<br>components.css   : skeleton (~574-595) e spinner (~601-625) implementados</div>
+            </div>
+            <div class="finding__field finding__field--impact">
+              <span class="finding__field-label">Impacto</span>
+              <p>Quem ler a doc não saberá que existe. Vai duplicar.</p>
+            </div>
+            <div class="finding__field finding__field--rec">
+              <span class="finding__field-label">Recomendação</span>
+              <p>Mover de "TODO" para a seção de componentes oficiais, com anatomia + ARIA. Adicionar versão Angular standalone como pattern. Atualizar o backlog "O que vem por aí" removendo skeleton e spinner.</p>
+            </div>
+          </div>
+        </article>
+
+        <article class="finding">
+          <div class="finding__head">
+            <span class="tag tag--solid tag--warning finding__sev">P1</span>
+            <div class="finding__head-text">
+              <span class="finding__id">F-042 · components.css + docs/cursor-pagination.md</span>
+              <h3 class="finding__title">Contrato cursor contradiz entre CSS-comment e doc</h3>
+            </div>
+          </div>
+          <div class="finding__body">
+            <div class="finding__field finding__field--where">
+              <span class="finding__field-label">Onde</span>
+              <div class="finding__where">components.css (.pager comment): "API retorna { items, nextCursor, prevCursor, hasNext, hasPrev }"<br>docs/cursor-pagination.md     : "Body é array puro. NÃO existe hasNext no body. Cursores vêm no header Link (RFC 8288)."</div>
+            </div>
+            <div class="finding__field finding__field--impact">
+              <span class="finding__field-label">Impacto</span>
+              <p>Doc canônica diz uma coisa, comentário inline do CSS diz outra. Quem chegar pela ordem inversa (lendo components.css primeiro) vai implementar errado e quebrar no QA.</p>
+            </div>
+            <div class="finding__field finding__field--rec">
+              <span class="finding__field-label">Recomendação</span>
+              <p>Reescrever o comentário do <code>.pager</code> linkando para <code>docs/cursor-pagination.md</code> e mantendo apenas o que é UI (markup esperado, estados disabled, copy). Não duplicar contrato de API em CSS.</p>
+            </div>
+          </div>
+        </article>
+
+        <article class="finding">
+          <div class="finding__head">
+            <span class="tag tag--solid tag--info finding__sev">P2</span>
+            <div class="finding__head-text">
+              <span class="finding__id">F-043 · preview/colors-themes.html</span>
+              <h3 class="finding__title">Paleta do dark no preview difere da produção</h3>
+            </div>
+          </div>
+          <div class="finding__body">
+            <div class="finding__field finding__field--where">
+              <span class="finding__field-label">Onde</span>
+              <div class="finding__where">preview/colors-themes.html : usa #0a1628 como fundo do "DARK · EXPLICIT"<br>tokens.css (dark)          : --surface-page = #0f172a</div>
+            </div>
+            <div class="finding__field finding__field--impact">
+              <span class="finding__field-label">Impacto</span>
+              <p>O cartão do Design System tab mostra um dark que não bate com o que vai pra produção.</p>
+            </div>
+            <div class="finding__field finding__field--rec">
+              <span class="finding__field-label">Recomendação</span>
+              <p>Refatorar o card para consumir tokens em vez de hex inline. Aplica-se a todos os 45 preview cards: idealmente nenhum deveria ter hex hardcoded.</p>
+            </div>
+          </div>
+        </article>
+
+        <article class="finding">
+          <div class="finding__head">
+            <span class="tag tag--solid tag--info finding__sev">P2</span>
+            <div class="finding__head-text">
+              <span class="finding__id">F-044 · docs/tokens.md</span>
+              <h3 class="finding__title">Stylelint config sem arquivo correspondente</h3>
+            </div>
+          </div>
+          <div class="finding__body">
+            <div class="finding__field finding__field--where">
+              <span class="finding__field-label">Onde</span>
+              <div class="finding__where">tokens.md descreve regras Stylelint detalhadas, mas não há .stylelintrc.* no repo.</div>
+            </div>
+            <div class="finding__field finding__field--impact">
+              <span class="finding__field-label">Impacto</span>
+              <p>Regra que não é executada = regra inexistente. Os achados F-020 e F-028 só existiriam se o lint estivesse rodando.</p>
+            </div>
+            <div class="finding__field finding__field--rec">
+              <span class="finding__field-label">Recomendação</span>
+              <p>Materializar como <code>.stylelintrc.json</code> no root, rodar como pre-commit hook. Documentar no <code>contributing.md</code>.</p>
+            </div>
+          </div>
+        </article>
+
+        <article class="finding">
+          <div class="finding__head">
+            <span class="tag finding__sev">P3</span>
+            <div class="finding__head-text">
+              <span class="finding__id">F-045 · README.md</span>
+              <h3 class="finding__title"><code>@theme inline</code> com self-reference confunde</h3>
+            </div>
+          </div>
+          <div class="finding__body">
+            <div class="finding__field finding__field--where">
+              <span class="finding__field-label">Onde</span>
+              <div class="finding__where">@theme inline {<br>&nbsp;&nbsp;--color-primary: var(--color-primary);<br>&nbsp;&nbsp;...<br>}</div>
+            </div>
+            <div class="finding__field finding__field--impact">
+              <span class="finding__field-label">Impacto</span>
+              <p>Funciona no Tailwind 4/5 mas a leitura é confusa — parece bug (variável referenciando ela mesma). Quem não conhece o pattern do <code>@theme inline</code> vai tropeçar.</p>
+            </div>
+            <div class="finding__field finding__field--rec">
+              <span class="finding__field-label">Recomendação</span>
+              <p>Manter como está (é idiomático em Tailwind 4), mas adicionar comentário inline: <code>/* Tailwind reads the right-hand var() at compile time and inlines its value */</code>.</p>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- ════════════════════════════════════════════════════════════════ -->
+    <!-- ROADMAP -->
+    <!-- ════════════════════════════════════════════════════════════════ -->
+    <section class="section" id="sec-roadmap" aria-labelledby="h-roadmap">
+      <div class="section__head">
+        <h2 id="h-roadmap">Roadmap proposto</h2>
+        <p>Sugestão de ordem para o backlog de correção. P0 antes de qualquer release; P1 antes do primeiro freeze; P2/P3 em sprint contínuo.</p>
+      </div>
+
+      <div class="roadmap">
+
+        <div class="lane lane--p0">
+          <div class="lane__head">
+            <h3 class="lane__title">P0 — primeira sprint</h3>
+            <span class="tag tag--solid tag--danger">~2 dias</span>
+          </div>
+          <p class="lane__desc">Tudo gira em torno de uma decisão única: <strong>tokens semânticos por tema</strong>. Resolver isso destrava F-002, F-003, F-004, F-005 simultaneamente.</p>
+          <ul class="lane__list">
+            <li>Remover <code>border-radius</code> da regra <code>:focus-visible</code> em base.css <small>F-001</small></li>
+            <li>Introduzir <code>--surface-disabled</code> + <code>--text-disabled</code>, refatorar botões / inputs / pager <small>F-002</small></li>
+            <li>Introduzir <code>--skeleton-from</code> / <code>--skeleton-to</code> tokenizados por tema <small>F-003</small></li>
+            <li>Tokenizar <code>--avatar-bg</code> / <code>--avatar-fg</code> com track dark <small>F-004</small></li>
+            <li>Trocar <code>--color-success-600</code> por <code>-solid</code> em stepper / timeline / toast <small>F-005</small></li>
+            <li>Mudar <code>--border-strong</code> light para <code>#64748b</code> e atualizar contrast.md <small>F-006</small></li>
+          </ul>
+        </div>
+
+        <div class="lane lane--p1">
+          <div class="lane__head">
+            <h3 class="lane__title">P1 — segunda sprint</h3>
+            <span class="tag tag--solid tag--warning">~3 dias</span>
+          </div>
+          <p class="lane__desc">Qualidade, consistência e a parte mais sensível do produto: o tema alto contraste para usuários PcD.</p>
+          <ul class="lane__list">
+            <li>Refatorar bloco dark duplicado em tokens.css <small>F-007</small></li>
+            <li>Surface-banner com mix sutil no dark <small>F-008</small></li>
+            <li>Tokens cross-reference (info → primary, etc.) <small>F-009</small></li>
+            <li>Subir <code>--text-muted</code> para passar AA <small>F-010</small></li>
+            <li>Self-host de Inter / JetBrains Mono <small>F-011</small></li>
+            <li>Tokenizar todos os hex hardcoded em components.css <small>F-020</small></li>
+            <li>Resolver double-region do toast <small>F-021</small></li>
+            <li>Subir segmented control para 44 px <small>F-022</small></li>
+            <li>Implementar <code>.empty-state</code> + preview card <small>F-023</small></li>
+            <li>Tooltip left/right + migrar sidebar do admin <small>F-024</small></li>
+            <li>Reescrever carrossel (escolher slider vs snap) <small>F-025</small></li>
+            <li>Completar matriz de contraste do dark <small>F-031</small></li>
+            <li>Definir tokens de feedback no contrast theme <small>F-035</small></li>
+            <li>Links institucionais visíveis em mobile <small>F-038</small></li>
+            <li>Skeleton/Spinner para fora do "TODO" <small>F-041</small></li>
+            <li>Reconciliar contrato cursor (comment vs doc) <small>F-042</small></li>
+          </ul>
+        </div>
+
+        <div class="lane lane--p2">
+          <div class="lane__head">
+            <h3 class="lane__title">P2 + P3 — polish contínuo</h3>
+            <span class="tag tag--solid tag--info">~2 dias</span>
+          </div>
+          <p class="lane__desc">Sprint de detalhe. Pega depois que P0/P1 destravam o subir-pra-produção.</p>
+          <ul class="lane__list">
+            <li>Skip-link <code>fixed</code> + remover <code>text-rendering</code> + line-height em utilitários <small>F-016/17/18</small></li>
+            <li><code>scrollbar-gutter: stable</code> no html <small>F-019</small></li>
+            <li>Definir default de raio (pill vs rect) <small>F-026</small></li>
+            <li>Hierarquia visual entre alerts <small>F-029</small></li>
+            <li>Stepper bar e filter chip nas escalas <small>F-028</small></li>
+            <li>Breadcrumb current com weight diferente <small>F-027</small></li>
+            <li>Bordas e overlay no dark <small>F-032/33</small></li>
+            <li>Limpeza <code>color-scheme</code> <small>F-034/37</small></li>
+            <li>Fade indicator no subnav scroll <small>F-039</small></li>
+            <li>Tokens órfãos / surface-elevated / shadow dark <small>F-012/13/14</small></li>
+            <li>Tokenizar <code>--text-aaa</code> <small>F-015</small></li>
+            <li>Materializar <code>.stylelintrc.json</code> <small>F-044</small></li>
+            <li>Preview cards consumindo tokens <small>F-043</small></li>
+            <li>Documentar coluna-reversa do dialog footer <small>F-030</small></li>
+          </ul>
+        </div>
+
+      </div>
+    </section>
+
+  </div>
+</main>
+
+<!-- ──────────────────────────────────────────────────────────────────── -->
+<!-- Footer -->
+<!-- ──────────────────────────────────────────────────────────────────── -->
+<footer class="audit-footer">
+  <div class="container" style="display: grid; grid-template-columns: 1fr; gap: var(--space-5);">
+    <div>
+      <h5>Sobre esta auditoria</h5>
+      <p>
+        Revisão estática do repositório Uni+ Design System em 25 de maio de 2026.
+        Critérios aplicados: WCAG 2.1 (AA piso, AAA onde viável), e-MAG 3.1, Gov.br DS 3.7, LGPD,
+        e o briefing UX canônico (<code style="font-family:var(--font-mono);font-size:12.5px;background:rgba(255,255,255,.1);padding:1px 6px;border-radius:3px">uploads/briefing-ux.md</code>).
+      </p>
+    </div>
+    <div style="display:flex;flex-wrap:wrap;gap: var(--space-3);">
+      <span class="pill-stat" style="background:rgba(255,255,255,.1);color:rgba(255,255,255,.85)"><strong style="color:#fff">11</strong> arquivos do DS</span>
+      <span class="pill-stat" style="background:rgba(255,255,255,.1);color:rgba(255,255,255,.85)"><strong style="color:#fff">45</strong> preview cards</span>
+      <span class="pill-stat" style="background:rgba(255,255,255,.1);color:rgba(255,255,255,.85)"><strong style="color:#fff">2</strong> UI kits</span>
+      <span class="pill-stat" style="background:rgba(255,255,255,.1);color:rgba(255,255,255,.85)"><strong style="color:#fff">5</strong> docs</span>
+      <span class="pill-stat" style="background:rgba(255,255,255,.1);color:rgba(255,255,255,.85)"><strong style="color:#fff">4</strong> scripts a11y/form</span>
+    </div>
+    <p style="opacity:.6;font-size:var(--text-xs)">Nenhum arquivo foi modificado durante esta auditoria. Use este documento como base para o backlog em <code style="font-family:var(--font-mono);font-size:11px;background:rgba(255,255,255,.1);padding:1px 6px;border-radius:3px">docs/adrs/</code>.</p>
+  </div>
+</footer>
+
+</body>
+</html>

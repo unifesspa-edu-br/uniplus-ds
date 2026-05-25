@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="auto">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Previews — Uni+ Design System</title>
+<link rel="stylesheet" href="../tokens.css">
+<link rel="stylesheet" href="../base.css">
+<link rel="stylesheet" href="../components.css">
+<style>
+  body { background: var(--surface-page); }
+  .preview-index { padding-block: var(--space-7); }
+  .preview-index__head { display: flex; flex-direction: column; gap: var(--space-2); margin-bottom: var(--space-7); }
+  .preview-index__head h1 { font-size: var(--text-3xl); color: var(--text-heading); margin: 0; line-height: var(--leading-tight); }
+  .preview-index__head p { color: var(--text-secondary); max-width: var(--measure-prose); margin: 0; }
+  .preview-section { margin-top: var(--space-8); }
+  .preview-section__head { display: flex; align-items: baseline; justify-content: space-between; gap: var(--space-4); margin-bottom: var(--space-4); border-bottom: 1px solid var(--border-subtle); padding-bottom: var(--space-2); }
+  .preview-section__head h2 { font-size: var(--text-xl); color: var(--text-heading); margin: 0; }
+  .preview-section__head span { color: var(--text-muted); font-size: var(--text-sm); }
+  .preview-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: var(--space-4); }
+  .preview-card { background: var(--surface-card); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); overflow: hidden; display: flex; flex-direction: column; min-width: 0; }
+  .preview-card__thumb { width: 100%; height: 90px; background: var(--surface-subtle); border-bottom: 1px solid var(--border-subtle); overflow: hidden; display: block; }
+  .preview-card__thumb iframe { width: 700px; height: 394px; border: 0; transform: scale(0.229); transform-origin: 0 0; pointer-events: none; background: transparent; }
+  .preview-card__body { padding: var(--space-3); display: flex; flex-direction: column; gap: var(--space-1); min-width: 0; }
+  .preview-card__body h3 { font-size: var(--text-sm); margin: 0; color: var(--text-heading); }
+  .preview-card__body a { color: inherit; text-decoration: none; }
+  .preview-card__body a:hover { text-decoration: underline; }
+  .preview-card__body code { font-family: var(--font-mono); font-size: var(--text-xs); color: var(--text-muted); overflow-wrap: anywhere; }
+</style>
+</head>
+<body>
+  <main class="preview-index">
+    <div class="container">
+      <header class="preview-index__head">
+        <span class="u-eyebrow">Uni+ Design System</span>
+        <h1>Preview index</h1>
+        <p>Cards e patterns estáticos usados para revisar tokens, componentes e kits visuais em light, dark e contrast.</p>
+      </header>
+    <section class="preview-section" aria-labelledby="colors-heading">
+      <div class="preview-section__head">
+        <h2 id="colors-heading">Colors</h2>
+        <span>5 arquivos</span>
+      </div>
+      <div class="preview-grid">
+        <article class="preview-card">
+          <a class="preview-card__thumb" href="colors-feedback.html" aria-label="Abrir colors-feedback.html">
+            <iframe src="colors-feedback.html" title="colors-feedback.html" loading="lazy" tabindex="-1"></iframe>
+          </a>
+          <div class="preview-card__body">
+            <h3><a href="colors-feedback.html">Feedback</a></h3>
+            <code>colors-feedback.html</code>
+          </div>
+        </article>
+        <article class="preview-card">
+          <a class="preview-card__thumb" href="colors-focus.html" aria-label="Abrir colors-focus.html">
+            <iframe src="colors-focus.html" title="colors-focus.html" loading="lazy" tabindex="-1"></iframe>
+          </a>
+          <div class="preview-card__body">
+            <h3><a href="colors-focus.html">Focus</a></h3>
+            <code>colors-focus.html</code>
+          </div>
+        </article>
+        <article class="preview-card">
+          <a class="preview-card__thumb" href="colors-neutrals.html" aria-label="Abrir colors-neutrals.html">
+            <iframe src="colors-neutrals.html" title="colors-neutrals.html" loading="lazy" tabindex="-1"></iframe>
+          </a>
+          <div class="preview-card__body">
+            <h3><a href="colors-neutrals.html">Neutrals</a></h3>
+            <code>colors-neutrals.html</code>
+          </div>
+        </article>
+        <article class="preview-card">
+          <a class="preview-card__thumb" href="colors-primary.html" aria-label="Abrir colors-primary.html">
+            <iframe src="colors-primary.html" title="colors-primary.html" loading="lazy" tabindex="-1"></iframe>
+          </a>
+          <div class="preview-card__body">
+            <h3><a href="colors-primary.html">Primary</a></h3>
+            <code>colors-primary.html</code>
+          </div>
+        </article>
+        <article class="preview-card">
+          <a class="preview-card__thumb" href="colors-themes.html" aria-label="Abrir colors-themes.html">
+            <iframe src="colors-themes.html" title="colors-themes.html" loading="lazy" tabindex="-1"></iframe>
+          </a>
+          <div class="preview-card__body">
+            <h3><a href="colors-themes.html">Themes</a></h3>
+            <code>colors-themes.html</code>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="preview-section" aria-labelledby="type-heading">
+      <div class="preview-section__head">
+        <h2 id="type-heading">Type</h2>
+        <span>4 arquivos</span>
+      </div>
+      <div class="preview-grid">
+        <article class="preview-card">
+          <a class="preview-card__thumb" href="type-body.html" aria-label="Abrir type-body.html">
+            <iframe src="type-body.html" title="type-body.html" loading="lazy" tabindex="-1"></iframe>
+          </a>
+          <div class="preview-card__body">
+            <h3><a href="type-body.html">Body</a></h3>
+            <code>type-body.html</code>
+          </div>
+        </article>
+        <article class="preview-card">
+          <a class="preview-card__thumb" href="type-font.html" aria-label="Abrir type-font.html">
+            <iframe src="type-font.html" title="type-font.html" loading="lazy" tabindex="-1"></iframe>
+          </a>
+          <div class="preview-card__body">
+            <h3><a href="type-font.html">Font</a></h3>
+            <code>type-font.html</code>
+          </div>
+        </article>
+        <article class="preview-card">
+          <a class="preview-card__thumb" href="type-scale.html" aria-label="Abrir type-scale.html">
+            <iframe src="type-scale.html" title="type-scale.html" loading="lazy" tabindex="-1"></iframe>
+          </a>
+          <div class="preview-card__body">
+            <h3><a href="type-scale.html">Scale</a></h3>
+            <code>type-scale.html</code>
+          </div>
+        </article>
+        <article class="preview-card">
+          <a class="preview-card__thumb" href="type-utility.html" aria-label="Abrir type-utility.html">
+            <iframe src="type-utility.html" title="type-utility.html" loading="lazy" tabindex="-1"></iframe>
+          </a>
+          <div class="preview-card__body">
+            <h3><a href="type-utility.html">Utility</a></h3>
+            <code>type-utility.html</code>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="preview-section" aria-labelledby="components-heading">
+      <div class="preview-section__head">
+        <h2 id="components-heading">Components</h2>
+        <span>33 arquivos</span>
+      </div>
+      <div class="preview-grid">
+        <article class="preview-card">
+          <a class="preview-card__thumb" href="comp-a11y-bar.html" aria-label="Abrir comp-a11y-bar.html">
+            <iframe src="comp-a11y-bar.html" title="comp-a11y-bar.html" loading="lazy" tabindex="-1"></iframe>
+          </a>
+          <div class="preview-card__body">
+            <h3><a href="comp-a11y-bar.html">A11y Bar</a></h3>
+            <code>comp-a11y-bar.html</code>
+          </div>
+        </article>
+        <article class="preview-card">
+          <a class="preview-card__thumb" href="comp-alert.html" aria-label="Abrir comp-alert.html">
+            <iframe src="comp-alert.html" title="comp-alert.html" loading="lazy" tabindex="-1"></iframe>
+          </a>
+          <div class="preview-card__body">
+            <h3><a href="comp-alert.html">Alert</a></h3>
+            <code>comp-alert.html</code>
+          </div>
+        </article>
+        <article class="preview-card">
+          <a class="preview-card__thumb" href="comp-avatar.html" aria-label="Abrir comp-avatar.html">
+            <iframe src="comp-avatar.html" title="comp-avatar.html" loading="lazy" tabindex="-1"></iframe>
+          </a>
+          <div class="preview-card__body">
+            <h3><a href="comp-avatar.html">Avatar</a></h3>
+            <code>comp-avatar.html</code>
+          </div>
+        </article>
+        <article class="preview-card">
+          <a class="preview-card__thumb" href="comp-back-to-top.html" aria-label="Abrir comp-back-to-top.html">
+            <iframe src="comp-back-to-top.html" title="comp-back-to-top.html" loading="lazy" tabindex="-1"></iframe>
+          </a>
+          <div class="preview-card__body">
+            <h3><a href="comp-back-to-top.html">Back To Top</a></h3>
+            <code>comp-back-to-top.html</code>
+          </div>
+        </article>
+        <article class="preview-card">
+          <a class="preview-card__thumb" href="comp-breadcrumb.html" aria-label="Abrir comp-breadcrumb.html">
+            <iframe src="comp-breadcrumb.html" title="comp-breadcrumb.html" loading="lazy" tabindex="-1"></iframe>
+          </a>
+          <div class="preview-card__body">
+            <h3><a href="comp-breadcrumb.html">Breadcrumb</a></h3>
+            <code>comp-breadcrumb.html</code>
+          </div>
+        </article>
+        <article class="preview-card">
+          <a class="preview-card__thumb" href="comp-button-states.html" aria-label="Abrir comp-button-states.html">
+            <iframe src="comp-button-states.html" title="comp-button-states.html" loading="lazy" tabindex="-1"></iframe>
+          </a>
+          <div class="preview-card__body">
+            <h3><a href="comp-button-states.html">Button States</a></h3>
+            <code>comp-button-states.html</code>
+          </div>
+        </article>
+        <article class="preview-card">
+          <a class="preview-card__thumb" href="comp-button-variants.html" aria-label="Abrir comp-button-variants.html">
+            <iframe src="comp-button-variants.html" title="comp-button-variants.html" loading="lazy" tabindex="-1"></iframe>
+          </a>
+          <div class="preview-card__body">
+            <h3><a href="comp-button-variants.html">Button Variants</a></h3>
+            <code>comp-button-variants.html</code>
+          </div>
+        </article>
+        <article class="preview-card">
+          <a class="preview-card__thumb" href="comp-card.html" aria-label="Abrir comp-card.html">
+            <iframe src="comp-card.html" title="comp-card.html" loading="lazy" tabindex="-1"></iframe>
+          </a>
+          <div class="preview-card__body">
+            <h3><a href="comp-card.html">Card</a></h3>
+            <code>comp-card.html</code>
+          </div>
+        </article>
+        <article class="preview-card">
+          <a class="preview-card__thumb" href="comp-carousel.html" aria-label="Abrir comp-carousel.html">
+            <iframe src="comp-carousel.html" title="comp-carousel.html" loading="lazy" tabindex="-1"></iframe>
+          </a>
+          <div class="preview-card__body">
+            <h3><a href="comp-carousel.html">Carousel</a></h3>
+            <code>comp-carousel.html</code>
+          </div>
+        </article>
+        <article class="preview-card">
+          <a class="preview-card__thumb" href="comp-cpf.html" aria-label="Abrir comp-cpf.html">
+            <iframe src="comp-cpf.html" title="comp-cpf.html" loading="lazy" tabindex="-1"></iframe>
+          </a>
+          <div class="preview-card__body">
+            <h3><a href="comp-cpf.html">Cpf</a></h3>
+            <code>comp-cpf.html</code>
+          </div>
+        </article>
+        <article class="preview-card">
+          <a class="preview-card__thumb" href="comp-dialog.html" aria-label="Abrir comp-dialog.html">
+            <iframe src="comp-dialog.html" title="comp-dialog.html" loading="lazy" tabindex="-1"></iframe>
+          </a>
+          <div class="preview-card__body">
+            <h3><a href="comp-dialog.html">Dialog</a></h3>
+            <code>comp-dialog.html</code>
+          </div>
+        </article>
+        <article class="preview-card">
+          <a class="preview-card__thumb" href="comp-drawer.html" aria-label="Abrir comp-drawer.html">
+            <iframe src="comp-drawer.html" title="comp-drawer.html" loading="lazy" tabindex="-1"></iframe>
+          </a>
+          <div class="preview-card__body">
+            <h3><a href="comp-drawer.html">Drawer</a></h3>
+            <code>comp-drawer.html</code>
+          </div>
+        </article>
+        <article class="preview-card">
+          <a class="preview-card__thumb" href="comp-edital-row.html" aria-label="Abrir comp-edital-row.html">
+            <iframe src="comp-edital-row.html" title="comp-edital-row.html" loading="lazy" tabindex="-1"></iframe>
+          </a>
+          <div class="preview-card__body">
+            <h3><a href="comp-edital-row.html">Edital Row</a></h3>
+            <code>comp-edital-row.html</code>
+          </div>
+        </article>
+        <article class="preview-card">
+          <a class="preview-card__thumb" href="comp-empty-state.html" aria-label="Abrir comp-empty-state.html">
+            <iframe src="comp-empty-state.html" title="comp-empty-state.html" loading="lazy" tabindex="-1"></iframe>
+          </a>
+          <div class="preview-card__body">
+            <h3><a href="comp-empty-state.html">Empty State</a></h3>
+            <code>comp-empty-state.html</code>
+          </div>
+        </article>
+        <article class="preview-card">
+          <a class="preview-card__thumb" href="comp-empty.html" aria-label="Abrir comp-empty.html">
+            <iframe src="comp-empty.html" title="comp-empty.html" loading="lazy" tabindex="-1"></iframe>
+          </a>
+          <div class="preview-card__body">
+            <h3><a href="comp-empty.html">Empty</a></h3>
+            <code>comp-empty.html</code>
+          </div>
+        </article>
+        <article class="preview-card">
+          <a class="preview-card__thumb" href="comp-filter-bar.html" aria-label="Abrir comp-filter-bar.html">
+            <iframe src="comp-filter-bar.html" title="comp-filter-bar.html" loading="lazy" tabindex="-1"></iframe>
+          </a>
+          <div class="preview-card__body">
+            <h3><a href="comp-filter-bar.html">Filter Bar</a></h3>
+            <code>comp-filter-bar.html</code>
+          </div>
+        </article>
+        <article class="preview-card">
+          <a class="preview-card__thumb" href="comp-form-validation.html" aria-label="Abrir comp-form-validation.html">
+            <iframe src="comp-form-validation.html" title="comp-form-validation.html" loading="lazy" tabindex="-1"></iframe>
+          </a>
+          <div class="preview-card__body">
+            <h3><a href="comp-form-validation.html">Form Validation</a></h3>
+            <code>comp-form-validation.html</code>
+          </div>
+        </article>
+        <article class="preview-card">
+          <a class="preview-card__thumb" href="comp-input.html" aria-label="Abrir comp-input.html">
+            <iframe src="comp-input.html" title="comp-input.html" loading="lazy" tabindex="-1"></iframe>
+          </a>
+          <div class="preview-card__body">
+            <h3><a href="comp-input.html">Input</a></h3>
+            <code>comp-input.html</code>
+          </div>
+        </article>
+        <article class="preview-card">
+          <a class="preview-card__thumb" href="comp-menu.html" aria-label="Abrir comp-menu.html">
+            <iframe src="comp-menu.html" title="comp-menu.html" loading="lazy" tabindex="-1"></iframe>
+          </a>
+          <div class="preview-card__body">
+            <h3><a href="comp-menu.html">Menu</a></h3>
+            <code>comp-menu.html</code>
+          </div>
+        </article>
+        <article class="preview-card">
+          <a class="preview-card__thumb" href="comp-nav.html" aria-label="Abrir comp-nav.html">
+            <iframe src="comp-nav.html" title="comp-nav.html" loading="lazy" tabindex="-1"></iframe>
+          </a>
+          <div class="preview-card__body">
+            <h3><a href="comp-nav.html">Nav</a></h3>
+            <code>comp-nav.html</code>
+          </div>
+        </article>
+        <article class="preview-card">
+          <a class="preview-card__thumb" href="comp-pager.html" aria-label="Abrir comp-pager.html">
+            <iframe src="comp-pager.html" title="comp-pager.html" loading="lazy" tabindex="-1"></iframe>
+          </a>
+          <div class="preview-card__body">
+            <h3><a href="comp-pager.html">Pager</a></h3>
+            <code>comp-pager.html</code>
+          </div>
+        </article>
+        <article class="preview-card">
+          <a class="preview-card__thumb" href="comp-segmented.html" aria-label="Abrir comp-segmented.html">
+            <iframe src="comp-segmented.html" title="comp-segmented.html" loading="lazy" tabindex="-1"></iframe>
+          </a>
+          <div class="preview-card__body">
+            <h3><a href="comp-segmented.html">Segmented</a></h3>
+            <code>comp-segmented.html</code>
+          </div>
+        </article>
+        <article class="preview-card">
+          <a class="preview-card__thumb" href="comp-selection.html" aria-label="Abrir comp-selection.html">
+            <iframe src="comp-selection.html" title="comp-selection.html" loading="lazy" tabindex="-1"></iframe>
+          </a>
+          <div class="preview-card__body">
+            <h3><a href="comp-selection.html">Selection</a></h3>
+            <code>comp-selection.html</code>
+          </div>
+        </article>
+        <article class="preview-card">
+          <a class="preview-card__thumb" href="comp-skeleton.html" aria-label="Abrir comp-skeleton.html">
+            <iframe src="comp-skeleton.html" title="comp-skeleton.html" loading="lazy" tabindex="-1"></iframe>
+          </a>
+          <div class="preview-card__body">
+            <h3><a href="comp-skeleton.html">Skeleton</a></h3>
+            <code>comp-skeleton.html</code>
+          </div>
+        </article>
+        <article class="preview-card">
+          <a class="preview-card__thumb" href="comp-spinner.html" aria-label="Abrir comp-spinner.html">
+            <iframe src="comp-spinner.html" title="comp-spinner.html" loading="lazy" tabindex="-1"></iframe>
+          </a>
+          <div class="preview-card__body">
+            <h3><a href="comp-spinner.html">Spinner</a></h3>
+            <code>comp-spinner.html</code>
+          </div>
+        </article>
+        <article class="preview-card">
+          <a class="preview-card__thumb" href="comp-status-timeline.html" aria-label="Abrir comp-status-timeline.html">
+            <iframe src="comp-status-timeline.html" title="comp-status-timeline.html" loading="lazy" tabindex="-1"></iframe>
+          </a>
+          <div class="preview-card__body">
+            <h3><a href="comp-status-timeline.html">Status Timeline</a></h3>
+            <code>comp-status-timeline.html</code>
+          </div>
+        </article>
+        <article class="preview-card">
+          <a class="preview-card__thumb" href="comp-stepper.html" aria-label="Abrir comp-stepper.html">
+            <iframe src="comp-stepper.html" title="comp-stepper.html" loading="lazy" tabindex="-1"></iframe>
+          </a>
+          <div class="preview-card__body">
+            <h3><a href="comp-stepper.html">Stepper</a></h3>
+            <code>comp-stepper.html</code>
+          </div>
+        </article>
+        <article class="preview-card">
+          <a class="preview-card__thumb" href="comp-table.html" aria-label="Abrir comp-table.html">
+            <iframe src="comp-table.html" title="comp-table.html" loading="lazy" tabindex="-1"></iframe>
+          </a>
+          <div class="preview-card__body">
+            <h3><a href="comp-table.html">Table</a></h3>
+            <code>comp-table.html</code>
+          </div>
+        </article>
+        <article class="preview-card">
+          <a class="preview-card__thumb" href="comp-tag.html" aria-label="Abrir comp-tag.html">
+            <iframe src="comp-tag.html" title="comp-tag.html" loading="lazy" tabindex="-1"></iframe>
+          </a>
+          <div class="preview-card__body">
+            <h3><a href="comp-tag.html">Tag</a></h3>
+            <code>comp-tag.html</code>
+          </div>
+        </article>
+        <article class="preview-card">
+          <a class="preview-card__thumb" href="comp-toast.html" aria-label="Abrir comp-toast.html">
+            <iframe src="comp-toast.html" title="comp-toast.html" loading="lazy" tabindex="-1"></iframe>
+          </a>
+          <div class="preview-card__body">
+            <h3><a href="comp-toast.html">Toast</a></h3>
+            <code>comp-toast.html</code>
+          </div>
+        </article>
+        <article class="preview-card">
+          <a class="preview-card__thumb" href="comp-tooltip.html" aria-label="Abrir comp-tooltip.html">
+            <iframe src="comp-tooltip.html" title="comp-tooltip.html" loading="lazy" tabindex="-1"></iframe>
+          </a>
+          <div class="preview-card__body">
+            <h3><a href="comp-tooltip.html">Tooltip</a></h3>
+            <code>comp-tooltip.html</code>
+          </div>
+        </article>
+        <article class="preview-card">
+          <a class="preview-card__thumb" href="comp-topbar.html" aria-label="Abrir comp-topbar.html">
+            <iframe src="comp-topbar.html" title="comp-topbar.html" loading="lazy" tabindex="-1"></iframe>
+          </a>
+          <div class="preview-card__body">
+            <h3><a href="comp-topbar.html">Topbar</a></h3>
+            <code>comp-topbar.html</code>
+          </div>
+        </article>
+        <article class="preview-card">
+          <a class="preview-card__thumb" href="comp-uploader.html" aria-label="Abrir comp-uploader.html">
+            <iframe src="comp-uploader.html" title="comp-uploader.html" loading="lazy" tabindex="-1"></iframe>
+          </a>
+          <div class="preview-card__body">
+            <h3><a href="comp-uploader.html">Uploader</a></h3>
+            <code>comp-uploader.html</code>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="preview-section" aria-labelledby="spacing-heading">
+      <div class="preview-section__head">
+        <h2 id="spacing-heading">Spacing</h2>
+        <span>4 arquivos</span>
+      </div>
+      <div class="preview-grid">
+        <article class="preview-card">
+          <a class="preview-card__thumb" href="spacing-elevation.html" aria-label="Abrir spacing-elevation.html">
+            <iframe src="spacing-elevation.html" title="spacing-elevation.html" loading="lazy" tabindex="-1"></iframe>
+          </a>
+          <div class="preview-card__body">
+            <h3><a href="spacing-elevation.html">Elevation</a></h3>
+            <code>spacing-elevation.html</code>
+          </div>
+        </article>
+        <article class="preview-card">
+          <a class="preview-card__thumb" href="spacing-radius.html" aria-label="Abrir spacing-radius.html">
+            <iframe src="spacing-radius.html" title="spacing-radius.html" loading="lazy" tabindex="-1"></iframe>
+          </a>
+          <div class="preview-card__body">
+            <h3><a href="spacing-radius.html">Radius</a></h3>
+            <code>spacing-radius.html</code>
+          </div>
+        </article>
+        <article class="preview-card">
+          <a class="preview-card__thumb" href="spacing-scale.html" aria-label="Abrir spacing-scale.html">
+            <iframe src="spacing-scale.html" title="spacing-scale.html" loading="lazy" tabindex="-1"></iframe>
+          </a>
+          <div class="preview-card__body">
+            <h3><a href="spacing-scale.html">Scale</a></h3>
+            <code>spacing-scale.html</code>
+          </div>
+        </article>
+        <article class="preview-card">
+          <a class="preview-card__thumb" href="spacing-touch.html" aria-label="Abrir spacing-touch.html">
+            <iframe src="spacing-touch.html" title="spacing-touch.html" loading="lazy" tabindex="-1"></iframe>
+          </a>
+          <div class="preview-card__body">
+            <h3><a href="spacing-touch.html">Touch</a></h3>
+            <code>spacing-touch.html</code>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="preview-section" aria-labelledby="brand-heading">
+      <div class="preview-section__head">
+        <h2 id="brand-heading">Brand</h2>
+        <span>1 arquivos</span>
+      </div>
+      <div class="preview-grid">
+        <article class="preview-card">
+          <a class="preview-card__thumb" href="pattern-wizard.html" aria-label="Abrir pattern-wizard.html">
+            <iframe src="pattern-wizard.html" title="pattern-wizard.html" loading="lazy" tabindex="-1"></iframe>
+          </a>
+          <div class="preview-card__body">
+            <h3><a href="pattern-wizard.html">Wizard</a></h3>
+            <code>pattern-wizard.html</code>
+          </div>
+        </article>
+      </div>
+    </section>
+    </div>
+  </main>
+</body>
+</html>
