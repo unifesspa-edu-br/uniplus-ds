@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="auto">
+<head>
+<meta charset="utf-8">
+<title>Uni+ Design System — Kits visuais</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Kits visuais do Uni+ — Painel administrativo e Portal do candidato, sobre os tokens Gov.br e o design system da Unifesspa.">
+<link rel="stylesheet" href="tokens.css">
+<link rel="stylesheet" href="base.css">
+<link rel="stylesheet" href="components.css">
+<style>
+  body { background: var(--surface-page); }
+
+  .hub-hero { padding: var(--space-8) 0 var(--space-6); }
+  .hub-hero__eyebrow { color: var(--color-primary); font-weight: var(--weight-bold); letter-spacing: 0.08em; text-transform: uppercase; font-size: var(--text-xs); }
+  .hub-hero h1 { font-size: var(--text-4xl); color: var(--text-heading); margin: var(--space-2) 0 var(--space-3); line-height: 1.1; letter-spacing: -0.01em; }
+  .hub-hero p { color: var(--text-secondary); max-width: 60ch; font-size: var(--text-md); line-height: 1.55; margin: 0; }
+
+  .hub-grid { display: grid; grid-template-columns: 1fr; gap: var(--space-5); padding-bottom: var(--space-8); }
+  @media (min-width: 768px) { .hub-grid { grid-template-columns: repeat(2, 1fr); } }
+
+  .kit-card { background: var(--surface-card); border: 1px solid var(--border-subtle); border-radius: var(--radius-xl); overflow: hidden; display: flex; flex-direction: column; min-width: 0; box-shadow: var(--shadow-1); transition: box-shadow var(--duration-base) var(--ease-standard), transform var(--duration-base) var(--ease-standard); }
+  .kit-card:hover, .kit-card:focus-within { box-shadow: var(--shadow-3); transform: translateY(-2px); }
+  @media (prefers-reduced-motion: reduce) { .kit-card { transition: none; } .kit-card:hover { transform: none; } }
+
+  .kit-card__frame { background: var(--surface-subtle); border-bottom: 1px solid var(--border-subtle); }
+  .kit-card__chrome { display: flex; align-items: center; gap: var(--space-2); padding: var(--space-2) var(--space-3); border-bottom: 1px solid var(--border-subtle); background: var(--surface-card); }
+  .kit-card__dots { display: inline-flex; gap: 5px; }
+  .kit-card__dots i { width: 9px; height: 9px; border-radius: 50%; background: var(--border-default); }
+  .kit-card__url { font-family: var(--font-mono); font-size: var(--text-xs); color: var(--text-muted); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .kit-card__thumb { position: relative; aspect-ratio: 16 / 10; overflow: hidden; display: block; }
+  .kit-card__thumb iframe { position: absolute; top: 0; left: 0; width: 1280px; height: 800px; border: 0; transform: scale(0.5); transform-origin: top left; pointer-events: none; background: var(--surface-page); }
+
+  .kit-card__body { padding: var(--space-5); display: flex; flex-direction: column; gap: var(--space-2); flex: 1; }
+  .kit-card__title { font-size: var(--text-xl); color: var(--text-heading); margin: 0; }
+  .kit-card__desc { font-size: var(--text-sm); color: var(--text-secondary); line-height: 1.5; margin: 0; flex: 1; }
+  .kit-card__actions { display: flex; flex-wrap: wrap; gap: var(--space-3); margin-top: var(--space-3); }
+
+  .hub-extra { border-top: 1px solid var(--border-subtle); padding: var(--space-6) 0 var(--space-8); display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--space-4); }
+  .hub-extra__text h2 { font-size: var(--text-lg); color: var(--text-heading); margin: 0 0 var(--space-1); }
+  .hub-extra__text p { font-size: var(--text-sm); color: var(--text-secondary); margin: 0; }
+</style>
+</head>
+<body>
+
+<a href="#main" class="skip-link">Pular para o conteúdo principal</a>
+
+<!-- Gov.br stripe -->
+<div class="gov-bar" role="region" aria-label="Identificação do Governo Federal">
+  <span class="gov-bar__brand">gov.br</span>
+  <span class="gov-bar__sep" aria-hidden="true">|</span>
+  <span class="gov-bar__org">UNIFESSPA · Design System</span>
+  <span class="gov-bar__links">
+    <a href="https://github.com/unifesspa-edu-br/uniplus-ds">Repositório</a>
+  </span>
+</div>
+
+<!-- AccessibilityBar -->
+<div class="a11y-bar" role="region" aria-label="Preferências de acessibilidade">
+  <button class="a11y-bar__toggle" type="button" aria-expanded="false" aria-controls="hub-a11y-controls" data-a11y-bar-toggle>
+    <span class="a11y-bar__toggle-main">
+      <svg class="a11y-bar__toggle-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="4" r="2"/><path d="M4 8h16M12 6v14M8 12l-2 8M16 12l2 8"/></svg>
+      <span>Acessibilidade</span>
+    </span>
+    <svg class="a11y-bar__toggle-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+  </button>
+  <div class="a11y-bar__controls" id="hub-a11y-controls" role="toolbar" aria-label="Preferências de acessibilidade">
+    <span class="a11y-bar__label">Acessibilidade</span>
+    <div class="a11y-bar__group" role="group" aria-label="Tamanho da fonte">
+      <button class="a11y-btn" data-a11y="font-scale" data-value="md" aria-label="Fonte padrão" aria-pressed="true">A</button>
+      <button class="a11y-btn" data-a11y="font-scale" data-value="lg" aria-label="Aumentar fonte">A+</button>
+      <button class="a11y-btn" data-a11y="font-scale" data-value="xl" aria-label="Fonte muito grande">A++</button>
+    </div>
+    <div class="a11y-bar__group" role="group" aria-label="Tema">
+      <button class="a11y-btn" data-a11y="theme" data-value="light" aria-label="Tema claro">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+        Claro
+      </button>
+      <button class="a11y-btn" data-a11y="theme" data-value="dark" aria-label="Tema escuro">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+        Escuro
+      </button>
+      <button class="a11y-btn" data-a11y="theme" data-value="auto" aria-label="Seguir tema do sistema" aria-pressed="true">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+        Sistema
+      </button>
+    </div>
+    <button class="a11y-btn" data-a11y="contrast" data-value="on" aria-label="Alto contraste">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 100 20V2z"/><path d="M12 2a10 10 0 010 20" fill="none" stroke="currentColor" stroke-width="2"/></svg>
+      Contraste
+    </button>
+    <button class="a11y-btn" data-a11y="font-mode" data-value="legible" aria-label="Ativar fonte legível">Fonte legível</button>
+    <span class="a11y-bar__spacer" aria-hidden="true"></span>
+  </div>
+</div>
+
+<main id="main" tabindex="-1">
+  <div class="container">
+
+    <header class="hub-hero">
+      <span class="hub-hero__eyebrow">Uni+ Design System</span>
+      <h1>Kits visuais</h1>
+      <p>Telas de referência construídas sobre os tokens do Gov.br Design System e o design system da Unifesspa. Use os controles de acessibilidade acima — tema, contraste e tamanho de fonte são preservados ao navegar pelos kits.</p>
+    </header>
+
+    <div class="hub-grid">
+
+      <!-- Admin kit -->
+      <article class="kit-card">
+        <div class="kit-card__frame">
+          <div class="kit-card__chrome" aria-hidden="true">
+            <span class="kit-card__dots"><i></i><i></i><i></i></span>
+            <span class="kit-card__url">/ui_kits/admin/</span>
+          </div>
+          <a class="kit-card__thumb" href="ui_kits/admin/index.html" aria-label="Abrir o kit do Painel administrativo">
+            <iframe src="ui_kits/admin/index.html" title="Pré-visualização do Painel administrativo" loading="lazy" tabindex="-1"></iframe>
+          </a>
+        </div>
+        <div class="kit-card__body">
+          <h2 class="kit-card__title">Painel administrativo</h2>
+          <p class="kit-card__desc">Visão do servidor: dashboard de processos seletivos, editais em andamento, KPIs, prazos e atividade recente. Navegação lateral recolhível e topbar com busca.</p>
+          <div class="kit-card__actions">
+            <a class="btn btn--primary" href="ui_kits/admin/index.html">Abrir kit</a>
+          </div>
+        </div>
+      </article>
+
+      <!-- Portal kit -->
+      <article class="kit-card">
+        <div class="kit-card__frame">
+          <div class="kit-card__chrome" aria-hidden="true">
+            <span class="kit-card__dots"><i></i><i></i><i></i></span>
+            <span class="kit-card__url">/ui_kits/portal/</span>
+          </div>
+          <a class="kit-card__thumb" href="ui_kits/portal/index.html" aria-label="Abrir o kit do Portal do candidato">
+            <iframe src="ui_kits/portal/index.html" title="Pré-visualização do Portal do candidato" loading="lazy" tabindex="-1"></iframe>
+          </a>
+        </div>
+        <div class="kit-card__body">
+          <h2 class="kit-card__title">Portal do candidato</h2>
+          <p class="kit-card__desc">Visão pública: carrossel de editais em destaque, busca e filtros, listagem em lista ou cards, e a seção &ldquo;Como funciona&rdquo;. Inclui drawer mobile e rodapé institucional.</p>
+          <div class="kit-card__actions">
+            <a class="btn btn--primary" href="ui_kits/portal/index.html">Abrir kit</a>
+          </div>
+        </div>
+      </article>
+
+    </div>
+
+    <div class="hub-extra">
+      <div class="hub-extra__text">
+        <h2>Componentes e tokens</h2>
+        <p>Catálogo de cores, tipografia, espaçamento e componentes isolados — em light, dark e contrast.</p>
+      </div>
+      <a class="btn btn--secondary" href="preview/index.html">Ver catálogo de componentes</a>
+    </div>
+
+  </div>
+</main>
+
+<script src="assets/uniplus-a11y.js"></script>
+</body>
+</html>
