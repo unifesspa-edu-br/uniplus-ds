@@ -78,7 +78,7 @@
   @media (min-width: 768px) { .footer-grid { grid-template-columns: 1.5fr 1fr 1fr 1fr; } }
   .footer h5 { font-size: var(--text-xs); font-weight: var(--weight-bold); text-transform: uppercase; letter-spacing: 0.06em; opacity: 0.75; margin: 0 0 var(--space-3); }
   .footer ul { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: var(--space-2); }
-  .footer a { color: color-mix(in srgb, var(--text-on-inverse) 85%, transparent); font-size: var(--text-sm); text-decoration: none; }
+  .footer a { color: color-mix(in srgb, var(--text-on-inverse) 85%, transparent); font-size: var(--text-sm); text-decoration: none; display: inline-flex; align-items: center; min-width: var(--touch-min); min-height: var(--touch-min); }
   .footer a:hover { color: var(--text-on-inverse); text-decoration: underline; }
   .footer__brand-block { display: flex; flex-direction: column; gap: var(--space-3); }
   .footer__brand-block img { height: 56px; width: auto; }

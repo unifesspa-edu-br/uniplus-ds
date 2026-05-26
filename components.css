@@ -317,6 +317,14 @@
 .card__meta { font-size: var(--text-xs); color: var(--text-muted); font-variant-numeric: tabular-nums; }
 .card__desc { font-size: var(--text-sm); color: var(--text-secondary); line-height: var(--leading-normal); }
 .card__footer { display: flex; align-items: center; justify-content: space-between; gap: var(--space-3); flex-wrap: wrap; padding-top: var(--space-3); border-top: 1px solid var(--border-subtle); }
+.card__footer a {
+  display: inline-flex;
+  align-items: center;
+  min-width: var(--touch-min);
+  min-height: var(--touch-min);
+  padding-inline: var(--space-2);
+  border-radius: var(--radius-sm);
+}
 
 /* ============================================================================
  * ALERT / MESSAGE
@@ -379,6 +387,7 @@
   /* F-038 follow-up: preserva touch target de 44px via padding + margem negativa,
    * sem inflar a altura visual da faixa institucional Gov.br. */
   display: inline-flex; align-items: center;
+  min-height: var(--touch-min);
   padding: var(--space-2);
   margin-block: calc(var(--space-2) * -1);
   border-radius: var(--radius-sm);
@@ -1043,7 +1052,7 @@
 .toast__title { font-size: var(--text-sm); font-weight: var(--weight-semibold); color: var(--text-primary); margin: 0 0 2px; }
 .toast__msg { font-size: var(--text-sm); color: var(--text-secondary); margin: 0; line-height: var(--leading-normal); }
 .toast__close {
-  flex-shrink: 0; width: 28px; height: 28px;
+  flex-shrink: 0; width: var(--touch-min); height: var(--touch-min);
   display: inline-flex; align-items: center; justify-content: center;
   background: transparent; border: none; border-radius: var(--radius-sm);
   color: var(--text-muted); cursor: pointer;
@@ -1167,6 +1176,7 @@
 .pager__btn {
   display: inline-flex; align-items: center; gap: var(--space-2);
   min-height: var(--touch-min);
+  min-width: var(--touch-min);
   padding: 0 var(--space-4);
   background: var(--surface-card);
   border: 1px solid var(--border-default);
@@ -1500,6 +1510,7 @@
 .segmented__btn {
   display: inline-flex; align-items: center; justify-content: center; gap: var(--space-half-2);
   min-height: var(--touch-min);   /* F-022: was 36px, now WCAG 2.5.5 floor */
+  min-width: var(--touch-min);
   padding: 0 var(--space-3);
   background: transparent;
   border: none;
@@ -1548,6 +1559,14 @@
 }
 .edital-row__meta strong { color: var(--text-primary); font-weight: var(--weight-semibold); }
 .edital-row__actions { display: flex; gap: var(--space-3); align-items: center; flex-wrap: wrap; }
+.edital-row__actions a {
+  display: inline-flex;
+  align-items: center;
+  min-width: var(--touch-min);
+  min-height: var(--touch-min);
+  padding-inline: var(--space-2);
+  border-radius: var(--radius-sm);
+}
 
 @media (min-width: 768px) {
   .edital-row {
@@ -1572,6 +1591,10 @@
   margin-bottom: var(--space-5);
 }
 .filter-bar__row { display: flex; gap: var(--space-3); align-items: center; flex-wrap: wrap; }
+.filter-bar__row > .input-group {
+  flex: 1 1 16rem;
+  min-width: min(100%, 16rem);
+}
 .filter-chips { display: flex; flex-wrap: wrap; gap: var(--space-2); }
 .filter-chip {
   display: inline-flex; align-items: center; gap: var(--space-half-2);
@@ -1642,12 +1665,16 @@
 .carousel__slide[aria-hidden="true"] { pointer-events: none; }
 
 .carousel__controls {
-  display: flex; align-items: center; justify-content: space-between;
-  gap: var(--space-3); padding: 0 var(--space-4) var(--space-4);
+  display: grid;
+  grid-template-columns: var(--touch-min) minmax(0, 1fr) var(--touch-min);
+  align-items: center;
+  gap: var(--space-2);
+  padding: 0 var(--space-4) var(--space-4);
 }
 .carousel__nav {
   display: inline-flex; align-items: center; justify-content: center;
   width: var(--touch-min); height: var(--touch-min);
+  flex: 0 0 var(--touch-min);
   background: var(--surface-card);
   border: 1px solid var(--border-default);
   border-radius: 50%;
@@ -1656,18 +1683,22 @@
   transition: background var(--duration-fast) var(--ease-standard),
               border-color var(--duration-fast) var(--ease-standard);
 }
+.carousel__controls > .carousel__nav:first-child { grid-column: 1; }
+.carousel__controls > .carousel__nav:last-child { grid-column: 3; }
 .carousel__nav:hover:not(:disabled) { background: var(--color-primary-50); border-color: var(--color-primary); }
 .carousel__nav:disabled { opacity: 0.4; cursor: not-allowed; }
 .carousel__nav svg { width: 20px; height: 20px; }
 
 .carousel__dots {
-  display: inline-flex; gap: var(--space-2); align-items: center;
+  display: inline-flex; gap: var(--space-1); align-items: center; justify-content: center;
+  min-width: 0;
 }
 .carousel__dot {
   /* Full 44px hit target (WCAG 2.5.5). box-sizing keeps the padding INSIDE the
    * 44px box; the visible dot stays small via the ::after indicator. */
   box-sizing: border-box;
   width: var(--touch-min); height: var(--touch-min);
+  flex: 0 0 var(--touch-min);
   display: inline-flex; align-items: center; justify-content: center;
   background: transparent; border: none; padding: 0;
   cursor: pointer;
@@ -1687,5 +1718,19 @@
   font-size: var(--text-xs);
   color: var(--text-secondary);
   font-variant-numeric: tabular-nums;
-  flex: 1; text-align: center;
+  grid-column: 1 / -1;
+  text-align: center;
+}
+@media (min-width: 480px) {
+  .carousel__controls {
+    display: flex;
+    justify-content: space-between;
+    gap: var(--space-3);
+  }
+
+  .carousel__dots { gap: var(--space-2); }
+  .carousel__status {
+    grid-column: auto;
+    flex: 1;
+  }
 }

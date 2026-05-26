@@ -294,6 +294,9 @@ do dialog. Razão: alguns browsers não disparam `close` confiável.
 ### Contrato de responsividade e contraste
 
 - A `a11y-bar` é `role="region"` e os controles internos formam o `toolbar`.
+- O botão `data-a11y="font-mode"` alterna `data-font-mode="legible"` no
+  `<html>`, trocando `--font-sans` para Atkinson Hyperlegible Next sem alterar
+  regras de negócio nem ocultar conteúdo.
 - Em `<768px`, os controles iniciam recolhidos; `data-a11y-bar-toggle` alterna
   `aria-expanded` e a classe `.is-open`.
 - Em `>=768px`, `uniplus-a11y.js` mantém a barra expandida e remove o
