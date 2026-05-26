@@ -127,13 +127,15 @@ O componente é `.pager` (em `components.css`). **Não existe mais paginação n
 
 ---
 
-## 4. Implementação em Angular
+## 4. Exemplo de implementação no app consumidor
 
-### 4.1. Parse do header `Link` (em `shared-core/http`)
+Este exemplo é referência lógica para apps consumidores. O pacote Uni+ Design
+System continua CSS-only e não entrega os arquivos TypeScript abaixo.
+
+### 4.1. Parse do header `Link` no app consumidor
 
 ```typescript
-// libs/shared-core/src/lib/http/link-header.ts
-import type { Cursor } from './cursor.types';   // branded: Cursor = string & { __brand: 'Cursor' }
+type Cursor = string & { readonly __brand: 'Cursor' };
 
 interface ParsedLinks {
   next?: Cursor;
@@ -165,13 +167,9 @@ export function extractPrevCursor(header: string | null): Cursor | undefined {
 }
 ```
 
-### 4.2. `CursorPaginator<T>` (em `shared-data`)
+### 4.2. `CursorPaginator<T>` no app consumidor
 
 ```typescript
-// libs/shared-data/src/lib/pagination/cursor-paginator.ts
-import { signal, computed } from '@angular/core';
-import type { Cursor } from '@uniplus/shared-core';
-
 export interface CursorPage<T> {
   items: T[];
   next?: Cursor;
@@ -180,136 +178,105 @@ export interface CursorPage<T> {
 }
 
 export class CursorPaginator<T> {
-  private readonly history = signal<(Cursor | undefined)[]>([undefined]);  // undefined = first page
-  private readonly _page = signal<CursorPage<T> | null>(null);
+  private history: Array<Cursor | undefined> = [undefined]; // undefined = first page
+  private page: CursorPage<T> | null = null;
 
-  readonly pageNumber = computed(() => this.history().length);
-  readonly currentCursor = computed(() => this.history().at(-1));
-  readonly items = computed(() => this._page()?.items ?? []);
-  readonly pageSize = computed(() => this._page()?.pageSize ?? 0);
+  get pageNumber() { return this.history.length; }
+  get currentCursor() { return this.history.at(-1); }
+  get items() { return this.page?.items ?? []; }
+  get pageSize() { return this.page?.pageSize ?? 0; }
 
-  // ✅ AUTORIDADE = presença de cursor next/prev no header Link, NÃO um campo do body
-  readonly hasNext = computed(() => !!this._page()?.next);
-  readonly hasPrev = computed(() => this.pageNumber() > 1);
+  // AUTORIDADE = presença de cursor next/prev no header Link, não um campo do body.
+  get hasNext() { return !!this.page?.next; }
+  get hasPrev() { return this.pageNumber > 1; }
 
   next() {
-    const cur = this._page()?.next;
+    const cur = this.page?.next;
     if (!cur) return;
-    this.history.update(h => [...h, cur]);
+    this.history = [...this.history, cur];
   }
 
   prev() {
-    if (this.pageNumber() <= 1) return;
-    this.history.update(h => h.slice(0, -1));
+    if (this.pageNumber <= 1) return;
+    this.history = this.history.slice(0, -1);
   }
 
   reset() {
-    this.history.set([undefined]);
-    this._page.set(null);
+    this.history = [undefined];
+    this.page = null;
   }
 
-  setPage(p: CursorPage<T>) { this._page.set(p); }
+  setPage(p: CursorPage<T>) { this.page = p; }
 }
 ```
 
-### 4.3. Componente que consome
+### 4.3. Fluxo de consumo
 
 ```typescript
-@Component({
-  selector: 'ptl-editais-list',
-  template: `
-    @for (e of paginator.items(); track e.id) {
-      <ptl-edital-row [edital]="e" />
+async function loadPage<T>(
+  paginator: CursorPaginator<T>,
+  list: (params: { cursor?: Cursor; limit: number }) => Promise<CursorPage<T>>,
+  toast: { show(message: string): void },
+) {
+  try {
+    const page = await list({ cursor: paginator.currentCursor, limit: 20 });
+    paginator.setPage(page);
+  } catch (err) {
+    if (isCursorExpired(err)) {
+      paginator.reset();
+      toast.show('A listagem foi atualizada. Mostrando do início.');
+      return;
     }
-    <ptl-pager
-      [pageNumber]="paginator.pageNumber()"
-      [pageSize]="paginator.pageSize()"
-      [hasPrev]="paginator.hasPrev()"
-      [hasNext]="paginator.hasNext()"
-      (prev)="paginator.prev()"
-      (next)="paginator.next()" />
-  `,
-})
-export class EditaisListComponent {
-  readonly paginator = new CursorPaginator<Edital>();
-  private readonly api = inject(EditaisApi);
-
-  constructor() {
-    effect(() => {
-      const cursor = this.paginator.currentCursor();
-      this.api.list({ cursor, limit: 20 }).subscribe({
-        next: page => this.paginator.setPage(page),
-        error: err => {
-          if (err.code === 'uniplus.pagination.cursor_expirado') {
-            this.paginator.reset();
-            this.toast.show({ type: 'info', message: 'A listagem foi atualizada. Mostrando do início.' });
-          }
-        },
-      });
-    });
+    throw err;
   }
+}
+
+function isCursorExpired(err: unknown) {
+  return typeof err === 'object' &&
+    err !== null &&
+    'code' in err &&
+    err.code === 'uniplus.pagination.cursor_expirado';
 }
 ```
 
-### 4.4. EditaisApi (HttpClient + parseLink)
+### 4.4. Cliente HTTP com `fetch` + `parseLink`
 
 ```typescript
-@Injectable({ providedIn: 'root' })
-export class EditaisApi {
-  private readonly http = inject(HttpClient);
+async function listEditais(params: { cursor?: Cursor; limit?: number }): Promise<CursorPage<Edital>> {
+  const url = new URL('/editais', window.location.origin);
+  if (params.cursor) url.searchParams.set('cursor', params.cursor);
+  if (params.limit) url.searchParams.set('limit', String(params.limit));
 
-  list(params: { cursor?: Cursor; limit?: number }): Observable<CursorPage<Edital>> {
-    const httpParams: Record<string, string> = {};
-    if (params.cursor) httpParams['cursor'] = params.cursor;
-    if (params.limit)  httpParams['limit'] = String(params.limit);
+  const response = await fetch(url);
+  if (!response.ok) throw await response.json();
 
-    return this.http
-      .get<Edital[]>('/editais', { params: httpParams, observe: 'response' })
-      .pipe(map(resp => {
-        const links = parseLinkHeader(resp.headers.get('Link'));
-        return {
-          items: resp.body ?? [],
-          next: links.next,
-          prev: links.prev,
-          pageSize: Number(resp.headers.get('X-Page-Size') ?? resp.body?.length ?? 0),
-        };
-      }));
-  }
+  const items = await response.json() as Edital[];
+  const links = parseLinkHeader(response.headers.get('Link'));
+
+  return {
+    items,
+    next: links.next,
+    prev: links.prev,
+    pageSize: Number(response.headers.get('X-Page-Size') ?? items.length),
+  };
 }
 ```
 
-### 4.5. `<ptl-pager>` component
+### 4.5. Markup do pager
 
-```typescript
-@Component({
-  selector: 'ptl-pager',
-  template: `
-    <nav class="pager" aria-label="Paginação">
-      <button class="pager__btn" type="button"
-              [disabled]="!hasPrev()" (click)="prev.emit()"
-              aria-label="Página anterior">
-        <svg>…</svg> Anterior
-      </button>
-      <span class="pager__status" aria-live="polite">
-        <span class="pager__page">Página {{ pageNumber() }}</span>
-        · {{ pageSize() }} resultados nesta página
-      </span>
-      <button class="pager__btn" type="button"
-              [disabled]="!hasNext()" (click)="next.emit()"
-              aria-label="Próxima página">
-        Próximo <svg>…</svg>
-      </button>
-    </nav>
-  `,
-})
-export class PagerComponent {
-  pageNumber = input.required<number>();
-  pageSize   = input.required<number>();
-  hasPrev    = input.required<boolean>();
-  hasNext    = input.required<boolean>();
-  prev       = output<void>();
-  next       = output<void>();
-}
+```html
+<nav class="pager" aria-label="Paginação">
+  <button class="pager__btn" type="button" disabled aria-label="Página anterior">
+    <svg aria-hidden="true">…</svg> Anterior
+  </button>
+  <span class="pager__status" aria-live="polite">
+    <span class="pager__page">Página 1</span>
+    · 20 resultados nesta página
+  </span>
+  <button class="pager__btn" type="button" aria-label="Próxima página">
+    Próximo <svg aria-hidden="true">…</svg>
+  </button>
+</nav>
 ```
 
 ---
@@ -317,7 +284,8 @@ export class PagerComponent {
 ## 5. Edge cases
 
 ### Cursor expirado (TTL 15 min) ⇒ HTTP 410
-Tratado em `EditaisListComponent` acima. Reset + toast, jamais propagar como erro de UI.
+Trate no fluxo de listagem do app consumidor. Reset + toast, jamais propagar
+como erro bruto para a UI.
 
 ### Refresh / F5
 Cursores são opacos e podem expirar. **Não persistir cursor na URL.** Refresh
@@ -351,14 +319,14 @@ Idem — resetar. O limit está implícito no cursor.
 
 ---
 
-## 7. Checklist de PR
+## 7. Checklist de PR no app consumidor
 
 Quando você adicionar uma lista paginada nova:
 
-- [ ] Service consome `Observable<CursorPage<T>>` via `EditaisApi`-like pattern com `parseLinkHeader`
-- [ ] Componente usa `CursorPaginator<T>` do `shared-data`
-- [ ] Template usa `<ptl-pager>` (nunca paginação numerada)
-- [ ] `effect()` resetando o paginador quando filtros / ordenação / limit mudam
+- [ ] Cliente HTTP retorna `CursorPage<T>` usando `parseLinkHeader`
+- [ ] Estado local usa um `CursorPaginator<T>` equivalente
+- [ ] Template usa o markup `.pager` documentado aqui (nunca paginação numerada)
+- [ ] Filtros, ordenação e mudança de `limit` chamam `reset()`
 - [ ] Tratamento de `uniplus.pagination.cursor_expirado` (410) ⇒ reset + toast
 - [ ] Estado vazio cobre "primeira página vazia" (empty state amigável)
 - [ ] Loading state em transição (preferir skeleton)
@@ -373,4 +341,3 @@ Quando você adicionar uma lista paginada nova:
 - **RFC 8288** — [Web Linking](https://datatracker.ietf.org/doc/html/rfc8288)
 - **Stripe API design** — [Pagination](https://stripe.com/docs/api/pagination)
 - **GitHub REST API v3** — [Traversing with pagination](https://docs.github.com/en/rest/guides/using-pagination-in-the-rest-api)
-- **Briefing-ux.md Uni+** — § "Performance"

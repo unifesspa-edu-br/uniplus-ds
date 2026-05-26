@@ -302,7 +302,9 @@ desligadas por `prefers-reduced-motion: reduce` — `base.css` já cobre globalm
 | `data-font-mode` | `default` (default) / `legible` | Atkinson Hyperlegible (futuro) |
 
 Aplicados por `uniplus-a11y.js` baseados em escolhas do usuário (persiste em
-`localStorage`). Em produção, vira `A11yService` Angular.
+`localStorage`). Apps consumidores podem adaptar a mesma regra em serviços ou
+componentes próprios, desde que preservem os atributos no `<html>` e a
+persistência da preferência.
 
 `data-theme="auto"` segue `prefers-color-scheme` do sistema. `data-theme="contrast"`
 sobrescreve dark/light enquanto ativo.

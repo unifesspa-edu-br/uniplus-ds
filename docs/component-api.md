@@ -1,11 +1,11 @@
 # Component API — Uni+ Design System
 
 > Contrato canônico de **todo componente do design system**: anatomia HTML,
-> classes, ARIA, slots, e — para a versão Angular — inputs/outputs.
+> classes, ARIA, slots e comportamento esperado.
 >
-> Quando você implementar em Angular, copie a anatomia HTML para o template
-> e exponha exatamente os inputs/outputs descritos. Se precisar de mais,
-> abra ADR antes.
+> Este repositório é CSS-only. Implementações Angular, Web Components ou de
+> outros frameworks devem viver nos projetos consumidores e mapear este contrato
+> sem criar wrappers ou APIs TypeScript neste pacote.
 
 ---
 
@@ -13,7 +13,7 @@
 
 ### Anatomia
 ```html
-<button class="btn btn--<variant> btn--<size>" [disabled]>
+<button class="btn btn--<variant> btn--<size>" disabled>
   <svg class="btn__icon" aria-hidden="true">…</svg>
   <span>Texto da ação</span>
 </button>
@@ -35,24 +35,10 @@
 ### Estados
 Todos cobertos por CSS: default, hover, focus-visible (3px ring), active, disabled.
 
-### Angular
-```typescript
-@Component({ selector: 'ui-button', standalone: true })
-export class ButtonComponent {
-  variant = input<'primary' | 'secondary' | 'tertiary' | 'danger'>('primary');
-  size = input<'sm' | 'md' | 'lg' | 'default'>('default');
-  iconOnly = input<boolean>(false);
-  full = input<boolean>(false);
-  disabled = input<boolean>(false);
-  type = input<'button' | 'submit' | 'reset'>('button');
-  ariaLabel = input<string | undefined>(undefined);     // obrigatório se iconOnly
-}
-```
-
 ### ARIA contract
 - `aria-label` **obrigatório** em `btn--icon-only`
 - `aria-pressed` em toggle buttons
-- Nunca `(click)` em `<div>` — sempre `<button>` ou `<a>`
+- Nunca simule botão com `<div>` — sempre `<button>` ou `<a>`
 
 ---
 
@@ -60,8 +46,8 @@ export class ButtonComponent {
 
 ### Anatomia
 ```html
-<div class="field" [class.is-error]="hasError">
-  <label class="field__label" [class.is-required]="required" for="cpf">CPF</label>
+<div class="field is-error">
+  <label class="field__label is-required" for="cpf">CPF</label>
   <input class="input" id="cpf" name="cpf" required
          aria-describedby="cpf-hint cpf-error" aria-invalid="false"
          data-format="cpf">
@@ -76,19 +62,6 @@ export class ButtonComponent {
   <span class="input-group__addon"><svg/></span>
   <input class="input">
 </div>
-```
-
-### Angular
-```typescript
-@Component({ selector: 'ui-form-field', standalone: true })
-export class FormFieldComponent {
-  label = input.required<string>();
-  required = input<boolean>(false);
-  hint = input<string | undefined>(undefined);
-  error = input<string | undefined>(undefined);    // when set, marks invalid + reveals
-  for_ = input.required<string>();                 // id of inner input
-  // <ng-content> projeta o <input> que vai ter aria-describedby auto-gerado
-}
 ```
 
 ### ARIA contract
@@ -114,16 +87,6 @@ export class FormFieldComponent {
 - Soft (default): `success` / `warning` / `danger` / `info` / `primary` / neutro
 - Solid (call-out, uppercase): adicionar `tag--solid`
 
-### Angular
-```typescript
-@Component({ selector: 'ui-tag', standalone: true })
-export class TagComponent {
-  variant = input<'success' | 'warning' | 'danger' | 'info' | 'primary' | 'neutral'>('neutral');
-  solid = input<boolean>(false);
-  withDot = input<boolean>(true);
-}
-```
-
 ---
 
 ## Alert — `.alert`
@@ -137,16 +100,6 @@ export class TagComponent {
     <p class="alert__msg">Você se inscreveu no edital SISU 2026.1.</p>
   </div>
 </div>
-```
-
-### Angular
-```typescript
-@Component({ selector: 'ui-alert', standalone: true })
-export class AlertComponent {
-  variant = input<'success' | 'warning' | 'danger' | 'info'>('info');
-  title = input<string | undefined>(undefined);
-  // <ng-content> projeta a mensagem
-}
 ```
 
 ### ARIA contract
@@ -201,13 +154,13 @@ Documentado completamente em `docs/cursor-pagination.md`. **Nunca paginação nu
 
 ```html
 <nav class="pager" aria-label="Paginação">
-  <button class="pager__btn" data-pager="prev" [disabled]="!hasPrev" aria-label="Página anterior">
+  <button class="pager__btn" data-pager="prev" disabled aria-label="Página anterior">
     <svg/> Anterior
   </button>
   <span class="pager__status" aria-live="polite">
     <span class="pager__page">Página 1</span> · 20 resultados nesta página
   </span>
-  <button class="pager__btn" data-pager="next" [disabled]="!hasNext" aria-label="Próxima página">
+  <button class="pager__btn" data-pager="next" aria-label="Próxima página">
     Próximo <svg/>
   </button>
 </nav>
@@ -255,16 +208,6 @@ Estados: `is-done` (verde, check), `is-current` (primary, número), `is-blocked`
     </div>
   </div>
 </dialog>
-```
-
-### Angular
-```typescript
-@Component({ selector: 'ui-dialog', standalone: true })
-export class DialogComponent {
-  @ViewChild('dialog') dialog!: ElementRef<HTMLDialogElement>;
-  open() { this.dialog.nativeElement.showModal(); }
-  close() { this.dialog.nativeElement.close(); }
-}
 ```
 
 Em mobile (<640px) vira bottom-sheet automaticamente.
@@ -327,8 +270,9 @@ do dialog. Razão: alguns browsers não disparam `close` confiável.
 <header class="topbar" role="banner">…</header>
 ```
 
-Lógica em `uniplus-a11y.js`. Em produção, vira `A11yService` Angular que
-escreve no `<html>` via `Renderer2.setAttribute(document.documentElement, …)`.
+Lógica em `uniplus-a11y.js`. Apps consumidores podem adaptar a mesma regra em
+serviços próprios, desde que escrevam os atributos no `<html>` e preservem a
+persistência de preferência.
 
 ---
 
@@ -411,7 +355,9 @@ Regions auto-mounted:
 - `aria-live="polite"` para success/warning/info
 - `aria-live="assertive"` separada para danger
 
-Em Angular: `ToastService` injection-tokeniza isso.
+Apps consumidores podem encapsular `UniToast.show()` em serviços próprios, mas
+o contrato público deste pacote é a API JavaScript acima e as regiões
+`aria-live`.
 
 ---
 
@@ -513,17 +459,9 @@ Preview canônico: `preview/pattern-wizard.html`.
 
 ## Sidebar colapsável (Admin)
 
-Pattern documentado em `ui_kits/admin/index.html`. Implementação Angular:
-
-```typescript
-@Component({ selector: 'slc-sidebar' })
-export class SidebarComponent {
-  readonly collapsed = signal<boolean>(this.loadState());
-  toggle() { this.collapsed.update(v => !v); this.saveState(); }
-  private loadState() { return localStorage.getItem('uniplus.admin.sidebar') === 'collapsed'; }
-  private saveState() { localStorage.setItem('uniplus.admin.sidebar', this.collapsed() ? 'collapsed' : 'expanded'); }
-}
-```
+Pattern documentado em `ui_kits/admin/index.html`. O estado colapsado pertence
+ao app consumidor; persista a preferência em storage local do app e reflita o
+estado no atributo/classe consumido pelo CSS.
 
 Tooltip on hover quando colapsada via CSS `[data-tooltip]:hover::after`.
 
@@ -578,7 +516,8 @@ verdade para presença), usa `.is-visible` apenas para o fade visual e mantém
 ```
 
 Sizes: `avatar--sm` (32), default (40), `avatar--lg` (56).
-Cor da inicial é determinística (hash do nome — implementar como pipe Angular).
+Cor da inicial é determinística quando o app consumidor fornece uma função de
+hash estável para o nome exibido.
 
 ---
 
@@ -659,7 +598,7 @@ Documentado em `preview/comp-form-validation.html`. Auto-gerado por `UniForm.app
 Pós-auditoria (25 mai 2026). Skeleton, Spinner e Empty-state já saíram do TODO
 (F-023, F-041). Restantes:
 
-1. **DatePicker** — wrapper PrimeNG Calendar + passthrough
+1. **DatePicker** — pattern para consumo de PrimeNG Calendar + passthrough
 2. **Combobox / Autocomplete** — combobox pattern WAI-ARIA
 3. **Confirmation destrutiva** — modal + "type DELETE"
 4. **Cookie banner LGPD** — consentimento obrigatório

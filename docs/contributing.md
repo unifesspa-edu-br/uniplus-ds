@@ -1,38 +1,57 @@
 # CONTRIBUTING — Uni+ Design System
 
-> Guia operacional pra quem vai codar o frontend. Leia ANTES de abrir o
-> primeiro PR. Toda decisão arquitetural não-óbvia é uma ADR — ler
-> `uniplus-web/docs/adrs/` antes de divergir.
+> Guia operacional para contribuir no pacote CSS-only do Uni+ Design System.
+> Leia antes de abrir o primeiro PR. Toda decisão arquitetural não-óbvia deve
+> ficar documentada antes de virar contrato público.
 
 ---
+
+## Decisão arquitetural
+
+Este repositório é **CSS-only**. Ele fornece tokens, reset/base, classes de
+componentes, helpers JavaScript vanilla, previews, UI kits e documentação de
+contrato. Ele não entrega wrappers Angular, componentes TypeScript, selectors
+`ptl-*`/`slc-*`/`ing-*` nem APIs `input()`/`output()`.
+
+Projetos consumidores podem implementar Angular, Web Components, React, Vue ou
+HTML server-rendered usando este contrato como referência. Essas implementações
+devem viver nos seus próprios repositórios ou módulos, mantendo compatibilidade
+com a anatomia HTML, classes, ARIA e comportamento documentados aqui.
 
 ## Estrutura
 
 ```
-libs/shared-ui/src/styles/
-  tokens.css           ← design tokens (cores, espaço, type, motion)
-  base.css             ← reset + utilitários a11y + tipografia
-  components.css       ← CSS dos componentes (BEM)
-  uniplus-a11y.js      ← AccessibilityBar runtime
-  uniplus-toast.js     ← UniToast API
-  uniplus-form.js      ← UniForm validation + CPF mask
-  uniplus-backtotop.js ← back-to-top runtime
-
-libs/shared-ui/src/lib/components/
-  <kebab-name>/        ← um folder por componente Angular standalone
-    <name>.ts
-    <name>.html        (opcional, prefiro template inline)
-    <name>.spec.ts
-    index.ts
+.
+  tokens.css                    ← design tokens
+  base.css                      ← reset, tipografia e utilitários a11y
+  components.css                ← CSS dos componentes e patterns
+  assets/
+    uniplus-a11y.js             ← runtime de preferências de acessibilidade
+    uniplus-toast.js            ← API UniToast
+    uniplus-form.js             ← validação leve + máscara de CPF
+    uniplus-backtotop.js        ← botão voltar ao topo
+  preview/                      ← cards e índice navegável
+  ui_kits/portal/               ← kit do Portal do Candidato
+  ui_kits/admin/                ← kit administrativo
+  docs/                         ← contratos, tokens, contraste e guias
 ```
 
-Em produção, `apps/portal/src/styles.css` faz:
+Em HTML estático, carregue:
+
+```html
+<link rel="stylesheet" href="tokens.css">
+<link rel="stylesheet" href="base.css">
+<link rel="stylesheet" href="components.css">
+```
+
+Em apps consumidores com Tailwind, preserve a ordem e adapte os caminhos à
+forma como o DS for publicado ou copiado:
 
 ```css
 @import 'tailwindcss';
-@import '@uniplus/shared-ui/styles/tokens.css';
-@import '@uniplus/shared-ui/styles/base.css';
-@import '@uniplus/shared-ui/styles/components.css';
+@import './tokens.css';
+@import './base.css';
+@import './components.css';
 
 @theme inline {
   --color-primary: var(--color-primary);
@@ -58,8 +77,10 @@ Em produção, `apps/portal/src/styles.css` faz:
 Antes de criar, verifique:
 
 - Existe no `@govbr-ds/core`? Use o oficial.
-- Existe no PrimeNG? Use a versão unstyled + PassThrough nossa.
-- Já existe um componente nosso que cobre 80%? Estenda em vez de duplicar.
+- Existe no stack consumidor, como PrimeNG unstyled? Documente o mapeamento em
+  vez de duplicar comportamento.
+- Já existe um componente/pattern nosso que cobre 80%? Estenda em vez de
+  duplicar.
 
 ### 2. Escreva o CSS primeiro (no `components.css`)
 
@@ -69,11 +90,11 @@ Antes de criar, verifique:
  * Pattern: <descreva o markup esperado>
  * ARIA: <listar role/aria-* obrigatórios>
  * ========================================================================== */
-.uni-<componente> {
+.<componente> {
   /* base */
 }
-.uni-<componente>__<elemento> { /* part */ }
-.uni-<componente>--<variante> { /* modifier */ }
+.<componente>__<elemento> { /* part */ }
+.<componente>--<variante> { /* modifier */ }
 ```
 
 Regras:
@@ -87,50 +108,20 @@ Regras:
 ### 3. Adicione um preview card
 
 `preview/comp-<nome>.html` — copia o template dos cards existentes.
-Register em `register_assets` no Design System tab.
 
-### 4. Escreva o componente Angular standalone
+### 4. Documente o contrato
 
-```typescript
-// libs/shared-ui/src/lib/components/edital-row/edital-row.ts
-import { Component, input, output, ChangeDetectionStrategy } from '@angular/core';
+Atualize `docs/component-api.md` com:
 
-@Component({
-  selector: 'ptl-edital-row',
-  standalone: true,
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  template: `
-    <article class="edital-row" tabindex="0" (keydown.enter)="open.emit()">
-      <div class="edital-row__body">
-        <div class="edital-row__head">
-          <ptl-tag [variant]="edital().statusTag" solid>{{ edital().statusLabel }}</ptl-tag>
-          <span class="card__meta">{{ edital().numero }}</span>
-        </div>
-        <h3 class="edital-row__title">{{ edital().titulo }}</h3>
-        <p class="edital-row__desc">{{ edital().descricao }}</p>
-      </div>
-      <div class="edital-row__actions">
-        <a [routerLink]="['/editais', edital().id]">Ver edital</a>
-        <button class="btn btn--primary" (click)="inscrever.emit()">Inscrever-me</button>
-      </div>
-    </article>
-  `,
-})
-export class EditalRowComponent {
-  edital = input.required<Edital>();
-  open = output<void>();
-  inscrever = output<void>();
-}
-```
+- anatomia HTML mínima;
+- classes base, elementos e modificadores;
+- atributos ARIA e comportamento de teclado;
+- estados obrigatórios;
+- referência ao preview canônico.
 
-Regras Angular:
-- **Standalone sempre.** Sem `NgModule`.
-- **Signals**: `input.required<T>()`, `input<T>(default)`, `output<T>()`, `signal()`, `computed()`, `effect()`.
-- **`ChangeDetectionStrategy.OnPush`** sempre.
-- **Selector prefix `ptl-`** (Portal) / `slc-` (Seleção) / `ing-` (Ingresso) / `ui-` (shared). Definido em ADR-0014.
-- **Template inline** quando ≤ 60 linhas. HTML separado quando > 60.
-- **Estilos inline com `@apply` ou utility classes** quando o componente reusa apenas tokens. Evite arquivo `.css` próprio — o `components.css` global cobre.
-- **`(click)` evita; prefira semânticos**: `<button>` ou `<a>` reais sempre. Evite `(click)` em `<div>`.
+Não documente inputs/outputs Angular neste repositório. Se um app consumidor
+criar wrapper Angular, ele deve manter documentação própria e apontar para este
+contrato como fonte visual/acessível.
 
 ### 5. Teste
 
@@ -144,21 +135,14 @@ npm run lint:css:fix
 O hook `.husky/pre-commit` roda `npx lint-staged`, aplicando `stylelint --fix`
 nos arquivos `*.css` staged.
 
-```typescript
-describe('EditalRowComponent', () => {
-  it('renders title and meta from input', () => { /* … */ });
-  it('emits inscrever on button click', () => { /* … */ });
-  it('emits open on Enter when row is focused', () => { /* … */ });
-  it('has aria-label that includes status', () => { /* … */ });
-});
-```
+Cobertura mínima manual:
 
-Cobertura mínima:
-- Render dos inputs principais
-- Cada `output` emitindo
-- Keyboard interaction (Enter, Space, Esc onde aplicável)
-- ARIA attrs presentes
-- Diferença visual entre states (hover/focus visualmente) — usar Storybook ou Playwright snapshot
+- `preview/index.html` e UI kits relevantes em 360, 768, 1024 e 1280px;
+- temas `light`, `dark` e `contrast`;
+- navegação por teclado;
+- zoom 200%;
+- estados default, hover, focus-visible, active e disabled;
+- status com texto/ícone, não apenas cor.
 
 ### 6. Abra PR usando o template (próxima seção)
 
@@ -169,11 +153,12 @@ Cobertura mínima:
 ```markdown
 ## O que muda
 
-- [ ] Novo componente: `<nome>` em `libs/shared-ui/src/lib/components/<nome>/`
-- [ ] CSS adicionado a `components.css`
+- [ ] Novo componente/pattern CSS
+- [ ] CSS atualizado em `components.css`
 - [ ] Preview card em `preview/comp-<nome>.html`
 - [ ] Documentação em `docs/component-api.md` atualizada
-- [ ] ADR (se decisão arquitetural não-óbvia): `docs/adrs/NNNN-<slug>.md`
+- [ ] `docs/contrast.md` atualizado quando houver mudança de cor
+- [ ] Decisão arquitetural registrada quando a mudança alterar contrato público
 
 ## Checklist
 
@@ -193,10 +178,9 @@ Cobertura mínima:
 - [ ] Contraste documentado em `docs/contrast.md`
 
 ### Performance
-- [ ] OnPush
-- [ ] Sem `effect()` sem cleanup quando inscreve em observable
 - [ ] Imagens otimizadas (`<img loading="lazy" decoding="async">`)
-- [ ] `track` em `@for`
+- [ ] Sem scripts bloqueantes desnecessários nos previews/UI kits
+- [ ] Animações respeitam `prefers-reduced-motion`
 
 ### Conteúdo
 - [ ] Copy em pt-BR institucional acolhedor
@@ -204,10 +188,11 @@ Cobertura mínima:
 - [ ] LGPD: sem PII em telas públicas
 
 ### Tests
-- [ ] Unit ≥ 80% lines
-- [ ] E2E (Playwright) cobrindo o happy path
-- [ ] a11y (axe DevTools) sem violations sérias/críticas
-- [ ] Snapshot (light + dark + contrast themes)
+- [ ] `npm run lint:css`
+- [ ] Teste manual em 360 / 768 / 1024 / 1280
+- [ ] Teste manual em `light` / `dark` / `contrast`
+- [ ] Navegação por teclado e zoom 200%
+- [ ] Screenshots ou links de preview quando houver mudança visual
 ```
 
 ---
@@ -218,10 +203,8 @@ Cobertura mínima:
 
 - **Arquivos**: `kebab-case` (`edital-row.ts`, `comp-edital-row.html`)
 - **Classes CSS**: `kebab-case` BEM (`.edital-row__body`, `.btn--primary`)
-- **Componentes Angular**: `PascalCase` + sufixo `Component` (`EditalRowComponent`)
-- **Selectors**: `ptl-edital-row` (kebab + prefix)
 - **CSS custom properties**: `--<categoria>-<escala>` (`--color-primary-600`, `--space-4`)
-- **Tipos branded**: `Cursor`, `EditalId`, `Cpf` em `shared-core/types`
+- **Previews**: `preview/comp-<nome>.html`
 
 ### Copy
 
@@ -241,11 +224,11 @@ Cobertura mínima:
 Padrão Conventional Commits:
 
 ```
-feat(shared-ui): add ptl-edital-row component
-fix(portal): drawer aria-expanded not syncing on close
-docs: add cursor-pagination guide
-style(shared-ui): tokens — slate-based dark theme
-test(shared-ui): add a11y assertions for dropdown menu
+feat(components): adiciona edital row
+fix(components): sincroniza aria-expanded do drawer
+docs: adiciona guia de paginacao por cursor
+style(tokens): ajusta tema dark baseado em slate
+test(a11y): documenta verificacao manual do menu
 ```
 
 ---
@@ -265,23 +248,24 @@ test(shared-ui): add a11y assertions for dropdown menu
 
 ### Automatizado
 
-- **Playwright + axe-core** em cada PR — sem violations sérias/críticas.
-- **Stylelint** garantindo tokens (regex em `--color-`, fail em hex hardcoded em `.ts` / `.html`).
+- **Stylelint** garantindo tokens e bloqueando hex literal fora de `tokens.css`.
+- **Playwright + axe-core**, quando configurado no projeto consumidor ou na CI
+  deste pacote, deve falhar em violations sérias/críticas.
 
 ### Personas para revisar mentalmente
 
-Reler briefing-ux.md §4. Se a decisão não passa por Dona Marta (62, glaucoma),
-Lucas (19, dislexia), Sr. Pedro (70, cataratas), Ana (28, só teclado),
-Carla (35, NVDA + zoom), João (24, daltônico) — refazer.
+Revise mentalmente pessoas com baixa visão, dislexia, navegação só por teclado,
+uso de leitor de tela, zoom alto e daltonismo. Se o componente não funciona
+para esses cenários, refaça o contrato antes de abrir PR.
 
 ---
 
 ## Onde pedir ajuda
 
-- **Design questions** → ler `briefing-ux.md` + `docs/component-api.md`. Em
+- **Design questions** → ler `docs/component-api.md` e os previews. Em
   caso de gap, abrir issue.
 - **A11y duvidoso** → `docs/contrast.md` + axe DevTools. Em último caso,
   parceria com o NAIA da Unifesspa para teste com usuários reais.
-- **ADRs** → `docs/adrs/`. Toda decisão não-óbvia precisa ser registrada.
+- **ADRs/decisões** → registrar antes de mudar contrato público.
 - **Cursor pagination** → `docs/cursor-pagination.md`.
 - **Discussões maiores** → email institucional + Google Chat.
