@@ -76,12 +76,42 @@
     });
   }
 
+  function setupCompactBars() {
+    const media = window.matchMedia('(min-width: 768px)');
+
+    document.querySelectorAll('.a11y-bar').forEach((bar) => {
+      const toggle = bar.querySelector('[data-a11y-bar-toggle]');
+      const controls = toggle ? document.getElementById(toggle.getAttribute('aria-controls')) : null;
+      if (!toggle || !controls) return;
+
+      function setOpen(open) {
+        bar.classList.toggle('is-open', open);
+        toggle.setAttribute('aria-expanded', String(open));
+      }
+
+      function syncLayout() {
+        setOpen(media.matches);
+      }
+
+      toggle.addEventListener('click', (e) => {
+        e.preventDefault();
+        if (media.matches) return;
+        setOpen(toggle.getAttribute('aria-expanded') !== 'true');
+      });
+
+      if (media.addEventListener) media.addEventListener('change', syncLayout);
+      else media.addListener(syncLayout);
+      syncLayout();
+    });
+  }
+
   // Apply saved state on init -------------------------------------------------
   applyVisualTheme();
   updatePressed('theme', state.theme);
   updatePressed('contrast', state.contrast ? 'on' : 'off');
   applyFontScale(state.fontScale);
   applyFontMode(state.fontMode);
+  setupCompactBars();
 
   // Wire ----------------------------------------------------------------------
   document.addEventListener('click', (e) => {

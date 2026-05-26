@@ -13,11 +13,11 @@
   /* Sub-nav */
   .subnav {
     background: var(--surface-accessibility-bar);
-    color: var(--color-neutral-0);
+    color: var(--text-on-inverse);
     padding: var(--space-2) var(--space-4);
     display: flex; gap: var(--space-1); align-items: center;
     overflow-x: auto; scrollbar-width: thin;
-    border-bottom: 1px solid color-mix(in srgb, var(--color-neutral-0) 8%, transparent);
+    border-bottom: 1px solid color-mix(in srgb, var(--text-on-inverse) 16%, transparent);
     /* F-039: fade no canto direito indica que há mais conteúdo além do visível */
     mask-image: linear-gradient(90deg, var(--color-neutral-950) 0, var(--color-neutral-950) calc(100% - 32px), transparent 100%);
     -webkit-mask-image: linear-gradient(90deg, var(--color-neutral-950) 0, var(--color-neutral-950) calc(100% - 32px), transparent 100%);
@@ -25,13 +25,13 @@
   .subnav a {
     display: inline-flex; align-items: center; gap: 6px;
     padding: var(--space-2) var(--space-3);
-    color: color-mix(in srgb, var(--color-neutral-0) 85%, transparent);
+    color: color-mix(in srgb, var(--text-on-inverse) 85%, transparent);
     font-size: var(--text-sm); font-weight: var(--weight-medium);
     text-decoration: none; border-radius: var(--radius-md);
     min-height: var(--touch-min); white-space: nowrap;
   }
-  .subnav a:hover { background: color-mix(in srgb, var(--color-neutral-0) 10%, transparent); color: var(--color-neutral-0); }
-  .subnav a.is-active { background: color-mix(in srgb, var(--color-neutral-0) 15%, transparent); color: var(--color-neutral-0); font-weight: var(--weight-semibold); }
+  .subnav a:hover { background: color-mix(in srgb, var(--text-on-inverse) 10%, transparent); color: var(--text-on-inverse); }
+  .subnav a.is-active { background: color-mix(in srgb, var(--text-on-inverse) 15%, transparent); color: var(--text-on-inverse); font-weight: var(--weight-semibold); }
 
   /* Carousel slide layout (3 slide types) */
   .slide-edital { display: grid; grid-template-columns: 1fr; gap: var(--space-5); align-items: center; }
@@ -109,38 +109,47 @@
 </div>
 
 <!-- AccessibilityBar -->
-<div class="a11y-bar" role="toolbar" aria-label="Preferências de acessibilidade">
-  <span class="a11y-bar__label">Acessibilidade</span>
-
-  <div role="group" aria-label="Tamanho da fonte" style="display:inline-flex;gap:var(--space-1)">
-    <button class="a11y-btn" data-a11y="font-scale" data-value="md" aria-label="Fonte padrão" aria-pressed="true">A</button>
-    <button class="a11y-btn" data-a11y="font-scale" data-value="lg" aria-label="Aumentar fonte">A+</button>
-    <button class="a11y-btn" data-a11y="font-scale" data-value="xl" aria-label="Fonte muito grande">A++</button>
-  </div>
-
-  <div role="group" aria-label="Tema" style="display:inline-flex;gap:var(--space-1)">
-    <button class="a11y-btn" data-a11y="theme" data-value="light" aria-label="Tema claro">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
-      Claro
-    </button>
-    <button class="a11y-btn" data-a11y="theme" data-value="dark" aria-label="Tema escuro">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
-      Escuro
-    </button>
-    <button class="a11y-btn" data-a11y="theme" data-value="auto" aria-label="Seguir tema do sistema" aria-pressed="true">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
-      Sistema
-    </button>
-  </div>
-
-  <button class="a11y-btn" data-a11y="contrast" data-value="on" aria-label="Alto contraste">
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 100 20V2z"/><path d="M12 2a10 10 0 010 20" fill="none" stroke="currentColor" stroke-width="2"/></svg>
-    Contraste
+<div class="a11y-bar" role="region" aria-label="Preferências de acessibilidade">
+  <button class="a11y-bar__toggle" type="button" aria-expanded="false" aria-controls="portal-a11y-controls" data-a11y-bar-toggle>
+    <span class="a11y-bar__toggle-main">
+      <svg class="a11y-bar__toggle-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="4" r="2"/><path d="M4 8h16M12 6v14M8 12l-2 8M16 12l2 8"/></svg>
+      <span>Acessibilidade</span>
+    </span>
+    <svg class="a11y-bar__toggle-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
   </button>
-  <button class="a11y-btn" data-a11y="font-mode" data-value="legible" aria-label="Ativar fonte legível">Fonte legível</button>
+  <div class="a11y-bar__controls" id="portal-a11y-controls" role="toolbar" aria-label="Preferências de acessibilidade">
+    <span class="a11y-bar__label">Acessibilidade</span>
 
-  <span style="margin-left:auto"></span>
-  <a href="#" style="color:var(--color-neutral-0);font-size:var(--text-xs);text-decoration:underline">Ajuda</a>
+    <div class="a11y-bar__group" role="group" aria-label="Tamanho da fonte">
+      <button class="a11y-btn" data-a11y="font-scale" data-value="md" aria-label="Fonte padrão" aria-pressed="true">A</button>
+      <button class="a11y-btn" data-a11y="font-scale" data-value="lg" aria-label="Aumentar fonte">A+</button>
+      <button class="a11y-btn" data-a11y="font-scale" data-value="xl" aria-label="Fonte muito grande">A++</button>
+    </div>
+
+    <div class="a11y-bar__group" role="group" aria-label="Tema">
+      <button class="a11y-btn" data-a11y="theme" data-value="light" aria-label="Tema claro">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+        Claro
+      </button>
+      <button class="a11y-btn" data-a11y="theme" data-value="dark" aria-label="Tema escuro">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+        Escuro
+      </button>
+      <button class="a11y-btn" data-a11y="theme" data-value="auto" aria-label="Seguir tema do sistema" aria-pressed="true">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+        Sistema
+      </button>
+    </div>
+
+    <button class="a11y-btn" data-a11y="contrast" data-value="on" aria-label="Alto contraste">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 100 20V2z"/><path d="M12 2a10 10 0 010 20" fill="none" stroke="currentColor" stroke-width="2"/></svg>
+      Contraste
+    </button>
+    <button class="a11y-btn" data-a11y="font-mode" data-value="legible" aria-label="Ativar fonte legível">Fonte legível</button>
+
+    <span class="a11y-bar__spacer" aria-hidden="true"></span>
+    <a class="a11y-bar__help" href="#">Ajuda</a>
+  </div>
 </div>
 
 <!-- Brand topbar -->
@@ -158,7 +167,7 @@
     <a href="#">Resultados</a>
     <a href="#">Ajuda</a>
   </nav>
-  <div style="display:flex;align-items:center;gap:var(--space-2)">
+  <div class="topbar__actions">
     <button class="user-chip" aria-label="Menu do usuário">
       <span class="user-chip__avatar" aria-hidden="true">N</span>
       <span style="display:none" class="user-chip__name">Nalanda</span>
