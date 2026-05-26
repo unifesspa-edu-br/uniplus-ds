@@ -3,27 +3,27 @@
   <div class="tag-eyebrow">INPUT · STATES</div>
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:18px 24px">
     <div class="field">
-      <label class="field__label is-required">CPF</label>
-      <input class="input" placeholder="000.000.000-00" />
-      <div class="field__hint">Apenas números, com pontos e traço.</div>
+      <label class="field__label is-required" for="input-cpf">CPF</label>
+      <input class="input" id="input-cpf" placeholder="000.000.000-00" aria-describedby="input-cpf-hint" />
+      <div class="field__hint" id="input-cpf-hint">Apenas números, com pontos e traço.</div>
     </div>
     <div class="field">
-      <label class="field__label">E-mail</label>
+      <label class="field__label" for="input-email">E-mail</label>
       <div class="input-group" style="border-color:var(--focus-ring-color);box-shadow:var(--focus-ring)">
         <span class="input-group__addon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></span>
-        <input class="input" value="nalanda@email.com" />
+        <input class="input" id="input-email" value="nalanda@email.com" aria-describedby="input-email-hint" />
       </div>
-      <div class="field__hint" style="color:var(--focus-ring-color)">focused</div>
+      <div class="field__hint" id="input-email-hint" style="color:var(--focus-ring-color)">focused</div>
     </div>
     <div class="field is-error">
-      <label class="field__label is-required">Senha</label>
-      <input class="input" type="password" value="123" aria-invalid="true" />
-      <div class="field__error"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>Senha precisa ter pelo menos 8 caracteres.</div>
+      <label class="field__label is-required" for="input-password">Senha</label>
+      <input class="input" id="input-password" type="password" value="123" aria-invalid="true" aria-describedby="input-password-error" />
+      <div class="field__error" id="input-password-error"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>Senha precisa ter pelo menos 8 caracteres.</div>
     </div>
     <div class="field">
-      <label class="field__label" style="color:var(--text-muted)">Telefone</label>
-      <input class="input" disabled placeholder="(00) 00000-0000" />
-      <div class="field__hint">Disabled — preencha o CPF primeiro.</div>
+      <label class="field__label" for="input-phone" style="color:var(--text-muted)">Telefone</label>
+      <input class="input" id="input-phone" disabled placeholder="(00) 00000-0000" aria-describedby="input-phone-hint" />
+      <div class="field__hint" id="input-phone-hint">Disabled — preencha o CPF primeiro.</div>
     </div>
   </div>
 </div></body></html>

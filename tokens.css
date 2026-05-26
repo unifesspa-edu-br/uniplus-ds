@@ -108,7 +108,7 @@
   /* "Solid" feedback — kept dark in BOTH themes so #fff text stays ≥4.5:1.
    * Used on .tag--solid, .toast--*, .timeline solid bars, etc. */
   --color-success-solid: #168821; /* 4.9:1 with #fff */
-  --color-warning-solid: #845a0a; /* 7.2:1 with #fff */
+  --color-warning-solid: #845a0a; /* 6.1:1 with #fff */
   --color-danger-solid:  #c92a2a; /* 5.7:1 with #fff */
   --color-info-solid:    #1351b4; /* 7.1:1 with #fff */
   --color-primary-solid: #1351b4;
@@ -133,9 +133,9 @@
 
   /* ============================ TEXT ============================ */
   --text-primary:     light-dark(#333333, #f1f5f9);  /* corpo */
-  --text-secondary:   light-dark(#5b6b7d, #cbd5e1);  /* secundário — AA 5.6:1 vs white */
+  --text-secondary:   light-dark(#5b6b7d, #cbd5e1);  /* secundário — AA 5.5:1 vs white */
   --text-muted:       light-dark(#64748b, #94a3b8);  /* F-010 — AA 4.7:1 vs white */
-  --text-placeholder: light-dark(#94a3b8, #94a3b8);  /* F-010 separated from muted */
+  --text-placeholder: light-dark(#8493a8, #94a3b8);  /* F-010 separated from muted; light keeps 3:1 UI floor */
   --text-disabled:    light-dark(#94a3b8, #64748b);  /* F-002 new */
   --text-on-primary:  light-dark(#ffffff, #0f172a);  /* texto sobre primary */
   --text-on-inverse:  #ffffff;
@@ -314,7 +314,7 @@
     --text-primary:     #333333;
     --text-secondary:   #5b6b7d;
     --text-muted:       #64748b;
-    --text-placeholder: #94a3b8;
+    --text-placeholder: #8493a8;
     --text-disabled:    #94a3b8;
     --text-on-primary:  #ffffff;
     --text-heading:     #0c326f;
