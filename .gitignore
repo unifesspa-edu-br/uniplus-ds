@@ -20,3 +20,6 @@ plano-correcao-review.md
 Thumbs.db
 *.swp
 *.swo
+
+# Playwright MCP artifacts
+.playwright-mcp/

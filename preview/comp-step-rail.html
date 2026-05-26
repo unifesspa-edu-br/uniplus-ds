@@ -1,0 +1,30 @@
+<!DOCTYPE html><html lang="pt-BR" data-theme="auto"><head><meta charset="utf-8"><title>preview/comp-step-rail.html</title><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="stylesheet" href="../tokens.css"><link rel="stylesheet" href="../base.css"><link rel="stylesheet" href="../components.css"><link rel="stylesheet" href="_card.css"><style>
+.rail-demo{max-width:280px}
+</style></head><body>
+<div class="card-frame">
+  <div class="tag-eyebrow">STEP RAIL · FLUXO LONGO (&gt; 5 PASSOS)</div>
+  <p class="mono">Stepper horizontal é limitado a 5 passos (ADR-0001). Para fluxos longos, use o rail vertical. No desktop é uma coluna lateral; em telas estreitas colapsa em &ldquo;Etapa X de N&rdquo; + progresso, com a lista em progressive disclosure.</p>
+  <div class="rail-demo">
+    <nav class="step-rail" aria-label="Etapas da inscrição">
+      <details class="step-rail__mobile">
+        <summary class="step-rail__summary" aria-controls="demo-step-list">
+          <span class="step-rail__summary-count">Etapa 3 de 12</span>
+          <span class="step-rail__summary-name">Endereço</span>
+          <span class="step-rail__progress" aria-hidden="true"><span style="width:25%"></span></span>
+          <svg class="step-rail__chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+        </summary>
+      </details>
+      <div class="step-rail__content" id="demo-step-list">
+        <p class="step-rail__title">Passos</p>
+        <ol class="step-rail__list">
+            <li class="step-rail__step is-done"><span class="step-rail__marker" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 10-10"/></svg></span><span class="step-rail__label">Dados pessoais</span></li>
+            <li class="step-rail__step is-done"><span class="step-rail__marker" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 10-10"/></svg></span><span class="step-rail__label">Contato</span></li>
+            <li class="step-rail__step is-current" aria-current="step"><span class="step-rail__marker" aria-hidden="true">3</span><span class="step-rail__label">Endereço</span></li>
+            <li class="step-rail__step"><span class="step-rail__marker" aria-hidden="true">4</span><span class="step-rail__label">Escolaridade</span></li>
+            <li class="step-rail__step"><span class="step-rail__marker" aria-hidden="true">5</span><span class="step-rail__label">Modalidade</span></li>
+            <li class="step-rail__step"><span class="step-rail__marker" aria-hidden="true">6</span><span class="step-rail__label">Documentos</span></li>
+          </ol>
+      </div>
+    </nav>
+  </div>
+</div></body></html>

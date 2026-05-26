@@ -471,9 +471,13 @@ Use `.table-responsive__num` para números tabulares alinhados à direita.
 
 ## Stepper — `.stepper`
 
-Use `.stepper` horizontal em desktop e `.stepper stepper--vertical` no mobile
-quando houver muitos passos. O wizard de inscrição usa 12 etapas e mostra apenas
-o recorte relevante no mobile.
+> **Limite de 5 passos (ADR-0001).** O stepper horizontal só é usado em fluxos
+> com **até 5 passos**. Acima disso, use o [`.step-rail`](#step-rail--step-rail).
+> O `.stepper` aplica `overflow-x: auto` como guard: se for usado com passos
+> demais, rola na horizontal em vez de cortar o último passo — mas isso é
+> degradação, não o uso pretendido.
+
+Horizontal (≤ 5 passos), em desktop:
 
 ```html
 <div class="stepper" aria-label="Etapas da inscrição">
@@ -484,6 +488,8 @@ o recorte relevante no mobile.
 </div>
 ```
 
+`stepper--vertical` é a variante vertical simples para poucos passos:
+
 ```html
 <div class="stepper stepper--vertical" aria-label="Etapas da inscrição">
   <div class="stepper__step is-done"><div class="stepper__dot is-done">1</div><span class="stepper__label">Dados pessoais</span></div>
@@ -492,7 +498,53 @@ o recorte relevante no mobile.
 </div>
 ```
 
-Preview canônico: `preview/pattern-wizard.html`.
+Preview canônico: `preview/comp-stepper.html`.
+
+---
+
+## Step rail — `.step-rail`
+
+Navegação vertical de etapas para **fluxos longos (> 5 passos)** — ex.: o wizard
+de inscrição de 12 etapas. No desktop (≥768px) aparece como coluna lateral; em
+telas estreitas (inclusive 320px) colapsa em um cabeçalho textual **"Etapa X de
+N"** + nome do passo atual + barra de progresso, com a lista completa em
+*progressive disclosure* via `<details>` (sem JS).
+
+- Marque o passo corrente com `aria-current="step"` no `.step-rail__step`.
+- O marcador (`.step-rail__marker`) é decorativo (`aria-hidden`): o estado é
+  comunicado pelo texto e por `aria-current`, não só pela cor (e-MAG/WCAG 1.4.1).
+- O cabeçalho mobile (`.step-rail__summary`) é o `<summary>` do `<details>` —
+  acessível por teclado nativamente.
+
+A lista (`.step-rail__content`) é **irmã** do `<details>`, não filha: o
+`<details>` contém apenas o `<summary>` (toggle do mobile) e a visibilidade da
+lista é controlada por `[open] ~`. Isso evita depender do mecanismo interno do
+`<details>` (`content-visibility` / `::details-content`), cujo comportamento
+varia entre navegadores.
+
+```html
+<nav class="step-rail" aria-label="Etapas da inscrição">
+  <details class="step-rail__mobile">
+    <summary class="step-rail__summary" aria-controls="step-list">
+      <span class="step-rail__summary-count">Etapa 3 de 12</span>
+      <span class="step-rail__summary-name">Endereço</span>
+      <span class="step-rail__progress" aria-hidden="true"><span style="width:25%"></span></span>
+      <svg class="step-rail__chevron" viewBox="0 0 24 24" …><path d="M6 9l6 6 6-6"/></svg>
+    </summary>
+  </details>
+  <div class="step-rail__content" id="step-list">
+    <p class="step-rail__title">Passos</p>
+    <ol class="step-rail__list">
+      <li class="step-rail__step is-done"><span class="step-rail__marker" aria-hidden="true"><svg …/></span><span class="step-rail__label">Dados</span></li>
+      <li class="step-rail__step is-current" aria-current="step"><span class="step-rail__marker" aria-hidden="true">3</span><span class="step-rail__label">Endereço</span></li>
+      <li class="step-rail__step"><span class="step-rail__marker" aria-hidden="true">4</span><span class="step-rail__label">Escolaridade</span></li>
+      …
+    </ol>
+  </div>
+</nav>
+```
+
+Previews canônicos: `preview/comp-step-rail.html` e `preview/pattern-wizard.html`.
 
 ---
 
