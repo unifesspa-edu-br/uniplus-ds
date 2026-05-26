@@ -5,9 +5,12 @@ Unifesspa**. Este repositório concentra tokens, estilos base, componentes CSS,
 helpers JavaScript, previews e UI kits usados para padronizar as interfaces dos
 fluxos de selecao, inscricao, acompanhamento, classificacao e ingresso.
 
-O pacote é estático e serve como fonte publica de referencia para a futura
-implementacao em Angular, PrimeNG unstyled e Tailwind. Ele prioriza
-acessibilidade, consistencia institucional Gov.br, mobile-first e LGPD.
+O pacote é estático, CSS-only e serve como fonte publica de referencia para
+interfaces Uni+ em Angular, PrimeNG unstyled, Tailwind ou outros stacks. Este
+repositório nao entrega wrappers Angular nem componentes TypeScript; ele define
+tokens, classes, anatomia HTML, comportamento esperado e contratos de
+acessibilidade. Ele prioriza acessibilidade, consistencia institucional Gov.br,
+mobile-first e LGPD.
 
 ## Status
 
@@ -116,14 +119,16 @@ Em HTML estatico, carregue os estilos nesta ordem:
 <link rel="stylesheet" href="components.css">
 ```
 
-Em Angular/Tailwind, copie a mesma ordem para a camada compartilhada e exponha
-os tokens ao Tailwind via `@theme inline`:
+Em aplicações Angular/Tailwind, mantenha a mesma ordem no ponto de entrada de
+estilos do projeto consumidor e exponha os tokens ao Tailwind via `@theme
+inline`. Os caminhos abaixo sao ilustrativos; ajuste para a forma como estes
+arquivos forem publicados ou copiados no app:
 
 ```css
 @import "tailwindcss";
-@import "@uniplus/shared-ui/styles/tokens.css";
-@import "@uniplus/shared-ui/styles/base.css";
-@import "@uniplus/shared-ui/styles/components.css";
+@import "./tokens.css";
+@import "./base.css";
+@import "./components.css";
 
 @theme inline {
   --color-primary: var(--color-primary);
@@ -148,7 +153,10 @@ Os contratos canonicos ficam em `docs/component-api.md`. Exemplos principais:
 - empty state, spinner, toast, drawer, dialog e uploader.
 
 Cada componente novo deve ter CSS em `components.css`, exemplo em
-`preview/comp-*.html` e documentacao em `docs/component-api.md`.
+`preview/comp-*.html` e documentacao em `docs/component-api.md`. Implementações
+Angular, Web Components ou de outros frameworks devem viver nos projetos
+consumidores, mapeando este contrato sem criar promessa de wrapper neste
+repositório.
 
 ## Previews
 
