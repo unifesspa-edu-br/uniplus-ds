@@ -20,53 +20,53 @@ Cálculo: WCAG 2.1 relative luminance (algoritmo `(L1 + 0.05) / (L2 + 0.05)`).
 | Texto | Fundo | Ratio | Veredicto | Onde |
 |---|---|---|---|---|
 | `--text-primary` `#333333` | `--surface-card` `#ffffff` | **12.6 : 1** | ✅ AAA | corpo, default |
-| `--text-primary` `#333333` | `--surface-page` `#f8fafc` | **11.7 : 1** | ✅ AAA | corpo sobre page |
-| `--text-secondary` `#5b6b7d` | `--surface-card` `#ffffff` | **5.6 : 1** | ✅ AA | descrições (era `#8899a8` 4.6:1, subido em F-010) |
-| `--text-secondary` `#5b6b7d` | `--surface-page` `#f8fafc` | **5.3 : 1** | ✅ AA | secundário sobre page |
+| `--text-primary` `#333333` | `--surface-page` `#f8fafc` | **12.1 : 1** | ✅ AAA | corpo sobre page |
+| `--text-secondary` `#5b6b7d` | `--surface-card` `#ffffff` | **5.5 : 1** | ✅ AA | descrições (era `#8899a8` 4.6:1, subido em F-010) |
+| `--text-secondary` `#5b6b7d` | `--surface-page` `#f8fafc` | **5.2 : 1** | ✅ AA | secundário sobre page |
 | `--text-muted` `#64748b` | `--surface-card` `#ffffff` | **4.8 : 1** | ✅ AA | captions, hint do form (era `#94a3b8` 3.4:1, F-010) |
-| `--text-placeholder` `#94a3b8` | `--surface-card` `#ffffff` | **3.4 : 1** | ⚠️ UI-only | placeholder de input (3:1 é floor para UI, não texto) |
-| `--text-heading` `#0c326f` | `--surface-card` `#ffffff` | **13.4 : 1** | ✅ AAA | h1, h2 |
-| `--text-title-soft` `#2565ae` | `--surface-card` `#ffffff` | **6.1 : 1** | ✅ AA | título em destaque suave |
-| `--text-link` `#1351b4` | `--surface-card` `#ffffff` | **7.7 : 1** | ✅ AAA | links |
-| `--text-disabled` `#94a3b8` | `--surface-disabled` `#e2e8f0` | **2.4 : 1** | ⚠️ UI-only | disabled é estado não-interativo (exceção oficial WCAG 1.4.3) |
+| `--text-placeholder` `#8493a8` | `--surface-card` `#ffffff` | **3.1 : 1** | ⚠️ UI-only | placeholder de input (3:1 é floor para UI, não texto) |
+| `--text-heading` `#0c326f` | `--surface-card` `#ffffff` | **12.3 : 1** | ✅ AAA | h1, h2 |
+| `--text-title-soft` `#2565ae` | `--surface-card` `#ffffff` | **5.9 : 1** | ✅ AA | título em destaque suave |
+| `--text-link` `#1351b4` | `--surface-card` `#ffffff` | **7.3 : 1** | ✅ AAA | links |
+| `--text-disabled` `#94a3b8` | `--surface-disabled` `#e2e8f0` | **2.1 : 1** | ⚠️ UI-only | disabled é estado não-interativo (exceção oficial WCAG 1.4.3) |
 
 ### Texto sobre cores institucionais
 
 | Texto | Fundo | Ratio | Veredicto |
 |---|---|---|---|
-| `#ffffff` | `--color-primary-600` `#1351b4` | **7.7 : 1** | ✅ AAA |
+| `#ffffff` | `--color-primary-600` `#1351b4` | **7.3 : 1** | ✅ AAA |
 | `#ffffff` | `--color-primary-700` `#0c4194` | **9.5 : 1** | ✅ AAA |
-| `#ffffff` | `--color-primary-800` `#0c326f` | **12.0 : 1** | ✅ AAA |
-| `#ffffff` | `--color-primary-900` `#071d41` | **15.1 : 1** | ✅ AAA |
-| `--color-primary-800` `#0c326f` | `--color-primary-50` `#f0f5ff` | **11.5 : 1** | ✅ AAA |
+| `#ffffff` | `--color-primary-800` `#0c326f` | **12.3 : 1** | ✅ AAA |
+| `#ffffff` | `--color-primary-900` `#071d41` | **16.7 : 1** | ✅ AAA |
+| `--color-primary-800` `#0c326f` | `--color-primary-50` `#f0f5ff` | **11.3 : 1** | ✅ AAA |
 
 ### Feedback
 
 | Texto | Fundo | Ratio | Veredicto |
 |---|---|---|---|
-| `--color-success-700` `#0a5a16` | `--color-success-50` `#e7f4e9` | **8.7 : 1** | ✅ AAA |
-| `#ffffff` | `--color-success-solid` `#168821` | **4.9 : 1** | ✅ AA |
-| `--color-warning-700` `#5a3e08` | `--color-warning-50` `#fef0c8` | **9.4 : 1** | ✅ AAA |
-| `#ffffff` | `--color-warning-solid` `#845a0a` | **7.2 : 1** | ✅ AAA |
-| `--color-danger-700` `#c92a2a` | `--color-danger-50` `#fcf0ee` | **5.4 : 1** | ✅ AA |
-| `#ffffff` | `--color-danger-solid` `#c92a2a` | **5.7 : 1** | ✅ AA |
-| `--color-info-700` `#0c326f` | `--color-info-50` `#eff6ff` | **13.0 : 1** | ✅ AAA |
-| `#ffffff` | `--color-info-solid` `#1351b4` | **7.1 : 1** | ✅ AAA |
+| `--color-success-700` `#0a5a16` | `--color-success-50` `#e7f4e9` | **7.4 : 1** | ✅ AAA |
+| `#ffffff` | `--color-success-solid` `#168821` | **4.6 : 1** | ✅ AA |
+| `--color-warning-700` `#5a3e08` | `--color-warning-50` `#fef0c8` | **8.7 : 1** | ✅ AAA |
+| `#ffffff` | `--color-warning-solid` `#845a0a` | **6.1 : 1** | ✅ AA |
+| `--color-danger-700` `#c92a2a` | `--color-danger-50` `#fcf0ee` | **4.9 : 1** | ✅ AA |
+| `#ffffff` | `--color-danger-solid` `#c92a2a` | **5.5 : 1** | ✅ AA |
+| `--color-info-700` `#0c326f` | `--color-info-50` `#eff6ff` | **11.3 : 1** | ✅ AAA |
+| `#ffffff` | `--color-info-solid` `#1351b4` | **7.3 : 1** | ✅ AAA |
 
 ### Borders (≥ 3:1 vs adjacente para passar 1.4.11 "Non-text Contrast")
 
 | Border | Adjacente | Ratio | Veredicto |
 |---|---|---|---|
-| `--border-subtle` `#e2e8f0` | `#ffffff` | **1.3 : 1** | ⚠️ visual decorativo only — NÃO usar para form/input border |
-| `--border-default` `#cbd5e1` | `#ffffff` | **1.6 : 1** | ⚠️ same — usar `--border-strong` em inputs |
-| `--border-strong` `#64748b` | `#ffffff` | **4.6 : 1** | ✅ 1.4.11 (F-006 fechado — era `#94a3b8` 2.7:1) |
+| `--border-subtle` `#e2e8f0` | `#ffffff` | **1.2 : 1** | ⚠️ visual decorativo only — NÃO usar para form/input border |
+| `--border-default` `#cbd5e1` | `#ffffff` | **1.5 : 1** | ⚠️ same — usar `--border-strong` em inputs |
+| `--border-strong` `#64748b` | `#ffffff` | **4.8 : 1** | ✅ 1.4.11 (F-006 fechado — era `#94a3b8` 2.7:1) |
 
 ### Focus ring
 
 | Token | Adjacente | Ratio | Veredicto |
 |---|---|---|---|
-| `--focus-ring-color` `#3b82f6` | `#ffffff` | **3.4 : 1** | ✅ AA-LG (foco é UI, não texto — 3.0:1 mín) |
-| `#3b82f6` | `#1351b4` (primary button) | **1.4 : 1** | ⚠️ borderline — adicionar `outline-offset` 2px (já feito) |
+| `--focus-ring-color` `#3b82f6` | `#ffffff` | **3.7 : 1** | ✅ AA-LG (foco é UI, não texto — 3.0:1 mín) |
+| `#3b82f6` | `#1351b4` (primary button) | **2.0 : 1** | ⚠️ borderline — adicionar `outline-offset` 2px (já feito) |
 
 ---
 
@@ -76,12 +76,12 @@ Cálculo: WCAG 2.1 relative luminance (algoritmo `(L1 + 0.05) / (L2 + 0.05)`).
 
 | Texto | Fundo | Ratio | Veredicto |
 |---|---|---|---|
-| `--text-primary` `#f1f5f9` | `--surface-page` `#0f172a` | **16.5 : 1** | ✅ AAA (excedendo bem) |
+| `--text-primary` `#f1f5f9` | `--surface-page` `#0f172a` | **16.3 : 1** | ✅ AAA (excedendo bem) |
 | `--text-primary` `#f1f5f9` | `--surface-card` `#1e293b` | **13.4 : 1** | ✅ AAA |
-| `--text-secondary` `#cbd5e1` | `--surface-page` `#0f172a` | **11.2 : 1** | ✅ AAA |
-| `--text-secondary` `#cbd5e1` | `--surface-card` `#1e293b` | **9.1 : 1** | ✅ AAA |
-| `--text-muted` `#94a3b8` | `--surface-page` `#0f172a` | **6.5 : 1** | ✅ AA |
-| `--text-muted` `#94a3b8` | `--surface-card` `#1e293b` | **5.3 : 1** | ✅ AA |
+| `--text-secondary` `#cbd5e1` | `--surface-page` `#0f172a` | **12.0 : 1** | ✅ AAA |
+| `--text-secondary` `#cbd5e1` | `--surface-card` `#1e293b` | **9.9 : 1** | ✅ AAA |
+| `--text-muted` `#94a3b8` | `--surface-page` `#0f172a` | **7.0 : 1** | ✅ AAA |
+| `--text-muted` `#94a3b8` | `--surface-card` `#1e293b` | **5.7 : 1** | ✅ AA |
 | `--text-heading` `#dbe9ff` | `--surface-card` `#1e293b` | **11.9 : 1** | ✅ AAA |
 | `--text-heading` `#dbe9ff` | `--surface-page` `#0f172a` | **14.5 : 1** | ✅ AAA |
 | `--text-title-soft` `#93c5fd` | `--surface-card` `#1e293b` | **8.1 : 1** | ✅ AAA |
@@ -99,25 +99,25 @@ Cálculo: WCAG 2.1 relative luminance (algoritmo `(L1 + 0.05) / (L2 + 0.05)`).
 | Texto | Fundo | Ratio | Veredicto | Onde |
 |---|---|---|---|---|
 | `--text-on-primary-tint` `#93c5fd` | `--color-primary-50` `#1e293b` | **8.1 : 1** | ✅ AAA | `.tag--primary`, `.filter-chip[aria-pressed]`, drawer ativo, hover do `.btn--secondary` |
-| `--color-info-700` `#93c5fd` | `--color-info-50` `#172554` | **8.2 : 1** | ✅ AAA | `.tag--info`, título de `.alert--info` |
+| `--color-info-700` `#93c5fd` | `--color-info-50` `#172554` | **8.1 : 1** | ✅ AAA | `.tag--info`, título de `.alert--info` |
 
 ### Primary (sky-400 em dark)
 
 | Texto | Fundo | Ratio | Veredicto |
 |---|---|---|---|
-| `--text-on-primary` `#0f172a` | `--color-primary-600` `#60a5fa` | **8.7 : 1** | ✅ AAA |
-| `#ffffff` | `--color-primary-700` `#3b82f6` | **4.8 : 1** | ✅ AA |
-| `#ffffff` | `--color-primary-800` `#2563eb` | **5.7 : 1** | ✅ AA |
+| `--text-on-primary` `#0f172a` | `--color-primary-600` `#60a5fa` | **7.0 : 1** | ✅ AAA |
+| `--text-on-primary` `#0f172a` | `--color-primary-700` `#3b82f6` | **4.8 : 1** | ✅ AA |
+| `#ffffff` | `--color-primary-800` `#2563eb` | **5.2 : 1** | ✅ AA |
 
 ### Feedback (dark)
 
 | Texto | Fundo | Ratio | Veredicto |
 |---|---|---|---|
-| `--color-success-700` `#86efac` | `--color-success-50` `#052e16` | **11.1 : 1** | ✅ AAA |
-| `--color-warning-700` `#fde68a` | `--color-warning-50` `#422006` | **13.7 : 1** | ✅ AAA |
-| `--color-danger-700` `#fecaca` | `--color-danger-50` `#450a0a` | **10.2 : 1** | ✅ AAA |
-| `#ffffff` | `--color-success-solid` `#168821` (mantém escuro em ambos os temas) | **4.9 : 1** | ✅ AA |
-| `#ffffff` | `--color-warning-solid` `#845a0a` | **7.2 : 1** | ✅ AAA |
+| `--color-success-700` `#86efac` | `--color-success-50` `#052e16` | **10.6 : 1** | ✅ AAA |
+| `--color-warning-700` `#fde68a` | `--color-warning-50` `#422006` | **11.7 : 1** | ✅ AAA |
+| `--color-danger-700` `#fecaca` | `--color-danger-50` `#450a0a` | **11.2 : 1** | ✅ AAA |
+| `#ffffff` | `--color-success-solid` `#168821` (mantém escuro em ambos os temas) | **4.6 : 1** | ✅ AA |
+| `#ffffff` | `--color-warning-solid` `#845a0a` | **6.1 : 1** | ✅ AA |
 
 ---
 

@@ -99,9 +99,9 @@ de feedback que comporte texto branco.
 | Token | Light | Dark | Uso |
 |---|---|---|---|
 | `--text-primary` | `#333333` | `#f1f5f9` | corpo, default |
-| `--text-secondary` | `#5b6b7d` | `#cbd5e1` | secundário (F-010: era `#8899a8` 4.6:1, agora 5.6:1) |
+| `--text-secondary` | `#5b6b7d` | `#cbd5e1` | secundário (F-010: era `#8899a8` 4.6:1, agora 5.5:1) |
 | `--text-muted` | `#64748b` | `#94a3b8` | captions, hint (F-010: era `#94a3b8` 3.4:1, agora 4.8:1) |
-| `--text-placeholder` | `#94a3b8` | `#94a3b8` | **NOVO (F-010)** — placeholder de input (3:1 floor para UI) |
+| `--text-placeholder` | `#8493a8` | `#94a3b8` | **NOVO (F-010)** — placeholder de input (3:1 floor para UI) |
 | `--text-disabled` | `#94a3b8` | `#64748b` | **NOVO (F-002)** — texto em controle desabilitado |
 | `--text-on-primary` | `#ffffff` | `#0f172a` | texto sobre primary |
 | `--text-on-inverse` | `#ffffff` | `#ffffff` | texto sobre surface-inverse |
