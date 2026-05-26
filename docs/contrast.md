@@ -163,6 +163,28 @@ funcionais superam 3.0 : 1 contra a superfície adjacente.
 
 ---
 
+## Headers e superfícies inversas
+
+Headers institucionais, subnavs e barras de acessibilidade devem consumir
+`--text-on-inverse` para texto, ícones, bordas funcionais e estados hover.
+`--color-neutral-0` é branco fixo e só pode aparecer em swatches, exemplos
+literais ou constantes decorativas; não é token de texto para header.
+
+| Tema | Texto | Fundo | Ratio | Onde |
+|---|---|---|---|---|
+| `light` | `--text-on-inverse` `#ffffff` | `--surface-inverse` `#071d41` | **16.7 : 1** | Gov.br stripe, footer inverso |
+| `light` | `--text-on-inverse` `#ffffff` | `--surface-accessibility-bar` `#0b2754` | **14.7 : 1** | barra de acessibilidade |
+| `dark` | `--text-on-inverse` `#ffffff` | `--surface-inverse` `#020617` | **20.2 : 1** | Gov.br stripe, footer inverso |
+| `dark` | `--text-on-inverse` `#ffffff` | `--surface-accessibility-bar` `#050b1c` | **19.6 : 1** | barra de acessibilidade |
+| `contrast` | `--text-on-inverse` `#ffff00` | `--surface-inverse` `#000000` | **19.6 : 1** | Gov.br stripe, subnav, headers inversos |
+| `contrast` | `--text-on-inverse` `#ffff00` | `--surface-accessibility-bar` `#000000` | **19.6 : 1** | barra de acessibilidade |
+
+Valide `gov-bar`, `a11y-bar`, `subnav`, `topbar` e headers administrativos em
+320, 360, 375, 390, 768, 1024 e 1280px. Em `contrast`, a expectativa visual é
+texto amarelo sobre preto; branco fixo em header é regressão.
+
+---
+
 ## Pendências antes de produção
 
 - [x] Light: combinações de texto/fundo

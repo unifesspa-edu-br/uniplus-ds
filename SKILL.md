@@ -6,7 +6,7 @@ user-invocable: true
 
 Read the `README.md` file at the root of this skill first — it explains the principles, the stack target, and how the CSS files compose.
 
-If creating **visual artifacts** (slides, mocks, throwaway prototypes), copy the relevant assets out (`assets/`, `tokens.css` + `base.css` + `components.css`) and build static HTML files. Always start mobile (360px) and reflow up.
+If creating **visual artifacts** (slides, mocks, throwaway prototypes), copy the relevant assets out (`assets/`, `tokens.css` + `base.css` + `components.css`) and build static HTML files. Always start mobile at 320px, explicitly check 375px/iPhone SE, then reflow up.
 
 If working on **production code**, treat this repository as a CSS-only reference
 contract. Import or copy the three CSS files into the consuming app and bridge
@@ -32,7 +32,7 @@ consumer code depending on need.
 
 - `tokens.css` — design tokens (Inter, light/dark/system/contrast, fluid type, spacing, radius, focus). Tailwind 4/5 `@theme inline` ready.
 - `base.css` — reset + typography + a11y utilities (skip-link, sr-only, focus). Imports `tokens.css`.
-- `components.css` — CSS components (Button, Input, Tag, Alert, Card, Topbar, Stepper, Avatar). BEM-style. Imports `base.css`.
+- `components.css` — CSS components (Button, Input, Tag, Alert, Card, Topbar, compact A11y bar, Sidebar, Stepper, Avatar). BEM-style. Imports `base.css`.
 - `assets/` — Unifesspa logos, sign-out icon, frame decoration.
 - `preview/` — Design-System cards.
 - `ui_kits/portal/index.html` — Portal do Candidato home (mobile-first).

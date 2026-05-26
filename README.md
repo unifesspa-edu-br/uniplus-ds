@@ -16,6 +16,9 @@ mobile-first e LGPD.
 
 - Auditoria completa do Design System realizada em 25-mai-2026.
 - Pontos P0/P1 fechados e regressões de contraste/acessibilidade revisadas.
+- UI kits `portal` e `admin` validados em 320, 360, 375, 390, 768, 1024 e
+  1280px, nos temas `light`, `dark` e `contrast`, com checagem de overflow,
+  axe serious/critical e contraste computado.
 - `tokens.css`, `base.css` e `components.css` sao a base estavel.
 - O arquivo historico `Auditoria do Design System.html` permanece como registro
   de contexto, nao como backlog ativo.
@@ -25,8 +28,8 @@ mobile-first e LGPD.
 - **Acessibilidade como piso:** WCAG 2.1 AA, e-MAG 3.1, foco visivel,
   navegacao por teclado, alvos interativos de pelo menos 44px e estado nunca
   comunicado apenas por cor.
-- **Mobile-first:** a interface nasce em 360px e escala com breakpoints
-  progressivos.
+- **Mobile-first:** a interface nasce em 320px, deve passar no iPhone SE
+  (375px) e escala com breakpoints progressivos.
 - **Tokens semanticos:** componentes consomem `--surface-*`, `--text-*`,
   `--border-*` e `--color-*`; hex literal fora de `tokens.css` e swatches
   demonstrativos e proibido.
@@ -147,9 +150,11 @@ arquivos forem publicados ou copiados no app:
 Os contratos canonicos ficam em `docs/component-api.md`. Exemplos principais:
 
 - botoes, inputs, tags, alerts, cards e topbar;
+- barra Gov.br/acessibilidade compacta e responsiva;
 - stepper e wizard de inscricao;
 - tabela responsiva mobile-first com `td[data-label]`;
 - page header com titulo, descricao e slot de acoes;
+- sidebar administrativa colapsavel no desktop e off-canvas no mobile;
 - empty state, spinner, toast, drawer, dialog e uploader.
 
 Cada componente novo deve ter CSS em `components.css`, exemplo em
@@ -169,7 +174,9 @@ repositório.
 - Brand
 
 Ao revisar mudancas visuais, abra o indice e confira os tres temas
-(`light`, `dark`, `contrast`) em larguras mobile e desktop.
+(`light`, `dark`, `contrast`) em 320, 360, 375, 390, 768, 1024 e 1280px.
+Use 375px como proxy obrigatorio de iPhone SE e trate overflow horizontal como
+falha, exceto em containers explicitamente rolaveis.
 
 ## Validação Recomendada
 
@@ -183,9 +190,13 @@ Checklist manual:
 
 - testar `preview/index.html`, `ui_kits/portal` e `ui_kits/admin`;
 - alternar `data-theme="light"`, `dark` e `contrast`;
+- validar 320, 360, 375, 390, 768, 1024 e 1280px;
 - navegar por teclado;
 - validar 200% zoom;
 - conferir contraste de texto normal >= 4.5:1;
+- confirmar que headers, subnav, Gov.br stripe e barra de acessibilidade usam
+  `--text-on-inverse` em superficies inversas, inclusive no tema `contrast`;
+- garantir ausencia de overflow horizontal visual nao intencional;
 - garantir que todo interativo mantenha alvo minimo de 44px;
 - confirmar que exemplos nao trazem PII real.
 
@@ -233,6 +244,9 @@ Use dados ficticios e mascarados nos previews. Para exemplos de CPF, e-mail e
 processos seletivos, mantenha valores sem correspondencia real.
 
 ## Documentação
+
+A documentação faz parte do contrato público do DS e deve evoluir junto com
+qualquer mudança de token, componente, helper JavaScript, preview ou UI kit.
 
 - `docs/contributing.md` - fluxo de contribuicao e regras de componente.
 - `docs/component-api.md` - API, markup e ARIA dos componentes.
