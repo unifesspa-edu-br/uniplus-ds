@@ -18,6 +18,20 @@ HTML server-rendered usando este contrato como referência. Essas implementaçõ
 devem viver nos seus próprios repositórios ou módulos, mantendo compatibilidade
 com a anatomia HTML, classes, ARIA e comportamento documentados aqui.
 
+## Documentação evolui junto
+
+Qualquer mudança em `tokens.css`, `components.css`, `assets/*.js`,
+`preview/` ou `ui_kits/` que altere contrato público, comportamento,
+responsividade, ARIA ou contraste deve atualizar a documentação no mesmo PR.
+Use:
+
+- `docs/component-api.md` para anatomia HTML, classes, ARIA e foco;
+- `docs/contrast.md` para tokens de cor, contraste e superfícies inversas;
+- `README.md` e `SKILL.md` quando a mudança alterar uso, status, validação ou
+  regra de consumo do pacote CSS-only.
+
+Documentação não é etapa posterior: ela faz parte do definition of done do DS.
+
 ## Estrutura
 
 ```
@@ -99,7 +113,8 @@ Antes de criar, verifique:
 
 Regras:
 - **Tokens, nunca hex literal.** `var(--color-primary)`, não `#1351b4`.
-- **Mobile-first.** Estado base = 360px. `@media (min-width: …)` aditivo.
+- **Mobile-first.** Estado base = 320px, com verificação explícita em 375px
+  (iPhone SE). `@media (min-width: …)` aditivo.
 - **Estados completos:** default, hover, focus-visible, active, disabled.
 - **`min-height: var(--touch-min)`** em qualquer interativo.
 - **Sem `:focus`**, só `:focus-visible`. (Já coberto por `base.css` em fallback.)
@@ -137,11 +152,15 @@ nos arquivos `*.css` staged.
 
 Cobertura mínima manual:
 
-- `preview/index.html` e UI kits relevantes em 360, 768, 1024 e 1280px;
+- `preview/index.html` e UI kits relevantes em 320, 360, 375, 390, 768,
+  1024 e 1280px;
 - temas `light`, `dark` e `contrast`;
 - navegação por teclado;
 - zoom 200%;
 - estados default, hover, focus-visible, active e disabled;
+- ausência de overflow horizontal visual não intencional;
+- headers e superfícies inversas usando tokens semânticos, especialmente
+  `--text-on-inverse` no tema `contrast`;
 - status com texto/ícone, não apenas cor.
 
 ### 6. Abra PR usando o template (próxima seção)
@@ -163,15 +182,18 @@ Cobertura mínima manual:
 ## Checklist
 
 ### Design
-- [ ] Mobile-first (testado em 360 / 768 / 1024 / 1280)
+- [ ] Mobile-first (testado em 320 / 360 / 375 / 390 / 768 / 1024 / 1280)
 - [ ] Tokens, sem hex literal
+- [ ] Headers/superfícies inversas usam tokens semânticos, não branco fixo
 - [ ] Estados completos: default, hover, focus-visible, active, disabled
 - [ ] Sombras restritas (border default, shadow apenas em overlays)
+- [ ] Sem overflow horizontal, exceto em containers explicitamente roláveis
 
 ### Acessibilidade
 - [ ] Touch target ≥ 44×44 em todo interativo
 - [ ] Foco visível (3px solid `var(--focus-ring-color)`)
 - [ ] ARIA contract documentado (role, aria-*, aria-live, focus management)
+- [ ] Off-canvas/drawer/sidebar mobile com Escape, foco restaurado e fundo inerte
 - [ ] Testado com leitor de tela (NVDA Windows / VoiceOver macOS)
 - [ ] `prefers-reduced-motion` honrado
 - [ ] WCAG 2.1 AA piso, AAA onde viável
@@ -189,9 +211,10 @@ Cobertura mínima manual:
 
 ### Tests
 - [ ] `npm run lint:css`
-- [ ] Teste manual em 360 / 768 / 1024 / 1280
+- [ ] Teste manual em 320 / 360 / 375 / 390 / 768 / 1024 / 1280
 - [ ] Teste manual em `light` / `dark` / `contrast`
 - [ ] Navegação por teclado e zoom 200%
+- [ ] Axe/Playwright ou equivalente para mudanças em headers, UI kits ou ARIA
 - [ ] Screenshots ou links de preview quando houver mudança visual
 ```
 
@@ -250,7 +273,8 @@ test(a11y): documenta verificacao manual do menu
 
 - **Stylelint** garantindo tokens e bloqueando hex literal fora de `tokens.css`.
 - **Playwright + axe-core**, quando configurado no projeto consumidor ou na CI
-  deste pacote, deve falhar em violations sérias/críticas.
+  deste pacote, deve falhar em violations sérias/críticas e cobrir pelo menos
+  320/375px nos UI kits quando a mudança tocar headers, navegação ou ARIA.
 
 ### Personas para revisar mentalmente
 

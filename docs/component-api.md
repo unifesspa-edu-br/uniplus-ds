@@ -250,29 +250,65 @@ do dialog. Razão: alguns browsers não disparam `close` confiável.
 <div class="gov-bar" role="region" aria-label="Identificação do Governo Federal">…</div>
 
 <!-- Accessibility bar -->
-<div class="a11y-bar" role="toolbar" aria-label="Preferências de acessibilidade">
-  <span class="a11y-bar__label">Acessibilidade</span>
-  <div role="group" aria-label="Tamanho da fonte">
-    <button data-a11y="font-scale" data-value="md" aria-pressed="true">A</button>
-    <button data-a11y="font-scale" data-value="lg">A+</button>
-    <button data-a11y="font-scale" data-value="xl">A++</button>
+<div class="a11y-bar" role="region" aria-label="Preferências de acessibilidade">
+  <button class="a11y-bar__toggle" type="button"
+          aria-expanded="false" aria-controls="portal-a11y-controls"
+          data-a11y-bar-toggle>
+    <span class="a11y-bar__toggle-main">
+      <svg class="a11y-bar__toggle-icon" aria-hidden="true">…</svg>
+      <span>Acessibilidade</span>
+    </span>
+    <svg class="a11y-bar__toggle-chevron" aria-hidden="true">…</svg>
+  </button>
+
+  <div class="a11y-bar__controls" id="portal-a11y-controls"
+       role="toolbar" aria-label="Preferências de acessibilidade">
+    <span class="a11y-bar__label">Acessibilidade</span>
+    <div class="a11y-bar__group" role="group" aria-label="Tamanho da fonte">
+      <button class="a11y-btn" data-a11y="font-scale" data-value="md"
+              aria-pressed="true">A</button>
+      <button class="a11y-btn" data-a11y="font-scale" data-value="lg">A+</button>
+      <button class="a11y-btn" data-a11y="font-scale" data-value="xl">A++</button>
+    </div>
+    <div class="a11y-bar__group" role="group" aria-label="Tema">
+      <button class="a11y-btn" data-a11y="theme" data-value="light">Claro</button>
+      <button class="a11y-btn" data-a11y="theme" data-value="dark">Escuro</button>
+      <button class="a11y-btn" data-a11y="theme" data-value="auto"
+              aria-pressed="true">Sistema</button>
+    </div>
+    <button class="a11y-btn" data-a11y="contrast" data-value="on">Contraste</button>
+    <button class="a11y-btn" data-a11y="font-mode" data-value="legible">Fonte legível</button>
+    <span class="a11y-bar__spacer" aria-hidden="true"></span>
+    <a class="a11y-bar__help" href="#">Ajuda</a>
   </div>
-  <div role="group" aria-label="Tema">
-    <button data-a11y="theme" data-value="light">Claro</button>
-    <button data-a11y="theme" data-value="dark">Escuro</button>
-    <button data-a11y="theme" data-value="auto" aria-pressed="true">Sistema</button>
-  </div>
-  <button data-a11y="contrast" data-value="on">Contraste</button>
-  <button data-a11y="font-mode" data-value="legible">Fonte legível</button>
 </div>
 
 <!-- Brand topbar -->
-<header class="topbar" role="banner">…</header>
+<header class="topbar" role="banner">
+  <div class="topbar__brand">…</div>
+  <nav class="topbar__nav" aria-label="Navegação principal">…</nav>
+  <div class="topbar__actions">…</div>
+</header>
 ```
 
+### Contrato de responsividade e contraste
+
+- A `a11y-bar` é `role="region"` e os controles internos formam o `toolbar`.
+- Em `<768px`, os controles iniciam recolhidos; `data-a11y-bar-toggle` alterna
+  `aria-expanded` e a classe `.is-open`.
+- Em `>=768px`, `uniplus-a11y.js` mantém a barra expandida e remove o
+  affordance de acordeão visual.
+- `gov-bar`, `a11y-bar`, `subnav` e superficies inversas usam
+  `--text-on-inverse` para texto, ícones, bordas de ação e hover. Não use
+  `--color-neutral-0` para texto de header; no tema `contrast`, branco fixo
+  quebra a hierarquia esperada porque o texto de header precisa virar amarelo.
+- `.topbar__actions` é o slot canônico para busca, notificações, avatar e
+  botões de topo. Em telas estreitas, o user chip pode virar icon-only, mas
+  precisa preservar `aria-label` com o nome/ação completos.
+
 Lógica em `uniplus-a11y.js`. Apps consumidores podem adaptar a mesma regra em
-serviços próprios, desde que escrevam os atributos no `<html>` e preservem a
-persistência de preferência.
+serviços próprios, desde que escrevam os atributos no `<html>`, preservem a
+persistência de preferência e mantenham o contrato ARIA acima.
 
 ---
 
@@ -459,9 +495,72 @@ Preview canônico: `preview/pattern-wizard.html`.
 
 ## Sidebar colapsável (Admin)
 
-Pattern documentado em `ui_kits/admin/index.html`. O estado colapsado pertence
-ao app consumidor; persista a preferência em storage local do app e reflita o
-estado no atributo/classe consumido pelo CSS.
+Sidebar administrativa canônica para painéis CEPS/CRCA. No desktop ela pode ser
+colapsada; no mobile ela abre como off-canvas modal leve, com backdrop e gestão
+de foco.
+
+```html
+<div class="admin-shell" id="admin-shell">
+  <aside class="sidebar" id="admin-sidebar" aria-label="Navegação lateral">
+    <div class="sidebar__brand">
+      <div class="sidebar__mark" aria-hidden="true">U+</div>
+      <div>
+        <div class="sidebar__brand-title">Uni+ Admin</div>
+        <div class="sidebar__brand-sub">CEPS · Seleção</div>
+      </div>
+      <button class="sidebar__close" type="button"
+              aria-label="Fechar menu lateral" data-sidebar-close>
+        <svg aria-hidden="true">…</svg>
+      </button>
+    </div>
+
+    <div class="sidebar__label">Painéis</div>
+    <a href="#" class="is-active" data-tooltip="Painel de processos"
+       data-tooltip-position="right" aria-label="Painel de processos">…</a>
+
+    <div class="sidebar__bottom">
+      <div class="avatar avatar--sm">JF</div>
+      <div class="sidebar__user-info">
+        <strong>Jeferson</strong>
+        <span>Administrador</span>
+      </div>
+    </div>
+  </aside>
+
+  <div class="sidebar-backdrop" aria-hidden="true" data-sidebar-close></div>
+
+  <header class="admin-header">
+    <button class="sidebar-toggle" type="button"
+            aria-label="Abrir menu lateral"
+            aria-expanded="false" aria-controls="admin-sidebar">
+      …
+    </button>
+  </header>
+</div>
+```
+
+### Desktop
+
+- O estado colapsado pertence ao app consumidor; persista a preferência em
+  storage local e reflita em `data-sidebar="collapsed"` no shell. A ausência
+  desse atributo representa o estado expandido.
+- O avatar do footer permanece visível quando colapsado. O texto do usuário
+  usa `.sidebar__user-info` e pode ser ocultado visualmente pelo CSS.
+- Use `[data-tooltip]` em itens icon-only quando a sidebar estiver colapsada,
+  mantendo `aria-label` ou texto acessível equivalente.
+
+### Mobile
+
+- O mesmo botão de menu abre o off-canvas com `data-sidebar-mobile="open"` no
+  shell e `aria-expanded="true"` no trigger.
+- A sidebar deve ter `id` estável referenciado por `aria-controls`.
+- O backdrop e o botão interno de fechar usam `data-sidebar-close`; a
+  visibilidade do backdrop vem do estado `data-sidebar-mobile="open"`.
+- Ao abrir, mova foco para o botão de fechar ou primeiro item navegável; ao
+  fechar por clique, Escape ou backdrop, restaure foco para o trigger.
+- Enquanto aberta, marque as regiões de conteúdo atrás da sidebar com `inert`
+  e `aria-hidden="true"`; remova ambos ao fechar.
+- A ordem visual não pode provocar overflow horizontal em 320/375px.
 
 Tooltip on hover quando colapsada via CSS `[data-tooltip]:hover::after`.
 
