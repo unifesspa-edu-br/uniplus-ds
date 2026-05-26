@@ -195,5 +195,5 @@ texto amarelo sobre preto; branco fixo em header é regressão.
 - [x] **Token `--text-placeholder` separado para placeholders** (era reuso indevido de `--text-muted`)
 - [ ] Validar com usuário NAIA da Unifesspa (parceria de teste com PcD — briefing § 11)
 - [ ] Adicionar uma checagem automatizada via Playwright + axe-core nos PRs (test pattern em `docs/contributing.md`)
-- [ ] Documentar a paleta `data-font-mode="legible"` (Atkinson Hyperlegible) — pendente
+- [x] Documentar `data-font-mode="legible"` com Atkinson Hyperlegible Next
 - [ ] **Validar contraste com usuários reais no tema `contrast` após F-035 (feedback agora redefinido)**

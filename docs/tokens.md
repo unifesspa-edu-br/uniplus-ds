@@ -141,7 +141,20 @@ Aplicado automaticamente em `:focus-visible` por `base.css`.
 | Token | Valor | Uso |
 |---|---|---|
 | `--font-sans` | `Inter, system-ui, …` | corpo, headings |
+| `--font-legible` | `Atkinson Hyperlegible Next, Inter, system-ui, …` | modo opcional `data-font-mode="legible"` |
 | `--font-mono` | `JetBrains Mono, ui-monospace, …` | CPF, edital ID, código |
+
+As fontes são servidas localmente por `tokens.css` a partir de
+`assets/fonts/`, em WOFF2 `latin` e `latin-ext`, com `font-display: swap`.
+As licenças OFL de Inter, Atkinson Hyperlegible Next e JetBrains Mono estão no
+mesmo diretório.
+
+O padrão do DS continua sendo Inter por consistência visual, densidade e bom
+suporte geral de UI. A opção `data-font-mode="legible"` troca `--font-sans` por
+Atkinson Hyperlegible Next para usuários que preferem glifos mais
+diferenciados. Essa preferência melhora legibilidade em cenários de baixa visão,
+mas não substitui requisitos de contraste, zoom, tamanho de fonte, espaçamento,
+foco visível e validação com usuários reais.
 
 ### Size — fluido com `clamp()`
 | Token | Mobile (360) | Desktop (≥1440) | Uso |
@@ -299,7 +312,7 @@ desligadas por `prefers-reduced-motion: reduce` — `base.css` já cobre globalm
 |---|---|---|
 | `data-theme` | `auto` (default) / `light` / `dark` / `contrast` | tema visual |
 | `data-font-scale` | `md` (default) / `lg` / `xl` / `2xl` | font-size root |
-| `data-font-mode` | `default` (default) / `legible` | Atkinson Hyperlegible (futuro) |
+| `data-font-mode` | `default` (default) / `legible` | troca `--font-sans` para Atkinson Hyperlegible Next |
 
 Aplicados por `uniplus-a11y.js` baseados em escolhas do usuário (persiste em
 `localStorage`). Apps consumidores podem adaptar a mesma regra em serviços ou
@@ -332,6 +345,7 @@ sobrescreve dark/light enquanto ativo.
   --spacing-4:            var(--space-4);
   --spacing-6:            var(--space-6);
   --font-sans:            var(--font-sans);
+  --font-legible:         var(--font-legible);
   --font-mono:            var(--font-mono);
 }
 ```
