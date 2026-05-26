@@ -1,7 +1,13 @@
-<!DOCTYPE html><html lang="pt-BR"><head><meta charset="utf-8"><title>preview/pattern-wizard.html</title><link rel="stylesheet" href="../tokens.css"><link rel="stylesheet" href="../base.css"><link rel="stylesheet" href="../components.css"><link rel="stylesheet" href="_card.css"><style>
-.wizard-preview{gap:var(--space-5)}.wizard-preview__mobile{display:none}.wizard-panel{border:1px solid var(--border-subtle);border-radius:var(--radius-md);padding:var(--space-4);background:var(--surface-page)}.wizard-panel__body{display:grid;grid-template-columns:1fr 1fr;gap:var(--space-3);margin-top:var(--space-4)}.wizard-field{height:44px;border:1px solid var(--border-default);border-radius:var(--radius-md);background:var(--surface-card)}@media (max-width:767px){.wizard-preview__desktop{display:none}.wizard-preview__mobile{display:block}.wizard-panel__body{grid-template-columns:1fr}}
+<!DOCTYPE html><html lang="pt-BR" data-theme="auto"><head><meta charset="utf-8"><title>preview/pattern-wizard.html</title><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="stylesheet" href="../tokens.css"><link rel="stylesheet" href="../base.css"><link rel="stylesheet" href="../components.css"><link rel="stylesheet" href="_card.css"><style>
+.wizard-layout{display:grid;grid-template-columns:1fr;gap:var(--space-5);margin-top:var(--space-4)}
+@media (min-width:768px){.wizard-layout{grid-template-columns:240px 1fr;align-items:start;gap:var(--space-7)}}
+.wizard-panel{border:1px solid var(--border-subtle);border-radius:var(--radius-md);padding:var(--space-4);background:var(--surface-page)}
+.wizard-panel__body{display:grid;grid-template-columns:1fr 1fr;gap:var(--space-3);margin-top:var(--space-4)}
+.wizard-field{height:44px;border:1px solid var(--border-default);border-radius:var(--radius-md);background:var(--surface-card)}
+.wizard-actions{display:flex;justify-content:space-between;margin-top:var(--space-5)}
+@media (max-width:767px){.wizard-panel__body{grid-template-columns:1fr}}
 </style></head><body>
-<div class="card-frame wizard-preview">
+<div class="card-frame">
   <div class="page-header">
     <div class="page-header__content">
       <div class="tag-eyebrow">PATTERN · WIZARD DE INSCRIÇÃO</div>
@@ -13,50 +19,56 @@
     </div>
   </div>
 
-  <div class="wizard-preview__desktop" aria-label="Stepper horizontal para desktop">
-    <div class="stepper">
-      <div class="stepper__step is-done"><div class="stepper__dot is-done">1</div><div class="stepper__label">Dados</div></div><div class="stepper__bar is-done"></div>
-      <div class="stepper__step is-done"><div class="stepper__dot is-done">2</div><div class="stepper__label">Contato</div></div><div class="stepper__bar is-done"></div>
-      <div class="stepper__step is-current"><div class="stepper__dot is-current">3</div><div class="stepper__label">Endereço</div></div><div class="stepper__bar"></div>
-      <div class="stepper__step"><div class="stepper__dot">4</div><div class="stepper__label">Escolaridade</div></div><div class="stepper__bar"></div>
-      <div class="stepper__step"><div class="stepper__dot">5</div><div class="stepper__label">Modalidade</div></div><div class="stepper__bar"></div>
-      <div class="stepper__step"><div class="stepper__dot">6</div><div class="stepper__label">Cotas</div></div><div class="stepper__bar"></div>
-      <div class="stepper__step"><div class="stepper__dot">7</div><div class="stepper__label">Curso</div></div><div class="stepper__bar"></div>
-      <div class="stepper__step"><div class="stepper__dot">8</div><div class="stepper__label">Local</div></div><div class="stepper__bar"></div>
-      <div class="stepper__step"><div class="stepper__dot">9</div><div class="stepper__label">Documentos</div></div><div class="stepper__bar"></div>
-      <div class="stepper__step"><div class="stepper__dot">10</div><div class="stepper__label">Questionário</div></div><div class="stepper__bar"></div>
-      <div class="stepper__step"><div class="stepper__dot">11</div><div class="stepper__label">Revisão</div></div><div class="stepper__bar"></div>
-      <div class="stepper__step"><div class="stepper__dot">12</div><div class="stepper__label">Confirmação</div></div>
-    </div>
-  </div>
-
-  <div class="wizard-preview__mobile" aria-label="Stepper vertical para mobile">
-    <div class="stepper stepper--vertical">
-      <div class="stepper__step is-done"><div class="stepper__dot is-done">1</div><div class="stepper__label">Dados pessoais</div></div><div class="stepper__bar is-done"></div>
-      <div class="stepper__step is-done"><div class="stepper__dot is-done">2</div><div class="stepper__label">Contato</div></div><div class="stepper__bar is-done"></div>
-      <div class="stepper__step is-current"><div class="stepper__dot is-current">3</div><div class="stepper__label">Endereço</div></div><div class="stepper__bar"></div>
-      <div class="stepper__step"><div class="stepper__dot">4</div><div class="stepper__label">Escolaridade</div></div>
-    </div>
-  </div>
-
-  <section class="wizard-panel" aria-labelledby="wizard-step-title">
-    <div class="page-header">
-      <div class="page-header__content">
-        <h2 class="page-header__title" id="wizard-step-title">Endereço</h2>
-        <p class="page-header__desc">Etapa 3 de 12. Informe onde você mora atualmente.</p>
+  <div class="wizard-layout">
+    <!-- Rail vertical: 12 passos não cabem no stepper horizontal (limite de 5).
+         Desktop ≥768px: coluna lateral. Mobile: cabeçalho "Etapa X de N" + barra
+         de progresso, com a lista completa expansível (progressive disclosure). -->
+    <nav class="step-rail" aria-label="Etapas da inscrição">
+      <details class="step-rail__mobile">
+        <summary class="step-rail__summary" aria-controls="wizard-step-list">
+          <span class="step-rail__summary-count">Etapa 3 de 12</span>
+          <span class="step-rail__summary-name">Endereço</span>
+          <span class="step-rail__progress" aria-hidden="true"><span style="width:25%"></span></span>
+          <svg class="step-rail__chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+        </summary>
+      </details>
+      <div class="step-rail__content" id="wizard-step-list">
+        <p class="step-rail__title">Passos</p>
+        <ol class="step-rail__list">
+            <li class="step-rail__step is-done"><span class="step-rail__marker" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 10-10"/></svg></span><span class="step-rail__label">Dados</span></li>
+            <li class="step-rail__step is-done"><span class="step-rail__marker" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 10-10"/></svg></span><span class="step-rail__label">Contato</span></li>
+            <li class="step-rail__step is-current" aria-current="step"><span class="step-rail__marker" aria-hidden="true">3</span><span class="step-rail__label">Endereço</span></li>
+            <li class="step-rail__step"><span class="step-rail__marker" aria-hidden="true">4</span><span class="step-rail__label">Escolaridade</span></li>
+            <li class="step-rail__step"><span class="step-rail__marker" aria-hidden="true">5</span><span class="step-rail__label">Modalidade</span></li>
+            <li class="step-rail__step"><span class="step-rail__marker" aria-hidden="true">6</span><span class="step-rail__label">Cotas</span></li>
+            <li class="step-rail__step"><span class="step-rail__marker" aria-hidden="true">7</span><span class="step-rail__label">Curso</span></li>
+            <li class="step-rail__step"><span class="step-rail__marker" aria-hidden="true">8</span><span class="step-rail__label">Local</span></li>
+            <li class="step-rail__step"><span class="step-rail__marker" aria-hidden="true">9</span><span class="step-rail__label">Documentos</span></li>
+            <li class="step-rail__step"><span class="step-rail__marker" aria-hidden="true">10</span><span class="step-rail__label">Questionário</span></li>
+            <li class="step-rail__step"><span class="step-rail__marker" aria-hidden="true">11</span><span class="step-rail__label">Revisão</span></li>
+            <li class="step-rail__step"><span class="step-rail__marker" aria-hidden="true">12</span><span class="step-rail__label">Confirmação</span></li>
+          </ol>
       </div>
-      <div class="page-header__actions"><span class="tag tag--info">Rascunho salvo</span></div>
-    </div>
-    <div class="wizard-panel__body" aria-hidden="true">
-      <div class="wizard-field"></div>
-      <div class="wizard-field"></div>
-      <div class="wizard-field"></div>
-      <div class="wizard-field"></div>
-    </div>
-  </section>
+    </nav>
 
-  <div class="row" style="justify-content:space-between">
-    <button class="btn btn--secondary">Voltar</button>
-    <button class="btn btn--primary">Continuar</button>
+    <section class="wizard-panel" aria-labelledby="wizard-step-title">
+      <div class="page-header">
+        <div class="page-header__content">
+          <h2 class="page-header__title" id="wizard-step-title">Endereço</h2>
+          <p class="page-header__desc">Etapa 3 de 12. Informe onde você mora atualmente.</p>
+        </div>
+        <div class="page-header__actions"><span class="tag tag--info">Rascunho salvo</span></div>
+      </div>
+      <div class="wizard-panel__body" aria-hidden="true">
+        <div class="wizard-field"></div>
+        <div class="wizard-field"></div>
+        <div class="wizard-field"></div>
+        <div class="wizard-field"></div>
+      </div>
+      <div class="wizard-actions">
+        <button class="btn btn--secondary">Voltar</button>
+        <button class="btn btn--primary">Continuar</button>
+      </div>
+    </section>
   </div>
 </div></body></html>
