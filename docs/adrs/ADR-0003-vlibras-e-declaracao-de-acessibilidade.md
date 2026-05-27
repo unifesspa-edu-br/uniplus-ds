@@ -1,6 +1,6 @@
 # ADR-0003 — VLibras e declaração de acessibilidade
 
-- **Status:** Proposed
+- **Status:** Accepted
 - **Data:** 2026-05-27
 - **Escopo:** Design System (`uniplus-ds`) + contrato para a aplicação
 - **Issue:** unifesspa-edu-br/uniplus-ds#8
@@ -62,11 +62,12 @@ trade-offs.
    componente do DS embutido em cada tela. O DS **documenta o contrato** e
    **demonstra** nos kits (lazy), validando que não há conflito de `z-index`
    com popovers/drawers/toasts.
-4. **Declaração de acessibilidade:** o **conteúdo** da declaração é artefato
-   **institucional/da aplicação** (não do DS). O DS apenas fixa o contrato: o
-   link "Acessibilidade" da faixa gov.br aponta para essa página. Enquanto não
-   existe, permanece um alvo placeholder documentado — rastreado para
-   uniplus-web.
+4. **Declaração de acessibilidade:** o DS provê uma **página de declaração
+   modelo** (`acessibilidade.html`) com a estrutura recomendada (recursos
+   suportados, grau de conformidade WCAG/e-MAG, limitações conhecidas, contato e
+   data de revisão). O link "Acessibilidade" da faixa gov.br aponta para ela. A
+   aplicação **adapta o conteúdo institucional** (datas, contatos e status de
+   conformidade reais) — o DS entrega o template, não os dados definitivos.
 
 ## Consequências
 
@@ -98,5 +99,5 @@ trade-offs.
   lazy-load + nota de z-index) e do link de declaração.
 - Kits Admin/Portal/hub: VLibras lazy demonstrado; validar z-index contra
   popover de acessibilidade, drawer e toasts.
-- Wire do link "Acessibilidade" da faixa gov.br para o alvo da declaração
-  (placeholder até a aplicação prover o conteúdo).
+- Criar a página de declaração modelo (`acessibilidade.html`) e apontar o link
+  "Acessibilidade" da faixa gov.br (Admin, Portal e hub) para ela.
