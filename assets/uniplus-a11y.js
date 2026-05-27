@@ -1,19 +1,22 @@
 /* =============================================================================
- * uniplus-a11y.js — AccessibilityBar runtime
+ * uniplus-a11y.js — Accessibility menu runtime (ADR-0002)
  * =============================================================================
- * Wires up [data-a11y="<key>"][data-value="<v>"] buttons to <html> attrs.
+ * Wires up [data-a11y="<key>"][data-value="<v>"] buttons to <html> attrs e
+ * controla o popover de preferências (botão disclosure no header).
  *
  *   data-a11y="theme"      data-value="light|dark|auto"   radio (always set)
  *   data-a11y="contrast"   data-value="on"                toggle override
- *   data-a11y="font-scale" data-value="md|lg|xl|2xl"      radio
  *   data-a11y="font-mode"  data-value="legible"           toggle
  *
  * Visual theme is computed:
  *   contrast=on  → data-theme="contrast"  (override)
  *   else         → data-theme=<state.theme>  (light | dark | auto)
  *
- * Persists in localStorage. Updates aria-pressed across button groups.
- * Production version will be an Angular service consuming the same contract.
+ * O controle de tamanho de fonte foi removido (ADR-0002): delegado ao zoom
+ * nativo do navegador, como e-MAG 3.1 e gov.br/ds.
+ *
+ * Persiste em localStorage. Atualiza aria-pressed dos botões.
+ * Versão de produção será um Angular service consumindo o mesmo contrato.
  * ========================================================================== */
 (function () {
   'use strict';
@@ -28,7 +31,6 @@
   // Defaults
   state.theme = state.theme || 'auto';
   state.contrast = !!state.contrast;
-  state.fontScale = state.fontScale || 'md';
   state.fontMode = state.fontMode || 'default';
 
   function persist() {
@@ -54,14 +56,6 @@
     updatePressed('contrast', state.contrast ? 'on' : 'off');
   }
 
-  function applyFontScale(value) {
-    state.fontScale = value || 'md';
-    if (state.fontScale === 'md') root.removeAttribute('data-font-scale');
-    else root.setAttribute('data-font-scale', state.fontScale);
-    persist();
-    updatePressed('font-scale', state.fontScale);
-  }
-
   function applyFontMode(value) {
     state.fontMode = value || 'default';
     if (state.fontMode === 'default') root.removeAttribute('data-font-mode');
@@ -76,42 +70,59 @@
     });
   }
 
-  function setupCompactBars() {
-    const media = window.matchMedia('(min-width: 768px)');
+  // ---- Accessibility menu (disclosure popover) ------------------------------
+  // ADR-0002: botão no header abre um popover (desktop) / bottom-sheet (mobile).
+  // Padrão de disclosure, não-modal: Esc fecha e devolve o foco ao gatilho;
+  // clique fora fecha (foco vai para onde o usuário clicou).
+  function setupA11yMenu() {
+    document.querySelectorAll('[data-a11y-menu]').forEach((menu) => {
+      const trigger = menu.querySelector('[data-a11y-menu-trigger]');
+      const popover = menu.querySelector('.a11y-menu__popover');
+      const backdrop = menu.querySelector('.a11y-menu__backdrop');
+      if (!trigger || !popover) return;
 
-    document.querySelectorAll('.a11y-bar').forEach((bar) => {
-      const toggle = bar.querySelector('[data-a11y-bar-toggle]');
-      const controls = toggle ? document.getElementById(toggle.getAttribute('aria-controls')) : null;
-      if (!toggle || !controls) return;
-
-      function setOpen(open) {
-        bar.classList.toggle('is-open', open);
-        toggle.setAttribute('aria-expanded', String(open));
+      function onKeydown(e) {
+        if (e.key === 'Escape') { e.preventDefault(); close(true); }
+      }
+      function onDocPointer(e) {
+        if (!menu.contains(e.target)) close(false);
       }
 
-      function syncLayout() {
-        setOpen(media.matches);
+      function open() {
+        popover.hidden = false;
+        if (backdrop) backdrop.hidden = false;
+        trigger.setAttribute('aria-expanded', 'true');
+        const first = popover.querySelector('button, [href], input, select, textarea');
+        if (first) first.focus();
+        document.addEventListener('keydown', onKeydown);
+        // capture: roda antes dos handlers internos, sem fechar em cliques internos
+        document.addEventListener('click', onDocPointer, true);
+      }
+      function close(returnFocus) {
+        popover.hidden = true;
+        if (backdrop) backdrop.hidden = true;
+        trigger.setAttribute('aria-expanded', 'false');
+        document.removeEventListener('keydown', onKeydown);
+        document.removeEventListener('click', onDocPointer, true);
+        if (returnFocus) trigger.focus();
       }
 
-      toggle.addEventListener('click', (e) => {
-        e.preventDefault();
-        if (media.matches) return;
-        setOpen(toggle.getAttribute('aria-expanded') !== 'true');
+      trigger.addEventListener('click', (e) => {
+        e.stopPropagation();
+        if (trigger.getAttribute('aria-expanded') === 'true') close(true);
+        else open();
       });
-
-      if (media.addEventListener) media.addEventListener('change', syncLayout);
-      else media.addListener(syncLayout);
-      syncLayout();
+      if (backdrop) backdrop.addEventListener('click', () => close(true));
     });
   }
 
   // Apply saved state on init -------------------------------------------------
+  root.removeAttribute('data-font-scale'); // ADR-0002: feature removida; limpa estado legado
   applyVisualTheme();
   updatePressed('theme', state.theme);
   updatePressed('contrast', state.contrast ? 'on' : 'off');
-  applyFontScale(state.fontScale);
   applyFontMode(state.fontMode);
-  setupCompactBars();
+  setupA11yMenu();
 
   // Wire ----------------------------------------------------------------------
   document.addEventListener('click', (e) => {
@@ -127,8 +138,6 @@
     } else if (key === 'contrast') {
       // Toggle: clicking flips the override on/off.
       applyContrast(!state.contrast);
-    } else if (key === 'font-scale') {
-      applyFontScale(value);
     } else if (key === 'font-mode') {
       const isActive = btn.getAttribute('aria-pressed') === 'true';
       applyFontMode(isActive ? 'default' : value);
@@ -137,7 +146,7 @@
 
   // Expose for testing
   window.UniA11y = {
-    applyTheme, applyContrast, applyFontScale, applyFontMode,
+    applyTheme, applyContrast, applyFontMode,
     getState: () => ({ ...state }),
   };
 })();

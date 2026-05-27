@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="auto">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Accessibility menu</title>
+<link rel="stylesheet" href="../tokens.css">
+<link rel="stylesheet" href="../base.css">
+<link rel="stylesheet" href="../components.css">
+<link rel="stylesheet" href="_card.css">
+</head>
+<body>
+<div class="card-frame">
+  <div class="tag-eyebrow">ACCESSIBILITY MENU · TEMA · CONTRASTE · FONTE LEGÍVEL</div>
+  <p class="mono">ADR-0002: o botão de acessibilidade no header abre este popover (desktop) / bottom-sheet (mobile). Padrão de <strong>disclosure</strong> (não <code>menu</code>): <code>aria-expanded</code> + <code>aria-controls</code>, não-modal, Esc devolve o foco ao gatilho. O tamanho de fonte foi removido — delegado ao zoom nativo do navegador (e-MAG 3.1 + gov.br/ds).</p>
+
+  <!-- Demo: popover renderizado em fluxo (position:static) e sempre aberto.
+       Sem data-a11y-menu, o JS não controla toggle aqui; os botões data-a11y
+       continuam funcionais pelo handler global. -->
+  <div class="a11y-menu" style="display:block">
+    <div class="a11y-menu__popover" role="region" aria-label="Preferências de acessibilidade" style="position:static;width:300px;max-width:100%">
+      <p class="a11y-menu__title">Acessibilidade</p>
+      <div class="a11y-menu__group" role="group" aria-label="Tema">
+        <span class="a11y-menu__group-label">Tema</span>
+        <div class="a11y-menu__options">
+          <button class="a11y-opt" data-a11y="theme" data-value="light" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>Claro</button>
+          <button class="a11y-opt" data-a11y="theme" data-value="dark" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>Escuro</button>
+          <button class="a11y-opt" data-a11y="theme" data-value="auto" aria-pressed="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>Sistema</button>
+        </div>
+      </div>
+      <div class="a11y-menu__group" role="group" aria-label="Ajustes de leitura">
+        <span class="a11y-menu__group-label">Leitura</span>
+        <div class="a11y-menu__options">
+          <button class="a11y-opt" data-a11y="contrast" data-value="on" aria-pressed="false"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 100 20V2z"/><path d="M12 2a10 10 0 010 20" fill="none" stroke="currentColor" stroke-width="2"/></svg>Alto contraste</button>
+          <button class="a11y-opt" data-a11y="font-mode" data-value="legible" aria-pressed="false">Fonte legível</button>
+        </div>
+      </div>
+      <p class="a11y-menu__hint">Para ampliar o texto, use o zoom do navegador (<kbd>Ctrl</kbd> <kbd>+</kbd> / <kbd>Ctrl</kbd> <kbd>&#8722;</kbd>).</p>
+    </div>
+  </div>
+
+  <div class="row" style="gap:var(--space-3);margin-top:var(--space-4)">
+    <div style="padding:var(--space-4);background:var(--surface-card);border:1px solid var(--border-subtle);border-radius:var(--radius-md);flex:1">
+      <div style="font-weight:700;color:var(--text-heading);margin-bottom:4px">Card de exemplo</div>
+      <div style="font-size:var(--text-sm);color:var(--text-secondary)">As cores deste card mudam ao trocar o tema acima. Tudo persiste em <code>localStorage</code>.</div>
+      <button class="btn btn--primary btn--sm" style="margin-top:var(--space-3)">Botão</button>
+    </div>
+  </div>
+</div>
+<script src="../assets/uniplus-a11y.js"></script>
+</body>
+</html>

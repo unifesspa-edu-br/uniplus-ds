@@ -514,12 +514,10 @@
   --shadow-3: 0 0 0 3px #ffff00;
 }
 
-/* ---------- 5. User-preference: font scale ---------- */
-:root[data-font-scale="lg"]  { font-size: 112.5%; }   /* 18px base */
-:root[data-font-scale="xl"]  { font-size: 125%;   }   /* 20px base */
-:root[data-font-scale="2xl"] { font-size: 137.5%; }   /* 22px base */
-
-/* ---------- 6. User-preference: legible font ---------- */
+/* ---------- 5. User-preference: legible font ----------
+ * ADR-0002: o controle de tamanho de fonte foi removido (delegado ao zoom
+ * nativo do navegador, como e-MAG 3.1 e gov.br/ds). A preferência de fonte
+ * legível permanece. */
 :root[data-font-mode="legible"] { --font-sans: var(--font-legible); }
 
 /* ---------- 7. Reduced motion (WCAG 2.3.3) ---------- */
