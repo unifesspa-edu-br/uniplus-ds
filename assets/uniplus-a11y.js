@@ -99,12 +99,16 @@
         document.addEventListener('click', onDocPointer, true);
       }
       function close(returnFocus) {
+        // Se o foco está dentro do popover quando ele fecha — ex.: clique fora
+        // sobre um elemento não-focável da página — devolve o foco ao gatilho
+        // para não deixá-lo preso num elemento escondido (Codex P2).
+        const focusWasInside = popover.contains(document.activeElement);
         popover.hidden = true;
         if (backdrop) backdrop.hidden = true;
         trigger.setAttribute('aria-expanded', 'false');
         document.removeEventListener('keydown', onKeydown);
         document.removeEventListener('click', onDocPointer, true);
-        if (returnFocus) trigger.focus();
+        if (returnFocus || focusWasInside) trigger.focus();
       }
 
       trigger.addEventListener('click', (e) => {
