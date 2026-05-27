@@ -203,7 +203,8 @@
     .topbar-actions {
       width: 100%;
       display: grid;
-      grid-template-columns: minmax(0, 1fr) var(--touch-min) var(--touch-min);
+      /* busca + 3 ícones: acessibilidade, notificações, usuário */
+      grid-template-columns: minmax(0, 1fr) var(--touch-min) var(--touch-min) var(--touch-min);
       gap: var(--space-2);
     }
     .topbar-actions .input-group {
@@ -212,6 +213,7 @@
       width: 100%;
     }
     .topbar-actions .menu-wrapper,
+    .topbar-actions .a11y-menu,
     .topbar-actions .user-chip {
       width: var(--touch-min);
     }
