@@ -106,7 +106,7 @@ trade-offs.
 - Criar a página de declaração modelo (`acessibilidade.html`) e apontar o link
   "Acessibilidade" da faixa gov.br (Admin, Portal e hub) para ela.
 
-## Atualização (2026-05-27) — VLibras removido do showcase estático
+## Atualização (2026-05-27) — defeito de assets do VLibras e shim de fallback
 
 Ao validar a implementação, constatou-se que **a infra do próprio VLibras está
 servindo imagens quebradas**: requisições aos PNGs internos do widget
@@ -117,9 +117,20 @@ que por sua vez responde **301 → `text/plain`** (não a imagem). Isso ocorre e
 integração (o snippet usa `new VLibras.Widget()` sem argumento, o `rootPath`
 padrão oficial; assets com versão como `access_icon.svg?v=…` carregam 200).
 
-**Decisão revista:** o widget **não é auto-carregado nos kits estáticos**. O DS
-mantém o **helper** (`assets/uniplus-vlibras.js`) e o **contrato documentado**;
-a ativação real fica para o **shell da aplicação** (uniplus-web), que também
-poderá reavaliar quando o VLibras corrigir os assets. A página de declaração e
-os demais itens permanecem. O core do VLibras (tradução/avatar) é funcional; o
-que quebra são imagens decorativas em submenus.
+**Investigação:** os mesmos assets existem **funcionais** no mirror do
+repositório no jsDelivr —
+`cdn.jsdelivr.net/gh/spbgovbr-vlibras/vlibras-portal@master/app/assets/X.png`
+responde **200 image/png**. Só o branch `@sgd` (alvo do redirect da
+vlibras.gov.br) está quebrado.
+
+**Decisão:** **manter o VLibras** nos kits/hub/declaração (o objetivo é oferecer
+Libras), com um **shim de fallback cirúrgico** em `assets/uniplus-vlibras.js`:
+ao detectar o evento `error` de uma imagem do widget, reaponta **apenas aquele
+asset** para o mirror funcional (`@master`). O carregamento primário permanece
+100% oficial; avatar/`.svg`/`.jpg` não disparam erro e ficam intocados. Quando
+o VLibras corrigir a origem, o shim deixa de atuar (nenhum `error`).
+
+> Alternativas descartadas: **remover o widget** (não atende ao objetivo de
+> oferecer Libras); **apontar todo o `rootPath` para o jsDelivr** (frágil —
+> alguns assets retornaram 403 no mirror e o player do avatar pode não servir
+> bem por lá).
