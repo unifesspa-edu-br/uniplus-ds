@@ -108,50 +108,6 @@
   </span>
 </div>
 
-<!-- AccessibilityBar -->
-<div class="a11y-bar" role="region" aria-label="Preferências de acessibilidade">
-  <button class="a11y-bar__toggle" type="button" aria-expanded="false" aria-controls="portal-a11y-controls" data-a11y-bar-toggle>
-    <span class="a11y-bar__toggle-main">
-      <svg class="a11y-bar__toggle-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="4" r="2"/><path d="M4 8h16M12 6v14M8 12l-2 8M16 12l2 8"/></svg>
-      <span>Acessibilidade</span>
-    </span>
-    <svg class="a11y-bar__toggle-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
-  </button>
-  <div class="a11y-bar__controls" id="portal-a11y-controls" role="toolbar" aria-label="Preferências de acessibilidade">
-    <span class="a11y-bar__label">Acessibilidade</span>
-
-    <div class="a11y-bar__group" role="group" aria-label="Tamanho da fonte">
-      <button class="a11y-btn" data-a11y="font-scale" data-value="md" aria-label="Fonte padrão" aria-pressed="true">A</button>
-      <button class="a11y-btn" data-a11y="font-scale" data-value="lg" aria-label="Aumentar fonte">A+</button>
-      <button class="a11y-btn" data-a11y="font-scale" data-value="xl" aria-label="Fonte muito grande">A++</button>
-    </div>
-
-    <div class="a11y-bar__group" role="group" aria-label="Tema">
-      <button class="a11y-btn" data-a11y="theme" data-value="light" aria-label="Tema claro">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
-        Claro
-      </button>
-      <button class="a11y-btn" data-a11y="theme" data-value="dark" aria-label="Tema escuro">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
-        Escuro
-      </button>
-      <button class="a11y-btn" data-a11y="theme" data-value="auto" aria-label="Seguir tema do sistema" aria-pressed="true">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
-        Sistema
-      </button>
-    </div>
-
-    <button class="a11y-btn" data-a11y="contrast" data-value="on" aria-label="Alto contraste">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 100 20V2z"/><path d="M12 2a10 10 0 010 20" fill="none" stroke="currentColor" stroke-width="2"/></svg>
-      Contraste
-    </button>
-    <button class="a11y-btn" data-a11y="font-mode" data-value="legible" aria-label="Ativar fonte legível">Fonte legível</button>
-
-    <span class="a11y-bar__spacer" aria-hidden="true"></span>
-    <a class="a11y-bar__help" href="#">Ajuda</a>
-  </div>
-</div>
-
 <!-- Brand topbar -->
 <header class="topbar" role="banner">
   <div class="topbar__brand">
@@ -168,6 +124,31 @@
     <a href="#">Ajuda</a>
   </nav>
   <div class="topbar__actions">
+<div class="a11y-menu" data-a11y-menu>
+          <button class="a11y-menu__trigger" type="button" aria-expanded="false" aria-controls="a11y-popover-portal" aria-label="Preferências de acessibilidade" data-a11y-menu-trigger>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="4" r="2"/><path d="M4 8h16M12 6v14M8 12l-2 8M16 12l2 8"/></svg>
+          </button>
+          <div class="a11y-menu__backdrop" hidden aria-hidden="true"></div>
+          <div class="a11y-menu__popover" id="a11y-popover-portal" role="region" aria-label="Preferências de acessibilidade" hidden>
+            <p class="a11y-menu__title">Acessibilidade</p>
+            <div class="a11y-menu__group" role="group" aria-label="Tema">
+              <span class="a11y-menu__group-label">Tema</span>
+              <div class="a11y-menu__options">
+                <button class="a11y-opt" data-a11y="theme" data-value="light" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>Claro</button>
+                <button class="a11y-opt" data-a11y="theme" data-value="dark" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>Escuro</button>
+                <button class="a11y-opt" data-a11y="theme" data-value="auto" aria-pressed="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>Sistema</button>
+              </div>
+            </div>
+            <div class="a11y-menu__group" role="group" aria-label="Ajustes de leitura">
+              <span class="a11y-menu__group-label">Leitura</span>
+              <div class="a11y-menu__options">
+                <button class="a11y-opt" data-a11y="contrast" data-value="on" aria-pressed="false"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 100 20V2z"/><path d="M12 2a10 10 0 010 20" fill="none" stroke="currentColor" stroke-width="2"/></svg>Alto contraste</button>
+                <button class="a11y-opt" data-a11y="font-mode" data-value="legible" aria-pressed="false">Fonte legível</button>
+              </div>
+            </div>
+            <p class="a11y-menu__hint">Para ampliar o texto, use o zoom do navegador (<kbd>Ctrl</kbd> <kbd>+</kbd> / <kbd>Ctrl</kbd> <kbd>&#8722;</kbd>).</p>
+          </div>
+        </div>
     <button class="user-chip" aria-label="Menu do usuário">
       <span class="user-chip__avatar" aria-hidden="true">N</span>
       <span style="display:none" class="user-chip__name">Nalanda</span>

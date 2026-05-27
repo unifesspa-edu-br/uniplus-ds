@@ -241,49 +241,18 @@ do dialog. Razão: alguns browsers não disparam `close` confiável.
 
 ---
 
-## Topbar / Gov.br stripe / Accessibility bar
+## Topbar / Gov.br stripe / Accessibility menu
 
-3 faixas obrigatórias no topo de toda tela pública/autenticada.
+Faixa institucional gov.br no topo + topbar da aplicação. As preferências de
+acessibilidade ficam num **menu (disclosure) no header** — ver
+[`.a11y-menu`](#accessibility-menu--a11y-menu) — não mais numa barra fixa
+(ADR-0002).
 
 ```html
 <!-- Gov.br stripe -->
 <div class="gov-bar" role="region" aria-label="Identificação do Governo Federal">…</div>
 
-<!-- Accessibility bar -->
-<div class="a11y-bar" role="region" aria-label="Preferências de acessibilidade">
-  <button class="a11y-bar__toggle" type="button"
-          aria-expanded="false" aria-controls="portal-a11y-controls"
-          data-a11y-bar-toggle>
-    <span class="a11y-bar__toggle-main">
-      <svg class="a11y-bar__toggle-icon" aria-hidden="true">…</svg>
-      <span>Acessibilidade</span>
-    </span>
-    <svg class="a11y-bar__toggle-chevron" aria-hidden="true">…</svg>
-  </button>
-
-  <div class="a11y-bar__controls" id="portal-a11y-controls"
-       role="toolbar" aria-label="Preferências de acessibilidade">
-    <span class="a11y-bar__label">Acessibilidade</span>
-    <div class="a11y-bar__group" role="group" aria-label="Tamanho da fonte">
-      <button class="a11y-btn" data-a11y="font-scale" data-value="md"
-              aria-pressed="true">A</button>
-      <button class="a11y-btn" data-a11y="font-scale" data-value="lg">A+</button>
-      <button class="a11y-btn" data-a11y="font-scale" data-value="xl">A++</button>
-    </div>
-    <div class="a11y-bar__group" role="group" aria-label="Tema">
-      <button class="a11y-btn" data-a11y="theme" data-value="light">Claro</button>
-      <button class="a11y-btn" data-a11y="theme" data-value="dark">Escuro</button>
-      <button class="a11y-btn" data-a11y="theme" data-value="auto"
-              aria-pressed="true">Sistema</button>
-    </div>
-    <button class="a11y-btn" data-a11y="contrast" data-value="on">Contraste</button>
-    <button class="a11y-btn" data-a11y="font-mode" data-value="legible">Fonte legível</button>
-    <span class="a11y-bar__spacer" aria-hidden="true"></span>
-    <a class="a11y-bar__help" href="#">Ajuda</a>
-  </div>
-</div>
-
-<!-- Brand topbar -->
+<!-- Brand topbar (o botão de acessibilidade mora no slot de ações) -->
 <header class="topbar" role="banner">
   <div class="topbar__brand">…</div>
   <nav class="topbar__nav" aria-label="Navegação principal">…</nav>
@@ -293,25 +262,70 @@ do dialog. Razão: alguns browsers não disparam `close` confiável.
 
 ### Contrato de responsividade e contraste
 
-- A `a11y-bar` é `role="region"` e os controles internos formam o `toolbar`.
-- O botão `data-a11y="font-mode"` alterna `data-font-mode="legible"` no
-  `<html>`, trocando `--font-sans` para Atkinson Hyperlegible Next sem alterar
-  regras de negócio nem ocultar conteúdo.
-- Em `<768px`, os controles iniciam recolhidos; `data-a11y-bar-toggle` alterna
-  `aria-expanded` e a classe `.is-open`.
-- Em `>=768px`, `uniplus-a11y.js` mantém a barra expandida e remove o
-  affordance de acordeão visual.
-- `gov-bar`, `a11y-bar`, `subnav` e superficies inversas usam
-  `--text-on-inverse` para texto, ícones, bordas de ação e hover. Não use
-  `--color-neutral-0` para texto de header; no tema `contrast`, branco fixo
-  quebra a hierarquia esperada porque o texto de header precisa virar amarelo.
-- `.topbar__actions` é o slot canônico para busca, notificações, avatar e
-  botões de topo. Em telas estreitas, o user chip pode virar icon-only, mas
-  precisa preservar `aria-label` com o nome/ação completos.
+- `gov-bar`, `subnav` e superfícies inversas usam `--text-on-inverse` para
+  texto, ícones, bordas de ação e hover. Não use `--color-neutral-0` para texto
+  de header; no tema `contrast`, branco fixo quebra a hierarquia esperada
+  porque o texto de header precisa virar amarelo.
+- `.topbar__actions` é o slot canônico para busca, notificações, avatar, o botão
+  de acessibilidade e demais botões de topo. Em telas estreitas, o user chip
+  pode virar icon-only, mas precisa preservar `aria-label` com o nome/ação
+  completos.
 
-Lógica em `uniplus-a11y.js`. Apps consumidores podem adaptar a mesma regra em
-serviços próprios, desde que escrevam os atributos no `<html>`, preservem a
-persistência de preferência e mantenham o contrato ARIA acima.
+---
+
+## Accessibility menu — `.a11y-menu`
+
+Preferências de exibição (tema, alto contraste, fonte legível) acessadas por um
+**botão no header** que abre um popover (desktop) / bottom-sheet (mobile). É o
+padrão **disclosure** do WAI-APG — `button[aria-expanded][aria-controls]` →
+`role="region"` — **não** um `role="menu"` (que é para comandos). Não-modal:
+`Esc` fecha e devolve o foco ao gatilho; clique fora fecha. Decisão e fontes em
+[ADR-0002](adrs/ADR-0002-acessibilidade-popover-e-controles-enxutos.md).
+
+- **Não há controle de tamanho de fonte** — removido (ADR-0002), delegado ao
+  zoom nativo do navegador, como e-MAG 3.1 e gov.br/ds. O popover traz uma dica
+  de `Ctrl +` / `Ctrl −`.
+- Tema é radio (`light`/`dark`/`auto`, com `auto` = `prefers-color-scheme`);
+  contraste e fonte legível são toggles. Estado em `localStorage`, escrito como
+  atributos no `<html>`.
+- O `<html>` não deve depender de cor isolada: o `aria-pressed` dos `.a11y-opt`
+  comunica o estado.
+
+```html
+<div class="a11y-menu" data-a11y-menu>
+  <button class="a11y-menu__trigger" type="button"
+          aria-expanded="false" aria-controls="a11y-popover-portal"
+          aria-label="Preferências de acessibilidade" data-a11y-menu-trigger>
+    <svg aria-hidden="true">…</svg>
+  </button>
+  <div class="a11y-menu__backdrop" hidden aria-hidden="true"></div>
+  <div class="a11y-menu__popover" id="a11y-popover-portal"
+       role="region" aria-label="Preferências de acessibilidade" hidden>
+    <p class="a11y-menu__title">Acessibilidade</p>
+    <div class="a11y-menu__group" role="group" aria-label="Tema">
+      <span class="a11y-menu__group-label">Tema</span>
+      <div class="a11y-menu__options">
+        <button class="a11y-opt" data-a11y="theme" data-value="light" aria-pressed="false">…Claro</button>
+        <button class="a11y-opt" data-a11y="theme" data-value="dark" aria-pressed="false">…Escuro</button>
+        <button class="a11y-opt" data-a11y="theme" data-value="auto" aria-pressed="true">…Sistema</button>
+      </div>
+    </div>
+    <div class="a11y-menu__group" role="group" aria-label="Ajustes de leitura">
+      <span class="a11y-menu__group-label">Leitura</span>
+      <div class="a11y-menu__options">
+        <button class="a11y-opt" data-a11y="contrast" data-value="on" aria-pressed="false">…Alto contraste</button>
+        <button class="a11y-opt" data-a11y="font-mode" data-value="legible" aria-pressed="false">Fonte legível</button>
+      </div>
+    </div>
+    <p class="a11y-menu__hint">Para ampliar o texto, use o zoom do navegador (<kbd>Ctrl</kbd> <kbd>+</kbd> / <kbd>Ctrl</kbd> <kbd>−</kbd>).</p>
+  </div>
+</div>
+```
+
+Lógica em `uniplus-a11y.js` (abre/fecha + foco + Esc; contrato `data-a11y` no
+`<html>`). Preview canônico: `preview/comp-a11y-menu.html`. Apps consumidores
+podem adaptar em serviços próprios, desde que preservem persistência e o
+contrato ARIA acima.
 
 ---
 
