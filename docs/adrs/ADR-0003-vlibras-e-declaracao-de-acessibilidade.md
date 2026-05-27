@@ -40,8 +40,12 @@ assistiva** com base legal própria. Logo, adotá-lo **não contradiz** o ADR-01
   <div vw-plugin-wrapper><div class="vw-plugin-top-wrapper"></div></div>
 </div>
 <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
-<script>new window.VLibras.Widget('https://vlibras.gov.br/app');</script>
+<script>new window.VLibras.Widget();</script>
 ```
+
+> Use o construtor **sem argumento** (snippet oficial atual): o `rootPath`
+> assume o padrão `https://vlibras.gov.br/app/`. É a forma adotada no helper
+> `assets/uniplus-vlibras.js`.
 
 É um **runtime externo** (script de `vlibras.gov.br`) que injeta um **botão
 flutuante** próprio + um avatar 3D. O peso e a origem externa são os principais
