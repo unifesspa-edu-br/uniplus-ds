@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="auto">
+<head>
+<meta charset="utf-8">
+<title>Declaração de Acessibilidade — Uni+</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Declaração de acessibilidade do sistema Uni+ — recursos disponíveis, conformidade e contato.">
+<link rel="stylesheet" href="tokens.css">
+<link rel="stylesheet" href="base.css">
+<link rel="stylesheet" href="components.css">
+<style>
+  body { background: var(--surface-page); }
+  .doc-header { padding: var(--space-7) 0 var(--space-5); }
+  .doc-header__top { display: flex; align-items: flex-start; justify-content: space-between; gap: var(--space-4); }
+  .doc-header h1 { font-size: var(--text-3xl); color: var(--text-heading); margin: var(--space-2) 0 var(--space-2); line-height: 1.15; }
+  .doc-header p { color: var(--text-secondary); max-width: 64ch; margin: 0; }
+  .doc-section { margin-bottom: var(--space-6); }
+  .doc-section > h2 { font-size: var(--text-xl); color: var(--text-heading); margin: 0 0 var(--space-3); padding-bottom: var(--space-2); border-bottom: 1px solid var(--border-subtle); }
+  .doc-section ul { margin: 0; padding-left: var(--space-5); display: flex; flex-direction: column; gap: var(--space-2); }
+  .doc-section li { color: var(--text-primary); line-height: 1.5; }
+  .doc-section li strong { color: var(--text-heading); }
+  .doc-note { background: var(--color-warning-50); border: 1px solid var(--color-warning-200, var(--border-default)); border-radius: var(--radius-md); padding: var(--space-3) var(--space-4); font-size: var(--text-sm); color: var(--text-primary); margin-bottom: var(--space-6); }
+  .doc-meta { font-size: var(--text-sm); color: var(--text-muted); border-top: 1px solid var(--border-subtle); padding-top: var(--space-4); margin-top: var(--space-6); }
+  .doc-back { display: inline-flex; align-items: center; gap: var(--space-2); min-height: var(--touch-min); color: var(--text-link); text-decoration: none; font-weight: var(--weight-medium); }
+  .doc-back:hover { text-decoration: underline; }
+  .doc-header__top .a11y-menu { position: relative; }
+</style>
+</head>
+<body>
+
+<a href="#main" class="skip-link">Pular para o conteúdo principal</a>
+
+<!-- Gov.br stripe -->
+<div class="gov-bar" role="region" aria-label="Identificação do Governo Federal">
+  <span class="gov-bar__brand">gov.br</span>
+  <span class="gov-bar__sep" aria-hidden="true">|</span>
+  <span class="gov-bar__org">UNIFESSPA · Sistema Uni+</span>
+  <span class="gov-bar__links">
+    <a href="acessibilidade.html" aria-current="page">Acessibilidade</a>
+  </span>
+</div>
+
+<main id="main" tabindex="-1">
+  <div class="container">
+
+    <header class="doc-header">
+      <div class="doc-header__top">
+        <div>
+          <span class="u-eyebrow">Sistema Uni+ · Unifesspa</span>
+          <h1>Declaração de Acessibilidade</h1>
+        </div>
+        <!-- Menu de acessibilidade (mesmo componente dos kits) -->
+        <div class="a11y-menu" data-a11y-menu>
+          <button class="a11y-menu__trigger" type="button" aria-expanded="false" aria-controls="a11y-popover-doc" aria-label="Preferências de acessibilidade" data-a11y-menu-trigger>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="4" r="2"/><path d="M4 8h16M12 6v14M8 12l-2 8M16 12l2 8"/></svg>
+          </button>
+          <div class="a11y-menu__backdrop" hidden aria-hidden="true"></div>
+          <div class="a11y-menu__popover" id="a11y-popover-doc" role="region" aria-label="Preferências de acessibilidade" hidden>
+            <p class="a11y-menu__title">Acessibilidade</p>
+            <div class="a11y-menu__group" role="group" aria-label="Tema">
+              <span class="a11y-menu__group-label">Tema</span>
+              <div class="a11y-menu__options">
+                <button class="a11y-opt" data-a11y="theme" data-value="light" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>Claro</button>
+                <button class="a11y-opt" data-a11y="theme" data-value="dark" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>Escuro</button>
+                <button class="a11y-opt" data-a11y="theme" data-value="auto" aria-pressed="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>Sistema</button>
+              </div>
+            </div>
+            <div class="a11y-menu__group" role="group" aria-label="Ajustes de leitura">
+              <span class="a11y-menu__group-label">Leitura</span>
+              <div class="a11y-menu__options">
+                <button class="a11y-opt" data-a11y="contrast" data-value="on" aria-pressed="false"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 100 20V2z"/><path d="M12 2a10 10 0 010 20" fill="none" stroke="currentColor" stroke-width="2"/></svg>Alto contraste</button>
+                <button class="a11y-opt" data-a11y="font-mode" data-value="legible" aria-pressed="false">Fonte legível</button>
+              </div>
+            </div>
+            <p class="a11y-menu__hint">Para ampliar o texto, use o zoom do navegador (<kbd>Ctrl</kbd> <kbd>+</kbd> / <kbd>Ctrl</kbd> <kbd>&#8722;</kbd>).</p>
+          </div>
+        </div>
+      </div>
+      <p>A Unifesspa está comprometida em garantir a acessibilidade digital do sistema Uni+ ao maior número possível de pessoas, independentemente de tecnologia, capacidade ou contexto de uso.</p>
+    </header>
+
+    <div class="doc-note" role="note">
+      <strong>Modelo.</strong> Esta é uma página de declaração de acessibilidade <em>template</em> do design system. A aplicação (uniplus-web) deve adaptar datas, contatos e o status real de conformidade antes de publicar.
+    </div>
+
+    <section class="doc-section" aria-labelledby="conformidade">
+      <h2 id="conformidade">Conformidade</h2>
+      <ul>
+        <li>O sistema busca conformidade com as <strong>WCAG 2.1 nível AA</strong> e o <strong>e-MAG 3.1</strong> (Modelo de Acessibilidade em Governo Eletrônico).</li>
+        <li>Adota o <strong>Padrão Digital de Governo (gov.br/ds)</strong>, obrigatório pela Portaria MCOM nº 540/2020.</li>
+        <li>Atende à <strong>Lei nº 10.436/2002</strong> e ao <strong>Decreto nº 5.626/2005</strong> (Libras), oferecendo tradução por VLibras.</li>
+      </ul>
+    </section>
+
+    <section class="doc-section" aria-labelledby="recursos">
+      <h2 id="recursos">Recursos de acessibilidade disponíveis</h2>
+      <ul>
+        <li><strong>Preferências de exibição</strong>: tema claro, escuro e do sistema; alto contraste; fonte legível — pelo botão de acessibilidade no topo de cada página.</li>
+        <li><strong>VLibras</strong>: tradução de conteúdo para a Língua Brasileira de Sinais, pelo botão flutuante do VLibras.</li>
+        <li><strong>Navegação por teclado</strong> em todos os controles, com foco visível.</li>
+        <li><strong>Atalho “Pular para o conteúdo”</strong> no início de cada página.</li>
+        <li><strong>Redimensionamento de texto</strong> pelo zoom do navegador (até 200%) sem perda de conteúdo.</li>
+        <li><strong>Textos alternativos</strong> em imagens informativas e rótulos em campos de formulário.</li>
+      </ul>
+    </section>
+
+    <section class="doc-section" aria-labelledby="limitacoes">
+      <h2 id="limitacoes">Limitações conhecidas</h2>
+      <ul>
+        <li>O VLibras depende de um serviço externo (vlibras.gov.br); em caso de indisponibilidade, a tradução pode não carregar — o restante do sistema permanece acessível.</li>
+        <li>Conteúdos de terceiros eventualmente incorporados podem não atender integralmente aos critérios. <em>(Ajustar conforme a realidade da aplicação.)</em></li>
+      </ul>
+    </section>
+
+    <section class="doc-section" aria-labelledby="contato">
+      <h2 id="contato">Como relatar problemas</h2>
+      <ul>
+        <li>Encontrou uma barreira de acessibilidade? Escreva para <strong>ctic@unifesspa.edu.br</strong> descrevendo a página e o problema. <em>(Contato a confirmar pela aplicação.)</em></li>
+      </ul>
+    </section>
+
+    <p class="doc-meta">Última revisão: <em>a definir pela aplicação</em>. · <a class="doc-back" href="index.html">← Voltar aos kits</a></p>
+
+  </div>
+</main>
+
+<!-- VLibras (Libras) — ADR-0003: widget oficial carregado lazy -->
+<div vw class="enabled">
+  <div vw-access-button class="active"></div>
+  <div vw-plugin-wrapper><div class="vw-plugin-top-wrapper"></div></div>
+</div>
+
+<script src="assets/uniplus-a11y.js"></script>
+<script src="assets/uniplus-vlibras.js"></script>
+</body>
+</html>
