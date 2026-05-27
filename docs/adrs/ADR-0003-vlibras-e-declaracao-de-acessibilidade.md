@@ -101,3 +101,21 @@ trade-offs.
   popover de acessibilidade, drawer e toasts.
 - Criar a página de declaração modelo (`acessibilidade.html`) e apontar o link
   "Acessibilidade" da faixa gov.br (Admin, Portal e hub) para ela.
+
+## Atualização (2026-05-27) — VLibras removido do showcase estático
+
+Ao validar a implementação, constatou-se que **a infra do próprio VLibras está
+servindo imagens quebradas**: requisições aos PNGs internos do widget
+(`.../app//assets/brazil.png`, `1AC.png`, … — bandeiras do Regionalismo e logos
+dos Realizadores) retornam **302 → `cdn.jsdelivr.net/gh/spbgovbr-vlibras/vlibras-portal@sgd/app/assets/...`**,
+que por sua vez responde **301 → `text/plain`** (não a imagem). Isso ocorre em
+**qualquer site** que embuta o widget oficial — é defeito externo, não da nossa
+integração (o snippet usa `new VLibras.Widget()` sem argumento, o `rootPath`
+padrão oficial; assets com versão como `access_icon.svg?v=…` carregam 200).
+
+**Decisão revista:** o widget **não é auto-carregado nos kits estáticos**. O DS
+mantém o **helper** (`assets/uniplus-vlibras.js`) e o **contrato documentado**;
+a ativação real fica para o **shell da aplicação** (uniplus-web), que também
+poderá reavaliar quando o VLibras corrigir os assets. A página de declaração e
+os demais itens permanecem. O core do VLibras (tradução/avatar) é funcional; o
+que quebra são imagens decorativas em submenus.

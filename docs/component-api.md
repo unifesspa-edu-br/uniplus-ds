@@ -335,11 +335,16 @@ Tradução para Libras pela suíte oficial **VLibras** (Lei 10.436/2002, Decreto
 5.626/2005). Decisão e trade-offs em
 [ADR-0003](adrs/ADR-0003-vlibras-e-declaracao-de-acessibilidade.md).
 
-- **Runtime externo carregado lazy** (`assets/uniplus-vlibras.js`): o script de
-  `vlibras.gov.br` só é injetado de forma não-bloqueante (`requestIdleCallback`
-  / após `load`). O widget injeta o **próprio botão flutuante** + avatar 3D.
+- **Contrato, não embutido no showcase.** O DS fornece o helper de carregamento
+  lazy (`assets/uniplus-vlibras.js`) e documenta a integração, mas **não
+  auto-carrega** o widget nos kits estáticos. Motivo: hoje a infra do VLibras
+  redireciona os PNGs internos (bandeiras do Regionalismo, logos dos
+  Realizadores) para um CDN quebrado, exibindo imagens quebradas em qualquer
+  embed — defeito externo, fora do nosso controle (ver adendo no ADR-0003).
 - **Em produção, o VLibras é responsabilidade do shell** (uma vez por sessão),
-  não um componente embutido por tela. O DS documenta e demonstra nos kits.
+  não um componente embutido por tela. O shell inclui o markup abaixo + o helper.
+- **Carregamento lazy** (`requestIdleCallback` / após `load`), não-bloqueante. O
+  helper só ativa se o container `[vw]` existir na página.
 - O botão flutuante do VLibras usa `z-index` muito alto (próprio da suíte) e
   fica acima de popover/drawer/toast — comportamento desejado para uma
   ferramenta assistiva.
