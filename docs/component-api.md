@@ -329,6 +329,36 @@ contrato ARIA acima.
 
 ---
 
+## VLibras (Libras) + declaração de acessibilidade
+
+Tradução para Libras pela suíte oficial **VLibras** (Lei 10.436/2002, Decreto
+5.626/2005). Decisão e trade-offs em
+[ADR-0003](adrs/ADR-0003-vlibras-e-declaracao-de-acessibilidade.md).
+
+- **Runtime externo carregado lazy** (`assets/uniplus-vlibras.js`): o script de
+  `vlibras.gov.br` só é injetado de forma não-bloqueante (`requestIdleCallback`
+  / após `load`). O widget injeta o **próprio botão flutuante** + avatar 3D.
+- **Em produção, o VLibras é responsabilidade do shell** (uma vez por sessão),
+  não um componente embutido por tela. O DS documenta e demonstra nos kits.
+- O botão flutuante do VLibras usa `z-index` muito alto (próprio da suíte) e
+  fica acima de popover/drawer/toast — comportamento desejado para uma
+  ferramenta assistiva.
+
+```html
+<div vw class="enabled">
+  <div vw-access-button class="active"></div>
+  <div vw-plugin-wrapper><div class="vw-plugin-top-wrapper"></div></div>
+</div>
+<script src="assets/uniplus-vlibras.js"></script>
+```
+
+**Declaração de acessibilidade:** `acessibilidade.html` é a página modelo
+(conformidade, recursos, limitações, contato, data). O link "Acessibilidade" da
+faixa gov.br aponta para ela. A aplicação adapta o conteúdo institucional
+(datas, contatos e status reais de conformidade).
+
+---
+
 ## Page header — `.page-header`
 
 Cabeçalho canônico para página ou bloco principal: título, descrição opcional e
