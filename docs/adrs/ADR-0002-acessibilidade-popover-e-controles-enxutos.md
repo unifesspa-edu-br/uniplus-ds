@@ -24,7 +24,7 @@ A questão de fundo: *qual a forma correta de oferecer preferências de exibiç�
 - **WAI (W3C) e comunidade de acessibilidade:** *overlays/widgets automáticos de acessibilidade* são reprovados — não substituem acessibilidade real, forçam reconfiguração em cada site e podem conflitar com a tecnologia assistiva do próprio usuário. O botão **flutuante** de acessibilidade é a assinatura visual desse anti-padrão. (Distingue-se de controles **nativos** legítimos, que é o nosso caso.)
 - **Nielsen Norman Group:** prover controle de fonte com unidades relativas, mas **respeitando as preferências do navegador**; e **desencoraja oferecer customização de esquema de cores**, preferindo `prefers-color-scheme` do sistema operacional.
 - **Padrão Digital de Governo — gov.br/ds (fonte vigente, obrigatória pela Portaria MCOM nº 540/2020):** a barra de acessibilidade mantém **alto contraste**, atalhos de navegação, link de **Acessibilidade** (declaração dos recursos do site) e **VLibras**; e **removeu as funcionalidades de aumentar/diminuir fonte**, com a justificativa oficial de que "os navegadores já possuem esses recursos nativos". Esta orientação **substitui** a antiga "Barra Brasil" (`barra.governoeletronico.gov.br`), descontinuada.
-- **e-MAG 3.1 (abril/2014):** acessibilidade descobrível **no topo**, teclas de atalho (Alt+1/2/3), **alto contraste**, **fonte legível** e identificação de links. A barra do e-MAG 3.1 **inclui controles de aumentar/diminuir fonte** — ponto em que foi superado pelo gov.br/ds (ver "Conflito de normas" abaixo).
+- **e-MAG 3.1 (abril/2014):** acessibilidade descobrível **no topo**, teclas de atalho (Alt+1/2/3), **alto contraste**, **fonte legível** e identificação de links. A barra do e-MAG 3.1 foi **reduzida de 7 para 5 itens, removendo justamente os controles de aumentar/diminuir fonte** — "os navegadores já possuem essas funcionalidades nativas e são conhecidas pela maioria". Ou seja, o e-MAG 3.1 **converge** com o gov.br/ds nesse ponto (ver "Convergência de normas" abaixo).
 - **WCAG 2.1:** não exige widget algum — exige que o **conteúdo** seja acessível (reflow 1.4.10, redimensionar texto a 200% via zoom do navegador 1.4.4, contraste 4.5:1). Controles de página são complemento, não requisito.
 
 ### Referências
@@ -40,33 +40,28 @@ A questão de fundo: *qual a forma correta de oferecer preferências de exibiç�
 1. **Eliminar a barra de acessibilidade fixa.** Nenhuma row permanente de controles, em nenhuma largura de tela.
 2. **Ponto de entrada:** um **botão-ícone de acessibilidade no header** (glifo de acesso universal, com nome acessível "Preferências de acessibilidade") que abre um **popover** no desktop e um **bottom-sheet/painel** no mobile. Descobrível no topo (e-MAG), sob demanda, **não flutuante** (evita a estética de overlay reprovada).
 3. **Enxugar os controles** ao que os padrões realmente pedem:
-   - **Remover** o tamanho de fonte (A / A+ / A++) — delegado ao **zoom nativo do navegador** (Ctrl/+/−), como fez a barra oficial do governo e recomenda a NN/g.
+   - **Remover** o tamanho de fonte (A / A+ / A++) — delegado ao **zoom nativo do navegador** (Ctrl/+/−), como fizeram **tanto o e-MAG 3.1 quanto o gov.br/ds** e recomenda a NN/g.
    - **Manter alto contraste** — núcleo do e-MAG e da barra oficial.
    - **Manter fonte legível** (apoio à dislexia) — sancionado pelo e-MAG.
    - **Tema:** manter Claro / Escuro / **Sistema**, com `Sistema` (= `prefers-color-scheme`) como padrão — honra a recomendação da NN/g de respeitar o SO, oferecendo override manual, que hoje é norma.
 4. **Manter/garantir skip-links e atalhos** (Alt+1/2/3) e o "Pular para o conteúdo" — e-MAG.
 5. **Desfazer a duplicação de rótulo:** o link "Acessibilidade" da faixa gov.br permanece reservado para a futura **declaração de acessibilidade** (convenção gov.br); o widget de **preferências** é o botão-ícone do header — semanticamente distintos.
 
-### Conflito de normas (e-MAG 3.1 × gov.br/ds)
+### Convergência de normas (e-MAG 3.1 + gov.br/ds)
 
-A barra de acessibilidade do **e-MAG 3.1** (2014) **inclui** os botões de
-aumentar/diminuir fonte; o **gov.br/ds** (Portaria MCOM nº 540/2020) **os
-removeu**. Esta decisão segue o gov.br/ds, por três razões:
+**Não há conflito.** Tanto o **e-MAG 3.1** (que reduziu a barra de 7 para 5
+itens, removendo o aumentar/diminuir fonte) quanto o **gov.br/ds** (Portaria
+MCOM nº 540/2020) chegaram à mesma conclusão: o controle de fonte é redundante
+porque os navegadores já oferecem zoom nativo. Esta decisão segue ambos.
 
-1. **Posterioridade e obrigatoriedade legal:** o Padrão Digital de Governo
-   (gov.br/ds) é de adoção obrigatória pela Portaria 540/2020 (base também do
-   nosso ADR-018) e é posterior ao e-MAG 3.1 (2014). Onde atualiza a orientação,
-   prevalece.
-2. **Conformidade WCAG preservada:** os botões de fonte nunca foram critério
-   WCAG. O **WCAG 2.1 SC 1.4.4 (Redimensionar texto)** é atendido pelo **zoom
-   nativo do navegador** (até 200%) e pelo SC 1.4.10 (Reflow) — que o conteúdo
-   já respeita. Removê-los **não reduz** a conformidade.
-3. **Objetivo de fundo do e-MAG:** o e-MAG existe para alinhar com o WCAG; o
-   widget de fonte era um *meio*, hoje redundante com o recurso nativo do
-   navegador. O fim (texto redimensionável) continua garantido.
+A remoção também **não reduz a conformidade WCAG**: os botões de fonte nunca
+foram critério normativo. O **WCAG 2.1 SC 1.4.4 (Redimensionar texto)** é
+atendido pelo **zoom nativo do navegador** (até 200%) e o SC 1.4.10 (Reflow)
+pelo conteúdo — ambos já respeitados. O widget de fonte era um *meio*; o fim
+(texto redimensionável) continua garantido.
 
-Mantemos do e-MAG 3.1 tudo que **não** conflita: alto contraste, fonte legível,
-atalhos (Alt+1/2/3), skip-links e descoberta no topo.
+Mantemos do e-MAG 3.1 / gov.br/ds tudo o que segue vigente: alto contraste,
+fonte legível, atalhos (Alt+1/2/3), skip-links e descoberta no topo.
 
 ## Consequências
 
