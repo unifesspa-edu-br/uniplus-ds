@@ -23,16 +23,17 @@ A questão de fundo: *qual a forma correta de oferecer preferências de exibiç�
 
 - **WAI (W3C) e comunidade de acessibilidade:** *overlays/widgets automáticos de acessibilidade* são reprovados — não substituem acessibilidade real, forçam reconfiguração em cada site e podem conflitar com a tecnologia assistiva do próprio usuário. O botão **flutuante** de acessibilidade é a assinatura visual desse anti-padrão. (Distingue-se de controles **nativos** legítimos, que é o nosso caso.)
 - **Nielsen Norman Group:** prover controle de fonte com unidades relativas, mas **respeitando as preferências do navegador**; e **desencoraja oferecer customização de esquema de cores**, preferindo `prefers-color-scheme` do sistema operacional.
-- **Barra de Acessibilidade oficial do Governo Federal (IDG/gov.br):** mantém **alto contraste** + âncoras de salto (Alt+1/2/3) e **removeu os botões de aumentar/diminuir fonte**, com a justificativa oficial de que "os navegadores já têm esse recurso nativo, conhecido pela maioria".
-- **e-MAG (obrigatório):** acessibilidade descobrível **no topo**, teclas de atalho (Alt+1/2/3), **alto contraste**, **fonte legível** e identificação de links.
+- **Padrão Digital de Governo — gov.br/ds (fonte vigente, obrigatória pela Portaria MCOM nº 540/2020):** a barra de acessibilidade mantém **alto contraste**, atalhos de navegação, link de **Acessibilidade** (declaração dos recursos do site) e **VLibras**; e **removeu as funcionalidades de aumentar/diminuir fonte**, com a justificativa oficial de que "os navegadores já possuem esses recursos nativos". Esta orientação **substitui** a antiga "Barra Brasil" (`barra.governoeletronico.gov.br`), descontinuada.
+- **e-MAG:** acessibilidade descobrível **no topo**, teclas de atalho (Alt+1/2/3), **alto contraste**, **fonte legível** e identificação de links. (Mantido como referência; em conflito, prevalece o gov.br/ds.)
 - **WCAG 2.1:** não exige widget algum — exige que o **conteúdo** seja acessível (reflow 1.4.10, redimensionar texto a 200% via zoom do navegador 1.4.4, contraste 4.5:1). Controles de página são complemento, não requisito.
 
 ### Referências
 
 - WAI/overlays: <https://www.accessibility.works/blog/avoid-accessibility-overlay-tools-toolbar-plugins/> · <https://wcagsafe.com/blog/accessibility-overlays-dont-work>
 - NN/g: <https://www.nngroup.com/articles/let-users-control-font-size/> · <https://www.nngroup.com/articles/113-design-guidelines-homepage-usability/>
+- **gov.br/ds — Acessibilidade (vigente):** <https://www.gov.br/ds/acessibilidade> · VLibras: <https://www.gov.br/governodigital/pt-br/acessibilidade-e-usuario/vlibras>
 - e-MAG: <https://emag.governoeletronico.gov.br/padroes-0033.php>
-- Barra oficial (IDG): <https://barra.governoeletronico.gov.br/instrucoes_novo.html>
+- *(descontinuada — não usar)* Barra Brasil antiga: `barra.governoeletronico.gov.br`
 
 ## Decisão
 
@@ -56,6 +57,10 @@ A questão de fundo: *qual a forma correta de oferecer preferências de exibiç�
 **Negativas / custos**
 - Remoção de feature (A/A+/A++): usuários que não conhecem o zoom do navegador perdem o atalho visual. Mitigação: o popover pode trazer uma dica curta ("use Ctrl + e Ctrl − para ampliar") se necessário.
 - Novo padrão de componente (botão + popover/bottom-sheet) a manter e versionar; a contrato JS atual (`uniplus-a11y.js`) precisa de ajuste no gatilho.
+
+### Fora de escopo (mas registrado)
+
+O gov.br/ds também prevê **VLibras** (tradução para Libras) e o link de **declaração de acessibilidade**. São itens distintos das preferências de exibição tratadas aqui — devem ser endereçados em issue própria, não nesta decisão.
 
 ## Alternativas descartadas
 
