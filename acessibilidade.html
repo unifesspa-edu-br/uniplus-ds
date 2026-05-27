@@ -96,7 +96,7 @@
       <h2 id="recursos">Recursos de acessibilidade disponíveis</h2>
       <ul>
         <li><strong>Preferências de exibição</strong>: tema claro, escuro e do sistema; alto contraste; fonte legível — pelo botão de acessibilidade no topo de cada página.</li>
-        <li><strong>VLibras</strong>: tradução para a Língua Brasileira de Sinais — habilitada pela aplicação por meio do widget oficial do VLibras (carregado pelo shell do sistema). Esta página de modelo não embute o widget.</li>
+        <li><strong>VLibras</strong>: tradução para a Língua Brasileira de Sinais, pelo botão flutuante do VLibras.</li>
         <li><strong>Navegação por teclado</strong> em todos os controles, com foco visível.</li>
         <li><strong>Atalho “Pular para o conteúdo”</strong> no início de cada página.</li>
         <li><strong>Redimensionamento de texto</strong> pelo zoom do navegador (até 200%) sem perda de conteúdo.</li>
@@ -126,5 +126,11 @@
 
 
 <script src="assets/uniplus-a11y.js"></script>
+<!-- VLibras (Libras) — ADR-0003: widget oficial; shim reaponta assets quebrados -->
+<div vw class="enabled">
+  <div vw-access-button class="active"></div>
+  <div vw-plugin-wrapper><div class="vw-plugin-top-wrapper"></div></div>
+</div>
+<script src="assets/uniplus-vlibras.js"></script>
 </body>
 </html>

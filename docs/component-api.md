@@ -335,16 +335,18 @@ Tradução para Libras pela suíte oficial **VLibras** (Lei 10.436/2002, Decreto
 5.626/2005). Decisão e trade-offs em
 [ADR-0003](adrs/ADR-0003-vlibras-e-declaracao-de-acessibilidade.md).
 
-- **Contrato, não embutido no showcase.** O DS fornece o helper de carregamento
-  lazy (`assets/uniplus-vlibras.js`) e documenta a integração, mas **não
-  auto-carrega** o widget nos kits estáticos. Motivo: hoje a infra do VLibras
-  redireciona os PNGs internos (bandeiras do Regionalismo, logos dos
-  Realizadores) para um CDN quebrado, exibindo imagens quebradas em qualquer
-  embed — defeito externo, fora do nosso controle (ver adendo no ADR-0003).
+- **Carregamento lazy** via `assets/uniplus-vlibras.js` (`requestIdleCallback` /
+  após `load`), não-bloqueante. O helper só ativa se o container `[vw]` existir.
+  Init com `new VLibras.Widget()` sem argumento (rootPath oficial padrão).
+- **Shim de assets quebrados.** Hoje a infra do VLibras serve os PNGs internos
+  (bandeiras do Regionalismo, logos dos Realizadores) com erro — `…/app//assets/X.png`
+  redireciona para um CDN quebrado. O helper escuta o evento `error` das imagens
+  e, **apenas para os assets que falham**, reaponta para o mirror funcional do
+  mesmo repositório no jsDelivr (`vlibras-portal@master/app/assets/`). O carrega-
+  mento primário continua 100% oficial; avatar/`.svg`/`.jpg` não disparam erro e
+  ficam intocados. É contorno de defeito externo (ver adendo no ADR-0003).
 - **Em produção, o VLibras é responsabilidade do shell** (uma vez por sessão),
-  não um componente embutido por tela. O shell inclui o markup abaixo + o helper.
-- **Carregamento lazy** (`requestIdleCallback` / após `load`), não-bloqueante. O
-  helper só ativa se o container `[vw]` existir na página.
+  não um componente por tela. O shell inclui o markup abaixo + o helper.
 - O botão flutuante do VLibras usa `z-index` muito alto (próprio da suíte) e
   fica acima de popover/drawer/toast — comportamento desejado para uma
   ferramenta assistiva.
