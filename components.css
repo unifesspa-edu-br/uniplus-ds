@@ -394,10 +394,21 @@
 }
 .gov-bar a:hover { text-decoration: underline; }
 @media (max-width: 640px) {
-  .gov-bar__org { display: none; } /* compacto em mobile */
-  /* F-038: NUNCA esconder "Acessibilidade" / "Privacidade" — obrigações Gov.br DS + LGPD.
-   * Em mobile a barra pode quebrar em 2 linhas; melhor isso do que ocultar. */
-  .gov-bar__links { gap: var(--space-2); width: 100%; margin-left: 0; }
+  /* F-042: em telas estreitas a faixa vira um bar institucional de DOIS níveis,
+   * intencional — em vez de esconder o órgão (que deixava um "gov.br |" órfão).
+   *   Linha 1: identidade  ->  gov.br | <órgão>
+   *   Linha 2: utilitários ->  links, separados por um filete sutil
+   * F-038: NUNCA esconder "Acessibilidade"/"Privacidade" (Gov.br DS + LGPD).
+   * O órgão permanece visível: é a identidade institucional da faixa. */
+  .gov-bar { column-gap: var(--space-2); row-gap: 0; }
+  .gov-bar__links {
+    width: 100%;
+    margin-left: 0;
+    margin-top: var(--space-2);
+    padding-top: var(--space-2);
+    gap: var(--space-1) var(--space-4);
+    border-top: 1px solid color-mix(in srgb, var(--text-on-inverse) 18%, transparent);
+  }
   .gov-bar__links a { font-size: var(--text-xs); }
 }
 
