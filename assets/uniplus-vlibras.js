@@ -23,12 +23,15 @@
   if (!document.querySelector('[vw]')) return;
 
   var SRC = 'https://vlibras.gov.br/app/vlibras-plugin.js';
-  var APP = 'https://vlibras.gov.br/app';
   var started = false;
 
   function init() {
     try {
-      if (window.VLibras && window.VLibras.Widget) new window.VLibras.Widget(APP);
+      // Sem argumento: o widget assume o rootPath padrão oficial
+      // 'https://vlibras.gov.br/app/' (com barra final). Passar a URL sem a
+      // barra final corrompia os caminhos de assets internos do widget — ex.:
+      // as bandeiras do painel "Regionalismo" viravam imagens quebradas.
+      if (window.VLibras && window.VLibras.Widget) new window.VLibras.Widget();
     } catch (_) { /* indisponibilidade do serviço externo não quebra a página */ }
   }
 
