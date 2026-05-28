@@ -11,14 +11,20 @@
   body { background: var(--surface-page); }
 
   /* Sub-nav */
+  /* Mobile-first: oculta enquanto o hamburger está ativo (< 1024px) — o
+     drawer já cobre os mesmos itens (Editais · Minhas inscrições · Resultados
+     · Ajuda); a subnav é redundante e gerava scroll horizontal no mobile. A
+     partir de 1024px volta como faixa de abas, junto com o nav da topbar. */
   .subnav {
+    display: none;
     background: var(--surface-accessibility-bar);
     color: var(--text-on-inverse);
     padding: var(--space-2) var(--space-4);
-    display: flex; gap: var(--space-1); align-items: center;
+    gap: var(--space-1); align-items: center;
     overflow-x: auto; scrollbar-width: thin;
     border-bottom: 1px solid color-mix(in srgb, var(--text-on-inverse) 16%, transparent);
   }
+  @media (min-width: 1024px) { .subnav { display: flex; } }
   /* F-039: o fade só aparece quando há conteúdo fora da área visível e segue
      a direção do scroll (ver wiring no final). Sem overflow (ex.: desktop),
      nenhum mask é aplicado — evita a faixa branca no canto direito da barra. */
@@ -52,7 +58,15 @@
   @media (min-width: 768px) { .hero__inner { grid-template-columns: 1.3fr 1fr; gap: var(--space-9); } }
   .hero__title { font-size: var(--text-3xl); font-weight: var(--weight-bold); color: var(--text-heading); line-height: 1.15; letter-spacing: -0.01em; margin: var(--space-3) 0; }
   .hero__lead { font-size: var(--text-md); line-height: 1.55; color: var(--text-primary); max-width: 56ch; margin: 0 0 var(--space-5); }
-  .hero__actions { display: flex; flex-wrap: wrap; gap: var(--space-3); }
+  /* Mobile-first: CTAs empilhados em coluna ocupando a largura total
+     (alvos de toque maiores e hierarquia clara). A partir de 768px voltam
+     para a linha, lado a lado. */
+  .hero__actions { display: flex; flex-direction: column; gap: var(--space-3); }
+  .hero__actions .btn { width: 100%; }
+  @media (min-width: 768px) {
+    .hero__actions { flex-direction: row; flex-wrap: wrap; }
+    .hero__actions .btn { width: auto; }
+  }
   /* Mobile-first: a ilustração é decorativa (aria-hidden) e fica oculta por
      padrão, para que conteúdo e CTA permaneçam acima da dobra — era a causa da
      quebra do antigo carrossel no mobile (ADR-0004). A partir de 768px ela
