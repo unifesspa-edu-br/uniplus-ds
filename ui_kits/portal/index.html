@@ -23,16 +23,16 @@
      a direção do scroll (ver wiring no final). Sem overflow (ex.: desktop),
      nenhum mask é aplicado — evita a faixa branca no canto direito da barra. */
   .subnav[data-fade="right"] {
-    mask-image: linear-gradient(90deg, #000 0, #000 calc(100% - 32px), transparent 100%);
-    -webkit-mask-image: linear-gradient(90deg, #000 0, #000 calc(100% - 32px), transparent 100%);
+    mask-image: linear-gradient(90deg, var(--color-neutral-950) 0, var(--color-neutral-950) calc(100% - 32px), transparent 100%);
+    -webkit-mask-image: linear-gradient(90deg, var(--color-neutral-950) 0, var(--color-neutral-950) calc(100% - 32px), transparent 100%);
   }
   .subnav[data-fade="left"] {
-    mask-image: linear-gradient(90deg, transparent 0, #000 32px, #000 100%);
-    -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 32px, #000 100%);
+    mask-image: linear-gradient(90deg, transparent 0, var(--color-neutral-950) 32px, var(--color-neutral-950) 100%);
+    -webkit-mask-image: linear-gradient(90deg, transparent 0, var(--color-neutral-950) 32px, var(--color-neutral-950) 100%);
   }
   .subnav[data-fade="both"] {
-    mask-image: linear-gradient(90deg, transparent 0, #000 32px, #000 calc(100% - 32px), transparent 100%);
-    -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 32px, #000 calc(100% - 32px), transparent 100%);
+    mask-image: linear-gradient(90deg, transparent 0, var(--color-neutral-950) 32px, var(--color-neutral-950) calc(100% - 32px), transparent 100%);
+    -webkit-mask-image: linear-gradient(90deg, transparent 0, var(--color-neutral-950) 32px, var(--color-neutral-950) calc(100% - 32px), transparent 100%);
   }
   .subnav a {
     display: inline-flex; align-items: center; gap: 6px;
