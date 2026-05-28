@@ -53,17 +53,19 @@
   .hero__title { font-size: var(--text-3xl); font-weight: var(--weight-bold); color: var(--text-heading); line-height: 1.15; letter-spacing: -0.01em; margin: var(--space-3) 0; }
   .hero__lead { font-size: var(--text-md); line-height: 1.55; color: var(--text-primary); max-width: 56ch; margin: 0 0 var(--space-5); }
   .hero__actions { display: flex; flex-wrap: wrap; gap: var(--space-3); }
+  /* Mobile-first: a ilustração é decorativa (aria-hidden) e fica oculta por
+     padrão, para que conteúdo e CTA permaneçam acima da dobra — era a causa da
+     quebra do antigo carrossel no mobile (ADR-0004). A partir de 768px ela
+     aparece ao lado do conteúdo. */
   .hero__illus {
+    display: none;
     background: var(--surface-card);
     border: 1px solid var(--border-subtle);
     border-radius: var(--radius-xl);
     aspect-ratio: 5 / 4;
-    display: flex; align-items: center; justify-content: center;
+    align-items: center; justify-content: center;
   }
-  /* Mobile-first: a ilustração é decorativa (aria-hidden). Em telas estreitas
-     fica oculta para que o conteúdo e o CTA permaneçam acima da dobra — era a
-     causa da quebra do antigo carrossel no mobile (ADR-0004). */
-  @media (max-width: 767px) { .hero__illus { display: none; } }
+  @media (min-width: 768px) { .hero__illus { display: flex; } }
 
   /* Page block */
   section.block { padding: var(--space-7) 0; }
