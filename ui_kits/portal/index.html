@@ -631,6 +631,18 @@
 
   nav.addEventListener('scroll', update, { passive: true });
   window.addEventListener('resize', update);
+
+  // Reavalia quando o layout da barra muda sem scroll/resize. Ex.: a
+  // preferência "Fonte legível" troca --font-sans depois deste script rodar
+  // (uniplus-a11y.js aplica o modo persistido em seguida), alterando o
+  // scrollWidth dos itens. Observa os filhos — cuja largura muda com a fonte
+  // — além da própria barra (que acompanha a viewport).
+  if ('ResizeObserver' in window) {
+    const ro = new ResizeObserver(() => update());
+    ro.observe(nav);
+    Array.from(nav.children).forEach((child) => ro.observe(child));
+  }
+
   update();
 })();
 </script>
