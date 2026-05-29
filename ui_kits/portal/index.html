@@ -442,23 +442,32 @@
   const btnList = document.getElementById('view-list');
   const btnCards = document.getElementById('view-cards');
   if (!btnList || !btnCards) return;
+  const isMobileWidth = () => screen.width < 768;
 
   function setView(view) {
+    const isMobile = isMobileWidth();
     body.setAttribute('data-view', view);
     btnList.setAttribute('aria-pressed', String(view === 'list'));
     btnCards.setAttribute('aria-pressed', String(view === 'cards'));
     try { localStorage.setItem('uniplus.editais.view', view); } catch (_) {}
   }
 
-  let initial = 'list';
+  let initial = isMobileWidth() ? 'cards' : 'list';
   try {
     const saved = localStorage.getItem('uniplus.editais.view');
-    if (saved === 'list' || saved === 'cards') initial = saved;
+    if ((saved === 'list' || saved === 'cards') && !isMobileWidth()) initial = saved;
   } catch (_) {}
   setView(initial);
 
   btnList.addEventListener('click', () => setView('list'));
   btnCards.addEventListener('click', () => setView('cards'));
+
+  function update() {
+    if (isMobileWidth()) {
+      setView('cards');
+    }
+  }
+  window.addEventListener('resize', update);
 })();
 
 // ============================================================================

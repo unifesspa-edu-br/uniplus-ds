@@ -1620,13 +1620,20 @@
  * SEGMENTED CONTROL (view toggle: list / cards / etc.)
  * ========================================================================== */
 .segmented {
-  display: inline-flex;
+  display: none;
   background: var(--surface-subtle);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-pill);
   padding: 3px;
   gap: 2px;
 }
+
+@media (min-width: 768px) {
+  .segmented {
+    display: inline-flex;
+  }
+}
+
 .segmented__btn {
   display: inline-flex; align-items: center; justify-content: center; gap: var(--space-half-2);
   min-height: var(--touch-min);   /* F-022: was 36px, now WCAG 2.5.5 floor */
