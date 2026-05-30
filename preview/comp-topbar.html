@@ -1,6 +1,91 @@
-<!DOCTYPE html><html lang="pt-BR"><head><meta charset="utf-8"><title>preview/comp-topbar.html</title><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="stylesheet" href="../tokens.css"><link rel="stylesheet" href="../base.css"><link rel="stylesheet" href="../components.css"><link rel="stylesheet" href="_card.css"><style>.topbar-preview{width:100%;min-height:100svh;background:var(--surface-page);overflow:hidden}@media (min-width: 480px) { .user-chip__name { display: inline !important; } }</style></head><body>
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="auto">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Topbar e faixa gov.br</title>
+<link rel="stylesheet" href="../tokens.css">
+<link rel="stylesheet" href="../base.css">
+<link rel="stylesheet" href="../components.css">
+<link rel="stylesheet" href="_card.css">
+<style>
+  body { background: var(--surface-page); }
+  .topbar-preview {
+    width: 100%;
+    min-height: 100svh;
+    background: var(--surface-page);
+    overflow: hidden;
+  }
+  .topbar-demo__note {
+    padding: var(--space-4) var(--space-5);
+    background: var(--surface-card);
+    border-top: 1px solid var(--border-subtle);
+  }
+  @media (min-width: 480px) { .user-chip__name { display: inline !important; } }
+</style>
+</head>
+<body>
 <div class="topbar-preview">
-  <div class="gov-bar"><span class="gov-bar__brand">gov.br</span><span class="gov-bar__sep">|</span><span class="gov-bar__org">UNIFESSPA</span><span class="gov-bar__links"><a href="#">Mapa do site</a><a href="../acessibilidade.html">Acessibilidade</a><a href="#">Privacidade</a></span></div>
-  <div class="topbar"><div class="topbar__brand"><div class="topbar__mark">U+</div><div class="topbar__titles"><div class="topbar__title">Portal do Candidato</div><div class="topbar__subtitle">Sistema Uni+ · Unifesspa</div></div></div><div class="topbar__actions"><button class="a11y-menu__trigger" type="button" aria-label="Preferências de acessibilidade"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="4" r="2"/><path d="M4 8h16M12 6v14M8 12l-2 8M16 12l2 8"/></svg></button><button class="user-chip" type="button" aria-label="Menu do usuário: Nalanda"><span class="user-chip__avatar" aria-hidden="true">N</span><span style="display:none" class="user-chip__name">Nalanda</span></button></div></div>
-  <div style="padding:14px 20px"><div class="mono">Faixa gov.br (<code>--color-primary-900</code>) + brand header. As preferências de acessibilidade ficam no botão do header (<code>.a11y-menu</code>), que abre popover/bottom-sheet — ver <code>comp-a11y-menu.html</code> (ADR-0002).</div></div>
-</div></body></html>
+  <div class="gov-bar" role="region" aria-label="Identificação do Governo Federal">
+    <span class="gov-bar__brand">gov.br</span>
+    <span class="gov-bar__sep" aria-hidden="true">|</span>
+    <span class="gov-bar__org">UNIFESSPA</span>
+    <span class="gov-bar__links">
+      <a href="#">Mapa do site</a>
+      <a href="../acessibilidade.html">Acessibilidade</a>
+      <a href="#">Privacidade</a>
+    </span>
+  </div>
+
+  <header class="topbar" role="banner">
+    <div class="topbar__brand">
+      <div class="topbar__mark" aria-hidden="true">U+</div>
+      <div class="topbar__titles">
+        <div class="topbar__title">Portal do Candidato</div>
+        <div class="topbar__subtitle">Sistema Uni+ · Unifesspa</div>
+      </div>
+    </div>
+    <nav class="topbar__nav" aria-label="Navegação principal">
+      <a href="#" class="is-active" aria-current="page">Editais</a>
+      <a href="#">Inscrições</a>
+      <a href="#">Resultados</a>
+    </nav>
+    <div class="topbar__actions">
+      <div class="a11y-menu" data-a11y-menu>
+        <button class="a11y-menu__trigger" type="button" aria-expanded="false" aria-controls="a11y-popover-topbar" aria-label="Preferências de acessibilidade" data-a11y-menu-trigger>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="4" r="2"/><path d="M4 8h16M12 6v14M8 12l-2 8M16 12l2 8"/></svg>
+        </button>
+        <div class="a11y-menu__backdrop" hidden aria-hidden="true"></div>
+        <div class="a11y-menu__popover" id="a11y-popover-topbar" role="region" aria-label="Preferências de acessibilidade" hidden>
+          <p class="a11y-menu__title">Acessibilidade</p>
+          <div class="a11y-menu__group" role="group" aria-label="Tema">
+            <span class="a11y-menu__group-label">Tema</span>
+            <div class="a11y-menu__options">
+              <button class="a11y-opt" data-a11y="theme" data-value="light" aria-pressed="false">Claro</button>
+              <button class="a11y-opt" data-a11y="theme" data-value="dark" aria-pressed="false">Escuro</button>
+              <button class="a11y-opt" data-a11y="theme" data-value="auto" aria-pressed="true">Sistema</button>
+            </div>
+          </div>
+          <div class="a11y-menu__group" role="group" aria-label="Ajustes de leitura">
+            <span class="a11y-menu__group-label">Leitura</span>
+            <div class="a11y-menu__options">
+              <button class="a11y-opt" data-a11y="contrast" data-value="on" aria-pressed="false">Alto contraste</button>
+              <button class="a11y-opt" data-a11y="font-mode" data-value="legible" aria-pressed="false">Fonte legível</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <button class="user-chip" type="button" aria-label="Menu do usuário: Nalanda">
+        <span class="user-chip__avatar" aria-hidden="true">N</span>
+        <span style="display:none" class="user-chip__name">Nalanda</span>
+      </button>
+    </div>
+  </header>
+
+  <div class="topbar-demo__note">
+    <div class="mono">Preview de chrome de página em largura real do viewport: faixa gov.br + header da aplicação. A faixa institucional usa os links canônicos "Mapa do site", "Acessibilidade" e "Privacidade"; o item ativo da navegação usa classe visual e <code>aria-current="page"</code>.</div>
+  </div>
+</div>
+<script src="../assets/uniplus-a11y.js"></script>
+</body>
+</html>
