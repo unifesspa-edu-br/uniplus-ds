@@ -27,6 +27,10 @@ consumer code depending on need.
 - Use the public contract in `README.md`, `docs/`, `tokens.css`, `base.css` and
   `components.css` as the source of truth. Internal raw briefings are not
   versioned in this public repository.
+- Standalone HTML must include the responsive viewport meta tag. Any `.gov-bar`
+  example must expose "Mapa do site", "Acessibilidade" and "Privacidade" in that
+  order, and active navigation items need `aria-current="page"` alongside the
+  visual state.
 
 ## Files in this skill
 

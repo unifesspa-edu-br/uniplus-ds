@@ -250,15 +250,38 @@ acessibilidade ficam num **menu (disclosure) no header** — ver
 
 ```html
 <!-- Gov.br stripe -->
-<div class="gov-bar" role="region" aria-label="Identificação do Governo Federal">…</div>
+<div class="gov-bar" role="region" aria-label="Identificação do Governo Federal">
+  <span class="gov-bar__brand">gov.br</span>
+  <span class="gov-bar__sep" aria-hidden="true">|</span>
+  <span class="gov-bar__org">UNIFESSPA · Sistema Uni+</span>
+  <span class="gov-bar__links">
+    <a href="#">Mapa do site</a>
+    <a href="/acessibilidade.html">Acessibilidade</a>
+    <a href="#">Privacidade</a>
+  </span>
+</div>
 
 <!-- Brand topbar (o botão de acessibilidade mora no slot de ações) -->
 <header class="topbar" role="banner">
   <div class="topbar__brand">…</div>
-  <nav class="topbar__nav" aria-label="Navegação principal">…</nav>
+  <nav class="topbar__nav" aria-label="Navegação principal">
+    <a href="#" class="is-active" aria-current="page">Editais</a>
+    <a href="#">Minhas inscrições</a>
+  </nav>
   <div class="topbar__actions">…</div>
 </header>
 ```
+
+### Contrato institucional
+
+- Toda página que exibir `.gov-bar` usa os mesmos três links, nesta ordem:
+  "Mapa do site", "Acessibilidade" e "Privacidade".
+- O link "Acessibilidade" aponta para a declaração pública ou template de
+  declaração de acessibilidade disponível no projeto. Nos exemplos do DS, use
+  `acessibilidade.html` com caminho relativo correto.
+- Não abreviar "Mapa do site" para "Mapa" em exemplos, kits ou previews.
+- A implementação Angular futura pode trocar os `href` por rotas reais, mas
+  deve preservar rótulos, ordem, semântica e alvos mínimos de toque.
 
 ### Contrato de responsividade e contraste
 
@@ -266,10 +289,20 @@ acessibilidade ficam num **menu (disclosure) no header** — ver
   texto, ícones, bordas de ação e hover. Não use `--color-neutral-0` para texto
   de header; no tema `contrast`, branco fixo quebra a hierarquia esperada
   porque o texto de header precisa virar amarelo.
+- Todos os documentos HTML servidos diretamente precisam declarar
+  `<meta name="viewport" content="width=device-width, initial-scale=1">`.
+  Previews de chrome de página, como topbar/header, devem ocupar o viewport
+  real; componentes pequenos podem continuar dentro de `.card-frame`, desde que
+  passem em 320px sem overflow horizontal.
 - `.topbar__actions` é o slot canônico para busca, notificações, avatar, o botão
   de acessibilidade e demais botões de topo. Em telas estreitas, o user chip
   pode virar icon-only, mas precisa preservar `aria-label` com o nome/ação
   completos.
+- Itens ativos em navegações usam indicação visual (`.is-active` ou estilo
+  equivalente) e semântica (`aria-current="page"`). Quando mais de uma
+  navegação coexistir, cada `<nav>` precisa de `aria-label` distinto.
+- Ações de conta, como "Sair", ficam em menu/área de conta, não dentro de
+  landmarks de navegação do produto ou serviço.
 
 ---
 
@@ -607,7 +640,7 @@ de foco.
 
 ```html
 <div class="admin-shell" id="admin-shell">
-  <aside class="sidebar" id="admin-sidebar" aria-label="Navegação lateral">
+  <aside class="sidebar" id="admin-sidebar" aria-label="Painel administrativo">
     <div class="sidebar__brand">
       <div class="sidebar__mark" aria-hidden="true">U+</div>
       <div>
@@ -620,9 +653,12 @@ de foco.
       </button>
     </div>
 
-    <div class="sidebar__label">Painéis</div>
-    <a href="#" class="is-active" data-tooltip="Painel de processos"
-       data-tooltip-position="right" aria-label="Painel de processos">…</a>
+    <nav aria-label="Navegação administrativa">
+      <div class="sidebar__label">Painéis</div>
+      <a href="#" class="is-active" aria-current="page"
+         data-tooltip="Painel de processos" data-tooltip-position="right"
+         aria-label="Painel de processos">…</a>
+    </nav>
 
     <div class="sidebar__bottom">
       <div class="avatar avatar--sm">JF</div>

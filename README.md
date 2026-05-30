@@ -163,6 +163,18 @@ Angular, Web Components ou de outros frameworks devem viver nos projetos
 consumidores, mapeando este contrato sem criar promessa de wrapper neste
 repositório.
 
+Contrato transversal para exemplos e wrappers futuros:
+
+- toda página HTML standalone inclui
+  `<meta name="viewport" content="width=device-width, initial-scale=1">`;
+- toda `.gov-bar` exibe "Mapa do site", "Acessibilidade" e "Privacidade",
+  nessa ordem, com o link de acessibilidade apontando para a declaração pública
+  ou template disponível;
+- navegações coexistentes têm `aria-label` distinto e o item corrente usa
+  `aria-current="page"` além da indicação visual;
+- ações de conta, como "Sair", ficam em área/menu de conta, não dentro da
+  navegação principal do produto.
+
 ## Previews
 
 `preview/index.html` lista os cards agrupados por categoria:

@@ -115,10 +115,19 @@ Regras:
 - **Tokens, nunca hex literal.** `var(--color-primary)`, não `#1351b4`.
 - **Mobile-first.** Estado base = 320px, com verificação explícita em 375px
   (iPhone SE). `@media (min-width: …)` aditivo.
+- **Viewport obrigatório.** Todo HTML servido diretamente, inclusive previews
+  em `preview/`, deve declarar
+  `<meta name="viewport" content="width=device-width, initial-scale=1">`.
 - **Estados completos:** default, hover, focus-visible, active, disabled.
 - **`min-height: var(--touch-min)`** em qualquer interativo.
 - **Sem `:focus`**, só `:focus-visible`. (Já coberto por `base.css` em fallback.)
 - **`prefers-reduced-motion`**: animações condicionais ou usar `--duration-*`.
+- **Faixa gov.br consistente.** Exemplos com `.gov-bar` usam "Mapa do site",
+  "Acessibilidade" e "Privacidade"; "Acessibilidade" aponta para a declaração
+  pública/template quando o caminho existir.
+- **Semântica de navegação.** Landmarks de navegação simultâneos têm rótulos
+  distintos; item ativo usa `aria-current="page"`; ações de conta ficam fora da
+  navegação de produto/serviço.
 
 ### 3. Adicione um preview card
 
@@ -159,6 +168,10 @@ Cobertura mínima manual:
 - zoom 200%;
 - estados default, hover, focus-visible, active e disabled;
 - ausência de overflow horizontal visual não intencional;
+- `meta viewport` presente em todo HTML standalone;
+- gov-bar com os três links institucionais padronizados;
+- navegações com `aria-label` distinto, item ativo com `aria-current="page"` e
+  ações de conta fora de landmarks de navegação;
 - headers e superfícies inversas usando tokens semânticos, especialmente
   `--text-on-inverse` no tema `contrast`;
 - status com texto/ícone, não apenas cor.
