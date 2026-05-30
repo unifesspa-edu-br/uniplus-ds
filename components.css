@@ -392,7 +392,8 @@
   margin-block: calc(var(--space-2) * -1);
   border-radius: var(--radius-sm);
 }
-.gov-bar a:hover { text-decoration: underline; }
+.gov-bar a:hover,
+.gov-bar a[aria-current="page"] { text-decoration: underline; }
 @media (max-width: 640px) {
   /* F-042: em telas estreitas a faixa vira um bar institucional de DOIS níveis,
    * intencional — em vez de esconder o órgão (que deixava um "gov.br |" órfão).
@@ -530,7 +531,8 @@
   white-space: nowrap;
 }
 .topbar__nav a:hover { background: var(--surface-subtle); color: var(--color-primary); }
-.topbar__nav a.is-active { color: var(--color-primary); font-weight: var(--weight-semibold); }
+.topbar__nav a.is-active,
+.topbar__nav a[aria-current="page"] { color: var(--color-primary); font-weight: var(--weight-semibold); }
 .topbar__menu-btn {
   display: inline-flex; align-items: center; justify-content: center;
   width: var(--touch-min); height: var(--touch-min);
@@ -1214,15 +1216,24 @@
 .uni-drawer__title { font-size: var(--text-md); font-weight: var(--weight-bold); color: var(--text-heading); margin: 0; }
 .uni-drawer__body { flex: 1; overflow-y: auto; padding: var(--space-3) 0; }
 .uni-drawer__nav { list-style: none; padding: 0; margin: 0; }
-.uni-drawer__nav a {
+.uni-drawer__nav a,
+.uni-drawer__account a {
   display: flex; align-items: center; gap: var(--space-3);
   padding: var(--space-3) var(--space-5);
   color: var(--text-primary); text-decoration: none; font-size: var(--text-base); font-weight: var(--weight-medium);
   min-height: var(--touch-min);
 }
-.uni-drawer__nav a:hover { background: var(--surface-subtle); }
-.uni-drawer__nav a.is-active { background: var(--color-primary-50); color: var(--text-on-primary-tint); font-weight: var(--weight-semibold); border-left: 3px solid var(--color-primary); padding-left: calc(var(--space-5) - 3px); }
-.uni-drawer__nav a svg { width: 20px; height: 20px; flex-shrink: 0; }
+.uni-drawer__nav a:hover,
+.uni-drawer__account a:hover { background: var(--surface-subtle); }
+.uni-drawer__nav a.is-active,
+.uni-drawer__nav a[aria-current="page"] { background: var(--color-primary-50); color: var(--text-on-primary-tint); font-weight: var(--weight-semibold); border-left: 3px solid var(--color-primary); padding-left: calc(var(--space-5) - 3px); }
+.uni-drawer__nav a svg,
+.uni-drawer__account a svg { width: 20px; height: 20px; flex-shrink: 0; }
+.uni-drawer__account {
+  margin-top: var(--space-3);
+  padding-top: var(--space-3);
+  border-top: 1px solid var(--border-subtle);
+}
 
 /* ============================================================================
  * BACK-TO-TOP — floating action that appears after meaningful scroll
