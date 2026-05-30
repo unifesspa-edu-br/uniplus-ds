@@ -49,7 +49,8 @@
     min-height: var(--touch-min); white-space: nowrap;
   }
   .subnav a:hover { background: color-mix(in srgb, var(--text-on-inverse) 10%, transparent); color: var(--text-on-inverse); }
-  .subnav a.is-active { background: color-mix(in srgb, var(--text-on-inverse) 15%, transparent); color: var(--text-on-inverse); font-weight: var(--weight-semibold); }
+  .subnav a.is-active,
+  .subnav a[aria-current="page"] { background: color-mix(in srgb, var(--text-on-inverse) 15%, transparent); color: var(--text-on-inverse); font-weight: var(--weight-semibold); }
 
   /* Hero — edital em destaque (estático; substitui o carrossel — ver ADR-0004) */
   .hero { background: var(--surface-banner); border-radius: var(--radius-xl); padding: var(--space-7) var(--space-5); }
@@ -200,11 +201,8 @@
           <li><a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3M12 17h.01"/></svg>Ajuda</a></li>
         </ul>
       </nav>
-      <div role="group" aria-label="Ações da conta">
-        <hr class="divider" style="margin:var(--space-3) var(--space-5)">
-        <ul class="uni-drawer__nav" role="list">
-          <li><a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4M16 17l5-5-5-5M21 12H9"/></svg>Sair</a></li>
-        </ul>
+      <div class="uni-drawer__account" role="group" aria-label="Ações da conta">
+        <a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4M16 17l5-5-5-5M21 12H9"/></svg>Sair</a>
       </div>
     </div>
   </div>
