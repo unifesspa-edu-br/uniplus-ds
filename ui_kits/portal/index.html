@@ -87,23 +87,17 @@
   @media (min-width: 768px) { section.block { padding: var(--space-9) 0; } }
   .block--alt { background: var(--surface-page); }
 
-  /* Editais containers — list (default) and cards (toggle) */
+  /* Editais containers — mobile-first list; cards toggle applies at 600px+. */
   .editais.view-list { display: flex; flex-direction: column; gap: var(--space-3); }
-  .editais.view-cards { display: grid; grid-template-columns: 1fr; gap: var(--space-4); }
-  @media (min-width: 600px) { .editais.view-cards { grid-template-columns: repeat(2, 1fr); } }
-  @media (min-width: 1024px) { .editais.view-cards { grid-template-columns: repeat(3, 1fr); } }
-
-  /* Show only the matching layout */
-  body[data-view="list"] .editais.view-cards { display: none; }
-  body[data-view="cards"] .editais.view-list { display: none; }
+  .editais.view-cards { display: none; }
   .editais-view-toggle { display: none; }
-  @media (max-width: 599px) {
-    body[data-view="list"] .editais.view-list,
-    body[data-view="cards"] .editais.view-list { display: flex; }
-    body[data-view="list"] .editais.view-cards,
-    body[data-view="cards"] .editais.view-cards { display: none; }
+  @media (min-width: 600px) {
+    .editais.view-cards { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--space-4); }
+    body[data-view="list"] .editais.view-cards { display: none; }
+    body[data-view="cards"] .editais.view-list { display: none; }
+    .editais-view-toggle { display: flex; }
   }
-  @media (min-width: 600px) { .editais-view-toggle { display: flex; } }
+  @media (min-width: 1024px) { .editais.view-cards { grid-template-columns: repeat(3, 1fr); } }
 
   /* Steps (Como funciona) */
   .steps { display: grid; grid-template-columns: 1fr; gap: var(--space-4); }
