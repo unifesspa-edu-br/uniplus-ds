@@ -256,7 +256,7 @@ acessibilidade ficam num **menu (disclosure) no header** — ver
   <span class="gov-bar__org">UNIFESSPA · Sistema Uni+</span>
   <span class="gov-bar__links">
     <a href="#">Mapa do site</a>
-    <a href="/acessibilidade.html">Acessibilidade</a>
+    <a href="acessibilidade.html">Acessibilidade</a>
     <a href="#">Privacidade</a>
   </span>
 </div>
