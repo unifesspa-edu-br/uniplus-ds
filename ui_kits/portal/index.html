@@ -14,7 +14,7 @@
   /* Mobile-first: oculta enquanto o hamburger está ativo (< 1024px) — o
      drawer já cobre os mesmos itens (Editais · Minhas inscrições · Resultados
      · Ajuda); a subnav é redundante e gerava scroll horizontal no mobile. A
-     partir de 1024px volta como faixa de abas, junto com o nav da topbar. */
+     partir de 1024px volta como navegação principal da tela. */
   .subnav {
     display: none;
     background: var(--surface-accessibility-bar);
@@ -145,12 +145,6 @@
       <div class="topbar__subtitle">Sistema Uni+ · Unifesspa</div>
     </div>
   </div>
-  <nav class="topbar__nav" aria-label="Navegação principal">
-    <a href="#" class="is-active">Editais</a>
-    <a href="#">Minhas inscrições</a>
-    <a href="#">Resultados</a>
-    <a href="#">Ajuda</a>
-  </nav>
   <div class="topbar__actions">
 <div class="a11y-menu" data-a11y-menu>
           <button class="a11y-menu__trigger" type="button" aria-expanded="false" aria-controls="a11y-popover-portal" aria-label="Preferências de acessibilidade" data-a11y-menu-trigger>
@@ -198,21 +192,27 @@
       </button>
     </div>
     <div class="uni-drawer__body">
-      <ul class="uni-drawer__nav" role="list">
-        <li><a href="#" class="is-active"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>Editais abertos</a></li>
-        <li><a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>Minhas inscrições</a></li>
-        <li><a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 3v18h18"/><path d="M7 14l4-4 4 4 6-6"/></svg>Resultados</a></li>
-        <li><a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3M12 17h.01"/></svg>Ajuda</a></li>
-        <li><hr class="divider" style="margin:var(--space-3) var(--space-5)"></li>
-        <li><a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4M16 17l5-5-5-5M21 12H9"/></svg>Sair</a></li>
-      </ul>
+      <nav aria-label="Navegação do Portal do Candidato">
+        <ul class="uni-drawer__nav" role="list">
+          <li><a href="#" class="is-active" aria-current="page"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>Editais abertos</a></li>
+          <li><a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>Minhas inscrições</a></li>
+          <li><a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 3v18h18"/><path d="M7 14l4-4 4 4 6-6"/></svg>Resultados</a></li>
+          <li><a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3M12 17h.01"/></svg>Ajuda</a></li>
+        </ul>
+      </nav>
+      <div role="group" aria-label="Ações da conta">
+        <hr class="divider" style="margin:var(--space-3) var(--space-5)">
+        <ul class="uni-drawer__nav" role="list">
+          <li><a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4M16 17l5-5-5-5M21 12H9"/></svg>Sair</a></li>
+        </ul>
+      </div>
     </div>
   </div>
 </dialog>
 
 <!-- Sub-nav -->
-<nav class="subnav" aria-label="Áreas">
-  <a href="#" class="is-active"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>Editais abertos</a>
+<nav class="subnav" aria-label="Navegação do Portal do Candidato">
+  <a href="#" class="is-active" aria-current="page"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>Editais abertos</a>
   <a href="#"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>Minhas inscrições <span class="tag tag--solid tag--info" style="font-size:10px;padding:1px 7px;margin-left:4px">2</span></a>
   <a href="#"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M3 3v18h18"/><path d="M7 14l4-4 4 4 6-6"/></svg>Resultados</a>
   <a href="#"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3M12 17h.01"/></svg>Ajuda</a>

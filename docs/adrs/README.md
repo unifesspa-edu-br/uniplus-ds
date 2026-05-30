@@ -10,3 +10,4 @@ A numeração aqui é independente e prefixada por escopo do DS.
 | [ADR-0002](ADR-0002-acessibilidade-popover-e-controles-enxutos.md) | Acessibilidade: popover no header em vez de barra fixa, com controles enxutos | Accepted |
 | [ADR-0003](ADR-0003-vlibras-e-declaracao-de-acessibilidade.md) | VLibras e declaração de acessibilidade | Accepted |
 | [ADR-0004](ADR-0004-hero-estatico-no-lugar-de-carrossel.md) | Hero estático de edital em destaque no lugar do carrossel-herói | Accepted |
+| [ADR-0005](ADR-0005-navegacao-unica-do-portal.md) | Navegação única por contexto no UI kit do Portal do Candidato | Accepted |
