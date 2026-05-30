@@ -522,6 +522,13 @@ Setas do teclado funcionam quando carrossel tem foco.
 
 Radio behavior: apenas um ativo de cada vez. Persiste em `localStorage` se for preferência.
 
+Use view toggle somente quando as alternativas forem **claramente diferentes no
+breakpoint atual** e ajudarem a tarefa do usuário. Não exponha um toggle que
+alterna entre duas apresentações equivalentes em coluna única no mobile; nesses
+casos, escolha uma apresentação canônica e reserve o controle para tablet/desktop
+quando a alternativa de cards ou grid for funcionalmente distinta (ver
+[ADR-0006](adrs/ADR-0006-lista-cards-mobile-portal.md)).
+
 ---
 
 ## Tabela responsiva mobile-first — `.table-responsive`
