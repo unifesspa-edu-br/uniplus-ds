@@ -96,6 +96,14 @@
   /* Show only the matching layout */
   body[data-view="list"] .editais.view-cards { display: none; }
   body[data-view="cards"] .editais.view-list { display: none; }
+  .editais-view-toggle { display: none; }
+  @media (max-width: 599px) {
+    body[data-view="list"] .editais.view-list,
+    body[data-view="cards"] .editais.view-list { display: flex; }
+    body[data-view="list"] .editais.view-cards,
+    body[data-view="cards"] .editais.view-cards { display: none; }
+  }
+  @media (min-width: 600px) { .editais-view-toggle { display: flex; } }
 
   /* Steps (Como funciona) */
   .steps { display: grid; grid-template-columns: 1fr; gap: var(--space-4); }
@@ -268,7 +276,7 @@
         <div class="page-header__actions">
           <span id="results-count" class="u-body-sm" aria-live="polite">3 editais encontrados</span>
           <!-- View toggle -->
-          <div class="segmented" role="group" aria-label="Modo de visualização">
+          <div class="segmented editais-view-toggle" role="group" aria-label="Modo de visualização">
             <button type="button" class="segmented__btn" id="view-list" aria-pressed="true">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
               Lista
@@ -439,12 +447,19 @@
   const body = document.body;
   const btnList = document.getElementById('view-list');
   const btnCards = document.getElementById('view-cards');
+  const viewMedia = window.matchMedia('(min-width: 600px)');
   if (!btnList || !btnCards) return;
+
+  function syncControls() {
+    const storedView = body.getAttribute('data-view') === 'cards' ? 'cards' : 'list';
+    const effectiveView = viewMedia.matches ? storedView : 'list';
+    btnList.setAttribute('aria-pressed', String(effectiveView === 'list'));
+    btnCards.setAttribute('aria-pressed', String(effectiveView === 'cards'));
+  }
 
   function setView(view) {
     body.setAttribute('data-view', view);
-    btnList.setAttribute('aria-pressed', String(view === 'list'));
-    btnCards.setAttribute('aria-pressed', String(view === 'cards'));
+    syncControls();
     try { localStorage.setItem('uniplus.editais.view', view); } catch (_) {}
   }
 
@@ -457,6 +472,11 @@
 
   btnList.addEventListener('click', () => setView('list'));
   btnCards.addEventListener('click', () => setView('cards'));
+  if (viewMedia.addEventListener) {
+    viewMedia.addEventListener('change', syncControls);
+  } else {
+    viewMedia.addListener(syncControls);
+  }
 })();
 
 // ============================================================================
