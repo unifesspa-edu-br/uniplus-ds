@@ -19,6 +19,11 @@
 @import url("./tokens.css");
 @import url("./base.css");
 
+/* O atributo `hidden` deve sempre ocultar — componentes com `display` explícito
+ * (.alert, .btn, .menu, .empty-state…) sobrepõem o `[hidden]` da UA stylesheet.
+ * Regra global garante o comportamento esperado em qualquer componente. */
+[hidden] { display: none !important; }
+
 /* ============================================================================
  * BUTTON
  * Types: solid (primary/secondary/tertiary), outline, ghost, danger
@@ -1463,6 +1468,8 @@
   max-width: 480px;
   margin-inline: auto;
 }
+/* Respeita o atributo hidden (display:flex sobrepõe o [hidden] da UA, como em .menu). */
+.empty-state[hidden] { display: none; }
 .empty-state__icon {
   width: 56px; height: 56px;
   display: inline-flex; align-items: center; justify-content: center;
