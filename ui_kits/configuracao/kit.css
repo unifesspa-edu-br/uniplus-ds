@@ -26,6 +26,9 @@
   width: min(88vw, 320px); transform: translateX(-100%);
   visibility: hidden; pointer-events: none; box-shadow: var(--shadow-3);
 }
+/* A navegacao rola quando o menu excede a altura (mobile e telas curtas);
+ * o brand fica fixo no topo. Evita itens inalcancaveis com o menu completo. */
+.sidebar nav { flex: 1 1 auto; min-height: 0; overflow-y: auto; overscroll-behavior: contain; }
 .admin-shell[data-sidebar-mobile="open"] .sidebar {
   transform: translateX(0); visibility: visible; pointer-events: auto;
 }
