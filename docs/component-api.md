@@ -236,8 +236,10 @@ Same nativeshell as Dialog, side-anchored. Acionado via `data-drawer-trigger`.
 
 `.uni-drawer--right` para ancorar à direita (padrão é à esquerda).
 
-**`aria-expanded` é sincronizado INLINE no close handler**, não via evento `close`
-do dialog. Razão: alguns browsers não disparam `close` confiável.
+O `aria-expanded` do gatilho é sincronizado por `assets/uniplus-overlay.js`: vira
+`true` na abertura e volta a `false` no evento `close` do `<dialog>` (que cobre
+fechamento por botão, clique no backdrop e Esc/`cancel`). Ao fechar, o foco
+retorna ao gatilho que abriu o overlay.
 
 ---
 
@@ -443,7 +445,7 @@ Use `h1` uma vez por página. Em seções internas, mantenha a mesma anatomia co
 ```html
 <div class="menu-wrapper">
   <button id="user-menu-btn" aria-haspopup="menu" aria-expanded="false" aria-controls="user-menu">
-    <span class="avatar">JF</span> Jeferson
+    <span class="avatar">U</span> Minha conta
   </button>
   <ul class="menu" role="menu" id="user-menu" aria-labelledby="user-menu-btn" hidden>
     <li class="menu__group-title" role="presentation">Conta</li>
@@ -838,6 +840,50 @@ Documentado em `preview/comp-form-validation.html`. Auto-gerado por `UniForm.app
 <div class="kpi"><span class="kpi__label">EDITAIS ATIVOS</span><span class="kpi__num">12</span><span class="kpi__delta">↑ 2</span></div>
 ```
 **Único lugar com UPPERCASE permitido** (eyebrow). Números com `font-variant-numeric: tabular-nums`.
+
+### Padrão CRUD administrativo
+
+Padrão canônico para cadastros do painel administrativo. Referência de
+implementação: `ui_kits/configuracao/` (estilos compartilhados em
+`ui_kits/configuracao/kit.css`; runtime de overlay em
+`assets/uniplus-overlay.js`). Princípio central: **a lista é a tela; o cadastro
+não fica empilhado abaixo dela.**
+
+- **Lista (visualização) = tela primária.** Anatomia: `.filter-bar` (canônico,
+  `role="search"`, busca `type="search"` + `.filter-chips` com
+  `.filter-chip__count`) **acima** do cartão de resultados → `.panel` com
+  `.panel-head` (título + `.list-count` + ação primária) → `.table-responsive`
+  → `.pager`. Toda lista expõe `.empty-state` para busca sem resultados. Para
+  busca simples sem chips, use a toolbar leve embutida no head
+  (`.panel-head__search`) em vez de um `.filter-bar` separado (evita
+  cartão-dentro-de-cartão).
+- **Criar/editar simples = drawer lateral.** `<dialog class="uni-drawer
+  uni-drawer--right uni-drawer--form">` aberto por `[data-drawer-trigger="ID"]`
+  (com `aria-haspopup="dialog"` + `aria-expanded`). Painel
+  `max-width: min(480px, 100vw)`; corpo `.uni-drawer__body--form`; ações em
+  `.uni-drawer__footer`. Dentro do drawer o `.form-grid` é sempre 1 coluna —
+  use `.form-grid--pair` apenas para pares correlatos (lat/long).
+- **Cadastro complexo = tela dedicada.** Formulários com múltiplos condicionais
+  cruzados (ex.: Modalidade) vivem em página própria (`*-form.html`) com
+  breadcrumb, "Voltar à lista", foco no `<h1>` ao entrar, corpo em `.form-pane`
+  e ações em `.form-actionbar`.
+- **Confirmação/bloqueio = modal sob demanda.** `<dialog class="uni-dialog">`
+  aberto por `[data-dialog-trigger="ID"]` — nunca renderizado inline no fluxo.
+- **Estados de operação:** salvar usa `data-loading`/`aria-busy` no botão
+  (com `.spinner` filho) → sucesso via `UniToast.show()`; validação via
+  `UniForm`; erro/vazio via `.empty-state`.
+
+**Exceções legítimas:** Instituição (singleton) não tem lista — usa modo leitura
+(pares rótulo/valor) com "Editar" abrindo o drawer-form de edição (sem criar nem
+excluir). Peso ENEM usa grid numérico com modo leitura ↔ edição
+(Salvar/Cancelar) e validação de soma/limites que bloqueia o salvamento inválido;
+o cadastro de nova resolução usa drawer-form. Reserva Demográfica **não** é mais
+exceção: migrou para o CRUD-padrão (lista + drawer + inativação), com uma linha
+por Censo — a chave de negócio `censo_referencia` fica imutável (campo `disabled`)
+no drawer de edição.
+
+`uniplus-overlay.js` sincroniza `aria-expanded` na abertura e em todo
+fechamento (botão, backdrop, Esc/`cancel`, `close`) e devolve o foco ao gatilho.
 
 ---
 
