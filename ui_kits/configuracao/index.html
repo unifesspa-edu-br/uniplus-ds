@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="auto">
+<head>
+<meta charset="utf-8">
+<title>Configuração — UI kit · Uni+ DS</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Kit visual dos cadastros de referência do módulo Configuração — Uni+ Design System.">
+<link rel="stylesheet" href="../../tokens.css">
+<link rel="stylesheet" href="../../base.css">
+<link rel="stylesheet" href="../../components.css">
+<style>
+  body { background: var(--surface-page); }
+
+  /* ---- Hero ---- */
+  .kit-hero { padding: var(--space-8) 0 var(--space-6); }
+  .kit-hero__eyebrow { display: flex; align-items: center; gap: var(--space-3); }
+  .kit-hero__back {
+    display: inline-flex; align-items: center; gap: var(--space-2);
+    font-size: var(--text-sm); font-weight: var(--weight-medium);
+    color: var(--text-link); text-decoration: none;
+    padding: var(--space-1) 0; min-height: var(--touch-min);
+    border-radius: var(--radius-sm);
+  }
+  .kit-hero__back:hover { text-decoration: underline; }
+  .kit-hero__back svg { width: 16px; height: 16px; }
+  .kit-hero__sep { color: var(--border-default); }
+  .kit-hero__label { color: var(--color-primary); font-weight: var(--weight-bold); letter-spacing: 0.08em; text-transform: uppercase; font-size: var(--text-xs); }
+  .kit-hero h1 { font-size: var(--text-4xl); color: var(--text-heading); margin: var(--space-2) 0 var(--space-3); line-height: 1.1; letter-spacing: -0.01em; }
+  .kit-hero p { color: var(--text-secondary); max-width: 65ch; font-size: var(--text-md); line-height: 1.55; margin: 0; }
+  .kit-hero__top { display: flex; align-items: flex-start; justify-content: space-between; gap: var(--space-4); }
+
+  /* ---- Section grid ---- */
+  .section-grid { display: grid; grid-template-columns: 1fr; gap: var(--space-5); padding-bottom: var(--space-8); }
+  @media (min-width: 768px) { .section-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (min-width: 1280px) { .section-grid { grid-template-columns: repeat(3, 1fr); } }
+
+  /* ---- Screen card ---- */
+  .screen-card {
+    background: var(--surface-card);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+    display: flex; flex-direction: column;
+    box-shadow: var(--shadow-1);
+    transition: box-shadow var(--duration-base) var(--ease-standard), transform var(--duration-base) var(--ease-standard);
+  }
+  .screen-card:hover, .screen-card:focus-within { box-shadow: var(--shadow-3); transform: translateY(-2px); }
+  @media (prefers-reduced-motion: reduce) { .screen-card { transition: none; } .screen-card:hover { transform: none; } }
+
+  .screen-card__chrome { display: flex; align-items: center; gap: var(--space-2); padding: var(--space-2) var(--space-3); border-bottom: 1px solid var(--border-subtle); background: var(--surface-card); }
+  .screen-card__dots { display: inline-flex; gap: 5px; }
+  .screen-card__dots i { width: 9px; height: 9px; border-radius: 50%; background: var(--border-default); }
+  .screen-card__url { font-family: var(--font-mono); font-size: var(--text-xs); color: var(--text-muted); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+  .screen-card__thumb { position: relative; aspect-ratio: 16 / 10; overflow: hidden; display: block; background: var(--surface-subtle); border-bottom: 1px solid var(--border-subtle); }
+  .screen-card__thumb iframe { position: absolute; top: 0; left: 0; width: 1280px; height: 800px; border: 0; transform: scale(0.5); transform-origin: top left; pointer-events: none; background: var(--surface-page); }
+
+  /* Placeholder para telas ainda não criadas */
+  .screen-card__placeholder {
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    gap: var(--space-2); aspect-ratio: 16 / 10;
+    background: var(--surface-subtle); border-bottom: 1px solid var(--border-subtle);
+    color: var(--text-muted);
+  }
+  .screen-card__placeholder svg { width: 32px; height: 32px; opacity: 0.45; }
+  .screen-card__placeholder span { font-size: var(--text-xs); }
+
+  .screen-card__body { padding: var(--space-4) var(--space-5); display: flex; flex-direction: column; gap: var(--space-1); flex: 1; }
+  .screen-card__reqs { display: flex; flex-wrap: wrap; gap: var(--space-2); margin-bottom: var(--space-2); }
+  .screen-card__title { font-size: var(--text-lg); color: var(--text-heading); margin: 0; }
+  .screen-card__desc { font-size: var(--text-sm); color: var(--text-secondary); line-height: 1.5; margin: 0; flex: 1; }
+  .screen-card__actions { display: flex; flex-wrap: wrap; gap: var(--space-2); margin-top: var(--space-4); }
+
+  /* ---- Divider section ---- */
+  .kit-section-heading { padding: var(--space-2) 0 var(--space-1); margin: var(--space-6) 0 var(--space-1); border-bottom: 1px solid var(--border-subtle); display: flex; align-items: baseline; gap: var(--space-3); }
+  .kit-section-heading h2 { font-size: var(--text-lg); color: var(--text-heading); margin: 0; }
+  .kit-section-heading p { font-size: var(--text-sm); color: var(--text-secondary); margin: 0; }
+
+  /* ---- Footer extra ---- */
+  .kit-footer { border-top: 1px solid var(--border-subtle); padding: var(--space-6) 0 var(--space-8); display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--space-4); }
+  .kit-footer__text h2 { font-size: var(--text-md); color: var(--text-heading); margin: 0 0 var(--space-1); }
+  .kit-footer__text p { font-size: var(--text-sm); color: var(--text-secondary); margin: 0; }
+</style>
+</head>
+<body>
+
+<a href="#main" class="skip-link">Pular para o conteúdo principal</a>
+
+<div class="gov-bar" role="region" aria-label="Identificação do Governo Federal">
+  <span class="gov-bar__brand">gov.br</span>
+  <span class="gov-bar__sep" aria-hidden="true">|</span>
+  <span class="gov-bar__org">UNIFESSPA · Design System</span>
+  <span class="gov-bar__links">
+    <a href="#">Mapa do site</a>
+    <a href="../../acessibilidade.html">Acessibilidade</a>
+    <a href="#">Privacidade</a>
+  </span>
+</div>
+
+<main id="main" tabindex="-1">
+  <div class="container">
+
+    <header class="kit-hero">
+      <div class="kit-hero__top">
+        <div>
+          <div class="kit-hero__eyebrow">
+            <a class="kit-hero__back" href="../../index.html">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg>
+              Todos os kits
+            </a>
+            <span class="kit-hero__sep" aria-hidden="true">/</span>
+            <span class="kit-hero__label">Configuração</span>
+          </div>
+          <h1>Cadastros de referência</h1>
+          <p>Telas de lista, criação e edição dos 16 cadastros do módulo Configuração — cidade, campus e local de oferta, instituição, unidades, cursos e ofertas, modalidades, documentos, atendimento especializado, recursos de acessibilidade, deficiências, fases, bancas, reserva demográfica e pesos do ENEM. Construídos sobre os tokens Gov.br com WCAG 2.1 AAA e mobile-first.</p>
+        </div>
+        <div class="a11y-menu" data-a11y-menu>
+          <button class="a11y-menu__trigger" type="button" aria-expanded="false" aria-controls="a11y-popover-cfg" aria-label="Preferências de acessibilidade" data-a11y-menu-trigger>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="4" r="2"/><path d="M4 8h16M12 6v14M8 12l-2 8M16 12l2 8"/></svg>
+          </button>
+          <div class="a11y-menu__backdrop" hidden aria-hidden="true"></div>
+          <div class="a11y-menu__popover" id="a11y-popover-cfg" role="region" aria-label="Preferências de acessibilidade" hidden>
+            <p class="a11y-menu__title">Acessibilidade</p>
+            <div class="a11y-menu__group" role="group" aria-label="Tema">
+              <span class="a11y-menu__group-label">Tema</span>
+              <div class="a11y-menu__options">
+                <button class="a11y-opt" data-a11y="theme" data-value="light" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>Claro</button>
+                <button class="a11y-opt" data-a11y="theme" data-value="dark" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>Escuro</button>
+                <button class="a11y-opt" data-a11y="theme" data-value="auto" aria-pressed="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>Sistema</button>
+              </div>
+            </div>
+            <div class="a11y-menu__group" role="group" aria-label="Ajustes de leitura">
+              <span class="a11y-menu__group-label">Leitura</span>
+              <div class="a11y-menu__options">
+                <button class="a11y-opt" data-a11y="contrast" data-value="on" aria-pressed="false"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 100 20V2z"/><path d="M12 2a10 10 0 010 20" fill="none" stroke="currentColor" stroke-width="2"/></svg>Alto contraste</button>
+                <button class="a11y-opt" data-a11y="font-mode" data-value="legible" aria-pressed="false">Fonte legível</button>
+              </div>
+            </div>
+            <p class="a11y-menu__hint">Para ampliar o texto, use o zoom do navegador (<kbd>Ctrl</kbd> <kbd>+</kbd> / <kbd>Ctrl</kbd> <kbd>&#8722;</kbd>).</p>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- ---- Grupo 1: Entidades flat / simples ---- -->
+    <div class="kit-section-heading">
+      <h2>Entidades simples e planas</h2>
+      <p>Cadastros sem hierarquia — padrão base CRUD com campos condicionais pontuais</p>
+    </div>
+
+    <div class="section-grid">
+
+      <!-- Condição de Atendimento -->
+      <article class="screen-card">
+        <div class="screen-card__chrome" aria-hidden="true">
+          <span class="screen-card__dots"><i></i><i></i><i></i></span>
+          <span class="screen-card__url">/ui_kits/configuracao/condicao-atendimento.html</span>
+        </div>
+        <a class="screen-card__thumb" href="condicao-atendimento.html" aria-label="Abrir Condição de Atendimento">
+          <iframe src="condicao-atendimento.html" title="Pré-visualização — Condição de Atendimento" loading="lazy" tabindex="-1"></iframe>
+        </a>
+        <div class="screen-card__body">
+          <div class="screen-card__reqs">
+            <span class="tag tag--info">UNI-REQ-0012</span>
+          </div>
+          <h2 class="screen-card__title">Condição de Atendimento</h2>
+          <p class="screen-card__desc">Condições que habilitam o candidato a solicitar atendimento especializado (PCD, LACTANTE, DISLEXIA…). Identificada por código editável; o código PCD é reservado e protegido.</p>
+          <div class="screen-card__actions">
+            <a class="btn btn--primary" href="condicao-atendimento.html">Abrir</a>
+          </div>
+        </div>
+      </article>
+
+      <!-- Recurso de Acessibilidade -->
+      <article class="screen-card">
+        <div class="screen-card__chrome" aria-hidden="true">
+          <span class="screen-card__dots"><i></i><i></i><i></i></span>
+          <span class="screen-card__url">/ui_kits/configuracao/recurso-acessibilidade.html</span>
+        </div>
+        <a class="screen-card__thumb" href="recurso-acessibilidade.html" aria-label="Abrir Recurso de Acessibilidade">
+          <iframe src="recurso-acessibilidade.html" title="Pré-visualização — Recurso de Acessibilidade" loading="lazy" tabindex="-1"></iframe>
+        </a>
+        <div class="screen-card__body">
+          <div class="screen-card__reqs">
+            <span class="tag tag--info">UNI-REQ-0012</span>
+          </div>
+          <h2 class="screen-card__title">Recurso de Acessibilidade</h2>
+          <p class="screen-card__desc">Recursos ofertados no atendimento (ledor, tempo adicional, prova em Braille, intérprete de Libras…). Independente da condição e identificado pelo nome único — sem código.</p>
+          <div class="screen-card__actions">
+            <a class="btn btn--primary" href="recurso-acessibilidade.html">Abrir</a>
+          </div>
+        </div>
+      </article>
+
+      <!-- Tipo de Deficiência -->
+      <article class="screen-card">
+        <div class="screen-card__chrome" aria-hidden="true">
+          <span class="screen-card__dots"><i></i><i></i><i></i></span>
+          <span class="screen-card__url">/ui_kits/configuracao/tipo-deficiencia.html</span>
+        </div>
+        <a class="screen-card__thumb" href="tipo-deficiencia.html" aria-label="Abrir Tipo de Deficiência">
+          <iframe src="tipo-deficiencia.html" title="Pré-visualização — Tipo de Deficiência" loading="lazy" tabindex="-1"></iframe>
+        </a>
+        <div class="screen-card__body">
+          <div class="screen-card__reqs">
+            <span class="tag tag--info">UNI-REQ-0012</span>
+          </div>
+          <h2 class="screen-card__title">Tipo de Deficiência</h2>
+          <p class="screen-card__desc">Tipos de deficiência reconhecidos (visual, auditiva, física, TEA…). Cadastro independente identificado pelo nome único. A regra "só sob a condição PCD" é do Módulo Seleção.</p>
+          <div class="screen-card__actions">
+            <a class="btn btn--primary" href="tipo-deficiencia.html">Abrir</a>
+          </div>
+        </div>
+      </article>
+
+      <!-- Tipo de Documento -->
+      <article class="screen-card">
+        <div class="screen-card__chrome" aria-hidden="true">
+          <span class="screen-card__dots"><i></i><i></i><i></i></span>
+          <span class="screen-card__url">/ui_kits/configuracao/tipo-documento.html</span>
+        </div>
+        <a class="screen-card__thumb" href="tipo-documento.html" aria-label="Abrir Tipo de Documento">
+          <iframe src="tipo-documento.html" title="Pré-visualização — Tipo de Documento" loading="lazy" tabindex="-1"></iframe>
+        </a>
+        <div class="screen-card__body">
+          <div class="screen-card__reqs">
+            <span class="tag tag--info">UNI-REQ-0013</span>
+          </div>
+          <h2 class="screen-card__title">Tipo de Documento</h2>
+          <p class="screen-card__desc">Cadastro classificatório com 7 categorias em domínio fechado. Código editável e equivalência por código (sem FK). Campo tipo_equivalente condicional ao selecionar a categoria.</p>
+          <div class="screen-card__actions">
+            <a class="btn btn--primary" href="tipo-documento.html">Abrir</a>
+          </div>
+        </div>
+      </article>
+
+      <!-- Reserva Demográfica -->
+      <article class="screen-card">
+        <div class="screen-card__chrome" aria-hidden="true">
+          <span class="screen-card__dots"><i></i><i></i><i></i></span>
+          <span class="screen-card__url">/ui_kits/configuracao/reserva-demografica.html</span>
+        </div>
+        <a class="screen-card__thumb" href="reserva-demografica.html" aria-label="Abrir Reserva Demográfica">
+          <iframe src="reserva-demografica.html" title="Pré-visualização — Reserva Demográfica" loading="lazy" tabindex="-1"></iframe>
+        </a>
+        <div class="screen-card__body">
+          <div class="screen-card__reqs">
+            <span class="tag tag--info">UNI-REQ-0065</span>
+          </div>
+          <h2 class="screen-card__title">Reserva Demográfica</h2>
+          <p class="screen-card__desc">CRUD de reservas por Censo: percentuais de PPI, Quilombola e PcD com a base legal de cada vigência. Modo leitura ↔ edição. Base legal: Lei 12.711/2012, atualizada pela Lei 14.723/2023.</p>
+          <div class="screen-card__actions">
+            <a class="btn btn--primary" href="reserva-demografica.html">Abrir</a>
+          </div>
+        </div>
+      </article>
+
+      <!-- Peso ENEM -->
+      <article class="screen-card">
+        <div class="screen-card__chrome" aria-hidden="true">
+          <span class="screen-card__dots"><i></i><i></i><i></i></span>
+          <span class="screen-card__url">/ui_kits/configuracao/peso-enem.html</span>
+        </div>
+        <a class="screen-card__thumb" href="peso-enem.html" aria-label="Abrir Peso ENEM">
+          <iframe src="peso-enem.html" title="Pré-visualização — Peso ENEM" loading="lazy" tabindex="-1"></iframe>
+        </a>
+        <div class="screen-card__body">
+          <div class="screen-card__reqs">
+            <span class="tag tag--info">UNI-REQ-0066</span>
+          </div>
+          <h2 class="screen-card__title">Peso ENEM</h2>
+          <p class="screen-card__desc">Grid numérico de pesos das áreas do ENEM por grupo de curso (G1–G4), com corte de redação. Chave composta por resolução; pesos somam 1,0. Base legal: Resolução INEP 805/2024.</p>
+          <div class="screen-card__actions">
+            <a class="btn btn--primary" href="peso-enem.html">Abrir</a>
+          </div>
+        </div>
+      </article>
+
+    </div>
+
+    <!-- ---- Grupo 2: Hierárquicos / relacionais ---- -->
+    <div class="kit-section-heading">
+      <h2>Hierárquicos e relacionais</h2>
+      <p>Cadastros encadeados por FK ou com relação de composição</p>
+    </div>
+
+    <div class="section-grid">
+
+      <!-- Cidade -->
+      <article class="screen-card">
+        <div class="screen-card__chrome" aria-hidden="true">
+          <span class="screen-card__dots"><i></i><i></i><i></i></span>
+          <span class="screen-card__url">/ui_kits/configuracao/cidade.html</span>
+        </div>
+        <a class="screen-card__thumb" href="cidade.html" aria-label="Abrir Cidade">
+          <iframe src="cidade.html" title="Pré-visualização — Cidade" loading="lazy" tabindex="-1"></iframe>
+        </a>
+        <div class="screen-card__body">
+          <div class="screen-card__reqs">
+            <span class="tag tag--info">UNI-REQ-0009</span>
+          </div>
+          <h2 class="screen-card__title">Cidade</h2>
+          <p class="screen-card__desc">Município com campos enriquecidos (latitude/longitude, código IBGE, DDD, região). Raiz da cadeia Cidade → Campus → Local de Oferta. Remoção bloqueada por campi ou locais de oferta vivos.</p>
+          <div class="screen-card__actions">
+            <a class="btn btn--primary" href="cidade.html">Abrir</a>
+          </div>
+        </div>
+      </article>
+
+      <!-- Campus -->
+      <article class="screen-card">
+        <div class="screen-card__chrome" aria-hidden="true">
+          <span class="screen-card__dots"><i></i><i></i><i></i></span>
+          <span class="screen-card__url">/ui_kits/configuracao/campus.html</span>
+        </div>
+        <a class="screen-card__thumb" href="campus.html" aria-label="Abrir Campus">
+          <iframe src="campus.html" title="Pré-visualização — Campus" loading="lazy" tabindex="-1"></iframe>
+        </a>
+        <div class="screen-card__body">
+          <div class="screen-card__reqs">
+            <span class="tag tag--info">UNI-REQ-0009</span>
+          </div>
+          <h2 class="screen-card__title">Campus</h2>
+          <p class="screen-card__desc">Campus com FK para Cidade, CEP, endereço e código e-MEC. Segundo nível da cadeia. Remoção bloqueada quando responsável por locais de oferta vivos.</p>
+          <div class="screen-card__actions">
+            <a class="btn btn--primary" href="campus.html">Abrir</a>
+          </div>
+        </div>
+      </article>
+
+      <!-- Local de Oferta -->
+      <article class="screen-card">
+        <div class="screen-card__chrome" aria-hidden="true">
+          <span class="screen-card__dots"><i></i><i></i><i></i></span>
+          <span class="screen-card__url">/ui_kits/configuracao/local-oferta.html</span>
+        </div>
+        <a class="screen-card__thumb" href="local-oferta.html" aria-label="Abrir Local de Oferta">
+          <iframe src="local-oferta.html" title="Pré-visualização — Local de Oferta" loading="lazy" tabindex="-1"></iframe>
+        </a>
+        <div class="screen-card__body">
+          <div class="screen-card__reqs">
+            <span class="tag tag--info">UNI-REQ-0009</span>
+          </div>
+          <h2 class="screen-card__title">Local de Oferta</h2>
+          <p class="screen-card__desc">Endereço regulatório e-MEC (Tipo, Endereço, Código e-MEC) com FK obrigatória de Cidade e FK opcional de Campus responsável — não é sala de prova. Remoção bloqueada por ofertas de curso vivas; snapshot não bloqueia.</p>
+          <div class="screen-card__actions">
+            <a class="btn btn--primary" href="local-oferta.html">Abrir</a>
+          </div>
+        </div>
+      </article>
+
+      <!-- Instituição -->
+      <article class="screen-card">
+        <div class="screen-card__chrome" aria-hidden="true">
+          <span class="screen-card__dots"><i></i><i></i><i></i></span>
+          <span class="screen-card__url">/ui_kits/configuracao/instituicao.html</span>
+        </div>
+        <a class="screen-card__thumb" href="instituicao.html" aria-label="Abrir Instituição">
+          <iframe src="instituicao.html" title="Pré-visualização — Instituição" loading="lazy" tabindex="-1"></iframe>
+        </a>
+        <div class="screen-card__body">
+          <div class="screen-card__reqs">
+            <span class="tag tag--info">UNI-REQ-0007</span>
+          </div>
+          <h2 class="screen-card__title">Instituição</h2>
+          <p class="screen-card__desc">Registro singleton com os dados regulatórios e-MEC da instituição (classificação, mantenedora, atos, indicadores) e vínculo com a unidade raiz (reitoria). Não se cria nem lista — apenas edita.</p>
+          <div class="screen-card__actions">
+            <a class="btn btn--primary" href="instituicao.html">Abrir</a>
+          </div>
+        </div>
+      </article>
+
+      <!-- Unidade -->
+      <article class="screen-card">
+        <div class="screen-card__chrome" aria-hidden="true">
+          <span class="screen-card__dots"><i></i><i></i><i></i></span>
+          <span class="screen-card__url">/ui_kits/configuracao/unidade.html</span>
+        </div>
+        <a class="screen-card__thumb" href="unidade.html" aria-label="Abrir Unidade">
+          <iframe src="unidade.html" title="Pré-visualização — Unidade" loading="lazy" tabindex="-1"></iframe>
+        </a>
+        <div class="screen-card__body">
+          <div class="screen-card__reqs">
+            <span class="tag tag--info">UNI-REQ-0008</span>
+          </div>
+          <h2 class="screen-card__title">Unidade</h2>
+          <p class="screen-card__desc">Estrutura organizacional hierárquica com 11 tipos canônicos, 4 identificadores (sigla/slug/código únicos, alias livre), histórico de identificadores, vigência e origem. Remoção bloqueada por referência intra-banco.</p>
+          <div class="screen-card__actions">
+            <a class="btn btn--primary" href="unidade.html">Abrir</a>
+          </div>
+        </div>
+      </article>
+
+      <!-- Curso -->
+      <article class="screen-card">
+        <div class="screen-card__chrome" aria-hidden="true">
+          <span class="screen-card__dots"><i></i><i></i><i></i></span>
+          <span class="screen-card__url">/ui_kits/configuracao/curso.html</span>
+        </div>
+        <a class="screen-card__thumb" href="curso.html" aria-label="Abrir Curso">
+          <iframe src="curso.html" title="Pré-visualização — Curso" loading="lazy" tabindex="-1"></iframe>
+        </a>
+        <div class="screen-card__body">
+          <div class="screen-card__reqs">
+            <span class="tag tag--info">UNI-REQ-0010</span>
+          </div>
+          <h2 class="screen-card__title">Curso</h2>
+          <p class="screen-card__desc">Matriz curricular pura: código, nome, grau, nível e grupo de área do ENEM. Código e-MEC, local, unidade, programa, formato e turno pertencem à Oferta de Curso.</p>
+          <div class="screen-card__actions">
+            <a class="btn btn--primary" href="curso.html">Abrir</a>
+          </div>
+        </div>
+      </article>
+
+      <!-- Oferta de Curso -->
+      <article class="screen-card">
+        <div class="screen-card__chrome" aria-hidden="true">
+          <span class="screen-card__dots"><i></i><i></i><i></i></span>
+          <span class="screen-card__url">/ui_kits/configuracao/oferta-curso.html</span>
+        </div>
+        <a class="screen-card__thumb" href="oferta-curso.html" aria-label="Abrir Oferta de Curso">
+          <iframe src="oferta-curso.html" title="Pré-visualização — Oferta de Curso" loading="lazy" tabindex="-1"></iframe>
+        </a>
+        <div class="screen-card__body">
+          <div class="screen-card__reqs">
+            <span class="tag tag--info">UNI-REQ-0010</span>
+          </div>
+          <h2 class="screen-card__title">Oferta de Curso</h2>
+          <p class="screen-card__desc">Instância regulatória que liga um Curso a um Local de oferta e à Unidade ofertante. Base legal condicional para programas não-regulares. Unidade congelada por snapshot-copy no vínculo.</p>
+          <div class="screen-card__actions">
+            <a class="btn btn--primary" href="oferta-curso.html">Abrir</a>
+          </div>
+        </div>
+      </article>
+
+    </div>
+
+    <!-- ---- Grupo 3: Condicionais cruzados ---- -->
+    <div class="kit-section-heading">
+      <h2>Condicionais cruzados e domínios fechados</h2>
+      <p>Cadastros com múltiplas condicionais interdependentes ou enum controlado</p>
+    </div>
+
+    <div class="section-grid">
+
+      <!-- Fase Canônica -->
+      <article class="screen-card">
+        <div class="screen-card__chrome" aria-hidden="true">
+          <span class="screen-card__dots"><i></i><i></i><i></i></span>
+          <span class="screen-card__url">/ui_kits/configuracao/fase-canonica.html</span>
+        </div>
+        <a class="screen-card__thumb" href="fase-canonica.html" aria-label="Abrir Fase Canônica">
+          <iframe src="fase-canonica.html" title="Pré-visualização — Fase Canônica" loading="lazy" tabindex="-1"></iframe>
+        </a>
+        <div class="screen-card__body">
+          <div class="screen-card__reqs">
+            <span class="tag tag--info">UNI-REQ-0064</span>
+          </div>
+          <h2 class="screen-card__title">Fase Canônica</h2>
+          <p class="screen-card__desc">Domínio fechado das 14 fases do ciclo de vida do processo. Código imutável e dono típico (CEPS/CRCA). Campos agrupa_etapas (só AVALIACAO) e permite_complementacao (só HOMOLOGACAO/RECURSOS) condicionais.</p>
+          <div class="screen-card__actions">
+            <a class="btn btn--primary" href="fase-canonica.html">Abrir</a>
+          </div>
+        </div>
+      </article>
+
+      <!-- Tipo de Banca -->
+      <article class="screen-card">
+        <div class="screen-card__chrome" aria-hidden="true">
+          <span class="screen-card__dots"><i></i><i></i><i></i></span>
+          <span class="screen-card__url">/ui_kits/configuracao/tipo-banca.html</span>
+        </div>
+        <a class="screen-card__thumb" href="tipo-banca.html" aria-label="Abrir Tipo de Banca">
+          <iframe src="tipo-banca.html" title="Pré-visualização — Tipo de Banca" loading="lazy" tabindex="-1"></iframe>
+        </a>
+        <div class="screen-card__body">
+          <div class="screen-card__reqs">
+            <span class="tag tag--info">UNI-REQ-0064</span>
+          </div>
+          <h2 class="screen-card__title">Tipo de Banca</h2>
+          <p class="screen-card__desc">Domínio fechado dos 4 tipos de banca que atuam ao longo das fases. Código imutável e fase típica orientativa (rótulo não vinculante). A composição da banca é de incremento futuro — aqui só o tipo.</p>
+          <div class="screen-card__actions">
+            <a class="btn btn--primary" href="tipo-banca.html">Abrir</a>
+          </div>
+        </div>
+      </article>
+
+      <!-- Modalidade -->
+      <article class="screen-card">
+        <div class="screen-card__chrome" aria-hidden="true">
+          <span class="screen-card__dots"><i></i><i></i><i></i></span>
+          <span class="screen-card__url">/ui_kits/configuracao/modalidade.html</span>
+        </div>
+        <a class="screen-card__thumb" href="modalidade.html" aria-label="Abrir Modalidade de Concorrência">
+          <iframe src="modalidade.html" title="Pré-visualização — Modalidade" loading="lazy" tabindex="-1"></iframe>
+        </a>
+        <div class="screen-card__body">
+          <div class="screen-card__reqs">
+            <span class="tag tag--info">UNI-REQ-0011</span>
+          </div>
+          <h2 class="screen-card__title">Modalidade de Concorrência</h2>
+          <p class="screen-card__desc">O cadastro mais complexo: código imutável (participa do hash RN08), auto-referência de hierarquia e 4 condicionais cruzados — natureza ↔ remanejamento ↔ argumentos + composição ↔ origem.</p>
+          <div class="screen-card__actions">
+            <a class="btn btn--primary" href="modalidade.html">Abrir</a>
+          </div>
+        </div>
+      </article>
+
+    </div>
+
+    <div class="kit-footer">
+      <div class="kit-footer__text">
+        <h2>Padrões e tokens</h2>
+        <p>Todos os kits usam exclusivamente tokens Gov.br — cores, tipografia, espaçamento e focus ring. Catálogo de componentes isolados disponível no hub.</p>
+      </div>
+      <div style="display:flex;gap:var(--space-3);flex-wrap:wrap">
+        <a class="btn btn--secondary" href="../../index.html">← Todos os kits</a>
+        <a class="btn btn--secondary" href="../../preview/index.html">Catálogo de componentes</a>
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<script src="../../assets/uniplus-a11y.js"></script>
+<div vw class="enabled">
+  <div vw-access-button class="active"></div>
+  <div vw-plugin-wrapper><div class="vw-plugin-top-wrapper"></div></div>
+</div>
+<script src="../../assets/uniplus-vlibras.js"></script>
+</body>
+</html>

@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="auto">
+<head>
+<meta charset="utf-8">
+<title>Nova modalidade — Configuração · Uni+ DS</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="../../tokens.css">
+<link rel="stylesheet" href="../../base.css">
+<link rel="stylesheet" href="../../components.css">
+<link rel="stylesheet" href="kit.css">
+<style>
+  body { background: var(--surface-page); }
+  .form-shell { max-width: 820px; }
+</style>
+</head>
+<body>
+<a href="#main" class="skip-link">Pular para o conteúdo principal</a>
+<div class="gov-bar" role="region" aria-label="Identificação do Governo Federal">
+  <span class="gov-bar__brand">gov.br</span><span class="gov-bar__sep" aria-hidden="true">|</span>
+  <span class="gov-bar__org">UNIFESSPA · Administração</span>
+  <span class="gov-bar__links"><a href="#">Mapa do site</a><a href="../../acessibilidade.html">Acessibilidade</a><a href="#">Privacidade</a></span>
+</div>
+<div class="admin-shell" id="admin-shell">
+  <aside class="sidebar" id="admin-sidebar" aria-label="Painel administrativo">
+    <div class="sidebar__brand">
+      <div class="sidebar__mark" aria-hidden="true">U+</div>
+      <div><div class="sidebar__brand-title">Uni+ Admin</div><div class="sidebar__brand-sub">CEPS · Seleção</div></div>
+      <button class="sidebar__close" type="button" aria-label="Fechar menu lateral" data-sidebar-close><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M18 6L6 18M6 6l12 12"/></svg></button>
+    </div>
+    <nav aria-label="Navegação administrativa">
+      <div class="sidebar__label">Painéis</div>
+      <a href="../admin/index.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="9"/><rect x="14" y="3" width="7" height="5"/><rect x="14" y="12" width="7" height="9"/><rect x="3" y="16" width="7" height="5"/></svg><span>Painel de processos</span></a>
+      <a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg><span>Editais</span></a>
+      <a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/></svg><span>Inscrições</span></a>
+      <a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg><span>Homologação</span></a>
+      <div class="sidebar__label">Resultados</div>
+      <a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><path d="M7 14l4-4 4 4 5-5"/></svg><span>Classificação</span></a>
+      <a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9 12l2 2 4-4"/></svg><span>Recursos</span></a>
+      <div class="sidebar__label">Configuração</div>
+      <a href="cidade.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg><span>Cidade</span></a>
+      <a href="campus.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M5 21V8l7-5 7 5v13"/><path d="M9 21v-5h6v5"/><path d="M9 9h.01M15 9h.01M9 13h.01M15 13h.01"/></svg><span>Campus</span></a>
+      <a href="local-oferta.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 6-9 12-9 12s-9-6-9-12a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg><span>Local de oferta</span></a>
+      <a href="instituicao.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21h18M6 21V7l6-4 6 4v14M9 21V12h6v9"/></svg><span>Instituição</span></a>
+      <a href="unidade.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="2" width="6" height="6" rx="1"/><rect x="2" y="16" width="6" height="6" rx="1"/><rect x="16" y="16" width="6" height="6" rx="1"/><path d="M12 8v4M5 16v-4h14v4"/></svg><span>Unidade</span></a>
+      <a href="curso.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/></svg><span>Curso</span></a>
+      <a href="oferta-curso.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="8" y1="13" x2="16" y2="13"/><line x1="8" y1="17" x2="16" y2="17"/><line x1="8" y1="9" x2="10" y2="9"/></svg><span>Oferta de curso</span></a>
+      <a href="modalidade.html" class="is-active" aria-current="page"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg><span>Modalidade</span></a>
+      <a href="tipo-documento.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V9z"/><polyline points="13 2 13 9 20 9"/></svg><span>Tipo de Documento</span></a>
+      <a href="condicao-atendimento.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg><span>Condição de Atendimento</span></a>
+      <a href="recurso-acessibilidade.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/></svg><span>Recurso de Acessibilidade</span></a>
+      <a href="tipo-deficiencia.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="4" r="2"/><path d="M5 8h14M12 8v7M9 21l3-6 3 6"/></svg><span>Tipo de Deficiência</span></a>
+      <a href="fase-canonica.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><span>Fase Canônica</span></a>
+      <a href="tipo-banca.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11"/></svg><span>Tipo de Banca</span></a>
+      <a href="reserva-demografica.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><path d="M7 14l4-4 4 4 5-5"/></svg><span>Reserva Demográfica</span></a>
+      <a href="peso-enem.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/><line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/><line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/><line x1="1" y1="14" x2="7" y2="14"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="17" y1="16" x2="23" y2="16"/></svg><span>Peso ENEM</span></a>
+    </nav>
+  </aside>
+  <div class="sidebar-backdrop" aria-hidden="true" data-sidebar-close></div>
+  <div class="admin-main">
+    <header class="admin-topbar">
+      <button class="sidebar-toggle" id="sidebar-toggle" aria-label="Abrir menu lateral" aria-expanded="false" aria-controls="admin-sidebar">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+      </button>
+      <nav class="breadcrumb" aria-label="Breadcrumb">
+        <ol class="breadcrumb__list">
+          <li class="breadcrumb__item"><a href="../admin/index.html" class="breadcrumb__link">Início</a></li>
+          <li class="breadcrumb__item"><a href="index.html" class="breadcrumb__link">Configuração</a></li>
+          <li class="breadcrumb__item"><a href="modalidade.html" class="breadcrumb__link">Modalidade</a></li>
+          <li class="breadcrumb__item"><span class="breadcrumb__current" aria-current="page">Nova modalidade</span></li>
+        </ol>
+      </nav>
+      <div style="margin-left:auto">
+        <div class="a11y-menu" data-a11y-menu>
+          <button class="a11y-menu__trigger" type="button" aria-expanded="false" aria-controls="a11y-pop" aria-label="Preferências de acessibilidade" data-a11y-menu-trigger>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="4" r="2"/><path d="M4 8h16M12 6v14M8 12l-2 8M16 12l2 8"/></svg>
+          </button>
+          <div class="a11y-menu__backdrop" hidden aria-hidden="true"></div>
+          <div class="a11y-menu__popover" id="a11y-pop" role="region" aria-label="Preferências de acessibilidade" hidden>
+            <p class="a11y-menu__title">Acessibilidade</p>
+            <div class="a11y-menu__group" role="group" aria-label="Tema"><span class="a11y-menu__group-label">Tema</span><div class="a11y-menu__options"><button class="a11y-opt" data-a11y="theme" data-value="light" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>Claro</button><button class="a11y-opt" data-a11y="theme" data-value="dark" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>Escuro</button><button class="a11y-opt" data-a11y="theme" data-value="auto" aria-pressed="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>Sistema</button></div></div>
+            <div class="a11y-menu__group" role="group" aria-label="Leitura"><span class="a11y-menu__group-label">Leitura</span><div class="a11y-menu__options"><button class="a11y-opt" data-a11y="contrast" data-value="on" aria-pressed="false"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 100 20V2z"/><path d="M12 2a10 10 0 010 20" fill="none" stroke="currentColor" stroke-width="2"/></svg>Alto contraste</button><button class="a11y-opt" data-a11y="font-mode" data-value="legible" aria-pressed="false">Fonte legível</button></div></div>
+            <p class="a11y-menu__hint">Para ampliar o texto, use o zoom do navegador (<kbd>Ctrl</kbd> <kbd>+</kbd> / <kbd>Ctrl</kbd> <kbd>&#8722;</kbd>).</p>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main id="main" class="page" tabindex="-1">
+      <div class="page-header form-shell">
+        <div class="page-header__content">
+          <h1 class="page-header__title" id="form-title" tabindex="-1">Nova modalidade</h1>
+          <p class="page-header__desc">Código imutável (participa do hash de publicação RN08) e regras condicionais entre natureza legal, remanejamento e composição — UNI-REQ-0011.</p>
+        </div>
+        <div class="page-header__actions"><a class="btn btn--secondary" href="modalidade.html"><svg class="btn__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg>Voltar à lista</a></div>
+      </div>
+
+      <!-- Mapa de condicionais (referência) -->
+      <div class="panel form-shell">
+        <div class="panel-head"><h2>Mapa de condicionais cruzados</h2></div>
+        <div style="padding:var(--space-5)">
+          <p class="u-body-sm" style="margin:0 0 var(--space-4)">As condicionais abaixo são mutuamente dependentes — alterar uma pode habilitar ou ocultar campos de outra. O formulário responde em tempo real.</p>
+          <div class="cond-diagram" aria-label="Diagrama de condicionais da Modalidade">
+            <div class="cond-row"><span class="cond-row__trigger">natureza = cota reservada</span><span class="cond-row__arrow" aria-hidden="true">→</span><span class="cond-row__target">remanejamento fixo em "segue cascata" (obrigatório)</span></div>
+            <div class="cond-row"><span class="cond-row__trigger">natureza = ampla concorrência</span><span class="cond-row__arrow" aria-hidden="true">→</span><span class="cond-row__target">oculta: remanejamento (vagas de AC não remanejam)</span></div>
+            <div class="cond-row"><span class="cond-row__trigger">natureza = suplementar / outra modalidade</span><span class="cond-row__arrow" aria-hidden="true">→</span><span class="cond-row__target">habilita: remanejamento (destino único ou cruzado)</span></div>
+            <div class="cond-row"><span class="cond-row__trigger">remanejamento ∈ {destino único, cruzado}</span><span class="cond-row__arrow" aria-hidden="true">→</span><span class="cond-row__target">habilita: argumentos de remanejamento (JSON)</span></div>
+            <div class="cond-row"><span class="cond-row__trigger">composição = retira de</span><span class="cond-row__arrow" aria-hidden="true">→</span><span class="cond-row__target">habilita: modalidade de origem (obrigatória)</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Formulário -->
+      <div class="panel form-shell">
+        <form id="form-modalidade" data-demo-form="Modalidade salva" novalidate aria-label="Formulário de modalidade de concorrência">
+          <div class="form-pane">
+            <div class="form-body">
+              <section aria-labelledby="h-mod-ident">
+                <h2 id="h-mod-ident" class="form-section__title">Identidade</h2>
+                <div class="form-grid">
+                  <div class="field field--full">
+                    <label class="field__label" for="mod-codigo">Código <span class="req" aria-hidden="true">*</span><span class="sr-only">(obrigatório)</span></label>
+                    <input class="input" id="mod-codigo" name="Código" placeholder="Ex.: LB_PPI" required pattern="^[A-Z0-9_]+$" aria-describedby="mod-codigo-hint" style="text-transform:uppercase">
+                    <p class="field__hint" id="mod-codigo-hint"><strong>Imutável após criação.</strong> Participa da ordenação byte-a-byte do hash de publicação (RN08) e é vocabulário legal fixo. Apenas maiúsculas, dígitos e sublinhado, sem hífen (<code>^[A-Z0-9_]+$</code>). Único entre as modalidades ativas.</p>
+                  </div>
+                  <div class="field field--full">
+                    <label class="field__label" for="mod-descricao">Descrição</label>
+                    <input class="input" id="mod-descricao" name="Descrição" placeholder="Ex.: Cota — Escola Pública + Renda + PPI" aria-describedby="mod-descricao-hint">
+                    <p class="field__hint" id="mod-descricao-hint">Rótulo legível da modalidade, para apresentação. Opcional.</p>
+                  </div>
+                  <div class="field field--full">
+                    <label class="field__label" for="mod-base-legal">Base legal</label>
+                    <input class="input" id="mod-base-legal" name="Base legal" placeholder="Ex.: Lei 12.711/2012 art. 3º; Lei 14.723/2023" aria-describedby="mod-base-hint">
+                    <p class="field__hint" id="mod-base-hint">Dispositivo legal que fundamenta a modalidade (lei, artigo, parágrafo). Opcional.</p>
+                  </div>
+                </div>
+              </section>
+
+              <section aria-labelledby="h-mod-natureza">
+                <h2 id="h-mod-natureza" class="form-section__title">Natureza e remanejamento <span class="tag tag--warning" style="margin-left:var(--space-2)">Condicionais A+B</span></h2>
+                <div class="form-grid">
+                  <div class="field field--full">
+                    <label class="field__label" for="mod-natureza">Natureza legal <span class="req" aria-hidden="true">*</span><span class="sr-only">(obrigatório)</span></label>
+                    <select class="select" id="mod-natureza" name="Natureza legal" required aria-controls="grupo-remanejamento" aria-expanded="false" aria-describedby="mod-natureza-hint">
+                      <option value="">Selecione…</option>
+                      <option value="COTA_RESERVADA">Cota reservada</option>
+                      <option value="AMPLA">Ampla concorrência</option>
+                      <option value="SUPLEMENTAR">Suplementar</option>
+                      <option value="OUTRA_MODALIDADE">Outra modalidade</option>
+                    </select>
+                    <p class="field__hint" id="mod-natureza-hint"><strong>Cota reservada:</strong> reserva de vagas por ação afirmativa; sempre segue a cascata de remanejamento. <strong>Ampla concorrência:</strong> aberta a todos, sem remanejamento de cota. <strong>Suplementar / Outra modalidade:</strong> remanejamento por destino único ou cruzado (nunca a cascata, exclusiva da cota reservada).</p>
+                  </div>
+                </div>
+
+                <fieldset id="grupo-remanejamento" class="cond-group" hidden aria-live="polite" aria-atomic="true">
+                  <legend class="cond-group__legend">Remanejamento de vagas</legend>
+                  <p class="cond-group__intro">Define o que acontece com vagas desta modalidade que não forem preenchidas na classificação. A regra deve ser coerente com a natureza legal.</p>
+                  <div class="form-grid">
+                    <div class="field field--full">
+                      <label class="field__label" for="mod-remanejamento">Regra de remanejamento <span class="req" aria-hidden="true">*</span><span class="sr-only">(obrigatório)</span></label>
+                      <select class="select" id="mod-remanejamento" name="Regra de remanejamento" required aria-controls="grupo-args" aria-expanded="false" aria-describedby="mod-remanejamento-hint">
+                        <option value="">Selecione…</option>
+                        <option value="SEGUE_CASCATA" data-natureza="COTA_RESERVADA">Segue cascata</option>
+                        <option value="DESTINO_UNICO" data-natureza="SUPLEMENTAR OUTRA_MODALIDADE">Destino único</option>
+                        <option value="CRUZADO" data-natureza="SUPLEMENTAR OUTRA_MODALIDADE">Cruzado</option>
+                      </select>
+                      <p class="field__hint" id="mod-remanejamento-hint">As opções disponíveis dependem da natureza legal: cota reservada exige "segue cascata"; suplementar e outra modalidade admitem "destino único" ou "cruzado".</p>
+                    </div>
+                    <fieldset id="grupo-args" class="cond-group field--full" hidden aria-live="polite" aria-atomic="true">
+                      <legend class="cond-group__legend">Argumentos do remanejamento <span class="tag tag--info">JSON</span></legend>
+                      <div class="field" style="margin-top:var(--space-3)">
+                        <label class="field__label" for="mod-args">Configuração JSON <span class="req" aria-hidden="true">*</span><span class="sr-only">(obrigatório)</span></label>
+                        <textarea class="textarea" id="mod-args" name="Argumentos de remanejamento" rows="4" style="font-family:var(--font-mono);font-size:var(--text-sm)" placeholder='{ "destino": "AC" }' aria-describedby="mod-args-hint"></textarea>
+                        <p class="field__hint" id="mod-args-hint"><strong>Destino único:</strong> <code>{"destino":"CODIGO"}</code>. <strong>Cruzado:</strong> <code>{"par":"CODIGO","fallback":"CODIGO"}</code>. Os códigos referenciados precisam existir e estar ativos.</p>
+                      </div>
+                    </fieldset>
+                  </div>
+                </fieldset>
+              </section>
+
+              <section aria-labelledby="h-mod-composicao">
+                <h2 id="h-mod-composicao" class="form-section__title">Composição das vagas <span class="tag tag--warning" style="margin-left:var(--space-2)">Condicional C</span></h2>
+                <div class="form-grid">
+                  <div class="field field--full">
+                    <label class="field__label" for="mod-composicao">Composição das vagas <span class="req" aria-hidden="true">*</span><span class="sr-only">(obrigatório)</span></label>
+                    <select class="select" id="mod-composicao" name="Composição das vagas" required aria-controls="grupo-origem" aria-expanded="false" aria-describedby="mod-composicao-hint">
+                      <option value="">Selecione…</option>
+                      <option value="RESIDUAL_DO_VO">Residual do volume ofertado</option>
+                      <option value="DENTRO_DO_VR">Dentro do volume reservado</option>
+                      <option value="RETIRA_DE">Retira de</option>
+                      <option value="SUPLEMENTAR_AO_TOTAL">Suplementar ao total</option>
+                    </select>
+                    <p class="field__hint" id="mod-composicao-hint">Como as vagas da modalidade entram no quadro. Apenas "retira de" indica de qual modalidade as vagas saem.</p>
+                  </div>
+                </div>
+
+                <fieldset id="grupo-origem" class="cond-group" hidden aria-live="polite" aria-atomic="true">
+                  <legend class="cond-group__legend">Modalidade de origem</legend>
+                  <p class="cond-group__intro">Indique a modalidade de onde estas vagas saem. Obrigatória somente quando a composição é "retira de"; precisa existir e estar ativa.</p>
+                  <div class="form-grid">
+                    <div class="field field--full">
+                      <label class="field__label" for="mod-origem">Modalidade de origem <span class="req" aria-hidden="true">*</span><span class="sr-only">(obrigatório)</span></label>
+                      <select class="select" id="mod-origem" name="Modalidade de origem" required aria-describedby="mod-origem-hint">
+                        <option value="">Selecione…</option>
+                        <option value="AC">AC — Ampla concorrência</option>
+                        <option value="LB_PPI">LB_PPI — Escola pública + renda + PPI</option>
+                        <option value="LB_Q">LB_Q — Escola pública + renda + quilombola</option>
+                        <option value="LB_PcD">LB_PcD — Escola pública + renda + PcD</option>
+                        <option value="LB_EP">LB_EP — Escola pública + renda</option>
+                        <option value="LI_PPI">LI_PPI — Escola pública + PPI</option>
+                        <option value="LI_Q">LI_Q — Escola pública + quilombola</option>
+                        <option value="LI_PcD">LI_PcD — Escola pública + PcD</option>
+                        <option value="LI_EP">LI_EP — Escola pública</option>
+                      </select>
+                      <p class="field__hint" id="mod-origem-hint">Ex.: a modalidade <code>V</code> (PcD em ampla concorrência) pode retirar de <code>AC</code>.</p>
+                    </div>
+                  </div>
+                </fieldset>
+              </section>
+
+              <section aria-labelledby="h-mod-criterios">
+                <h2 id="h-mod-criterios" class="form-section__title">Critérios e indeferimento</h2>
+                <div class="form-grid">
+                  <div class="field field--full">
+                    <fieldset style="border:0;padding:0;margin:0">
+                      <legend class="field__label" id="mod-criterios-legend">Critérios cumulativos da cota</legend>
+                      <p class="field__hint" id="mod-criterios-hint" style="margin-top:0">Marque os critérios que o candidato precisa atender, cumulativamente, para concorrer nesta modalidade.</p>
+                      <div role="group" aria-labelledby="mod-criterios-legend" aria-describedby="mod-criterios-hint" style="display:flex;flex-wrap:wrap;gap:var(--space-3);margin-top:var(--space-3)">
+                        <label class="checkbox"><input type="checkbox" name="Critérios cumulativos" value="ESCOLA_PUBLICA"><span class="checkbox__box"></span>Escola pública</label>
+                        <label class="checkbox"><input type="checkbox" name="Critérios cumulativos" value="RENDA_ATE_1_SM"><span class="checkbox__box"></span>Renda ≤ 1 salário mínimo per capita</label>
+                        <label class="checkbox"><input type="checkbox" name="Critérios cumulativos" value="AUTODECLARACAO"><span class="checkbox__box"></span>Autodeclaração</label>
+                        <label class="checkbox"><input type="checkbox" name="Critérios cumulativos" value="LAUDO"><span class="checkbox__box"></span>Laudo</label>
+                      </div>
+                    </fieldset>
+                  </div>
+                  <div class="field field--full">
+                    <label class="field__label" for="mod-acao-indeferido">Ação quando indeferido</label>
+                    <select class="select" id="mod-acao-indeferido" name="Ação quando indeferido" aria-describedby="mod-acao-hint">
+                      <option value="">Selecione… (opcional)</option>
+                      <option value="RECLASSIFICAR_AC">Reclassificar em ampla concorrência</option>
+                      <option value="RECLASSIFICAR_REGRA_EDITAL">Reclassificar conforme regra do edital</option>
+                    </select>
+                    <p class="field__hint" id="mod-acao-hint">O que ocorre com o candidato indeferido nesta modalidade. Congelada por valor no quadro de vagas do edital (snapshot-copy, base da classificação de cota).</p>
+                  </div>
+                </div>
+              </section>
+            </div>
+          </div>
+          <div class="form-actionbar">
+            <a class="btn btn--secondary" href="modalidade.html">Cancelar</a>
+            <button class="btn btn--primary" type="submit"><span class="spinner spinner--sm" aria-hidden="true"></span>Salvar modalidade</button>
+          </div>
+        </form>
+      </div>
+    </main>
+  </div>
+</div>
+
+<button class="uni-back-to-top" data-back-to-top aria-label="Voltar ao topo da página" type="button" hidden>
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 15l-6-6-6 6"/></svg>
+</button>
+<script src="../../assets/uniplus-a11y.js"></script>
+<script src="../../assets/uniplus-backtotop.js"></script>
+<script src="../../assets/uniplus-toast.js"></script>
+<script src="../../assets/uniplus-form.js"></script>
+<script src="../../assets/uniplus-crud.js"></script>
+<script>
+// ---- Foco no título ao entrar na tela de formulário (P2) ----
+window.addEventListener('DOMContentLoaded', () => { document.getElementById('form-title')?.focus(); });
+
+// ---- Condicional B: argumentos JSON aparecem quando remanejamento ∈ {destino único, cruzado} ----
+function syncArgsRemanejamento(){
+  const sel=document.getElementById('mod-remanejamento'), grp=document.getElementById('grupo-args');
+  if(!sel||!grp)return;
+  const args=document.getElementById('mod-args');
+  // Visível só quando o grupo de remanejamento está visível E a regra exige args.
+  const remVisivel=!document.getElementById('grupo-remanejamento')?.hidden;
+  const show=remVisivel && (sel.value==='DESTINO_UNICO'||sel.value==='CRUZADO');
+  grp.hidden=!show; sel.setAttribute('aria-expanded',String(show));
+  if(args) args.required=show;
+  // Placeholder coerente com a regra escolhida.
+  if(args){
+    args.placeholder = sel.value==='CRUZADO'
+      ? '{ "par": "LB_PPI", "fallback": "LI_PPI" }'
+      : '{ "destino": "AC" }';
+  }
+}
+
+// ---- Condicional A: natureza legal governa o remanejamento ----
+// COTA_RESERVADA ⇒ remanejamento obrigatório e fixo em "segue cascata".
+// AMPLA ⇒ sem remanejamento (oculto/nulo).
+// SUPLEMENTAR / OUTRA_MODALIDADE ⇒ remanejamento por "destino único" ou "cruzado".
+(function(){
+  const natureza=document.getElementById('mod-natureza');
+  const grpRem=document.getElementById('grupo-remanejamento');
+  const remSel=document.getElementById('mod-remanejamento');
+  if(!natureza||!grpRem||!remSel)return;
+  const opts=Array.from(remSel.querySelectorAll('option[data-natureza]'));
+  function toggle(){
+    const nat=natureza.value;
+    const show=nat==='COTA_RESERVADA'||nat==='SUPLEMENTAR'||nat==='OUTRA_MODALIDADE';
+    grpRem.hidden=!show; natureza.setAttribute('aria-expanded',String(show));
+    remSel.required=show;
+    // Filtra as regras permitidas pela natureza selecionada.
+    let primeiraValida=null;
+    opts.forEach(opt=>{
+      const ok=show && opt.getAttribute('data-natureza').split(' ').includes(nat);
+      opt.hidden=!ok; opt.disabled=!ok;
+      if(ok && !primeiraValida) primeiraValida=opt.value;
+    });
+    if(show){
+      // Se a regra atual não é mais válida para a natureza, ajusta para a primeira válida.
+      const atualValida=opts.some(o=>o.value===remSel.value && !o.disabled);
+      if(!atualValida) remSel.value=primeiraValida||'';
+    } else {
+      remSel.value='';
+    }
+    syncArgsRemanejamento();
+    if(show) remSel.focus();
+  }
+  natureza.addEventListener('change',toggle); toggle();
+})();
+
+(function(){
+  const sel=document.getElementById('mod-remanejamento');
+  if(!sel)return;
+  sel.addEventListener('change',()=>{ syncArgsRemanejamento(); if(!document.getElementById('grupo-args')?.hidden) document.getElementById('mod-args')?.focus(); });
+})();
+
+// ---- Condicional C: modalidade de origem aparece quando composição = retira de ----
+(function(){
+  const sel=document.getElementById('mod-composicao'), grp=document.getElementById('grupo-origem');
+  if(!sel||!grp)return;
+  const origem=document.getElementById('mod-origem');
+  function toggle(){
+    const show=sel.value==='RETIRA_DE';
+    grp.hidden=!show; sel.setAttribute('aria-expanded',String(show));
+    if(origem){ origem.required=show; if(!show) origem.value=''; }
+    if(show) origem?.focus();
+  }
+  sel.addEventListener('change',toggle); toggle();
+})();
+</script>
+<div vw class="enabled"><div vw-access-button class="active"></div><div vw-plugin-wrapper><div class="vw-plugin-top-wrapper"></div></div></div>
+<script src="../../assets/uniplus-vlibras.js"></script>
+</body>
+</html>

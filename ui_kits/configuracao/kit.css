@@ -1,0 +1,220 @@
+/* =============================================================================
+ * kit.css — Estilos compartilhados do kit Configuração (Padrão CRUD admin)
+ * =============================================================================
+ * Consome tokens.css + base.css + components.css. Centraliza o shell admin
+ * (antes duplicado em cada página) e o padrão CRUD: lista (tela primária),
+ * drawer-form (criar/editar simples) e modal de confirmação (uni-dialog).
+ *
+ * Usado por todas as páginas do kit Configuração. Mobile-first: o estado base
+ * é o off-canvas; overrides de desktop entram só via @media (min-width: 1024px).
+ * Candidatos a promoção para components.css: uni-drawer--form / __footer.
+ * Apenas tokens — sem hex literal.
+ * ========================================================================== */
+
+/* ---------------------------------------------------------------------------
+ * Shell administrativo: sidebar + topbar + área principal
+ * ------------------------------------------------------------------------- */
+.admin-shell { display: grid; grid-template-columns: 1fr; min-height: 100vh; }
+@media (min-width: 1024px) { .admin-shell { grid-template-columns: 256px 1fr; } }
+
+/* Base = mobile off-canvas; desktop vira estática via min-width. */
+.sidebar {
+  background: var(--surface-inverse); color: var(--text-on-inverse);
+  padding: var(--space-5) 0; display: flex; flex-direction: column;
+  gap: var(--space-1); overflow: hidden;
+  position: fixed; inset: 0 auto 0 0; z-index: var(--z-modal);
+  width: min(88vw, 320px); transform: translateX(-100%);
+  visibility: hidden; pointer-events: none; box-shadow: var(--shadow-3);
+}
+.admin-shell[data-sidebar-mobile="open"] .sidebar {
+  transform: translateX(0); visibility: visible; pointer-events: auto;
+}
+@media (min-width: 1024px) {
+  .sidebar {
+    position: static; width: auto; transform: none;
+    visibility: visible; pointer-events: auto; box-shadow: none;
+  }
+}
+.sidebar__brand {
+  padding: 0 var(--space-5) var(--space-4);
+  border-bottom: 1px solid color-mix(in srgb, var(--text-on-inverse) 14%, transparent);
+  display: flex; align-items: center; gap: var(--space-3);
+  margin-bottom: var(--space-4); white-space: nowrap;
+}
+.sidebar__mark {
+  width: 36px; height: 36px; background: var(--text-on-inverse);
+  color: var(--surface-inverse); font-weight: var(--weight-bold);
+  font-size: var(--text-sm); display: inline-flex; align-items: center;
+  justify-content: center; border-radius: var(--radius-md); flex-shrink: 0;
+}
+.sidebar__brand-title { font-size: var(--text-sm); font-weight: var(--weight-bold); line-height: 1.15; }
+.sidebar__brand-sub { font-size: var(--text-xs); opacity: 0.8; }
+.sidebar__close {
+  width: var(--touch-min); height: var(--touch-min); margin-left: auto;
+  display: inline-flex; align-items: center; justify-content: center;
+  background: transparent;
+  border: 1px solid color-mix(in srgb, var(--text-on-inverse) 28%, transparent);
+  border-radius: var(--radius-md); color: var(--text-on-inverse); cursor: pointer;
+}
+@media (min-width: 1024px) { .sidebar__close { display: none; } }
+.sidebar__label {
+  padding: var(--space-3) var(--space-5) var(--space-1);
+  font-size: var(--text-xs); font-weight: var(--weight-bold);
+  letter-spacing: 0.08em; text-transform: uppercase; opacity: 0.65; white-space: nowrap;
+}
+.sidebar a {
+  display: flex; align-items: center; gap: var(--space-3);
+  padding: var(--space-3) var(--space-5);
+  color: color-mix(in srgb, var(--text-on-inverse) 85%, transparent);
+  text-decoration: none; font-size: var(--text-sm); font-weight: var(--weight-medium);
+  border-left: 3px solid transparent; white-space: nowrap; min-height: var(--touch-min);
+}
+.sidebar a:hover { background: color-mix(in srgb, var(--text-on-inverse) 8%, transparent); color: var(--text-on-inverse); }
+.sidebar a.is-active,
+.sidebar a[aria-current="page"] {
+  background: color-mix(in srgb, var(--text-on-inverse) 12%, transparent);
+  color: var(--text-on-inverse); border-left-color: var(--color-warning-500);
+  font-weight: var(--weight-semibold);
+}
+.sidebar a svg { width: 20px; height: 20px; flex-shrink: 0; }
+
+/* Base = visível no mobile (off-canvas); some no desktop. */
+.sidebar-backdrop {
+  display: block; position: fixed; inset: 0; z-index: calc(var(--z-modal) - 1);
+  background: var(--surface-overlay); border: 0; cursor: pointer;
+  opacity: 0; visibility: hidden; pointer-events: none;
+  transition: opacity var(--duration-fast) var(--ease-standard);
+}
+.admin-shell[data-sidebar-mobile="open"] .sidebar-backdrop { opacity: 1; visibility: visible; pointer-events: auto; }
+@media (min-width: 1024px) { .sidebar-backdrop { display: none; } }
+
+.admin-main { display: flex; flex-direction: column; min-width: 0; }
+.admin-topbar {
+  background: var(--surface-card); border-bottom: 1px solid var(--border-subtle);
+  padding: var(--space-3) var(--space-5); display: flex; align-items: center; gap: var(--space-3);
+}
+.sidebar-toggle {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: var(--touch-min); height: var(--touch-min); background: transparent;
+  border: 1px solid var(--border-default); border-radius: var(--radius-md);
+  color: var(--text-primary); cursor: pointer; flex-shrink: 0;
+}
+.page { padding: var(--space-5); display: flex; flex-direction: column; gap: var(--space-7); }
+@media (min-width: 768px) { .page { padding: var(--space-7); } }
+
+/* ---------------------------------------------------------------------------
+ * Tabs de entidade (agrupamento de cadastros relacionados)
+ * ------------------------------------------------------------------------- */
+.entity-tabs {
+  display: flex; gap: 0; border-bottom: 2px solid var(--border-subtle);
+  overflow-x: auto; scrollbar-width: none;
+}
+.entity-tabs::-webkit-scrollbar { display: none; }
+.entity-tab {
+  padding: var(--space-3) var(--space-5); font-size: var(--text-sm);
+  font-weight: var(--weight-medium); color: var(--text-secondary); cursor: pointer;
+  border: 0; background: transparent; border-bottom: 2px solid transparent;
+  margin-bottom: -2px; white-space: nowrap; min-height: var(--touch-min);
+}
+.entity-tab.is-active { color: var(--color-primary); border-bottom-color: var(--color-primary); font-weight: var(--weight-semibold); }
+.entity-tab:hover:not(.is-active) { color: var(--text-primary); background: var(--surface-subtle); }
+.entity-tabpanel { padding-top: var(--space-5); }
+
+/* ---------------------------------------------------------------------------
+ * Panel de resultados (lista)
+ * ------------------------------------------------------------------------- */
+.panel { background: var(--surface-card); border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); overflow: hidden; }
+.panel-head {
+  padding: var(--space-4) var(--space-5); display: flex; align-items: center;
+  justify-content: space-between; flex-wrap: wrap; gap: var(--space-3);
+  border-bottom: 1px solid var(--border-subtle);
+}
+.panel-head__title { display: flex; align-items: center; gap: var(--space-3); flex-wrap: wrap; }
+.panel-head h2 { font-size: var(--text-md); font-weight: var(--weight-bold); color: var(--text-heading); margin: 0; }
+/* Contador ao lado do título da lista */
+.list-count {
+  font-size: var(--text-xs); font-weight: var(--weight-semibold);
+  font-variant-numeric: tabular-nums; color: var(--text-secondary);
+  background: var(--surface-subtle); border-radius: var(--radius-pill);
+  padding: 2px 10px;
+}
+/* Busca embutida no head (toolbar leve, sem chips) */
+.panel-head__search { flex: 1 1 16rem; min-width: min(100%, 14rem); max-width: 22rem; }
+
+/* Agrupa eyebrow + chips dentro do .filter-bar canônico */
+.filter-bar__group { display: flex; flex-direction: column; gap: var(--space-2); }
+
+/* Rodapé de paginação dentro do panel */
+.panel > .pager { padding: var(--space-3) var(--space-5); border-top: 1px solid var(--border-subtle); margin: 0; }
+
+/* ---------------------------------------------------------------------------
+ * Formulário (layout reaproveitado por drawer-form e tela dedicada)
+ * ------------------------------------------------------------------------- */
+.form-body { display: flex; flex-direction: column; gap: var(--space-6); }
+.form-grid { display: grid; grid-template-columns: 1fr; gap: var(--space-4); }
+.form-grid .field--full { grid-column: 1 / -1; }
+@media (min-width: 768px) { .form-grid { grid-template-columns: 1fr 1fr; } }
+/* Par correlato (lat/long, mín/máx) — 2 colunas mesmo em espaço estreito */
+.form-grid--pair { grid-template-columns: 1fr 1fr; }
+.form-section__title { font-size: var(--text-md); color: var(--text-heading); margin: 0 0 var(--space-4); }
+.form-footer {
+  display: flex; flex-direction: column-reverse; gap: var(--space-3);
+  padding-top: var(--space-6); border-top: 1px solid var(--border-subtle);
+}
+@media (min-width: 768px) { .form-footer { flex-direction: row; justify-content: flex-end; } }
+/* Form em tela dedicada (panel): corpo com padding + barra de ações */
+.form-pane { padding: var(--space-5); }
+.form-actionbar {
+  display: flex; flex-direction: column-reverse; gap: var(--space-3);
+  padding: var(--space-4) var(--space-5); border-top: 1px solid var(--border-subtle);
+}
+@media (min-width: 480px) { .form-actionbar { flex-direction: row; justify-content: flex-end; } }
+.field__hint { color: var(--text-secondary); max-width: 75ch; line-height: 1.5; }
+/* Marcador de campo obrigatório (substitui style inline) */
+.req { color: var(--color-danger-600); }
+
+/* ---------------------------------------------------------------------------
+ * Drawer-form: <dialog class="uni-drawer uni-drawer--right uni-drawer--form">
+ * Modificadores additivos do .uni-drawer canônico (off-canvas → formulário).
+ * ------------------------------------------------------------------------- */
+.uni-drawer--form .uni-drawer__panel { max-width: min(480px, 100vw); }
+.uni-drawer__body--form { padding: var(--space-5); }
+.uni-drawer__footer {
+  display: flex; flex-direction: column-reverse; gap: var(--space-3);
+  padding: var(--space-4) var(--space-5); border-top: 1px solid var(--border-subtle);
+}
+@media (min-width: 480px) { .uni-drawer__footer { flex-direction: row; justify-content: flex-end; } }
+/* Dentro do drawer estreito o form é sempre 1 coluna (P1 Codex) */
+.uni-drawer .form-grid { grid-template-columns: 1fr; }
+.uni-drawer .form-grid--pair { grid-template-columns: 1fr 1fr; }
+
+/* ---------------------------------------------------------------------------
+ * Diagrama de condicionais (tela dedicada da Modalidade)
+ * ------------------------------------------------------------------------- */
+.cond-diagram {
+  display: flex; flex-direction: column; gap: var(--space-2);
+  background: var(--surface-subtle); border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md); padding: var(--space-4);
+}
+.cond-row { display: flex; align-items: center; gap: var(--space-2); font-size: var(--text-xs); flex-wrap: wrap; }
+.cond-row__trigger {
+  background: var(--color-primary-50); color: var(--text-link);
+  border: 1px solid var(--color-primary); border-radius: var(--radius-pill);
+  padding: 2px 10px; font-weight: var(--weight-semibold);
+}
+.cond-row__arrow { color: var(--text-muted); }
+.cond-row__target {
+  background: var(--color-warning-50); color: var(--color-warning-800);
+  border: 1px solid var(--color-warning-300); border-radius: var(--radius-pill); padding: 2px 10px;
+}
+/* Grupos condicionais revelados por JS */
+.cond-group {
+  border: 1px solid var(--border-subtle); border-radius: var(--radius-md);
+  padding: var(--space-4); margin-top: var(--space-4);
+}
+.cond-group__legend {
+  font-size: var(--text-sm); font-weight: var(--weight-semibold);
+  color: var(--text-heading); padding: 0 var(--space-2);
+}
+.cond-group__intro { font-size: var(--text-sm); color: var(--text-secondary); margin: var(--space-2) 0 var(--space-4); line-height: 1.5; }
+@media (prefers-reduced-motion: no-preference) { .cond-group { transition: opacity 120ms ease; } }
