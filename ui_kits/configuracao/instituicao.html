@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="auto">
+<head>
+<meta charset="utf-8">
+<title>Instituição — Configuração · Uni+ DS</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="../../tokens.css">
+<link rel="stylesheet" href="../../base.css">
+<link rel="stylesheet" href="../../components.css">
+<link rel="stylesheet" href="kit.css">
+<style>
+  body { background: var(--surface-page); }
+
+  /* ---- CSS único da página: linhas de leitura (Instituição singleton) ---- */
+  .read-group { padding: var(--space-4) var(--space-5); }
+  .read-group + .read-group { border-top: 1px solid var(--border-subtle); }
+  .read-group__title { font-size: var(--text-xs); text-transform: uppercase; letter-spacing: .06em; color: var(--text-muted); margin: 0 0 var(--space-1); font-weight: var(--weight-bold); }
+  .read-list { display: flex; flex-direction: column; gap: 0; }
+  .read-row {
+    display: flex; flex-wrap: wrap; align-items: baseline; gap: var(--space-2) var(--space-4);
+    padding: var(--space-3) 0; border-bottom: 1px solid var(--border-subtle);
+  }
+  .read-row:last-child { border-bottom: none; }
+  .read-row__label {
+    flex: 0 0 16rem; max-width: 100%; font-size: var(--text-sm);
+    font-weight: var(--weight-semibold); color: var(--text-secondary);
+  }
+  .read-row__value { flex: 1 1 16rem; min-width: 0; font-size: var(--text-sm); color: var(--text-primary); }
+</style>
+</head>
+<body>
+
+<a href="#main" class="skip-link">Pular para o conteúdo principal</a>
+
+<div class="gov-bar" role="region" aria-label="Identificação do Governo Federal">
+  <span class="gov-bar__brand">gov.br</span>
+  <span class="gov-bar__sep" aria-hidden="true">|</span>
+  <span class="gov-bar__org">UNIFESSPA · Administração</span>
+  <span class="gov-bar__links">
+    <a href="#">Mapa do site</a>
+    <a href="../../acessibilidade.html">Acessibilidade</a>
+    <a href="#">Privacidade</a>
+  </span>
+</div>
+
+<div class="admin-shell" id="admin-shell">
+  <aside class="sidebar" id="admin-sidebar" aria-label="Painel administrativo">
+    <div class="sidebar__brand">
+      <div class="sidebar__mark" aria-hidden="true">U+</div>
+      <div><div class="sidebar__brand-title">Uni+ Admin</div><div class="sidebar__brand-sub">CEPS · Seleção</div></div>
+      <button class="sidebar__close" type="button" aria-label="Fechar menu lateral" data-sidebar-close><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M18 6L6 18M6 6l12 12"/></svg></button>
+    </div>
+    <nav aria-label="Navegação administrativa">
+      <div class="sidebar__label">Painéis</div>
+      <a href="../admin/index.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="9"/><rect x="14" y="3" width="7" height="5"/><rect x="14" y="12" width="7" height="9"/><rect x="3" y="16" width="7" height="5"/></svg><span>Painel de processos</span></a>
+      <a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg><span>Editais</span></a>
+      <a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/></svg><span>Inscrições</span></a>
+      <a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg><span>Homologação</span></a>
+      <div class="sidebar__label">Resultados</div>
+      <a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><path d="M7 14l4-4 4 4 5-5"/></svg><span>Classificação</span></a>
+      <a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9 12l2 2 4-4"/></svg><span>Recursos</span></a>
+      <div class="sidebar__label">Configuração</div>
+      <a href="cidade.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg><span>Cidade</span></a>
+      <a href="campus.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M5 21V8l7-5 7 5v13"/><path d="M9 21v-5h6v5"/><path d="M9 9h.01M15 9h.01M9 13h.01M15 13h.01"/></svg><span>Campus</span></a>
+      <a href="local-oferta.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 6-9 12-9 12s-9-6-9-12a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg><span>Local de oferta</span></a>
+      <a href="instituicao.html" class="is-active" aria-current="page"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21h18M6 21V7l6-4 6 4v14M9 21V12h6v9"/></svg><span>Instituição</span></a>
+      <a href="unidade.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="2" width="6" height="6" rx="1"/><rect x="2" y="16" width="6" height="6" rx="1"/><rect x="16" y="16" width="6" height="6" rx="1"/><path d="M12 8v4M5 16v-4h14v4"/></svg><span>Unidade</span></a>
+      <a href="curso.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/></svg><span>Curso</span></a>
+      <a href="oferta-curso.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="8" y1="13" x2="16" y2="13"/><line x1="8" y1="17" x2="16" y2="17"/><line x1="8" y1="9" x2="10" y2="9"/></svg><span>Oferta de curso</span></a>
+      <a href="modalidade.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg><span>Modalidade</span></a>
+      <a href="tipo-documento.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V9z"/><polyline points="13 2 13 9 20 9"/></svg><span>Tipo de Documento</span></a>
+      <a href="condicao-atendimento.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg><span>Condição de Atendimento</span></a>
+      <a href="recurso-acessibilidade.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/></svg><span>Recurso de Acessibilidade</span></a>
+      <a href="tipo-deficiencia.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="4" r="2"/><path d="M5 8h14M12 8v7M9 21l3-6 3 6"/></svg><span>Tipo de Deficiência</span></a>
+      <a href="fase-canonica.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><span>Fase Canônica</span></a>
+      <a href="tipo-banca.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11"/></svg><span>Tipo de Banca</span></a>
+      <a href="reserva-demografica.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><path d="M7 14l4-4 4 4 5-5"/></svg><span>Reserva Demográfica</span></a>
+      <a href="peso-enem.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/><line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/><line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/><line x1="1" y1="14" x2="7" y2="14"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="17" y1="16" x2="23" y2="16"/></svg><span>Peso ENEM</span></a>
+    </nav>
+  </aside>
+  <div class="sidebar-backdrop" aria-hidden="true" data-sidebar-close></div>
+
+  <div class="admin-main">
+    <header class="admin-topbar">
+      <button class="sidebar-toggle" id="sidebar-toggle" aria-label="Abrir menu lateral" aria-expanded="false" aria-controls="admin-sidebar">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+      </button>
+      <nav class="breadcrumb" aria-label="Breadcrumb">
+        <ol class="breadcrumb__list">
+          <li class="breadcrumb__item"><a href="../admin/index.html" class="breadcrumb__link">Início</a></li>
+          <li class="breadcrumb__item"><a href="index.html" class="breadcrumb__link">Configuração</a></li>
+          <li class="breadcrumb__item"><span class="breadcrumb__current" aria-current="page">Instituição</span></li>
+        </ol>
+      </nav>
+      <div style="margin-left:auto">
+        <div class="a11y-menu" data-a11y-menu>
+          <button class="a11y-menu__trigger" type="button" aria-expanded="false" aria-controls="a11y-pop" aria-label="Preferências de acessibilidade" data-a11y-menu-trigger>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="4" r="2"/><path d="M4 8h16M12 6v14M8 12l-2 8M16 12l2 8"/></svg>
+          </button>
+          <div class="a11y-menu__backdrop" hidden aria-hidden="true"></div>
+          <div class="a11y-menu__popover" id="a11y-pop" role="region" aria-label="Preferências de acessibilidade" hidden>
+            <p class="a11y-menu__title">Acessibilidade</p>
+            <div class="a11y-menu__group" role="group" aria-label="Tema"><span class="a11y-menu__group-label">Tema</span><div class="a11y-menu__options"><button class="a11y-opt" data-a11y="theme" data-value="light" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>Claro</button><button class="a11y-opt" data-a11y="theme" data-value="dark" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>Escuro</button><button class="a11y-opt" data-a11y="theme" data-value="auto" aria-pressed="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>Sistema</button></div></div>
+            <div class="a11y-menu__group" role="group" aria-label="Leitura"><span class="a11y-menu__group-label">Leitura</span><div class="a11y-menu__options"><button class="a11y-opt" data-a11y="contrast" data-value="on" aria-pressed="false"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 100 20V2z"/><path d="M12 2a10 10 0 010 20" fill="none" stroke="currentColor" stroke-width="2"/></svg>Alto contraste</button><button class="a11y-opt" data-a11y="font-mode" data-value="legible" aria-pressed="false">Fonte legível</button></div></div>
+            <p class="a11y-menu__hint">Para ampliar o texto, use o zoom do navegador (<kbd>Ctrl</kbd> <kbd>+</kbd> / <kbd>Ctrl</kbd> <kbd>&#8722;</kbd>).</p>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main id="main" class="page" tabindex="-1">
+
+      <div class="page-header">
+        <div class="page-header__content">
+          <h1 class="page-header__title">Instituição</h1>
+          <p class="page-header__desc">Dados regulatórios e-MEC da instituição mantenedora da plataforma — registro singleton · UNI-REQ-0007.</p>
+        </div>
+        <div class="page-header__actions"><a class="btn btn--secondary" href="index.html">← Voltar ao kit</a></div>
+      </div>
+
+      <!-- BANNER: singleton -->
+      <div class="alert alert--info" role="note">
+        <svg class="alert__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+        <div class="alert__body">
+          <p class="alert__title">Registro único (singleton)</p>
+          <p class="alert__msg">Cada instância da plataforma atende uma única instituição (ADR-0055). Não é possível criar nem listar várias — apenas <strong>editar</strong> a Instituição existente. A remoção é lógica e só ocorre em recadastramento institucional.</p>
+        </div>
+      </div>
+
+      <div class="panel" style="margin-top:var(--space-5)">
+        <div class="panel-head">
+          <div class="panel-head__title">
+            <h2>Universidade Federal do Sul e Sudeste do Pará</h2>
+          </div>
+          <button class="btn btn--secondary" type="button" data-drawer-trigger="drawer-instituicao" aria-haspopup="dialog" aria-expanded="false"><svg class="btn__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 013 3L7 19l-4 1 1-4 12.5-12.5z"/></svg>Editar</button>
+        </div>
+
+        <div class="read-group">
+          <h3 class="read-group__title">Identificação</h3>
+          <dl class="read-list">
+            <div class="read-row"><dt class="read-row__label">Nome oficial</dt><dd class="read-row__value">Universidade Federal do Sul e Sudeste do Pará</dd></div>
+            <div class="read-row"><dt class="read-row__label">Sigla</dt><dd class="read-row__value">Unifesspa</dd></div>
+            <div class="read-row"><dt class="read-row__label">Código e-MEC</dt><dd class="read-row__value"><code>3990</code></dd></div>
+            <div class="read-row"><dt class="read-row__label">CNPJ</dt><dd class="read-row__value"><code>10.827.880/0001-82</code></dd></div>
+          </dl>
+        </div>
+
+        <div class="read-group">
+          <h3 class="read-group__title">Classificação e-MEC</h3>
+          <dl class="read-list">
+            <div class="read-row"><dt class="read-row__label">Organização acadêmica</dt><dd class="read-row__value">Universidade</dd></div>
+            <div class="read-row"><dt class="read-row__label">Categoria administrativa</dt><dd class="read-row__value">Pública Federal</dd></div>
+          </dl>
+        </div>
+
+        <div class="read-group">
+          <h3 class="read-group__title">Mantenedora</h3>
+          <dl class="read-list">
+            <div class="read-row"><dt class="read-row__label">Mantenedora</dt><dd class="read-row__value">Universidade Federal do Sul e Sudeste do Pará</dd></div>
+            <div class="read-row"><dt class="read-row__label">Código mantenedora e-MEC</dt><dd class="read-row__value"><code>2474</code></dd></div>
+          </dl>
+        </div>
+
+        <div class="read-group">
+          <h3 class="read-group__title">Situação regulatória</h3>
+          <dl class="read-list">
+            <div class="read-row"><dt class="read-row__label">Situação</dt><dd class="read-row__value">Credenciada</dd></div>
+            <div class="read-row"><dt class="read-row__label">Ato de credenciamento</dt><dd class="read-row__value">Lei nº 12.824, de 5 de junho de 2013</dd></div>
+            <div class="read-row"><dt class="read-row__label">Ato de recredenciamento</dt><dd class="read-row__value"><span style="color:var(--text-muted)">—</span></dd></div>
+          </dl>
+        </div>
+
+        <div class="read-group">
+          <h3 class="read-group__title">Indicadores de qualidade</h3>
+          <dl class="read-list">
+            <div class="read-row"><dt class="read-row__label">Conceito institucional (CI)</dt><dd class="read-row__value">4</dd></div>
+            <div class="read-row"><dt class="read-row__label">Índice geral de cursos (IGC)</dt><dd class="read-row__value">4</dd></div>
+          </dl>
+        </div>
+
+        <div class="read-group">
+          <h3 class="read-group__title">Contato e localização da sede</h3>
+          <dl class="read-list">
+            <div class="read-row"><dt class="read-row__label">Site institucional</dt><dd class="read-row__value"><a href="https://unifesspa.edu.br">https://unifesspa.edu.br</a></dd></div>
+            <div class="read-row"><dt class="read-row__label">Endereço da sede</dt><dd class="read-row__value">Folha 31, Quadra 07, Lote 7/11 — Nova Marabá</dd></div>
+            <div class="read-row"><dt class="read-row__label">Município da sede</dt><dd class="read-row__value">Marabá — PA</dd></div>
+          </dl>
+        </div>
+
+        <div class="read-group">
+          <h3 class="read-group__title">Estrutura organizacional</h3>
+          <dl class="read-list">
+            <div class="read-row"><dt class="read-row__label">Unidade raiz (reitoria)</dt><dd class="read-row__value">Reitoria <span style="color:var(--text-muted)">· vínculo intra-banco com a Unidade do tipo Reitoria</span></dd></div>
+          </dl>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
+
+<!-- ========================= DRAWER: Instituição (singleton — editar) ========================= -->
+<dialog id="drawer-instituicao" class="uni-drawer uni-drawer--right uni-drawer--form" aria-labelledby="drawer-instituicao-title">
+  <div class="uni-drawer__panel">
+    <header class="uni-drawer__header">
+      <h2 class="uni-drawer__title" id="drawer-instituicao-title">Editar instituição</h2>
+      <button class="btn btn--tertiary btn--icon-only btn--rect" type="button" data-drawer-close aria-label="Fechar"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M18 6L6 18M6 6l12 12"/></svg></button>
+    </header>
+    <div class="uni-drawer__body uni-drawer__body--form">
+      <form id="form-instituicao" class="form-body" novalidate data-demo-form>
+        <section aria-labelledby="h-inst-ident">
+          <h3 id="h-inst-ident" class="form-section__title">Identificação</h3>
+          <div class="form-grid">
+            <div class="field field--full">
+              <label class="field__label" for="inst-nome">Nome oficial <span class="req" aria-hidden="true">*</span><span class="sr-only">(obrigatório)</span></label>
+              <input class="input" id="inst-nome" name="Nome oficial" value="Universidade Federal do Sul e Sudeste do Pará" required aria-describedby="inst-nome-hint">
+              <p class="field__hint" id="inst-nome-hint">Nome conforme ato de criação e cadastro e-MEC.</p>
+            </div>
+            <div class="field">
+              <label class="field__label" for="inst-sigla">Sigla <span class="req" aria-hidden="true">*</span><span class="sr-only">(obrigatório)</span></label>
+              <input class="input" id="inst-sigla" name="Sigla" value="Unifesspa" required>
+            </div>
+            <div class="field">
+              <label class="field__label" for="inst-emec">Código e-MEC <span class="req" aria-hidden="true">*</span><span class="sr-only">(obrigatório)</span></label>
+              <input class="input" id="inst-emec" name="Código e-MEC" value="3990" inputmode="numeric" required aria-describedby="inst-emec-hint">
+              <p class="field__hint" id="inst-emec-hint">Chave natural e-MEC da instituição. Usado em integrações com INEP e MEC.</p>
+            </div>
+            <div class="field field--full">
+              <label class="field__label" for="inst-cnpj">CNPJ</label>
+              <input class="input" id="inst-cnpj" name="CNPJ" value="10.827.880/0001-82" aria-describedby="inst-cnpj-hint">
+              <p class="field__hint" id="inst-cnpj-hint">CNPJ da pessoa jurídica. Opcional.</p>
+            </div>
+          </div>
+        </section>
+
+        <section aria-labelledby="h-inst-classif">
+          <h3 id="h-inst-classif" class="form-section__title">Classificação e-MEC</h3>
+          <div class="form-grid">
+            <div class="field field--full">
+              <label class="field__label" for="inst-org">Organização acadêmica <span class="req" aria-hidden="true">*</span><span class="sr-only">(obrigatório)</span></label>
+              <select class="select" id="inst-org" name="Organização acadêmica" required>
+                <option value="universidade" selected>Universidade</option>
+                <option value="centro-universitario">Centro universitário</option>
+                <option value="faculdade">Faculdade</option>
+                <option value="instituto-federal">Instituto federal</option>
+              </select>
+            </div>
+            <div class="field field--full">
+              <label class="field__label" for="inst-tipo">Categoria administrativa <span class="req" aria-hidden="true">*</span><span class="sr-only">(obrigatório)</span></label>
+              <select class="select" id="inst-tipo" name="Categoria administrativa" required>
+                <option value="publica-federal" selected>Pública Federal</option>
+                <option value="publica-estadual">Pública Estadual</option>
+                <option value="publica-municipal">Pública Municipal</option>
+                <option value="privada">Privada</option>
+              </select>
+            </div>
+          </div>
+        </section>
+
+        <section aria-labelledby="h-inst-mant">
+          <h3 id="h-inst-mant" class="form-section__title">Mantenedora</h3>
+          <div class="form-grid">
+            <div class="field field--full">
+              <label class="field__label" for="inst-mant">Mantenedora</label>
+              <input class="input" id="inst-mant" name="Mantenedora" value="Universidade Federal do Sul e Sudeste do Pará">
+            </div>
+            <div class="field field--full">
+              <label class="field__label" for="inst-mant-emec">Código mantenedora e-MEC</label>
+              <input class="input" id="inst-mant-emec" name="Código mantenedora e-MEC" value="2474" inputmode="numeric">
+            </div>
+          </div>
+        </section>
+
+        <section aria-labelledby="h-inst-sit">
+          <h3 id="h-inst-sit" class="form-section__title">Situação regulatória</h3>
+          <div class="form-grid">
+            <div class="field field--full">
+              <label class="field__label" for="inst-sit">Situação</label>
+              <input class="input" id="inst-sit" name="Situação" value="Credenciada" aria-describedby="inst-sit-hint">
+              <p class="field__hint" id="inst-sit-hint">Situação regulatória atual junto ao MEC.</p>
+            </div>
+            <div class="field field--full">
+              <label class="field__label" for="inst-ato-cred">Ato de credenciamento</label>
+              <input class="input" id="inst-ato-cred" name="Ato de credenciamento" value="Lei nº 12.824, de 5 de junho de 2013">
+            </div>
+            <div class="field field--full">
+              <label class="field__label" for="inst-ato-recred">Ato de recredenciamento</label>
+              <input class="input" id="inst-ato-recred" name="Ato de recredenciamento" placeholder="Ex.: Portaria MEC nº …">
+            </div>
+          </div>
+        </section>
+
+        <section aria-labelledby="h-inst-ind">
+          <h3 id="h-inst-ind" class="form-section__title">Indicadores de qualidade</h3>
+          <div class="form-grid">
+            <div class="field">
+              <label class="field__label" for="inst-ci">Conceito institucional (CI)</label>
+              <input class="input" id="inst-ci" name="Conceito institucional" value="4" inputmode="numeric">
+            </div>
+            <div class="field">
+              <label class="field__label" for="inst-igc">Índice geral de cursos (IGC)</label>
+              <input class="input" id="inst-igc" name="IGC" value="4" inputmode="numeric">
+            </div>
+          </div>
+        </section>
+
+        <section aria-labelledby="h-inst-contato">
+          <h3 id="h-inst-contato" class="form-section__title">Contato e localização da sede</h3>
+          <div class="form-grid">
+            <div class="field field--full">
+              <label class="field__label" for="inst-site">Site institucional</label>
+              <input class="input" id="inst-site" name="Site institucional" type="url" value="https://unifesspa.edu.br">
+            </div>
+            <div class="field field--full">
+              <label class="field__label" for="inst-end">Endereço da sede</label>
+              <input class="input" id="inst-end" name="Endereço da sede" value="Folha 31, Quadra 07, Lote 7/11 — Nova Marabá">
+            </div>
+            <div class="field field--full">
+              <label class="field__label" for="inst-mun">Município da sede</label>
+              <input class="input" id="inst-mun" name="Município da sede" value="Marabá — PA">
+            </div>
+          </div>
+        </section>
+
+        <section aria-labelledby="h-inst-estrutura">
+          <h3 id="h-inst-estrutura" class="form-section__title">Estrutura organizacional</h3>
+          <div class="form-grid">
+            <div class="field field--full">
+              <label class="field__label" for="inst-raiz">Unidade raiz (reitoria)</label>
+              <select class="select" id="inst-raiz" name="Unidade raiz" aria-describedby="inst-raiz-hint">
+                <option value="">(Não vinculada)</option>
+                <option value="reitoria" selected>Reitoria</option>
+              </select>
+              <p class="field__hint" id="inst-raiz-hint">Aponta para a Unidade viva do tipo <strong>Reitoria</strong>, por vínculo intra-banco. Pode ficar sem vínculo durante o cadastro inicial da estrutura.</p>
+            </div>
+          </div>
+        </section>
+      </form>
+    </div>
+    <footer class="uni-drawer__footer">
+      <button class="btn btn--secondary" type="button" data-drawer-close>Cancelar</button>
+      <button class="btn btn--primary" type="submit" form="form-instituicao"><span class="spinner spinner--sm" aria-hidden="true"></span>Salvar instituição</button>
+    </footer>
+  </div>
+</dialog>
+
+<button class="uni-back-to-top" data-back-to-top aria-label="Voltar ao topo da página" type="button" hidden>
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 15l-6-6-6 6"/></svg>
+</button>
+
+<script src="../../assets/uniplus-a11y.js"></script>
+<script src="../../assets/uniplus-overlay.js"></script>
+<script src="../../assets/uniplus-backtotop.js"></script>
+<script src="../../assets/uniplus-toast.js"></script>
+<script src="../../assets/uniplus-form.js"></script>
+<script src="../../assets/uniplus-crud.js"></script>
+
+<div vw class="enabled"><div vw-access-button class="active"></div><div vw-plugin-wrapper><div class="vw-plugin-top-wrapper"></div></div></div>
+<script src="../../assets/uniplus-vlibras.js"></script>
+</body>
+</html>

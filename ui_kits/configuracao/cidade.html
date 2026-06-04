@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="auto">
+<head>
+<meta charset="utf-8">
+<title>Cidade — Configuração · Uni+ DS</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="../../tokens.css">
+<link rel="stylesheet" href="../../base.css">
+<link rel="stylesheet" href="../../components.css">
+<link rel="stylesheet" href="kit.css">
+<style>
+  body { background: var(--surface-page); }
+</style>
+</head>
+<body>
+
+<a href="#main" class="skip-link">Pular para o conteúdo principal</a>
+
+<div class="gov-bar" role="region" aria-label="Identificação do Governo Federal">
+  <span class="gov-bar__brand">gov.br</span>
+  <span class="gov-bar__sep" aria-hidden="true">|</span>
+  <span class="gov-bar__org">UNIFESSPA · Administração</span>
+  <span class="gov-bar__links">
+    <a href="#">Mapa do site</a>
+    <a href="../../acessibilidade.html">Acessibilidade</a>
+    <a href="#">Privacidade</a>
+  </span>
+</div>
+
+<div class="admin-shell" id="admin-shell">
+  <aside class="sidebar" id="admin-sidebar" aria-label="Painel administrativo">
+    <div class="sidebar__brand">
+      <div class="sidebar__mark" aria-hidden="true">U+</div>
+      <div><div class="sidebar__brand-title">Uni+ Admin</div><div class="sidebar__brand-sub">CEPS · Seleção</div></div>
+      <button class="sidebar__close" type="button" aria-label="Fechar menu lateral" data-sidebar-close><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M18 6L6 18M6 6l12 12"/></svg></button>
+    </div>
+    <nav aria-label="Navegação administrativa">
+      <div class="sidebar__label">Painéis</div>
+      <a href="../admin/index.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="9"/><rect x="14" y="3" width="7" height="5"/><rect x="14" y="12" width="7" height="9"/><rect x="3" y="16" width="7" height="5"/></svg><span>Painel de processos</span></a>
+      <a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg><span>Editais</span></a>
+      <a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/></svg><span>Inscrições</span></a>
+      <a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg><span>Homologação</span></a>
+      <div class="sidebar__label">Resultados</div>
+      <a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><path d="M7 14l4-4 4 4 5-5"/></svg><span>Classificação</span></a>
+      <a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9 12l2 2 4-4"/></svg><span>Recursos</span></a>
+      <div class="sidebar__label">Configuração</div>
+      <a href="cidade.html" class="is-active" aria-current="page"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg><span>Cidade</span></a>
+      <a href="campus.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M5 21V8l7-5 7 5v13"/><path d="M9 21v-5h6v5"/><path d="M9 9h.01M15 9h.01M9 13h.01M15 13h.01"/></svg><span>Campus</span></a>
+      <a href="local-oferta.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 6-9 12-9 12s-9-6-9-12a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg><span>Local de oferta</span></a>
+      <a href="instituicao.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21h18M6 21V7l6-4 6 4v14M9 21V12h6v9"/></svg><span>Instituição</span></a>
+      <a href="unidade.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="2" width="6" height="6" rx="1"/><rect x="2" y="16" width="6" height="6" rx="1"/><rect x="16" y="16" width="6" height="6" rx="1"/><path d="M12 8v4M5 16v-4h14v4"/></svg><span>Unidade</span></a>
+      <a href="curso.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/></svg><span>Curso</span></a>
+      <a href="oferta-curso.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="8" y1="13" x2="16" y2="13"/><line x1="8" y1="17" x2="16" y2="17"/><line x1="8" y1="9" x2="10" y2="9"/></svg><span>Oferta de curso</span></a>
+      <a href="modalidade.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg><span>Modalidade</span></a>
+      <a href="tipo-documento.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V9z"/><polyline points="13 2 13 9 20 9"/></svg><span>Tipo de Documento</span></a>
+      <a href="condicao-atendimento.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg><span>Condição de Atendimento</span></a>
+      <a href="recurso-acessibilidade.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/></svg><span>Recurso de Acessibilidade</span></a>
+      <a href="tipo-deficiencia.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="4" r="2"/><path d="M5 8h14M12 8v7M9 21l3-6 3 6"/></svg><span>Tipo de Deficiência</span></a>
+      <a href="fase-canonica.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><span>Fase Canônica</span></a>
+      <a href="tipo-banca.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11"/></svg><span>Tipo de Banca</span></a>
+      <a href="reserva-demografica.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><path d="M7 14l4-4 4 4 5-5"/></svg><span>Reserva Demográfica</span></a>
+      <a href="peso-enem.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/><line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/><line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/><line x1="1" y1="14" x2="7" y2="14"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="17" y1="16" x2="23" y2="16"/></svg><span>Peso ENEM</span></a>
+    </nav>
+  </aside>
+  <div class="sidebar-backdrop" aria-hidden="true" data-sidebar-close></div>
+
+  <div class="admin-main">
+    <header class="admin-topbar">
+      <button class="sidebar-toggle" id="sidebar-toggle" aria-label="Abrir menu lateral" aria-expanded="false" aria-controls="admin-sidebar">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+      </button>
+      <nav class="breadcrumb" aria-label="Breadcrumb">
+        <ol class="breadcrumb__list">
+          <li class="breadcrumb__item"><a href="../admin/index.html" class="breadcrumb__link">Início</a></li>
+          <li class="breadcrumb__item"><a href="index.html" class="breadcrumb__link">Configuração</a></li>
+          <li class="breadcrumb__item"><span class="breadcrumb__current" aria-current="page">Cidade</span></li>
+        </ol>
+      </nav>
+      <div style="margin-left:auto">
+        <div class="a11y-menu" data-a11y-menu>
+          <button class="a11y-menu__trigger" type="button" aria-expanded="false" aria-controls="a11y-pop" aria-label="Preferências de acessibilidade" data-a11y-menu-trigger>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="4" r="2"/><path d="M4 8h16M12 6v14M8 12l-2 8M16 12l2 8"/></svg>
+          </button>
+          <div class="a11y-menu__backdrop" hidden aria-hidden="true"></div>
+          <div class="a11y-menu__popover" id="a11y-pop" role="region" aria-label="Preferências de acessibilidade" hidden>
+            <p class="a11y-menu__title">Acessibilidade</p>
+            <div class="a11y-menu__group" role="group" aria-label="Tema"><span class="a11y-menu__group-label">Tema</span><div class="a11y-menu__options"><button class="a11y-opt" data-a11y="theme" data-value="light" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>Claro</button><button class="a11y-opt" data-a11y="theme" data-value="dark" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>Escuro</button><button class="a11y-opt" data-a11y="theme" data-value="auto" aria-pressed="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>Sistema</button></div></div>
+            <div class="a11y-menu__group" role="group" aria-label="Leitura"><span class="a11y-menu__group-label">Leitura</span><div class="a11y-menu__options"><button class="a11y-opt" data-a11y="contrast" data-value="on" aria-pressed="false"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 100 20V2z"/><path d="M12 2a10 10 0 010 20" fill="none" stroke="currentColor" stroke-width="2"/></svg>Alto contraste</button><button class="a11y-opt" data-a11y="font-mode" data-value="legible" aria-pressed="false">Fonte legível</button></div></div>
+            <p class="a11y-menu__hint">Para ampliar o texto, use o zoom do navegador (<kbd>Ctrl</kbd> <kbd>+</kbd> / <kbd>Ctrl</kbd> <kbd>&#8722;</kbd>).</p>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main id="main" class="page" tabindex="-1">
+
+      <div class="page-header">
+        <div class="page-header__content">
+          <h1 class="page-header__title">Cidade</h1>
+          <p class="page-header__desc">Município com georreferenciamento — raiz da cadeia Cidade → Campus → Local de Oferta (UNI-REQ-0009).</p>
+        </div>
+        <div class="page-header__actions"><a class="btn btn--secondary" href="index.html">← Voltar ao kit</a></div>
+      </div>
+
+      <div data-scope>
+        <div class="filter-bar" role="search" aria-label="Filtrar cidades">
+          <div class="filter-bar__row">
+            <div class="input-group">
+              <span class="input-group__addon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.5-4.5"/></svg></span>
+              <input class="input" type="search" placeholder="Buscar por nome ou código IBGE…" aria-label="Buscar cidade" data-search-input>
+            </div>
+            <button class="btn btn--tertiary btn--sm" type="button" data-filter-clear>Limpar</button>
+          </div>
+          <div class="filter-bar__group">
+            <span class="u-eyebrow">Região</span>
+            <div class="filter-chips" role="group" aria-label="Filtrar por região">
+              <button class="filter-chip" type="button" aria-pressed="true" data-chip data-region="">Todas <span class="filter-chip__count">4</span></button>
+              <button class="filter-chip" type="button" aria-pressed="false" data-chip data-region="norte">Norte <span class="filter-chip__count">4</span></button>
+              <button class="filter-chip" type="button" aria-pressed="false" data-chip data-region="nordeste">Nordeste <span class="filter-chip__count">0</span></button>
+              <button class="filter-chip" type="button" aria-pressed="false" data-chip data-region="centro-oeste">Centro-Oeste <span class="filter-chip__count">0</span></button>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-head">
+            <div class="panel-head__title">
+              <h2>Cidades</h2>
+              <span class="list-count" data-count aria-label="Total de cidades">4</span>
+            </div>
+            <button class="btn btn--primary" type="button" data-drawer-trigger="drawer-cidade" aria-haspopup="dialog" aria-expanded="false"><svg class="btn__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>Nova cidade</button>
+          </div>
+          <div class="table-responsive">
+            <table data-search-table>
+              <thead><tr><th scope="col">Cidade</th><th scope="col">UF</th><th scope="col">Código IBGE</th><th scope="col">Região</th><th scope="col">Coordenadas</th><th scope="col"><span class="sr-only">Ações</span></th></tr></thead>
+              <tbody>
+                <tr data-region="norte">
+                  <td data-label="Cidade"><div class="table-responsive__primary">Marabá</div><div class="table-responsive__meta">2 campi · 4 locais de oferta</div></td>
+                  <td data-label="UF">PA</td>
+                  <td data-label="Código IBGE"><code>1504208</code></td>
+                  <td data-label="Região"><span class="tag">Norte</span></td>
+                  <td data-label="Coordenadas"><span class="u-caption" style="font-family:var(--font-mono)">-5.3686, -49.1178</span></td>
+                  <td class="table-responsive__actions"><button class="btn btn--tertiary btn--sm" type="button" data-drawer-trigger="drawer-cidade" aria-haspopup="dialog" aria-expanded="false" aria-label="Editar Marabá">Editar</button><button class="btn btn--tertiary btn--sm" type="button" data-dialog-trigger="dialog-bloqueio-cidade" aria-haspopup="dialog" aria-expanded="false" aria-label="Remover Marabá" data-fill-alvo="Marabá — PA" data-fill-refs="3">Remover</button></td>
+                </tr>
+                <tr data-region="norte">
+                  <td data-label="Cidade"><div class="table-responsive__primary">Altamira</div><div class="table-responsive__meta">1 campus · 2 locais de oferta</div></td>
+                  <td data-label="UF">PA</td>
+                  <td data-label="Código IBGE"><code>1500602</code></td>
+                  <td data-label="Região"><span class="tag">Norte</span></td>
+                  <td data-label="Coordenadas"><span class="u-caption" style="font-family:var(--font-mono)">-3.2035, -52.2064</span></td>
+                  <td class="table-responsive__actions"><button class="btn btn--tertiary btn--sm" type="button" data-drawer-trigger="drawer-cidade" aria-haspopup="dialog" aria-expanded="false" aria-label="Editar Altamira">Editar</button><button class="btn btn--tertiary btn--sm" type="button" data-dialog-trigger="dialog-bloqueio-cidade" aria-haspopup="dialog" aria-expanded="false" aria-label="Remover Altamira" data-fill-alvo="Altamira — PA" data-fill-refs="2">Remover</button></td>
+                </tr>
+                <tr data-region="norte">
+                  <td data-label="Cidade"><div class="table-responsive__primary">Santarém</div></td>
+                  <td data-label="UF">PA</td>
+                  <td data-label="Código IBGE"><code>1506807</code></td>
+                  <td data-label="Região"><span class="tag">Norte</span></td>
+                  <td data-label="Coordenadas"><span class="u-caption" style="font-family:var(--font-mono)">-2.4453, -54.7082</span></td>
+                  <td class="table-responsive__actions"><button class="btn btn--tertiary btn--sm" type="button" data-drawer-trigger="drawer-cidade" aria-haspopup="dialog" aria-expanded="false" aria-label="Editar Santarém">Editar</button><button class="btn btn--tertiary btn--sm" type="button" data-dialog-trigger="dialog-bloqueio-cidade" aria-haspopup="dialog" aria-expanded="false" aria-label="Remover Santarém" data-fill-alvo="Santarém — PA" data-fill-refs="0">Remover</button></td>
+                </tr>
+                <tr data-region="norte">
+                  <td data-label="Cidade"><div class="table-responsive__primary">São Félix do Xingu</div><div class="table-responsive__meta">Sem campus · 1 local de oferta (convênio)</div></td>
+                  <td data-label="UF">PA</td>
+                  <td data-label="Código IBGE"><code>1507300</code></td>
+                  <td data-label="Região"><span class="tag">Norte</span></td>
+                  <td data-label="Coordenadas"><span class="u-caption" style="font-family:var(--font-mono)">-6.6475, -51.9947</span></td>
+                  <td class="table-responsive__actions"><button class="btn btn--tertiary btn--sm" type="button" data-drawer-trigger="drawer-cidade" aria-haspopup="dialog" aria-expanded="false" aria-label="Editar São Félix do Xingu">Editar</button><button class="btn btn--tertiary btn--sm" type="button" data-dialog-trigger="dialog-bloqueio-cidade" aria-haspopup="dialog" aria-expanded="false" aria-label="Remover São Félix do Xingu" data-fill-alvo="São Félix do Xingu — PA" data-fill-refs="1">Remover</button></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="empty-state" data-empty hidden>
+            <div class="empty-state__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.5-4.5"/></svg></div>
+            <p class="empty-state__title">Nenhuma cidade encontrada</p>
+            <p class="empty-state__desc">Ajuste a busca ou o filtro de região para ver resultados.</p>
+            <button class="btn btn--secondary" type="button" data-filter-clear>Limpar filtros</button>
+          </div>
+          <nav class="pager" aria-label="Paginação de cidades">
+            <button class="pager__btn" type="button" disabled><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg>Anterior</button>
+            <span class="pager__status">Página <span class="pager__page">1</span></span>
+            <button class="pager__btn" type="button" disabled>Próxima<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg></button>
+          </nav>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
+
+<!-- ========================= DRAWER: Cidade ========================= -->
+<dialog id="drawer-cidade" class="uni-drawer uni-drawer--right uni-drawer--form" aria-labelledby="drawer-cidade-title">
+  <div class="uni-drawer__panel">
+    <header class="uni-drawer__header">
+      <h2 class="uni-drawer__title" id="drawer-cidade-title">Nova cidade</h2>
+      <button class="btn btn--tertiary btn--icon-only btn--rect" type="button" data-drawer-close aria-label="Fechar"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M18 6L6 18M6 6l12 12"/></svg></button>
+    </header>
+    <div class="uni-drawer__body uni-drawer__body--form">
+      <form id="form-cidade" class="form-body" novalidate data-demo-form>
+        <section aria-labelledby="h-cid-dados">
+          <h3 id="h-cid-dados" class="form-section__title">Dados da cidade</h3>
+          <div class="form-grid">
+            <div class="field field--full">
+              <label class="field__label" for="cid-nome">Nome <span class="req" aria-hidden="true">*</span><span class="sr-only">(obrigatório)</span></label>
+              <input class="input" id="cid-nome" name="Nome" placeholder="Ex.: Marabá" required>
+            </div>
+            <div class="field">
+              <label class="field__label" for="cid-uf">UF <span class="req" aria-hidden="true">*</span><span class="sr-only">(obrigatório)</span></label>
+              <select class="select" id="cid-uf" name="UF" required>
+                <option value="">Selecione…</option>
+                <option value="PA" selected>PA — Pará</option>
+                <option value="TO">TO — Tocantins</option>
+                <option value="MA">MA — Maranhão</option>
+                <option value="MT">MT — Mato Grosso</option>
+              </select>
+            </div>
+            <div class="field">
+              <label class="field__label" for="cid-ibge">Código IBGE <span class="req" aria-hidden="true">*</span><span class="sr-only">(obrigatório)</span></label>
+              <input class="input" id="cid-ibge" name="Código IBGE" placeholder="7 dígitos" required aria-describedby="cid-ibge-hint" maxlength="7" inputmode="numeric">
+              <p class="field__hint" id="cid-ibge-hint">Código de 7 dígitos conforme IBGE. Usado como chave de integração.</p>
+            </div>
+          </div>
+        </section>
+        <section aria-labelledby="h-cid-geo">
+          <h3 id="h-cid-geo" class="form-section__title">Georreferenciamento</h3>
+          <div class="form-grid">
+            <div class="field field--full">
+              <label class="field__label" for="cid-ddd">DDD</label>
+              <input class="input" id="cid-ddd" name="DDD" placeholder="Ex.: 94" inputmode="numeric" maxlength="2" pattern="[0-9]{2}" aria-describedby="cid-ddd-hint">
+              <p class="field__hint" id="cid-ddd-hint">Código de área telefônica do município. Opcional.</p>
+            </div>
+            <div class="form-grid--pair field--full" style="display:grid">
+              <div class="field">
+                <label class="field__label" for="cid-lat">Latitude</label>
+                <input class="input" id="cid-lat" name="Latitude" placeholder="-5.3686" type="number" step="0.0001" min="-90" max="90" aria-describedby="cid-lat-hint">
+                <p class="field__hint" id="cid-lat-hint">Decimal, até 4 casas. Negativo = Sul.</p>
+              </div>
+              <div class="field">
+                <label class="field__label" for="cid-lon">Longitude</label>
+                <input class="input" id="cid-lon" name="Longitude" placeholder="-49.1178" type="number" step="0.0001" min="-180" max="180">
+              </div>
+            </div>
+            <div class="field field--full">
+              <label class="field__label" for="cid-regiao">Região</label>
+              <select class="select" id="cid-regiao" name="Região">
+                <option value="">Selecione…</option>
+                <option value="norte" selected>Norte</option>
+                <option value="nordeste">Nordeste</option>
+                <option value="centro-oeste">Centro-Oeste</option>
+                <option value="sudeste">Sudeste</option>
+                <option value="sul">Sul</option>
+              </select>
+            </div>
+            <div class="form-grid--pair field--full" style="display:grid">
+              <div class="field">
+                <label class="field__label" for="cid-mesorregiao">Mesorregião</label>
+                <input class="input" id="cid-mesorregiao" name="Mesorregião" placeholder="Ex.: Sudeste Paraense" aria-describedby="cid-mesorregiao-hint">
+                <p class="field__hint" id="cid-mesorregiao-hint">Mesorregião geográfica IBGE. Opcional.</p>
+              </div>
+              <div class="field">
+                <label class="field__label" for="cid-microrregiao">Microrregião</label>
+                <input class="input" id="cid-microrregiao" name="Microrregião" placeholder="Ex.: Marabá" aria-describedby="cid-microrregiao-hint">
+                <p class="field__hint" id="cid-microrregiao-hint">Microrregião geográfica IBGE. Opcional.</p>
+              </div>
+            </div>
+            <div class="form-grid--pair field--full" style="display:grid">
+              <div class="field">
+                <label class="field__label" for="cid-populacao">População</label>
+                <input class="input" id="cid-populacao" name="População" type="number" min="0" step="1" placeholder="Ex.: 283542" inputmode="numeric" aria-describedby="cid-populacao-hint">
+                <p class="field__hint" id="cid-populacao-hint">Estimativa populacional IBGE. Opcional.</p>
+              </div>
+              <div class="field">
+                <label class="field__label" for="cid-densidade">Densidade</label>
+                <input class="input" id="cid-densidade" name="Densidade" type="number" min="0" step="0.01" placeholder="Ex.: 10.51" aria-describedby="cid-densidade-hint">
+                <p class="field__hint" id="cid-densidade-hint">Habitantes por km². Opcional.</p>
+              </div>
+            </div>
+            <div class="field field--full">
+              <label class="field__label" for="cid-area">Área km²</label>
+              <input class="input" id="cid-area" name="Área km²" type="number" min="0" step="0.001" placeholder="Ex.: 15128.293" aria-describedby="cid-area-hint">
+              <p class="field__hint" id="cid-area-hint">Extensão territorial em km². Opcional.</p>
+            </div>
+          </div>
+        </section>
+      </form>
+    </div>
+    <footer class="uni-drawer__footer">
+      <button class="btn btn--secondary" type="button" data-drawer-close>Cancelar</button>
+      <button class="btn btn--primary" type="submit" form="form-cidade"><span class="spinner spinner--sm" aria-hidden="true"></span>Salvar cidade</button>
+    </footer>
+  </div>
+</dialog>
+
+<!-- ===================== MODAL: remoção de cidade (bloqueio condicional) ===================== -->
+<dialog id="dialog-bloqueio-cidade" class="uni-dialog" aria-labelledby="dialog-bloqueio-cidade-title">
+  <div class="uni-dialog__panel">
+    <div class="uni-dialog__header">
+      <h2 class="uni-dialog__title" id="dialog-bloqueio-cidade-title">Remoção da cidade</h2>
+    </div>
+    <div class="uni-dialog__body">
+      <p>Você solicitou remover a cidade <strong data-slot="alvo">esta cidade</strong>.</p>
+      <div class="alert alert--danger" data-show-if-positive="refs" hidden>
+        <svg class="alert__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
+        <div class="alert__body">
+          <p class="alert__title">Remoção bloqueada — referências intra-banco: <strong data-slot="refs">0</strong></p>
+          <p class="alert__msg">Esta cidade ainda é referenciada por <strong>campi ou locais de oferta vivos</strong> do mesmo banco. Remova ou realoque esses cadastros antes de excluí-la. Cópias por snapshot em Seleção (ofertas de curso de processos publicados) não bloqueiam a remoção.</p>
+        </div>
+      </div>
+      <div class="alert alert--warning" data-show-if-zero="refs">
+        <svg class="alert__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+        <div class="alert__body">
+          <p class="alert__title">Ação reversível por soft delete</p>
+          <p class="alert__msg">Sem campi ou locais de oferta vivos referenciando-a. A cidade é inativada e mantida na trilha de auditoria.</p>
+        </div>
+      </div>
+    </div>
+    <div class="uni-dialog__footer">
+      <button class="btn btn--secondary" type="button" data-dialog-close data-show-if-zero="refs">Cancelar</button>
+      <button class="btn btn--danger" type="button" data-confirm-toast data-show-if-zero="refs" data-toast-title="Cidade removida" data-toast-message="Inativada e mantida na trilha de auditoria (exemplo do kit).">Remover</button>
+      <button class="btn btn--primary" type="button" data-dialog-close data-show-if-positive="refs" hidden>Entendido</button>
+    </div>
+  </div>
+</dialog>
+
+<button class="uni-back-to-top" data-back-to-top aria-label="Voltar ao topo da página" type="button" hidden>
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 15l-6-6-6 6"/></svg>
+</button>
+
+<script src="../../assets/uniplus-a11y.js"></script>
+<script src="../../assets/uniplus-overlay.js"></script>
+<script src="../../assets/uniplus-backtotop.js"></script>
+<script src="../../assets/uniplus-toast.js"></script>
+<script src="../../assets/uniplus-form.js"></script>
+<script src="../../assets/uniplus-crud.js"></script>
+<div vw class="enabled"><div vw-access-button class="active"></div><div vw-plugin-wrapper><div class="vw-plugin-top-wrapper"></div></div></div>
+<script src="../../assets/uniplus-vlibras.js"></script>
+</body>
+</html>
