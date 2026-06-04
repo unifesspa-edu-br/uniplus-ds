@@ -18,6 +18,7 @@
 
   .hub-grid { display: grid; grid-template-columns: 1fr; gap: var(--space-5); padding-bottom: var(--space-8); }
   @media (min-width: 768px) { .hub-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (min-width: 1280px) { .hub-grid { grid-template-columns: repeat(3, 1fr); } }
 
   .kit-card { background: var(--surface-card); border: 1px solid var(--border-subtle); border-radius: var(--radius-xl); overflow: hidden; display: flex; flex-direction: column; min-width: 0; box-shadow: var(--shadow-1); transition: box-shadow var(--duration-base) var(--ease-standard), transform var(--duration-base) var(--ease-standard); }
   .kit-card:hover, .kit-card:focus-within { box-shadow: var(--shadow-3); transform: translateY(-2px); }
@@ -134,6 +135,26 @@
           <p class="kit-card__desc">Visão pública: carrossel de editais em destaque, busca e filtros, listagem em lista ou cards, e a seção &ldquo;Como funciona&rdquo;. Inclui drawer mobile e rodapé institucional.</p>
           <div class="kit-card__actions">
             <a class="btn btn--primary" href="ui_kits/portal/index.html">Abrir kit</a>
+          </div>
+        </div>
+      </article>
+
+      <!-- Configuração kit -->
+      <article class="kit-card">
+        <div class="kit-card__frame">
+          <div class="kit-card__chrome" aria-hidden="true">
+            <span class="kit-card__dots"><i></i><i></i><i></i></span>
+            <span class="kit-card__url">/ui_kits/configuracao/</span>
+          </div>
+          <a class="kit-card__thumb" href="ui_kits/configuracao/index.html" aria-label="Abrir o kit dos Cadastros de Configuração">
+            <iframe src="ui_kits/configuracao/index.html" title="Pré-visualização dos Cadastros de Configuração" loading="lazy" tabindex="-1"></iframe>
+          </a>
+        </div>
+        <div class="kit-card__body">
+          <h2 class="kit-card__title">Cadastros de configuração</h2>
+          <p class="kit-card__desc">16 cadastros de referência em telas de CRUD: cidade, campus e local de oferta, instituição, unidades, cursos e ofertas, modalidades, tipos de documento, atendimento especializado, fases e bancas, reserva demográfica e pesos ENEM. WCAG 2.1 AAA, mobile-first.</p>
+          <div class="kit-card__actions">
+            <a class="btn btn--primary" href="ui_kits/configuracao/index.html">Abrir kit</a>
           </div>
         </div>
       </article>
