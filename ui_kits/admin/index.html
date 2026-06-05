@@ -36,8 +36,6 @@
   /* A navegacao rola quando o menu excede a altura (mobile e telas curtas);
    * o brand e o rodape de conta ficam fixos. */
   .sidebar nav { flex: 1 1 auto; min-height: 0; overflow-y: auto; overscroll-behavior: contain; }
-  /* No modo colapsado o tooltip projeta-se para fora da nav; nao clipar horizontalmente. */
-  [data-sidebar="collapsed"] .sidebar nav { overflow: visible; }
   @media (max-width: 1023px) {
     .sidebar {
       position: fixed;
@@ -58,7 +56,10 @@
   }
   @media (min-width: 1024px) {
     .sidebar {
-      position: static;
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      align-self: start;
       transform: none;
       visibility: visible;
       pointer-events: auto;
