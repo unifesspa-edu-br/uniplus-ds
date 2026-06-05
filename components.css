@@ -25,6 +25,32 @@
 [hidden] { display: none !important; }
 
 /* ============================================================================
+ * SCROLLBAR — fina, discreta e consistente entre navegadores (WebKit + Firefox).
+ * `currentColor` adapta o thumb ao contexto (claro/escuro) do container.
+ * `.uni-scroll` aplica a qualquer container rolável; a navegação lateral já inclusa.
+ * ========================================================================== */
+.uni-scroll, .sidebar nav {
+  scrollbar-width: thin;
+  scrollbar-color: color-mix(in srgb, currentColor 28%, transparent) transparent;
+}
+.uni-scroll::-webkit-scrollbar,
+.sidebar nav::-webkit-scrollbar { width: 8px; height: 8px; }
+.uni-scroll::-webkit-scrollbar-track,
+.sidebar nav::-webkit-scrollbar-track { background: transparent; }
+.uni-scroll::-webkit-scrollbar-thumb,
+.sidebar nav::-webkit-scrollbar-thumb {
+  background-color: color-mix(in srgb, currentColor 28%, transparent);
+  border-radius: var(--radius-pill);
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+.uni-scroll::-webkit-scrollbar-thumb:hover,
+.sidebar nav::-webkit-scrollbar-thumb:hover {
+  background-color: color-mix(in srgb, currentColor 45%, transparent);
+  background-clip: padding-box;
+}
+
+/* ============================================================================
  * BUTTON
  * Types: solid (primary/secondary/tertiary), outline, ghost, danger
  * Sizes: sm 32, default 40, lg 48
