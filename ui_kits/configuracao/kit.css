@@ -34,7 +34,8 @@
 }
 @media (min-width: 1024px) {
   .sidebar {
-    position: static; width: auto; transform: none;
+    position: sticky; top: 0; height: 100vh; align-self: start;
+    width: auto; transform: none;
     visibility: visible; pointer-events: auto; box-shadow: none;
   }
 }
