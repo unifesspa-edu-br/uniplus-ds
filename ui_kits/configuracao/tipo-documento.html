@@ -1,423 +1,652 @@
 <!DOCTYPE html>
 <html lang="pt-BR" data-theme="auto">
+
 <head>
-<meta charset="utf-8">
-<title>Tipo de Documento — Configuração · Uni+ DS</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="../../tokens.css">
-<link rel="stylesheet" href="../../base.css">
-<link rel="stylesheet" href="../../components.css">
-<link rel="stylesheet" href="kit.css">
-<style>
-  body { background: var(--surface-page); }
-</style>
+  <meta charset="utf-8">
+  <title>Tipo de Documento — Configuração · Uni+ DS</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="../../tokens.css">
+  <link rel="stylesheet" href="../../base.css">
+  <link rel="stylesheet" href="../../components.css">
+  <link rel="stylesheet" href="kit.css">
+  <style>
+    body {
+      background: var(--surface-page);
+    }
+  </style>
 </head>
+
 <body>
 
-<a href="#main" class="skip-link">Pular para o conteúdo principal</a>
+  <a href="#main" class="skip-link">Pular para o conteúdo principal</a>
 
-<div class="gov-bar" role="region" aria-label="Identificação do Governo Federal">
-  <span class="gov-bar__brand">gov.br</span>
-  <span class="gov-bar__sep" aria-hidden="true">|</span>
-  <span class="gov-bar__org">UNIFESSPA · Administração</span>
-  <span class="gov-bar__links">
-    <a href="#">Mapa do site</a>
-    <a href="../../acessibilidade.html">Acessibilidade</a>
-    <a href="#">Privacidade</a>
-  </span>
-</div>
+  <div class="gov-bar" role="region" aria-label="Identificação do Governo Federal">
+    <span class="gov-bar__brand">gov.br</span>
+    <span class="gov-bar__sep" aria-hidden="true">|</span>
+    <span class="gov-bar__org">UNIFESSPA · Administração</span>
+    <span class="gov-bar__links">
+      <a href="#">Mapa do site</a>
+      <a href="../../acessibilidade.html">Acessibilidade</a>
+      <a href="#">Privacidade</a>
+    </span>
+  </div>
 
-<div class="admin-shell" id="admin-shell">
-  <aside class="sidebar" id="admin-sidebar" aria-label="Painel administrativo">
-    <div class="sidebar__brand">
-      <div class="sidebar__mark" aria-hidden="true">U+</div>
-      <div><div class="sidebar__brand-title">Uni+ Admin</div><div class="sidebar__brand-sub">CEPS · Seleção</div></div>
-      <button class="sidebar__close" type="button" aria-label="Fechar menu lateral" data-sidebar-close><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M18 6L6 18M6 6l12 12"/></svg></button>
-    </div>
-    <nav aria-label="Navegação administrativa">
-      <div class="sidebar__label">Painéis</div>
-      <a href="../admin/index.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="9"/><rect x="14" y="3" width="7" height="5"/><rect x="14" y="12" width="7" height="9"/><rect x="3" y="16" width="7" height="5"/></svg><span>Painel de processos</span></a>
-      <a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg><span>Editais</span></a>
-      <a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/></svg><span>Inscrições</span></a>
-      <a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg><span>Homologação</span></a>
-      <div class="sidebar__label">Resultados</div>
-      <a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><path d="M7 14l4-4 4 4 5-5"/></svg><span>Classificação</span></a>
-      <a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9 12l2 2 4-4"/></svg><span>Recursos</span></a>
-      <div class="sidebar__label">Configuração</div>
-      <a href="cidade.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg><span>Cidade</span></a>
-      <a href="campus.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M5 21V8l7-5 7 5v13"/><path d="M9 21v-5h6v5"/><path d="M9 9h.01M15 9h.01M9 13h.01M15 13h.01"/></svg><span>Campus</span></a>
-      <a href="local-oferta.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 6-9 12-9 12s-9-6-9-12a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg><span>Local de oferta</span></a>
-      <a href="instituicao.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21h18M6 21V7l6-4 6 4v14M9 21V12h6v9"/></svg><span>Instituição</span></a>
-      <a href="unidade.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="2" width="6" height="6" rx="1"/><rect x="2" y="16" width="6" height="6" rx="1"/><rect x="16" y="16" width="6" height="6" rx="1"/><path d="M12 8v4M5 16v-4h14v4"/></svg><span>Unidade</span></a>
-      <a href="curso.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/></svg><span>Curso</span></a>
-      <a href="oferta-curso.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="8" y1="13" x2="16" y2="13"/><line x1="8" y1="17" x2="16" y2="17"/><line x1="8" y1="9" x2="10" y2="9"/></svg><span>Oferta de curso</span></a>
-      <a href="modalidade.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg><span>Modalidade</span></a>
-      <a href="tipo-documento.html" class="is-active" aria-current="page"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V9z"/><polyline points="13 2 13 9 20 9"/></svg><span>Tipo de Documento</span></a>
-      <a href="condicao-atendimento.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg><span>Condição de Atendimento</span></a>
-      <a href="recurso-acessibilidade.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/></svg><span>Recurso de Acessibilidade</span></a>
-      <a href="tipo-deficiencia.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="4" r="2"/><path d="M5 8h14M12 8v7M9 21l3-6 3 6"/></svg><span>Tipo de Deficiência</span></a>
-      <a href="fase-canonica.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><span>Fase Canônica</span></a>
-      <a href="tipo-banca.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11"/></svg><span>Tipo de Banca</span></a>
-      <a href="reserva-demografica.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><path d="M7 14l4-4 4 4 5-5"/></svg><span>Reserva Demográfica</span></a>
-      <a href="peso-enem.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/><line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/><line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/><line x1="1" y1="14" x2="7" y2="14"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="17" y1="16" x2="23" y2="16"/></svg><span>Peso ENEM</span></a>
-    </nav>
-  </aside>
-  <div class="sidebar-backdrop" aria-hidden="true" data-sidebar-close></div>
-
-  <div class="admin-main">
-    <header class="admin-topbar">
-      <button class="sidebar-toggle" id="sidebar-toggle" aria-label="Abrir menu lateral" aria-expanded="false" aria-controls="admin-sidebar">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
-      </button>
-      <nav class="breadcrumb" aria-label="Breadcrumb">
-        <ol class="breadcrumb__list">
-          <li class="breadcrumb__item"><a href="../admin/index.html" class="breadcrumb__link">Início</a></li>
-          <li class="breadcrumb__item"><a href="index.html" class="breadcrumb__link">Configuração</a></li>
-          <li class="breadcrumb__item"><span class="breadcrumb__current" aria-current="page">Tipo de Documento</span></li>
-        </ol>
+  <div class="admin-shell" id="admin-shell">
+    <aside class="sidebar" id="admin-sidebar" aria-label="Painel administrativo">
+      <div class="sidebar__brand">
+        <div class="sidebar__mark" aria-hidden="true">U+</div>
+        <div>
+          <div class="sidebar__brand-title">Uni+ Admin</div>
+          <div class="sidebar__brand-sub">CEPS · Seleção</div>
+        </div>
+        <button class="sidebar__close" type="button" aria-label="Fechar menu lateral" data-sidebar-close><svg width="20"
+            height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
+            aria-hidden="true">
+            <path d="M18 6L6 18M6 6l12 12" />
+          </svg></button>
+      </div>
+      <nav aria-label="Navegação administrativa">
+        <div class="sidebar__label">Painéis</div>
+        <a href="../admin/index.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="3" width="7" height="9" />
+            <rect x="14" y="3" width="7" height="5" />
+            <rect x="14" y="12" width="7" height="9" />
+            <rect x="3" y="16" width="7" height="5" />
+          </svg><span>Painel de processos</span></a>
+        <a href="../admin/processo-seletivo.html" aria-label="Processo seletivo" data-tooltip="Processo seletivo"
+          data-tooltip-position="right"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" />
+            <polyline points="14 2 14 8 20 8" />
+          </svg><span>Processo seletivo</span></a>
+        <a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" />
+            <circle cx="9" cy="7" r="4" />
+          </svg><span>Inscrições</span></a>
+        <a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
+          </svg><span>Homologação</span></a>
+        <div class="sidebar__label">Resultados</div>
+        <a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M3 3v18h18" />
+            <path d="M7 14l4-4 4 4 5-5" />
+          </svg><span>Classificação</span></a>
+        <a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10" />
+            <path d="M9 12l2 2 4-4" />
+          </svg><span>Recursos</span></a>
+        <div class="sidebar__label">Configuração</div>
+        <a href="cidade.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" />
+            <circle cx="12" cy="9" r="2.5" />
+          </svg><span>Cidade</span></a>
+        <a href="campus.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 21h18M5 21V8l7-5 7 5v13" />
+            <path d="M9 21v-5h6v5" />
+            <path d="M9 9h.01M15 9h.01M9 13h.01M15 13h.01" />
+          </svg><span>Campus</span></a>
+        <a href="local-oferta.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 10c0 6-9 12-9 12s-9-6-9-12a9 9 0 0118 0z" />
+            <circle cx="12" cy="10" r="3" />
+          </svg><span>Local de oferta</span></a>
+        <a href="instituicao.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M3 21h18M6 21V7l6-4 6 4v14M9 21V12h6v9" />
+          </svg><span>Instituição</span></a>
+        <a href="unidade.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <rect x="9" y="2" width="6" height="6" rx="1" />
+            <rect x="2" y="16" width="6" height="6" rx="1" />
+            <rect x="16" y="16" width="6" height="6" rx="1" />
+            <path d="M12 8v4M5 16v-4h14v4" />
+          </svg><span>Unidade</span></a>
+        <a href="curso.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z" />
+            <path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z" />
+          </svg><span>Curso</span></a>
+        <a href="oferta-curso.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" />
+            <polyline points="14 2 14 8 20 8" />
+            <line x1="8" y1="13" x2="16" y2="13" />
+            <line x1="8" y1="17" x2="16" y2="17" />
+            <line x1="8" y1="9" x2="10" y2="9" />
+          </svg><span>Oferta de curso</span></a>
+        <a href="modalidade.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" />
+            <circle cx="9" cy="7" r="4" />
+            <path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75" />
+          </svg><span>Modalidade</span></a>
+        <a href="tipo-documento.html" class="is-active" aria-current="page"><svg viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2">
+            <path d="M13 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V9z" />
+            <polyline points="13 2 13 9 20 9" />
+          </svg><span>Tipo de Documento</span></a>
+        <a href="condicao-atendimento.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path
+              d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z" />
+          </svg><span>Condição de Atendimento</span></a>
+        <a href="recurso-acessibilidade.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+            stroke-width="2">
+            <path
+              d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z" />
+          </svg><span>Recurso de Acessibilidade</span></a>
+        <a href="tipo-deficiencia.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="4" r="2" />
+            <path d="M5 8h14M12 8v7M9 21l3-6 3 6" />
+          </svg><span>Tipo de Deficiência</span></a>
+        <a href="fase-canonica.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+          </svg><span>Fase Canônica</span></a>
+        <a href="tipo-banca.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="8" r="6" />
+            <path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11" />
+          </svg><span>Tipo de Banca</span></a>
+        <a href="reserva-demografica.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M3 3v18h18" />
+            <path d="M7 14l4-4 4 4 5-5" />
+          </svg><span>Reserva Demográfica</span></a>
+        <a href="peso-enem.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="4" y1="21" x2="4" y2="14" />
+            <line x1="4" y1="10" x2="4" y2="3" />
+            <line x1="12" y1="21" x2="12" y2="12" />
+            <line x1="12" y1="8" x2="12" y2="3" />
+            <line x1="20" y1="21" x2="20" y2="16" />
+            <line x1="20" y1="12" x2="20" y2="3" />
+            <line x1="1" y1="14" x2="7" y2="14" />
+            <line x1="9" y1="8" x2="15" y2="8" />
+            <line x1="17" y1="16" x2="23" y2="16" />
+          </svg><span>Peso ENEM</span></a>
       </nav>
-      <div style="margin-left:auto">
-        <div class="a11y-menu" data-a11y-menu>
-          <button class="a11y-menu__trigger" type="button" aria-expanded="false" aria-controls="a11y-pop" aria-label="Preferências de acessibilidade" data-a11y-menu-trigger>
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="4" r="2"/><path d="M4 8h16M12 6v14M8 12l-2 8M16 12l2 8"/></svg>
-          </button>
-          <div class="a11y-menu__backdrop" hidden aria-hidden="true"></div>
-          <div class="a11y-menu__popover" id="a11y-pop" role="region" aria-label="Preferências de acessibilidade" hidden>
-            <p class="a11y-menu__title">Acessibilidade</p>
-            <div class="a11y-menu__group" role="group" aria-label="Tema"><span class="a11y-menu__group-label">Tema</span><div class="a11y-menu__options"><button class="a11y-opt" data-a11y="theme" data-value="light" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>Claro</button><button class="a11y-opt" data-a11y="theme" data-value="dark" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>Escuro</button><button class="a11y-opt" data-a11y="theme" data-value="auto" aria-pressed="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>Sistema</button></div></div>
-            <div class="a11y-menu__group" role="group" aria-label="Leitura"><span class="a11y-menu__group-label">Leitura</span><div class="a11y-menu__options"><button class="a11y-opt" data-a11y="contrast" data-value="on" aria-pressed="false"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 100 20V2z"/><path d="M12 2a10 10 0 010 20" fill="none" stroke="currentColor" stroke-width="2"/></svg>Alto contraste</button><button class="a11y-opt" data-a11y="font-mode" data-value="legible" aria-pressed="false">Fonte legível</button></div></div>
-            <p class="a11y-menu__hint">Para ampliar o texto, use o zoom do navegador (<kbd>Ctrl</kbd> <kbd>+</kbd> / <kbd>Ctrl</kbd> <kbd>&#8722;</kbd>).</p>
-          </div>
-        </div>
-      </div>
-    </header>
+    </aside>
+    <div class="sidebar-backdrop" aria-hidden="true" data-sidebar-close></div>
 
-    <main id="main" class="page" tabindex="-1">
-
-      <div class="page-header">
-        <div class="page-header__content">
-          <h1 class="page-header__title">Tipo de Documento</h1>
-          <p class="page-header__desc">Cadastro classificatório de documentos aceitos no Uni+ — UNI-REQ-0013. Domínio fechado de 7 categorias; equivalência por código, sem FK.</p>
-        </div>
-        <div class="page-header__actions"><a class="btn btn--secondary" href="index.html">← Voltar ao kit</a></div>
-      </div>
-
-      <!-- ========== Lista (sem abas — data-scope direto) ========== -->
-      <div data-scope>
-
-        <div class="filter-bar" role="search" aria-label="Filtrar tipos de documento">
-          <div class="filter-bar__row">
-            <div class="input-group">
-              <span class="input-group__addon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.5-4.5"/></svg></span>
-              <input class="input" type="search" placeholder="Buscar por código ou nome…" aria-label="Buscar tipo de documento" data-search-input>
-            </div>
-            <button class="btn btn--tertiary btn--sm" type="button" data-filter-clear>Limpar</button>
-          </div>
-          <div class="filter-bar__group">
-            <span class="u-eyebrow">Categoria</span>
-            <div class="filter-chips" role="group" aria-label="Filtrar por categoria">
-              <button class="filter-chip" type="button" aria-pressed="true" data-chip data-region="">Todas <span class="filter-chip__count">8</span></button>
-              <button class="filter-chip" type="button" aria-pressed="false" data-chip data-region="identificacao">Identificação <span class="filter-chip__count">2</span></button>
-              <button class="filter-chip" type="button" aria-pressed="false" data-chip data-region="escolaridade">Escolaridade <span class="filter-chip__count">1</span></button>
-              <button class="filter-chip" type="button" aria-pressed="false" data-chip data-region="renda">Renda <span class="filter-chip__count">1</span></button>
-              <button class="filter-chip" type="button" aria-pressed="false" data-chip data-region="raca_etnia">Raça/etnia <span class="filter-chip__count">1</span></button>
-              <button class="filter-chip" type="button" aria-pressed="false" data-chip data-region="saude">Saúde <span class="filter-chip__count">1</span></button>
-              <button class="filter-chip" type="button" aria-pressed="false" data-chip data-region="residencia">Residência <span class="filter-chip__count">1</span></button>
-              <button class="filter-chip" type="button" aria-pressed="false" data-chip data-region="outros">Outros <span class="filter-chip__count">1</span></button>
-            </div>
-          </div>
-        </div>
-
-        <div class="panel">
-          <div class="panel-head">
-            <div class="panel-head__title">
-              <h2>Tipos de documento</h2>
-              <span class="list-count" data-count aria-label="Total de tipos">8</span>
-            </div>
-            <button class="btn btn--primary" type="button" data-drawer-trigger="drawer-tipo" aria-haspopup="dialog" aria-expanded="false">
-              <svg class="btn__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
-              Novo tipo
+    <div class="admin-main">
+      <header class="admin-topbar">
+        <button class="sidebar-toggle" id="sidebar-toggle" aria-label="Abrir menu lateral" aria-expanded="false"
+          aria-controls="admin-sidebar">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+            stroke-linecap="round" aria-hidden="true">
+            <path d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+        </button>
+        <nav class="breadcrumb" aria-label="Breadcrumb">
+          <ol class="breadcrumb__list">
+            <li class="breadcrumb__item"><a href="../admin/index.html" class="breadcrumb__link">Início</a></li>
+            <li class="breadcrumb__item"><a href="index.html" class="breadcrumb__link">Configuração</a></li>
+            <li class="breadcrumb__item"><span class="breadcrumb__current" aria-current="page">Tipo de Documento</span>
+            </li>
+          </ol>
+        </nav>
+        <div style="margin-left:auto">
+          <div class="a11y-menu" data-a11y-menu>
+            <button class="a11y-menu__trigger" type="button" aria-expanded="false" aria-controls="a11y-pop"
+              aria-label="Preferências de acessibilidade" data-a11y-menu-trigger>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round"
+                stroke-linejoin="round" aria-hidden="true">
+                <circle cx="12" cy="4" r="2" />
+                <path d="M4 8h16M12 6v14M8 12l-2 8M16 12l2 8" />
+              </svg>
             </button>
-          </div>
-          <div class="table-responsive">
-            <table data-search-table>
-              <thead>
-                <tr>
-                  <th scope="col">Código</th>
-                  <th scope="col">Nome</th>
-                  <th scope="col">Categoria</th>
-                  <th scope="col">Formatos aceitos</th>
-                  <th scope="col">Tam. máx.</th>
-                  <th scope="col">Status</th>
-                  <th scope="col"><span class="sr-only">Ações</span></th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr data-region="identificacao">
-                  <td data-label="Código"><code>RG</code></td>
-                  <td data-label="Nome">
-                    <div class="table-responsive__primary">Cédula de Identidade (RG)</div>
-                    <div class="table-responsive__meta">Equiv.: <code>CIN</code></div>
-                  </td>
-                  <td data-label="Categoria"><span class="tag">Identificação</span></td>
-                  <td data-label="Formatos aceitos"><span class="u-caption">PDF, JPEG, PNG</span></td>
-                  <td data-label="Tam. máx."><span class="u-caption">10 MB</span></td>
-                  <td data-label="Status"><span class="tag tag--success">Ativo</span></td>
-                  <td class="table-responsive__actions">
-                    <button class="btn btn--tertiary btn--sm" type="button" data-drawer-trigger="drawer-tipo" aria-haspopup="dialog" aria-expanded="false" aria-label="Editar Cédula de Identidade (RG)">Editar</button>
-                    <button class="btn btn--tertiary btn--sm" type="button" data-dialog-trigger="dialog-inativar" aria-haspopup="dialog" aria-expanded="false" aria-label="Inativar RG" data-fill-alvo="RG">Inativar</button>
-                  </td>
-                </tr>
-                <tr data-region="identificacao">
-                  <td data-label="Código"><code>CIN</code></td>
-                  <td data-label="Nome">
-                    <div class="table-responsive__primary">Carteira de Identidade Nacional</div>
-                    <div class="table-responsive__meta">Equiv.: <code>RG</code></div>
-                  </td>
-                  <td data-label="Categoria"><span class="tag">Identificação</span></td>
-                  <td data-label="Formatos aceitos"><span class="u-caption">PDF, JPEG, PNG</span></td>
-                  <td data-label="Tam. máx."><span class="u-caption">10 MB</span></td>
-                  <td data-label="Status"><span class="tag tag--success">Ativo</span></td>
-                  <td class="table-responsive__actions">
-                    <button class="btn btn--tertiary btn--sm" type="button" data-drawer-trigger="drawer-tipo" aria-haspopup="dialog" aria-expanded="false" aria-label="Editar Carteira de Identidade Nacional">Editar</button>
-                    <button class="btn btn--tertiary btn--sm" type="button" data-dialog-trigger="dialog-inativar" aria-haspopup="dialog" aria-expanded="false" aria-label="Inativar CIN" data-fill-alvo="CIN">Inativar</button>
-                  </td>
-                </tr>
-                <tr data-region="escolaridade">
-                  <td data-label="Código"><code>HISTORICO_ESCOLAR</code></td>
-                  <td data-label="Nome">
-                    <div class="table-responsive__primary">Histórico Escolar (Ensino Médio)</div>
-                  </td>
-                  <td data-label="Categoria"><span class="tag">Escolaridade</span></td>
-                  <td data-label="Formatos aceitos"><span class="u-caption">PDF</span></td>
-                  <td data-label="Tam. máx."><span class="u-caption">5 MB</span></td>
-                  <td data-label="Status"><span class="tag tag--success">Ativo</span></td>
-                  <td class="table-responsive__actions">
-                    <button class="btn btn--tertiary btn--sm" type="button" data-drawer-trigger="drawer-tipo" aria-haspopup="dialog" aria-expanded="false" aria-label="Editar Histórico Escolar (Ensino Médio)">Editar</button>
-                    <button class="btn btn--tertiary btn--sm" type="button" data-dialog-trigger="dialog-inativar" aria-haspopup="dialog" aria-expanded="false" aria-label="Inativar HISTORICO_ESCOLAR" data-fill-alvo="HISTORICO_ESCOLAR">Inativar</button>
-                  </td>
-                </tr>
-                <tr data-region="renda">
-                  <td data-label="Código"><code>DECL_RENDA</code></td>
-                  <td data-label="Nome">
-                    <div class="table-responsive__primary">Declaração de renda familiar</div>
-                    <div class="table-responsive__meta">Renda bruta per capita ≤ 1 salário mínimo</div>
-                  </td>
-                  <td data-label="Categoria"><span class="tag">Renda</span></td>
-                  <td data-label="Formatos aceitos"><span class="u-caption">PDF, JPEG</span></td>
-                  <td data-label="Tam. máx."><span class="u-caption">10 MB</span></td>
-                  <td data-label="Status"><span class="tag tag--success">Ativo</span></td>
-                  <td class="table-responsive__actions">
-                    <button class="btn btn--tertiary btn--sm" type="button" data-drawer-trigger="drawer-tipo" aria-haspopup="dialog" aria-expanded="false" aria-label="Editar Declaração de renda familiar">Editar</button>
-                    <button class="btn btn--tertiary btn--sm" type="button" data-dialog-trigger="dialog-inativar" aria-haspopup="dialog" aria-expanded="false" aria-label="Inativar DECL_RENDA" data-fill-alvo="DECL_RENDA">Inativar</button>
-                  </td>
-                </tr>
-                <tr data-region="raca_etnia">
-                  <td data-label="Código"><code>AUTODECL_PPI</code></td>
-                  <td data-label="Nome">
-                    <div class="table-responsive__primary">Autodeclaração étnico-racial (PPI)</div>
-                    <div class="table-responsive__meta">Preto, pardo ou indígena — Lei 12.711/2012</div>
-                  </td>
-                  <td data-label="Categoria"><span class="tag">Raça/etnia</span></td>
-                  <td data-label="Formatos aceitos"><span class="u-caption">PDF</span></td>
-                  <td data-label="Tam. máx."><span class="u-caption">5 MB</span></td>
-                  <td data-label="Status"><span class="tag tag--success">Ativo</span></td>
-                  <td class="table-responsive__actions">
-                    <button class="btn btn--tertiary btn--sm" type="button" data-drawer-trigger="drawer-tipo" aria-haspopup="dialog" aria-expanded="false" aria-label="Editar Autodeclaração étnico-racial (PPI)">Editar</button>
-                    <button class="btn btn--tertiary btn--sm" type="button" data-dialog-trigger="dialog-inativar" aria-haspopup="dialog" aria-expanded="false" aria-label="Inativar AUTODECL_PPI" data-fill-alvo="AUTODECL_PPI">Inativar</button>
-                  </td>
-                </tr>
-                <tr data-region="saude">
-                  <td data-label="Código"><code>LAUDO_MEDICO</code></td>
-                  <td data-label="Nome">
-                    <div class="table-responsive__primary">Laudo médico — PcD</div>
-                    <div class="table-responsive__meta">Lei 13.146/2015 art. 30</div>
-                  </td>
-                  <td data-label="Categoria"><span class="tag">Saúde</span></td>
-                  <td data-label="Formatos aceitos"><span class="u-caption">PDF, JPEG, TIFF</span></td>
-                  <td data-label="Tam. máx."><span class="u-caption">20 MB</span></td>
-                  <td data-label="Status"><span class="tag tag--success">Ativo</span></td>
-                  <td class="table-responsive__actions">
-                    <button class="btn btn--tertiary btn--sm" type="button" data-drawer-trigger="drawer-tipo" aria-haspopup="dialog" aria-expanded="false" aria-label="Editar Laudo médico — PcD">Editar</button>
-                    <button class="btn btn--tertiary btn--sm" type="button" data-dialog-trigger="dialog-inativar" aria-haspopup="dialog" aria-expanded="false" aria-label="Inativar LAUDO_MEDICO" data-fill-alvo="LAUDO_MEDICO">Inativar</button>
-                  </td>
-                </tr>
-                <tr data-region="residencia">
-                  <td data-label="Código"><code>COMP_RESID</code></td>
-                  <td data-label="Nome">
-                    <div class="table-responsive__primary">Comprovante de residência</div>
-                    <div class="table-responsive__meta">Elegibilidade ao bônus regional (RN05)</div>
-                  </td>
-                  <td data-label="Categoria"><span class="tag">Residência</span></td>
-                  <td data-label="Formatos aceitos"><span class="u-caption">PDF, JPEG</span></td>
-                  <td data-label="Tam. máx."><span class="u-caption">10 MB</span></td>
-                  <td data-label="Status"><span class="tag tag--success">Ativo</span></td>
-                  <td class="table-responsive__actions">
-                    <button class="btn btn--tertiary btn--sm" type="button" data-drawer-trigger="drawer-tipo" aria-haspopup="dialog" aria-expanded="false" aria-label="Editar Comprovante de residência">Editar</button>
-                    <button class="btn btn--tertiary btn--sm" type="button" data-dialog-trigger="dialog-inativar" aria-haspopup="dialog" aria-expanded="false" aria-label="Inativar COMP_RESID" data-fill-alvo="COMP_RESID">Inativar</button>
-                  </td>
-                </tr>
-                <tr data-region="outros">
-                  <td data-label="Código"><code>DECLARACAO_LIDERANCA</code></td>
-                  <td data-label="Nome">
-                    <div class="table-responsive__primary">Declaração de liderança</div>
-                    <div class="table-responsive__meta">PSIQ — comunidade quilombola/indígena</div>
-                  </td>
-                  <td data-label="Categoria"><span class="tag">Outros</span></td>
-                  <td data-label="Formatos aceitos"><span class="u-caption">PDF</span></td>
-                  <td data-label="Tam. máx."><span class="u-caption">5 MB</span></td>
-                  <td data-label="Status"><span class="tag tag--success">Ativo</span></td>
-                  <td class="table-responsive__actions">
-                    <button class="btn btn--tertiary btn--sm" type="button" data-drawer-trigger="drawer-tipo" aria-haspopup="dialog" aria-expanded="false" aria-label="Editar Declaração de liderança">Editar</button>
-                    <button class="btn btn--tertiary btn--sm" type="button" data-dialog-trigger="dialog-inativar" aria-haspopup="dialog" aria-expanded="false" aria-label="Inativar DECLARACAO_LIDERANCA" data-fill-alvo="DECLARACAO_LIDERANCA">Inativar</button>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-          <div class="empty-state" data-empty hidden>
-            <div class="empty-state__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.5-4.5"/></svg></div>
-            <p class="empty-state__title">Nenhum tipo de documento encontrado</p>
-            <p class="empty-state__desc">Ajuste a busca ou o filtro de categoria para ver resultados.</p>
-            <button class="btn btn--secondary" type="button" data-filter-clear>Limpar filtros</button>
-          </div>
-          <nav class="pager" aria-label="Paginação de tipos de documento">
-            <button class="pager__btn" type="button" disabled><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg>Anterior</button>
-            <span class="pager__status">Página <span class="pager__page">1</span></span>
-            <button class="pager__btn" type="button" disabled>Próxima<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg></button>
-          </nav>
-        </div>
-
-      </div><!-- /data-scope -->
-    </main>
-  </div>
-</div>
-
-<!-- ========================= DRAWER: Tipo de documento ========================= -->
-<dialog id="drawer-tipo" class="uni-drawer uni-drawer--right uni-drawer--form" aria-labelledby="drawer-tipo-title">
-  <div class="uni-drawer__panel">
-    <header class="uni-drawer__header">
-      <h2 class="uni-drawer__title" id="drawer-tipo-title">Tipo de documento</h2>
-      <button class="btn btn--tertiary btn--icon-only btn--rect" type="button" data-drawer-close aria-label="Fechar"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M18 6L6 18M6 6l12 12"/></svg></button>
-    </header>
-    <div class="uni-drawer__body uni-drawer__body--form">
-      <form id="form-tipo" class="form-body" data-demo-form novalidate>
-
-        <div class="form-grid">
-          <div class="field">
-            <label class="field__label" for="td-codigo">Código <span class="req" aria-hidden="true">*</span><span class="sr-only">(obrigatório)</span></label>
-            <input class="input" id="td-codigo" name="Código" placeholder="Ex.: RG" required aria-describedby="td-codigo-hint" style="text-transform:uppercase">
-            <p class="field__hint" id="td-codigo-hint">Maiúsculas, números e sublinhado, até 20 caracteres. Editável; a unicidade entre tipos ativos é revalidada na edição.</p>
-          </div>
-
-          <div class="field">
-            <label class="field__label" for="td-categoria">Categoria <span class="req" aria-hidden="true">*</span><span class="sr-only">(obrigatório)</span></label>
-            <select class="select" id="td-categoria" name="Categoria" required>
-              <option value="">Selecione…</option>
-              <option value="IDENTIFICACAO">Identificação</option>
-              <option value="ESCOLARIDADE">Escolaridade</option>
-              <option value="RENDA">Renda</option>
-              <option value="RACA_ETNIA">Raça/etnia</option>
-              <option value="SAUDE">Saúde</option>
-              <option value="RESIDENCIA">Residência</option>
-              <option value="OUTROS">Outros</option>
-            </select>
-            <p class="field__hint">Domínio fechado com 7 categorias. Congelada no snapshot do edital (RN08).</p>
-          </div>
-
-          <div class="field field--full">
-            <label class="field__label" for="td-nome">Nome <span class="req" aria-hidden="true">*</span><span class="sr-only">(obrigatório)</span></label>
-            <input class="input" id="td-nome" name="Nome" placeholder="Ex.: Cédula de Identidade (RG)" required>
-          </div>
-
-          <div class="field field--full">
-            <label class="field__label" for="td-descricao">Descrição</label>
-            <textarea class="textarea" id="td-descricao" name="Descrição" rows="3" placeholder="Ex.: Documento oficial de identificação com foto." aria-describedby="td-descricao-hint"></textarea>
-            <p class="field__hint" id="td-descricao-hint">Opcional. Observação classificatória do tipo — não contém regra material (validade, assinatura, idade de emissão).</p>
-          </div>
-
-          <div class="field field--full">
-            <label class="field__label" for="td-equivalencia">Tipo equivalente</label>
-            <input class="input" id="td-equivalencia" name="Tipo equivalente" placeholder="Ex.: CIN" aria-describedby="td-equivalencia-hint" style="text-transform:uppercase">
-            <p class="field__hint" id="td-equivalencia-hint">Código de outro tipo equivalente (apenas rótulo classificatório, sem vínculo). Não pode ser igual ao próprio código.</p>
-          </div>
-        </div>
-
-        <div class="form-grid">
-          <div class="field field--full">
-            <fieldset style="border:0;padding:0;margin:0">
-              <legend class="field__label">Formatos aceitos</legend>
-              <div style="display:flex;flex-wrap:wrap;gap:var(--space-3);margin-top:var(--space-2)">
-                <label class="checkbox">
-                  <input type="checkbox" name="formato-pdf" value="PDF" checked>
-                  <span class="checkbox__box"></span>PDF
-                </label>
-                <label class="checkbox">
-                  <input type="checkbox" name="formato-jpeg" value="JPEG" checked>
-                  <span class="checkbox__box"></span>JPEG
-                </label>
-                <label class="checkbox">
-                  <input type="checkbox" name="formato-png" value="PNG">
-                  <span class="checkbox__box"></span>PNG
-                </label>
-                <label class="checkbox">
-                  <input type="checkbox" name="formato-tiff" value="TIFF">
-                  <span class="checkbox__box"></span>TIFF
-                </label>
+            <div class="a11y-menu__backdrop" hidden aria-hidden="true"></div>
+            <div class="a11y-menu__popover" id="a11y-pop" role="region" aria-label="Preferências de acessibilidade"
+              hidden>
+              <p class="a11y-menu__title">Acessibilidade</p>
+              <div class="a11y-menu__group" role="group" aria-label="Tema"><span
+                  class="a11y-menu__group-label">Tema</span>
+                <div class="a11y-menu__options"><button class="a11y-opt" data-a11y="theme" data-value="light"
+                    aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                      stroke-linecap="round" aria-hidden="true">
+                      <circle cx="12" cy="12" r="4" />
+                      <path
+                        d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41" />
+                    </svg>Claro</button><button class="a11y-opt" data-a11y="theme" data-value="dark"
+                    aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                      stroke-linecap="round" aria-hidden="true">
+                      <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" />
+                    </svg>Escuro</button><button class="a11y-opt" data-a11y="theme" data-value="auto"
+                    aria-pressed="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                      stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                      <rect x="2" y="3" width="20" height="14" rx="2" />
+                      <path d="M8 21h8M12 17v4" />
+                    </svg>Sistema</button></div>
               </div>
-            </fieldset>
-          </div>
-
-          <div class="field">
-            <label class="field__label" for="td-tamanho-max">Tamanho máximo (MB)</label>
-            <input class="input" id="td-tamanho-max" name="Tamanho máximo" type="number" value="10" min="1" max="50" step="1" aria-describedby="td-tamanho-hint">
-            <p class="field__hint" id="td-tamanho-hint">Opcional. Quando informado, deve ser um inteiro positivo (≥ 1). Máximo global do sistema: 50 MB.</p>
+              <div class="a11y-menu__group" role="group" aria-label="Leitura"><span
+                  class="a11y-menu__group-label">Leitura</span>
+                <div class="a11y-menu__options"><button class="a11y-opt" data-a11y="contrast" data-value="on"
+                    aria-pressed="false"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                      <path d="M12 2a10 10 0 100 20V2z" />
+                      <path d="M12 2a10 10 0 010 20" fill="none" stroke="currentColor" stroke-width="2" />
+                    </svg>Alto contraste</button><button class="a11y-opt" data-a11y="font-mode" data-value="legible"
+                    aria-pressed="false">Fonte legível</button></div>
+              </div>
+              <p class="a11y-menu__hint">Para ampliar o texto, use o zoom do navegador (<kbd>Ctrl</kbd> <kbd>+</kbd> /
+                <kbd>Ctrl</kbd> <kbd>&#8722;</kbd>).</p>
+            </div>
           </div>
         </div>
+      </header>
 
-      </form>
+      <main id="main" class="page" tabindex="-1">
+
+        <div class="page-header">
+          <div class="page-header__content">
+            <h1 class="page-header__title">Tipo de Documento</h1>
+            <p class="page-header__desc">Cadastro classificatório de documentos aceitos no Uni+ — UNI-REQ-0013. Domínio
+              fechado de 7 categorias; equivalência por código, sem FK.</p>
+          </div>
+          <div class="page-header__actions"><a class="btn btn--secondary" href="index.html">← Voltar ao kit</a></div>
+        </div>
+
+        <!-- ========== Lista (sem abas — data-scope direto) ========== -->
+        <div data-scope>
+
+          <div class="filter-bar" role="search" aria-label="Filtrar tipos de documento">
+            <div class="filter-bar__row">
+              <div class="input-group">
+                <span class="input-group__addon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+                    <circle cx="11" cy="11" r="7" />
+                    <path d="M21 21l-4.5-4.5" />
+                  </svg></span>
+                <input class="input" type="search" placeholder="Buscar por código ou nome…"
+                  aria-label="Buscar tipo de documento" data-search-input>
+              </div>
+              <button class="btn btn--tertiary btn--sm" type="button" data-filter-clear>Limpar</button>
+            </div>
+            <div class="filter-bar__group">
+              <span class="u-eyebrow">Categoria</span>
+              <div class="filter-chips" role="group" aria-label="Filtrar por categoria">
+                <button class="filter-chip" type="button" aria-pressed="true" data-chip data-region="">Todas <span
+                    class="filter-chip__count">8</span></button>
+                <button class="filter-chip" type="button" aria-pressed="false" data-chip
+                  data-region="identificacao">Identificação <span class="filter-chip__count">2</span></button>
+                <button class="filter-chip" type="button" aria-pressed="false" data-chip
+                  data-region="escolaridade">Escolaridade <span class="filter-chip__count">1</span></button>
+                <button class="filter-chip" type="button" aria-pressed="false" data-chip data-region="renda">Renda <span
+                    class="filter-chip__count">1</span></button>
+                <button class="filter-chip" type="button" aria-pressed="false" data-chip
+                  data-region="raca_etnia">Raça/etnia <span class="filter-chip__count">1</span></button>
+                <button class="filter-chip" type="button" aria-pressed="false" data-chip data-region="saude">Saúde <span
+                    class="filter-chip__count">1</span></button>
+                <button class="filter-chip" type="button" aria-pressed="false" data-chip
+                  data-region="residencia">Residência <span class="filter-chip__count">1</span></button>
+                <button class="filter-chip" type="button" aria-pressed="false" data-chip data-region="outros">Outros
+                  <span class="filter-chip__count">1</span></button>
+              </div>
+            </div>
+          </div>
+
+          <div class="panel">
+            <div class="panel-head">
+              <div class="panel-head__title">
+                <h2>Tipos de documento</h2>
+                <span class="list-count" data-count aria-label="Total de tipos">8</span>
+              </div>
+              <button class="btn btn--primary" type="button" data-drawer-trigger="drawer-tipo" aria-haspopup="dialog"
+                aria-expanded="false">
+                <svg class="btn__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                  stroke-linecap="round" aria-hidden="true">
+                  <path d="M12 5v14M5 12h14" />
+                </svg>
+                Novo tipo
+              </button>
+            </div>
+            <div class="table-responsive">
+              <table data-search-table>
+                <thead>
+                  <tr>
+                    <th scope="col">Código</th>
+                    <th scope="col">Nome</th>
+                    <th scope="col">Categoria</th>
+                    <th scope="col">Formatos aceitos</th>
+                    <th scope="col">Tam. máx.</th>
+                    <th scope="col">Status</th>
+                    <th scope="col"><span class="sr-only">Ações</span></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr data-region="identificacao">
+                    <td data-label="Código"><code>RG</code></td>
+                    <td data-label="Nome">
+                      <div class="table-responsive__primary">Cédula de Identidade (RG)</div>
+                      <div class="table-responsive__meta">Equiv.: <code>CIN</code></div>
+                    </td>
+                    <td data-label="Categoria"><span class="tag">Identificação</span></td>
+                    <td data-label="Formatos aceitos"><span class="u-caption">PDF, JPEG, PNG</span></td>
+                    <td data-label="Tam. máx."><span class="u-caption">10 MB</span></td>
+                    <td data-label="Status"><span class="tag tag--success">Ativo</span></td>
+                    <td class="table-responsive__actions">
+                      <button class="btn btn--tertiary btn--sm" type="button" data-drawer-trigger="drawer-tipo"
+                        aria-haspopup="dialog" aria-expanded="false"
+                        aria-label="Editar Cédula de Identidade (RG)">Editar</button>
+                      <button class="btn btn--tertiary btn--sm" type="button" data-dialog-trigger="dialog-inativar"
+                        aria-haspopup="dialog" aria-expanded="false" aria-label="Inativar RG"
+                        data-fill-alvo="RG">Inativar</button>
+                    </td>
+                  </tr>
+                  <tr data-region="identificacao">
+                    <td data-label="Código"><code>CIN</code></td>
+                    <td data-label="Nome">
+                      <div class="table-responsive__primary">Carteira de Identidade Nacional</div>
+                      <div class="table-responsive__meta">Equiv.: <code>RG</code></div>
+                    </td>
+                    <td data-label="Categoria"><span class="tag">Identificação</span></td>
+                    <td data-label="Formatos aceitos"><span class="u-caption">PDF, JPEG, PNG</span></td>
+                    <td data-label="Tam. máx."><span class="u-caption">10 MB</span></td>
+                    <td data-label="Status"><span class="tag tag--success">Ativo</span></td>
+                    <td class="table-responsive__actions">
+                      <button class="btn btn--tertiary btn--sm" type="button" data-drawer-trigger="drawer-tipo"
+                        aria-haspopup="dialog" aria-expanded="false"
+                        aria-label="Editar Carteira de Identidade Nacional">Editar</button>
+                      <button class="btn btn--tertiary btn--sm" type="button" data-dialog-trigger="dialog-inativar"
+                        aria-haspopup="dialog" aria-expanded="false" aria-label="Inativar CIN"
+                        data-fill-alvo="CIN">Inativar</button>
+                    </td>
+                  </tr>
+                  <tr data-region="escolaridade">
+                    <td data-label="Código"><code>HISTORICO_ESCOLAR</code></td>
+                    <td data-label="Nome">
+                      <div class="table-responsive__primary">Histórico Escolar (Ensino Médio)</div>
+                    </td>
+                    <td data-label="Categoria"><span class="tag">Escolaridade</span></td>
+                    <td data-label="Formatos aceitos"><span class="u-caption">PDF</span></td>
+                    <td data-label="Tam. máx."><span class="u-caption">5 MB</span></td>
+                    <td data-label="Status"><span class="tag tag--success">Ativo</span></td>
+                    <td class="table-responsive__actions">
+                      <button class="btn btn--tertiary btn--sm" type="button" data-drawer-trigger="drawer-tipo"
+                        aria-haspopup="dialog" aria-expanded="false"
+                        aria-label="Editar Histórico Escolar (Ensino Médio)">Editar</button>
+                      <button class="btn btn--tertiary btn--sm" type="button" data-dialog-trigger="dialog-inativar"
+                        aria-haspopup="dialog" aria-expanded="false" aria-label="Inativar HISTORICO_ESCOLAR"
+                        data-fill-alvo="HISTORICO_ESCOLAR">Inativar</button>
+                    </td>
+                  </tr>
+                  <tr data-region="renda">
+                    <td data-label="Código"><code>DECL_RENDA</code></td>
+                    <td data-label="Nome">
+                      <div class="table-responsive__primary">Declaração de renda familiar</div>
+                      <div class="table-responsive__meta">Renda bruta per capita ≤ 1 salário mínimo</div>
+                    </td>
+                    <td data-label="Categoria"><span class="tag">Renda</span></td>
+                    <td data-label="Formatos aceitos"><span class="u-caption">PDF, JPEG</span></td>
+                    <td data-label="Tam. máx."><span class="u-caption">10 MB</span></td>
+                    <td data-label="Status"><span class="tag tag--success">Ativo</span></td>
+                    <td class="table-responsive__actions">
+                      <button class="btn btn--tertiary btn--sm" type="button" data-drawer-trigger="drawer-tipo"
+                        aria-haspopup="dialog" aria-expanded="false"
+                        aria-label="Editar Declaração de renda familiar">Editar</button>
+                      <button class="btn btn--tertiary btn--sm" type="button" data-dialog-trigger="dialog-inativar"
+                        aria-haspopup="dialog" aria-expanded="false" aria-label="Inativar DECL_RENDA"
+                        data-fill-alvo="DECL_RENDA">Inativar</button>
+                    </td>
+                  </tr>
+                  <tr data-region="raca_etnia">
+                    <td data-label="Código"><code>AUTODECL_PPI</code></td>
+                    <td data-label="Nome">
+                      <div class="table-responsive__primary">Autodeclaração étnico-racial (PPI)</div>
+                      <div class="table-responsive__meta">Preto, pardo ou indígena — Lei 12.711/2012</div>
+                    </td>
+                    <td data-label="Categoria"><span class="tag">Raça/etnia</span></td>
+                    <td data-label="Formatos aceitos"><span class="u-caption">PDF</span></td>
+                    <td data-label="Tam. máx."><span class="u-caption">5 MB</span></td>
+                    <td data-label="Status"><span class="tag tag--success">Ativo</span></td>
+                    <td class="table-responsive__actions">
+                      <button class="btn btn--tertiary btn--sm" type="button" data-drawer-trigger="drawer-tipo"
+                        aria-haspopup="dialog" aria-expanded="false"
+                        aria-label="Editar Autodeclaração étnico-racial (PPI)">Editar</button>
+                      <button class="btn btn--tertiary btn--sm" type="button" data-dialog-trigger="dialog-inativar"
+                        aria-haspopup="dialog" aria-expanded="false" aria-label="Inativar AUTODECL_PPI"
+                        data-fill-alvo="AUTODECL_PPI">Inativar</button>
+                    </td>
+                  </tr>
+                  <tr data-region="saude">
+                    <td data-label="Código"><code>LAUDO_MEDICO</code></td>
+                    <td data-label="Nome">
+                      <div class="table-responsive__primary">Laudo médico — PcD</div>
+                      <div class="table-responsive__meta">Lei 13.146/2015 art. 30</div>
+                    </td>
+                    <td data-label="Categoria"><span class="tag">Saúde</span></td>
+                    <td data-label="Formatos aceitos"><span class="u-caption">PDF, JPEG, TIFF</span></td>
+                    <td data-label="Tam. máx."><span class="u-caption">20 MB</span></td>
+                    <td data-label="Status"><span class="tag tag--success">Ativo</span></td>
+                    <td class="table-responsive__actions">
+                      <button class="btn btn--tertiary btn--sm" type="button" data-drawer-trigger="drawer-tipo"
+                        aria-haspopup="dialog" aria-expanded="false"
+                        aria-label="Editar Laudo médico — PcD">Editar</button>
+                      <button class="btn btn--tertiary btn--sm" type="button" data-dialog-trigger="dialog-inativar"
+                        aria-haspopup="dialog" aria-expanded="false" aria-label="Inativar LAUDO_MEDICO"
+                        data-fill-alvo="LAUDO_MEDICO">Inativar</button>
+                    </td>
+                  </tr>
+                  <tr data-region="residencia">
+                    <td data-label="Código"><code>COMP_RESID</code></td>
+                    <td data-label="Nome">
+                      <div class="table-responsive__primary">Comprovante de residência</div>
+                      <div class="table-responsive__meta">Elegibilidade ao bônus regional (RN05)</div>
+                    </td>
+                    <td data-label="Categoria"><span class="tag">Residência</span></td>
+                    <td data-label="Formatos aceitos"><span class="u-caption">PDF, JPEG</span></td>
+                    <td data-label="Tam. máx."><span class="u-caption">10 MB</span></td>
+                    <td data-label="Status"><span class="tag tag--success">Ativo</span></td>
+                    <td class="table-responsive__actions">
+                      <button class="btn btn--tertiary btn--sm" type="button" data-drawer-trigger="drawer-tipo"
+                        aria-haspopup="dialog" aria-expanded="false"
+                        aria-label="Editar Comprovante de residência">Editar</button>
+                      <button class="btn btn--tertiary btn--sm" type="button" data-dialog-trigger="dialog-inativar"
+                        aria-haspopup="dialog" aria-expanded="false" aria-label="Inativar COMP_RESID"
+                        data-fill-alvo="COMP_RESID">Inativar</button>
+                    </td>
+                  </tr>
+                  <tr data-region="outros">
+                    <td data-label="Código"><code>DECLARACAO_LIDERANCA</code></td>
+                    <td data-label="Nome">
+                      <div class="table-responsive__primary">Declaração de liderança</div>
+                      <div class="table-responsive__meta">PSIQ — comunidade quilombola/indígena</div>
+                    </td>
+                    <td data-label="Categoria"><span class="tag">Outros</span></td>
+                    <td data-label="Formatos aceitos"><span class="u-caption">PDF</span></td>
+                    <td data-label="Tam. máx."><span class="u-caption">5 MB</span></td>
+                    <td data-label="Status"><span class="tag tag--success">Ativo</span></td>
+                    <td class="table-responsive__actions">
+                      <button class="btn btn--tertiary btn--sm" type="button" data-drawer-trigger="drawer-tipo"
+                        aria-haspopup="dialog" aria-expanded="false"
+                        aria-label="Editar Declaração de liderança">Editar</button>
+                      <button class="btn btn--tertiary btn--sm" type="button" data-dialog-trigger="dialog-inativar"
+                        aria-haspopup="dialog" aria-expanded="false" aria-label="Inativar DECLARACAO_LIDERANCA"
+                        data-fill-alvo="DECLARACAO_LIDERANCA">Inativar</button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="empty-state" data-empty hidden>
+              <div class="empty-state__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                  stroke-width="1.75" aria-hidden="true">
+                  <circle cx="11" cy="11" r="7" />
+                  <path d="M21 21l-4.5-4.5" />
+                </svg></div>
+              <p class="empty-state__title">Nenhum tipo de documento encontrado</p>
+              <p class="empty-state__desc">Ajuste a busca ou o filtro de categoria para ver resultados.</p>
+              <button class="btn btn--secondary" type="button" data-filter-clear>Limpar filtros</button>
+            </div>
+            <nav class="pager" aria-label="Paginação de tipos de documento">
+              <button class="pager__btn" type="button" disabled><svg viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+                  <path d="M15 18l-6-6 6-6" />
+                </svg>Anterior</button>
+              <span class="pager__status">Página <span class="pager__page">1</span></span>
+              <button class="pager__btn" type="button" disabled>Próxima<svg viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+                  <path d="M9 18l6-6-6-6" />
+                </svg></button>
+            </nav>
+          </div>
+
+        </div><!-- /data-scope -->
+      </main>
     </div>
-    <footer class="uni-drawer__footer">
-      <button class="btn btn--secondary" type="button" data-drawer-close>Cancelar</button>
-      <button class="btn btn--primary" type="submit" form="form-tipo"><span class="spinner spinner--sm" aria-hidden="true"></span>Salvar tipo</button>
-    </footer>
   </div>
-</dialog>
 
-<!-- ===================== MODAL: confirmar inativação (sob demanda) ===================== -->
-<dialog id="dialog-inativar" class="uni-dialog" aria-labelledby="dialog-inativar-title">
-  <div class="uni-dialog__panel">
-    <div class="uni-dialog__header">
-      <h2 class="uni-dialog__title" id="dialog-inativar-title">Inativar tipo de documento?</h2>
+  <!-- ========================= DRAWER: Tipo de documento ========================= -->
+  <dialog id="drawer-tipo" class="uni-drawer uni-drawer--right uni-drawer--form" aria-labelledby="drawer-tipo-title">
+    <div class="uni-drawer__panel">
+      <header class="uni-drawer__header">
+        <h2 class="uni-drawer__title" id="drawer-tipo-title">Tipo de documento</h2>
+        <button class="btn btn--tertiary btn--icon-only btn--rect" type="button" data-drawer-close
+          aria-label="Fechar"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+            stroke-width="2.5" stroke-linecap="round" aria-hidden="true">
+            <path d="M18 6L6 18M6 6l12 12" />
+          </svg></button>
+      </header>
+      <div class="uni-drawer__body uni-drawer__body--form">
+        <form id="form-tipo" class="form-body" data-demo-form novalidate>
+
+          <div class="form-grid">
+            <div class="field">
+              <label class="field__label" for="td-codigo">Código <span class="req" aria-hidden="true">*</span><span
+                  class="sr-only">(obrigatório)</span></label>
+              <input class="input" id="td-codigo" name="Código" placeholder="Ex.: RG" required
+                aria-describedby="td-codigo-hint" style="text-transform:uppercase">
+              <p class="field__hint" id="td-codigo-hint">Maiúsculas, números e sublinhado, até 20 caracteres. Editável;
+                a unicidade entre tipos ativos é revalidada na edição.</p>
+            </div>
+
+            <div class="field">
+              <label class="field__label" for="td-categoria">Categoria <span class="req"
+                  aria-hidden="true">*</span><span class="sr-only">(obrigatório)</span></label>
+              <select class="select" id="td-categoria" name="Categoria" required>
+                <option value="">Selecione…</option>
+                <option value="IDENTIFICACAO">Identificação</option>
+                <option value="ESCOLARIDADE">Escolaridade</option>
+                <option value="RENDA">Renda</option>
+                <option value="RACA_ETNIA">Raça/etnia</option>
+                <option value="SAUDE">Saúde</option>
+                <option value="RESIDENCIA">Residência</option>
+                <option value="OUTROS">Outros</option>
+              </select>
+              <p class="field__hint">Domínio fechado com 7 categorias. Congelada no snapshot do edital (RN08).</p>
+            </div>
+
+            <div class="field field--full">
+              <label class="field__label" for="td-nome">Nome <span class="req" aria-hidden="true">*</span><span
+                  class="sr-only">(obrigatório)</span></label>
+              <input class="input" id="td-nome" name="Nome" placeholder="Ex.: Cédula de Identidade (RG)" required>
+            </div>
+
+            <div class="field field--full">
+              <label class="field__label" for="td-descricao">Descrição</label>
+              <textarea class="textarea" id="td-descricao" name="Descrição" rows="3"
+                placeholder="Ex.: Documento oficial de identificação com foto."
+                aria-describedby="td-descricao-hint"></textarea>
+              <p class="field__hint" id="td-descricao-hint">Opcional. Observação classificatória do tipo — não contém
+                regra material (validade, assinatura, idade de emissão).</p>
+            </div>
+
+            <div class="field field--full">
+              <label class="field__label" for="td-equivalencia">Tipo equivalente</label>
+              <input class="input" id="td-equivalencia" name="Tipo equivalente" placeholder="Ex.: CIN"
+                aria-describedby="td-equivalencia-hint" style="text-transform:uppercase">
+              <p class="field__hint" id="td-equivalencia-hint">Código de outro tipo equivalente (apenas rótulo
+                classificatório, sem vínculo). Não pode ser igual ao próprio código.</p>
+            </div>
+          </div>
+
+          <div class="form-grid">
+            <div class="field field--full">
+              <fieldset style="border:0;padding:0;margin:0">
+                <legend class="field__label">Formatos aceitos</legend>
+                <div style="display:flex;flex-wrap:wrap;gap:var(--space-3);margin-top:var(--space-2)">
+                  <label class="checkbox">
+                    <input type="checkbox" name="formato-pdf" value="PDF" checked>
+                    <span class="checkbox__box"></span>PDF
+                  </label>
+                  <label class="checkbox">
+                    <input type="checkbox" name="formato-jpeg" value="JPEG" checked>
+                    <span class="checkbox__box"></span>JPEG
+                  </label>
+                  <label class="checkbox">
+                    <input type="checkbox" name="formato-png" value="PNG">
+                    <span class="checkbox__box"></span>PNG
+                  </label>
+                  <label class="checkbox">
+                    <input type="checkbox" name="formato-tiff" value="TIFF">
+                    <span class="checkbox__box"></span>TIFF
+                  </label>
+                </div>
+              </fieldset>
+            </div>
+
+            <div class="field">
+              <label class="field__label" for="td-tamanho-max">Tamanho máximo (MB)</label>
+              <input class="input" id="td-tamanho-max" name="Tamanho máximo" type="number" value="10" min="1" max="50"
+                step="1" aria-describedby="td-tamanho-hint">
+              <p class="field__hint" id="td-tamanho-hint">Opcional. Quando informado, deve ser um inteiro positivo (≥
+                1). Máximo global do sistema: 50 MB.</p>
+            </div>
+          </div>
+
+        </form>
+      </div>
+      <footer class="uni-drawer__footer">
+        <button class="btn btn--secondary" type="button" data-drawer-close>Cancelar</button>
+        <button class="btn btn--primary" type="submit" form="form-tipo"><span class="spinner spinner--sm"
+            aria-hidden="true"></span>Salvar tipo</button>
+      </footer>
     </div>
-    <div class="uni-dialog__body">
-      <p>Você está prestes a inativar o tipo <strong data-slot="alvo">este tipo</strong>.</p>
-      <div class="alert alert--warning">
-        <svg class="alert__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
-        <div class="alert__body">
-          <p class="alert__title">Ação preservada por soft delete</p>
-          <p class="alert__msg">O tipo é inativado e mantido na trilha de auditoria. Editais já publicados que o solicitam não são afetados (RN08 — parâmetros congelados).</p>
+  </dialog>
+
+  <!-- ===================== MODAL: confirmar inativação (sob demanda) ===================== -->
+  <dialog id="dialog-inativar" class="uni-dialog" aria-labelledby="dialog-inativar-title">
+    <div class="uni-dialog__panel">
+      <div class="uni-dialog__header">
+        <h2 class="uni-dialog__title" id="dialog-inativar-title">Inativar tipo de documento?</h2>
+      </div>
+      <div class="uni-dialog__body">
+        <p>Você está prestes a inativar o tipo <strong data-slot="alvo">este tipo</strong>.</p>
+        <div class="alert alert--warning">
+          <svg class="alert__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            aria-hidden="true">
+            <path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z" />
+            <line x1="12" y1="9" x2="12" y2="13" />
+            <line x1="12" y1="17" x2="12.01" y2="17" />
+          </svg>
+          <div class="alert__body">
+            <p class="alert__title">Ação preservada por soft delete</p>
+            <p class="alert__msg">O tipo é inativado e mantido na trilha de auditoria. Editais já publicados que o
+              solicitam não são afetados (RN08 — parâmetros congelados).</p>
+          </div>
         </div>
       </div>
+      <div class="uni-dialog__footer">
+        <button class="btn btn--secondary" type="button" data-dialog-close>Cancelar</button>
+        <button class="btn btn--danger" type="button" data-confirm-toast data-toast-title="Tipo inativado"
+          data-toast-message="Mantido na trilha de auditoria; editais publicados não são afetados (exemplo do kit).">Confirmar
+          inativação</button>
+      </div>
     </div>
-    <div class="uni-dialog__footer">
-      <button class="btn btn--secondary" type="button" data-dialog-close>Cancelar</button>
-      <button class="btn btn--danger" type="button" data-confirm-toast data-toast-title="Tipo inativado" data-toast-message="Mantido na trilha de auditoria; editais publicados não são afetados (exemplo do kit).">Confirmar inativação</button>
+  </dialog>
+
+  <button class="uni-back-to-top" data-back-to-top aria-label="Voltar ao topo da página" type="button" hidden>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
+      stroke-linejoin="round" aria-hidden="true">
+      <path d="M18 15l-6-6-6 6" />
+    </svg>
+  </button>
+
+  <script src="../../assets/uniplus-a11y.js"></script>
+  <script src="../../assets/uniplus-overlay.js"></script>
+  <script src="../../assets/uniplus-backtotop.js"></script>
+  <script src="../../assets/uniplus-toast.js"></script>
+  <script src="../../assets/uniplus-form.js"></script>
+  <script src="../../assets/uniplus-crud.js"></script>
+  <div vw class="enabled">
+    <div vw-access-button class="active"></div>
+    <div vw-plugin-wrapper>
+      <div class="vw-plugin-top-wrapper"></div>
     </div>
   </div>
-</dialog>
-
-<button class="uni-back-to-top" data-back-to-top aria-label="Voltar ao topo da página" type="button" hidden>
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 15l-6-6-6 6"/></svg>
-</button>
-
-<script src="../../assets/uniplus-a11y.js"></script>
-<script src="../../assets/uniplus-overlay.js"></script>
-<script src="../../assets/uniplus-backtotop.js"></script>
-<script src="../../assets/uniplus-toast.js"></script>
-<script src="../../assets/uniplus-form.js"></script>
-<script src="../../assets/uniplus-crud.js"></script>
-<div vw class="enabled"><div vw-access-button class="active"></div><div vw-plugin-wrapper><div class="vw-plugin-top-wrapper"></div></div></div>
-<script src="../../assets/uniplus-vlibras.js"></script>
+  <script src="../../assets/uniplus-vlibras.js"></script>
 </body>
+
 </html>

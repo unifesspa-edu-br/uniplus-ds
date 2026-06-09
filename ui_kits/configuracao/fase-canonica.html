@@ -1,516 +1,829 @@
 <!DOCTYPE html>
 <html lang="pt-BR" data-theme="auto">
+
 <head>
-<meta charset="utf-8">
-<title>Fase Canônica — Configuração · Uni+ DS</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="../../tokens.css">
-<link rel="stylesheet" href="../../base.css">
-<link rel="stylesheet" href="../../components.css">
-<link rel="stylesheet" href="kit.css">
-<style>
-  body { background: var(--surface-page); }
-</style>
+  <meta charset="utf-8">
+  <title>Fase Canônica — Configuração · Uni+ DS</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="../../tokens.css">
+  <link rel="stylesheet" href="../../base.css">
+  <link rel="stylesheet" href="../../components.css">
+  <link rel="stylesheet" href="kit.css">
+  <style>
+    body {
+      background: var(--surface-page);
+    }
+  </style>
 </head>
+
 <body>
 
-<a href="#main" class="skip-link">Pular para o conteúdo principal</a>
+  <a href="#main" class="skip-link">Pular para o conteúdo principal</a>
 
-<div class="gov-bar" role="region" aria-label="Identificação do Governo Federal">
-  <span class="gov-bar__brand">gov.br</span>
-  <span class="gov-bar__sep" aria-hidden="true">|</span>
-  <span class="gov-bar__org">UNIFESSPA · Administração</span>
-  <span class="gov-bar__links">
-    <a href="#">Mapa do site</a>
-    <a href="../../acessibilidade.html">Acessibilidade</a>
-    <a href="#">Privacidade</a>
-  </span>
-</div>
+  <div class="gov-bar" role="region" aria-label="Identificação do Governo Federal">
+    <span class="gov-bar__brand">gov.br</span>
+    <span class="gov-bar__sep" aria-hidden="true">|</span>
+    <span class="gov-bar__org">UNIFESSPA · Administração</span>
+    <span class="gov-bar__links">
+      <a href="#">Mapa do site</a>
+      <a href="../../acessibilidade.html">Acessibilidade</a>
+      <a href="#">Privacidade</a>
+    </span>
+  </div>
 
-<div class="admin-shell" id="admin-shell">
-  <aside class="sidebar" id="admin-sidebar" aria-label="Painel administrativo">
-    <div class="sidebar__brand">
-      <div class="sidebar__mark" aria-hidden="true">U+</div>
-      <div><div class="sidebar__brand-title">Uni+ Admin</div><div class="sidebar__brand-sub">CEPS · Seleção</div></div>
-      <button class="sidebar__close" type="button" aria-label="Fechar menu lateral" data-sidebar-close><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M18 6L6 18M6 6l12 12"/></svg></button>
-    </div>
-    <nav aria-label="Navegação administrativa">
-      <div class="sidebar__label">Painéis</div>
-      <a href="../admin/index.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="9"/><rect x="14" y="3" width="7" height="5"/><rect x="14" y="12" width="7" height="9"/><rect x="3" y="16" width="7" height="5"/></svg><span>Painel de processos</span></a>
-      <a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg><span>Editais</span></a>
-      <a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/></svg><span>Inscrições</span></a>
-      <a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg><span>Homologação</span></a>
-      <div class="sidebar__label">Resultados</div>
-      <a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><path d="M7 14l4-4 4 4 5-5"/></svg><span>Classificação</span></a>
-      <a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9 12l2 2 4-4"/></svg><span>Recursos</span></a>
-      <div class="sidebar__label">Configuração</div>
-      <a href="cidade.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg><span>Cidade</span></a>
-      <a href="campus.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M5 21V8l7-5 7 5v13"/><path d="M9 21v-5h6v5"/><path d="M9 9h.01M15 9h.01M9 13h.01M15 13h.01"/></svg><span>Campus</span></a>
-      <a href="local-oferta.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 6-9 12-9 12s-9-6-9-12a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg><span>Local de oferta</span></a>
-      <a href="instituicao.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21h18M6 21V7l6-4 6 4v14M9 21V12h6v9"/></svg><span>Instituição</span></a>
-      <a href="unidade.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="2" width="6" height="6" rx="1"/><rect x="2" y="16" width="6" height="6" rx="1"/><rect x="16" y="16" width="6" height="6" rx="1"/><path d="M12 8v4M5 16v-4h14v4"/></svg><span>Unidade</span></a>
-      <a href="curso.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/></svg><span>Curso</span></a>
-      <a href="oferta-curso.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="8" y1="13" x2="16" y2="13"/><line x1="8" y1="17" x2="16" y2="17"/><line x1="8" y1="9" x2="10" y2="9"/></svg><span>Oferta de curso</span></a>
-      <a href="modalidade.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg><span>Modalidade</span></a>
-      <a href="tipo-documento.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V9z"/><polyline points="13 2 13 9 20 9"/></svg><span>Tipo de Documento</span></a>
-      <a href="condicao-atendimento.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg><span>Condição de Atendimento</span></a>
-      <a href="recurso-acessibilidade.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/></svg><span>Recurso de Acessibilidade</span></a>
-      <a href="tipo-deficiencia.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="4" r="2"/><path d="M5 8h14M12 8v7M9 21l3-6 3 6"/></svg><span>Tipo de Deficiência</span></a>
-      <a href="fase-canonica.html" class="is-active" aria-current="page"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><span>Fase Canônica</span></a>
-      <a href="tipo-banca.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11"/></svg><span>Tipo de Banca</span></a>
-      <a href="reserva-demografica.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><path d="M7 14l4-4 4 4 5-5"/></svg><span>Reserva Demográfica</span></a>
-      <a href="peso-enem.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/><line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/><line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/><line x1="1" y1="14" x2="7" y2="14"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="17" y1="16" x2="23" y2="16"/></svg><span>Peso ENEM</span></a>
-    </nav>
-  </aside>
-  <div class="sidebar-backdrop" aria-hidden="true" data-sidebar-close></div>
-
-  <div class="admin-main">
-    <header class="admin-topbar">
-      <button class="sidebar-toggle" id="sidebar-toggle" aria-label="Abrir menu lateral" aria-expanded="false" aria-controls="admin-sidebar">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
-      </button>
-      <nav class="breadcrumb" aria-label="Breadcrumb">
-        <ol class="breadcrumb__list">
-          <li class="breadcrumb__item"><a href="../admin/index.html" class="breadcrumb__link">Início</a></li>
-          <li class="breadcrumb__item"><a href="index.html" class="breadcrumb__link">Configuração</a></li>
-          <li class="breadcrumb__item"><span class="breadcrumb__current" aria-current="page">Fase Canônica</span></li>
-        </ol>
+  <div class="admin-shell" id="admin-shell">
+    <aside class="sidebar" id="admin-sidebar" aria-label="Painel administrativo">
+      <div class="sidebar__brand">
+        <div class="sidebar__mark" aria-hidden="true">U+</div>
+        <div>
+          <div class="sidebar__brand-title">Uni+ Admin</div>
+          <div class="sidebar__brand-sub">CEPS · Seleção</div>
+        </div>
+        <button class="sidebar__close" type="button" aria-label="Fechar menu lateral" data-sidebar-close><svg width="20"
+            height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
+            aria-hidden="true">
+            <path d="M18 6L6 18M6 6l12 12" />
+          </svg></button>
+      </div>
+      <nav aria-label="Navegação administrativa">
+        <div class="sidebar__label">Painéis</div>
+        <a href="../admin/index.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="3" width="7" height="9" />
+            <rect x="14" y="3" width="7" height="5" />
+            <rect x="14" y="12" width="7" height="9" />
+            <rect x="3" y="16" width="7" height="5" />
+          </svg><span>Painel de processos</span></a>
+        <a href="../admin/processo-seletivo.html" aria-label="Processo seletivo" data-tooltip="Processo seletivo"
+          data-tooltip-position="right"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" />
+            <polyline points="14 2 14 8 20 8" />
+          </svg><span>Processo seletivo</span></a>
+        <a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" />
+            <circle cx="9" cy="7" r="4" />
+          </svg><span>Inscrições</span></a>
+        <a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
+          </svg><span>Homologação</span></a>
+        <div class="sidebar__label">Resultados</div>
+        <a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M3 3v18h18" />
+            <path d="M7 14l4-4 4 4 5-5" />
+          </svg><span>Classificação</span></a>
+        <a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10" />
+            <path d="M9 12l2 2 4-4" />
+          </svg><span>Recursos</span></a>
+        <div class="sidebar__label">Configuração</div>
+        <a href="cidade.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" />
+            <circle cx="12" cy="9" r="2.5" />
+          </svg><span>Cidade</span></a>
+        <a href="campus.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 21h18M5 21V8l7-5 7 5v13" />
+            <path d="M9 21v-5h6v5" />
+            <path d="M9 9h.01M15 9h.01M9 13h.01M15 13h.01" />
+          </svg><span>Campus</span></a>
+        <a href="local-oferta.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 10c0 6-9 12-9 12s-9-6-9-12a9 9 0 0118 0z" />
+            <circle cx="12" cy="10" r="3" />
+          </svg><span>Local de oferta</span></a>
+        <a href="instituicao.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M3 21h18M6 21V7l6-4 6 4v14M9 21V12h6v9" />
+          </svg><span>Instituição</span></a>
+        <a href="unidade.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <rect x="9" y="2" width="6" height="6" rx="1" />
+            <rect x="2" y="16" width="6" height="6" rx="1" />
+            <rect x="16" y="16" width="6" height="6" rx="1" />
+            <path d="M12 8v4M5 16v-4h14v4" />
+          </svg><span>Unidade</span></a>
+        <a href="curso.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z" />
+            <path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z" />
+          </svg><span>Curso</span></a>
+        <a href="oferta-curso.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" />
+            <polyline points="14 2 14 8 20 8" />
+            <line x1="8" y1="13" x2="16" y2="13" />
+            <line x1="8" y1="17" x2="16" y2="17" />
+            <line x1="8" y1="9" x2="10" y2="9" />
+          </svg><span>Oferta de curso</span></a>
+        <a href="modalidade.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" />
+            <circle cx="9" cy="7" r="4" />
+            <path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75" />
+          </svg><span>Modalidade</span></a>
+        <a href="tipo-documento.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M13 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V9z" />
+            <polyline points="13 2 13 9 20 9" />
+          </svg><span>Tipo de Documento</span></a>
+        <a href="condicao-atendimento.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path
+              d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z" />
+          </svg><span>Condição de Atendimento</span></a>
+        <a href="recurso-acessibilidade.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+            stroke-width="2">
+            <path
+              d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z" />
+          </svg><span>Recurso de Acessibilidade</span></a>
+        <a href="tipo-deficiencia.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="4" r="2" />
+            <path d="M5 8h14M12 8v7M9 21l3-6 3 6" />
+          </svg><span>Tipo de Deficiência</span></a>
+        <a href="fase-canonica.html" class="is-active" aria-current="page"><svg viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2">
+            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+          </svg><span>Fase Canônica</span></a>
+        <a href="tipo-banca.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="8" r="6" />
+            <path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11" />
+          </svg><span>Tipo de Banca</span></a>
+        <a href="reserva-demografica.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M3 3v18h18" />
+            <path d="M7 14l4-4 4 4 5-5" />
+          </svg><span>Reserva Demográfica</span></a>
+        <a href="peso-enem.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="4" y1="21" x2="4" y2="14" />
+            <line x1="4" y1="10" x2="4" y2="3" />
+            <line x1="12" y1="21" x2="12" y2="12" />
+            <line x1="12" y1="8" x2="12" y2="3" />
+            <line x1="20" y1="21" x2="20" y2="16" />
+            <line x1="20" y1="12" x2="20" y2="3" />
+            <line x1="1" y1="14" x2="7" y2="14" />
+            <line x1="9" y1="8" x2="15" y2="8" />
+            <line x1="17" y1="16" x2="23" y2="16" />
+          </svg><span>Peso ENEM</span></a>
       </nav>
-      <div style="margin-left:auto">
-        <div class="a11y-menu" data-a11y-menu>
-          <button class="a11y-menu__trigger" type="button" aria-expanded="false" aria-controls="a11y-pop" aria-label="Preferências de acessibilidade" data-a11y-menu-trigger>
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="4" r="2"/><path d="M4 8h16M12 6v14M8 12l-2 8M16 12l2 8"/></svg>
-          </button>
-          <div class="a11y-menu__backdrop" hidden aria-hidden="true"></div>
-          <div class="a11y-menu__popover" id="a11y-pop" role="region" aria-label="Preferências de acessibilidade" hidden>
-            <p class="a11y-menu__title">Acessibilidade</p>
-            <div class="a11y-menu__group" role="group" aria-label="Tema"><span class="a11y-menu__group-label">Tema</span><div class="a11y-menu__options"><button class="a11y-opt" data-a11y="theme" data-value="light" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>Claro</button><button class="a11y-opt" data-a11y="theme" data-value="dark" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>Escuro</button><button class="a11y-opt" data-a11y="theme" data-value="auto" aria-pressed="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>Sistema</button></div></div>
-            <div class="a11y-menu__group" role="group" aria-label="Leitura"><span class="a11y-menu__group-label">Leitura</span><div class="a11y-menu__options"><button class="a11y-opt" data-a11y="contrast" data-value="on" aria-pressed="false"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 100 20V2z"/><path d="M12 2a10 10 0 010 20" fill="none" stroke="currentColor" stroke-width="2"/></svg>Alto contraste</button><button class="a11y-opt" data-a11y="font-mode" data-value="legible" aria-pressed="false">Fonte legível</button></div></div>
-            <p class="a11y-menu__hint">Para ampliar o texto, use o zoom do navegador (<kbd>Ctrl</kbd> <kbd>+</kbd> / <kbd>Ctrl</kbd> <kbd>&#8722;</kbd>).</p>
-          </div>
-        </div>
-      </div>
-    </header>
+    </aside>
+    <div class="sidebar-backdrop" aria-hidden="true" data-sidebar-close></div>
 
-    <main id="main" class="page" tabindex="-1">
-
-      <div class="page-header">
-        <div class="page-header__content">
-          <h1 class="page-header__title">Fase Canônica</h1>
-          <p class="page-header__desc">Domínio fechado das 14 fases do ciclo de vida de um processo seletivo — código imutável após criação · UNI-REQ-0064.</p>
-        </div>
-        <div class="page-header__actions"><a class="btn btn--secondary" href="index.html">← Voltar ao kit</a></div>
-      </div>
-
-      <!-- BANNER CRÍTICO: códigos imutáveis -->
-      <div class="alert alert--warning" role="alert">
-        <svg class="alert__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
-        <div class="alert__body">
-          <p class="alert__title">Código imutável após criação</p>
-          <p class="alert__msg">O código de uma Fase Canônica <strong>não pode ser alterado</strong> após a criação — pertence ao vocabulário canônico fixo das 14 fases do ciclo (UNI-REQ-0064) e é congelado por snapshot nos cronogramas dos editais. Para corrigir, crie uma nova entrada e inative a anterior.</p>
-        </div>
-      </div>
-
-      <!-- ========== Lista (sem abas — data-scope direto) ========== -->
-      <div data-scope>
-
-        <div class="filter-bar" role="search" aria-label="Filtrar fases canônicas">
-          <div class="filter-bar__row">
-            <div class="input-group">
-              <span class="input-group__addon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.5-4.5"/></svg></span>
-              <input class="input" type="search" placeholder="Buscar por código ou nome…" aria-label="Buscar fase canônica" data-search-input>
-            </div>
-            <button class="btn btn--tertiary btn--sm" type="button" data-filter-clear>Limpar</button>
-          </div>
-          <div class="filter-bar__group">
-            <span class="u-eyebrow">Status</span>
-            <div class="filter-chips" role="group" aria-label="Filtrar por status">
-              <button class="filter-chip" type="button" aria-pressed="true" data-chip data-region="">Todas <span class="filter-chip__count">14</span></button>
-              <button class="filter-chip" type="button" aria-pressed="false" data-chip data-region="ativa">Ativas <span class="filter-chip__count">14</span></button>
-              <button class="filter-chip" type="button" aria-pressed="false" data-chip data-region="inativa">Inativas <span class="filter-chip__count">0</span></button>
-            </div>
-          </div>
-          <div class="filter-bar__group">
-            <span class="u-eyebrow" id="filtro-dono-label">Dono típico</span>
-            <select class="select" data-select-filter data-col="2" aria-labelledby="filtro-dono-label" style="min-width:12rem;max-width:16rem">
-              <option value="">Todos os donos</option>
-              <option value="CEPS">CEPS</option>
-              <option value="CRCA">CRCA</option>
-              <option value="MEC">MEC</option>
-              <option value="CONSEPE">CONSEPE</option>
-            </select>
-          </div>
-        </div>
-
-        <div class="panel">
-          <div class="panel-head">
-            <div class="panel-head__title">
-              <h2>Fases canônicas</h2>
-              <span class="list-count" data-count aria-label="Total de fases canônicas">14</span>
-            </div>
-            <button class="btn btn--primary" type="button" data-drawer-trigger="drawer-fase" aria-haspopup="dialog" aria-expanded="false">
-              <svg class="btn__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>Nova fase
+    <div class="admin-main">
+      <header class="admin-topbar">
+        <button class="sidebar-toggle" id="sidebar-toggle" aria-label="Abrir menu lateral" aria-expanded="false"
+          aria-controls="admin-sidebar">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+            stroke-linecap="round" aria-hidden="true">
+            <path d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+        </button>
+        <nav class="breadcrumb" aria-label="Breadcrumb">
+          <ol class="breadcrumb__list">
+            <li class="breadcrumb__item"><a href="../admin/index.html" class="breadcrumb__link">Início</a></li>
+            <li class="breadcrumb__item"><a href="index.html" class="breadcrumb__link">Configuração</a></li>
+            <li class="breadcrumb__item"><span class="breadcrumb__current" aria-current="page">Fase Canônica</span></li>
+          </ol>
+        </nav>
+        <div style="margin-left:auto">
+          <div class="a11y-menu" data-a11y-menu>
+            <button class="a11y-menu__trigger" type="button" aria-expanded="false" aria-controls="a11y-pop"
+              aria-label="Preferências de acessibilidade" data-a11y-menu-trigger>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round"
+                stroke-linejoin="round" aria-hidden="true">
+                <circle cx="12" cy="4" r="2" />
+                <path d="M4 8h16M12 6v14M8 12l-2 8M16 12l2 8" />
+              </svg>
             </button>
-          </div>
-          <div class="table-responsive">
-            <table data-search-table>
-              <thead>
-                <tr>
-                  <th scope="col">Código</th>
-                  <th scope="col">Nome</th>
-                  <th scope="col">Dono típico</th>
-                  <th scope="col">Agrupa etapas</th>
-                  <th scope="col">Permite compl.</th>
-                  <th scope="col">Status</th>
-                  <th scope="col"><span class="sr-only">Ações</span></th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr data-region="ativa">
-                  <td data-label="Código"><code>INSCRICAO</code></td>
-                  <td data-label="Nome"><div class="table-responsive__primary">Inscrição</div><div class="table-responsive__meta">No SiSU, as datas são definidas pelo MEC e importadas pela Unifesspa</div></td>
-                  <td data-label="Dono típico"><span class="tag" title="No SiSU o MEC define as datas; a Unifesspa importa (data delegada)">MEC</span></td>
-                  <td data-label="Agrupa etapas"><span style="color:var(--text-muted)" aria-label="Não aplicável">—</span></td>
-                  <td data-label="Permite compl."><span style="color:var(--text-muted)" aria-label="Não aplicável">—</span></td>
-                  <td data-label="Status"><span class="tag tag--success">Ativa</span></td>
-                  <td class="table-responsive__actions">
-                    <button class="btn btn--tertiary btn--sm" type="button" data-drawer-trigger="drawer-fase" aria-haspopup="dialog" aria-expanded="false" aria-label="Editar Inscrição">Editar</button>
-                    <button class="btn btn--tertiary btn--sm" type="button" data-dialog-trigger="dialog-inativar" aria-haspopup="dialog" aria-expanded="false" aria-label="Inativar Inscrição" data-fill-alvo="INSCRICAO" data-fill-refs="4">Inativar</button>
-                  </td>
-                </tr>
-                <tr data-region="ativa">
-                  <td data-label="Código"><code>HOMOLOGACAO</code></td>
-                  <td data-label="Nome"><div class="table-responsive__primary">Homologação</div></td>
-                  <td data-label="Dono típico"><span class="tag">CEPS</span></td>
-                  <td data-label="Agrupa etapas"><span style="color:var(--text-muted)" aria-label="Não aplicável">—</span></td>
-                  <td data-label="Permite compl."><span class="tag tag--success">Sim</span></td>
-                  <td data-label="Status"><span class="tag tag--success">Ativa</span></td>
-                  <td class="table-responsive__actions">
-                    <button class="btn btn--tertiary btn--sm" type="button" data-drawer-trigger="drawer-fase" aria-haspopup="dialog" aria-expanded="false" aria-label="Editar Homologação">Editar</button>
-                    <button class="btn btn--tertiary btn--sm" type="button" data-dialog-trigger="dialog-inativar" aria-haspopup="dialog" aria-expanded="false" aria-label="Inativar Homologação" data-fill-alvo="HOMOLOGACAO" data-fill-refs="6">Inativar</button>
-                  </td>
-                </tr>
-                <tr data-region="ativa">
-                  <td data-label="Código"><code>ENSALAMENTO</code></td>
-                  <td data-label="Nome"><div class="table-responsive__primary">Ensalamento</div></td>
-                  <td data-label="Dono típico"><span class="tag">CEPS</span></td>
-                  <td data-label="Agrupa etapas"><span style="color:var(--text-muted)" aria-label="Não aplicável">—</span></td>
-                  <td data-label="Permite compl."><span style="color:var(--text-muted)" aria-label="Não aplicável">—</span></td>
-                  <td data-label="Status"><span class="tag tag--success">Ativa</span></td>
-                  <td class="table-responsive__actions">
-                    <button class="btn btn--tertiary btn--sm" type="button" data-drawer-trigger="drawer-fase" aria-haspopup="dialog" aria-expanded="false" aria-label="Editar Ensalamento">Editar</button>
-                    <button class="btn btn--tertiary btn--sm" type="button" data-dialog-trigger="dialog-inativar" aria-haspopup="dialog" aria-expanded="false" aria-label="Inativar Ensalamento" data-fill-alvo="ENSALAMENTO" data-fill-refs="0">Inativar</button>
-                  </td>
-                </tr>
-                <tr data-region="ativa">
-                  <td data-label="Código"><code>AVALIACAO</code></td>
-                  <td data-label="Nome"><div class="table-responsive__primary">Avaliação</div></td>
-                  <td data-label="Dono típico"><span class="tag">CEPS</span></td>
-                  <td data-label="Agrupa etapas"><span class="tag tag--success">Sim</span></td>
-                  <td data-label="Permite compl."><span style="color:var(--text-muted)" aria-label="Não aplicável">—</span></td>
-                  <td data-label="Status"><span class="tag tag--success">Ativa</span></td>
-                  <td class="table-responsive__actions">
-                    <button class="btn btn--tertiary btn--sm" type="button" data-drawer-trigger="drawer-fase" aria-haspopup="dialog" aria-expanded="false" aria-label="Editar Avaliação">Editar</button>
-                    <button class="btn btn--tertiary btn--sm" type="button" data-dialog-trigger="dialog-inativar" aria-haspopup="dialog" aria-expanded="false" aria-label="Inativar Avaliação" data-fill-alvo="AVALIACAO" data-fill-refs="8">Inativar</button>
-                  </td>
-                </tr>
-                <tr data-region="ativa">
-                  <td data-label="Código"><code>CLASSIFICACAO</code></td>
-                  <td data-label="Nome"><div class="table-responsive__primary">Classificação</div></td>
-                  <td data-label="Dono típico"><span class="tag">CEPS</span></td>
-                  <td data-label="Agrupa etapas"><span style="color:var(--text-muted)" aria-label="Não aplicável">—</span></td>
-                  <td data-label="Permite compl."><span style="color:var(--text-muted)" aria-label="Não aplicável">—</span></td>
-                  <td data-label="Status"><span class="tag tag--success">Ativa</span></td>
-                  <td class="table-responsive__actions">
-                    <button class="btn btn--tertiary btn--sm" type="button" data-drawer-trigger="drawer-fase" aria-haspopup="dialog" aria-expanded="false" aria-label="Editar Classificação">Editar</button>
-                    <button class="btn btn--tertiary btn--sm" type="button" data-dialog-trigger="dialog-inativar" aria-haspopup="dialog" aria-expanded="false" aria-label="Inativar Classificação" data-fill-alvo="CLASSIFICACAO" data-fill-refs="0">Inativar</button>
-                  </td>
-                </tr>
-                <tr data-region="ativa">
-                  <td data-label="Código"><code>RESULTADO_PRELIMINAR</code></td>
-                  <td data-label="Nome"><div class="table-responsive__primary">Resultado Preliminar</div></td>
-                  <td data-label="Dono típico"><span class="tag">CEPS</span></td>
-                  <td data-label="Agrupa etapas"><span style="color:var(--text-muted)" aria-label="Não aplicável">—</span></td>
-                  <td data-label="Permite compl."><span style="color:var(--text-muted)" aria-label="Não aplicável">—</span></td>
-                  <td data-label="Status"><span class="tag tag--success">Ativa</span></td>
-                  <td class="table-responsive__actions">
-                    <button class="btn btn--tertiary btn--sm" type="button" data-drawer-trigger="drawer-fase" aria-haspopup="dialog" aria-expanded="false" aria-label="Editar Resultado Preliminar">Editar</button>
-                    <button class="btn btn--tertiary btn--sm" type="button" data-dialog-trigger="dialog-inativar" aria-haspopup="dialog" aria-expanded="false" aria-label="Inativar Resultado Preliminar" data-fill-alvo="RESULTADO_PRELIMINAR" data-fill-refs="0">Inativar</button>
-                  </td>
-                </tr>
-                <tr data-region="ativa">
-                  <td data-label="Código"><code>RECURSOS</code></td>
-                  <td data-label="Nome"><div class="table-responsive__primary">Recursos</div><div class="table-responsive__meta">Recurso de 2ª instância julgado pelo CONSEPE (INV-D10)</div></td>
-                  <td data-label="Dono típico"><span class="tag" title="Recurso de 2ª instância — conselho superior (data delegada)">CONSEPE</span></td>
-                  <td data-label="Agrupa etapas"><span style="color:var(--text-muted)" aria-label="Não aplicável">—</span></td>
-                  <td data-label="Permite compl."><span class="tag tag--success">Sim</span></td>
-                  <td data-label="Status"><span class="tag tag--success">Ativa</span></td>
-                  <td class="table-responsive__actions">
-                    <button class="btn btn--tertiary btn--sm" type="button" data-drawer-trigger="drawer-fase" aria-haspopup="dialog" aria-expanded="false" aria-label="Editar Recursos">Editar</button>
-                    <button class="btn btn--tertiary btn--sm" type="button" data-dialog-trigger="dialog-inativar" aria-haspopup="dialog" aria-expanded="false" aria-label="Inativar Recursos" data-fill-alvo="RECURSOS" data-fill-refs="5">Inativar</button>
-                  </td>
-                </tr>
-                <tr data-region="ativa">
-                  <td data-label="Código"><code>RESULTADO_FINAL</code></td>
-                  <td data-label="Nome"><div class="table-responsive__primary">Resultado Final</div></td>
-                  <td data-label="Dono típico"><span class="tag">CEPS</span></td>
-                  <td data-label="Agrupa etapas"><span style="color:var(--text-muted)" aria-label="Não aplicável">—</span></td>
-                  <td data-label="Permite compl."><span style="color:var(--text-muted)" aria-label="Não aplicável">—</span></td>
-                  <td data-label="Status"><span class="tag tag--success">Ativa</span></td>
-                  <td class="table-responsive__actions">
-                    <button class="btn btn--tertiary btn--sm" type="button" data-drawer-trigger="drawer-fase" aria-haspopup="dialog" aria-expanded="false" aria-label="Editar Resultado Final">Editar</button>
-                    <button class="btn btn--tertiary btn--sm" type="button" data-dialog-trigger="dialog-inativar" aria-haspopup="dialog" aria-expanded="false" aria-label="Inativar Resultado Final" data-fill-alvo="RESULTADO_FINAL" data-fill-refs="0">Inativar</button>
-                  </td>
-                </tr>
-                <tr data-region="ativa">
-                  <td data-label="Código"><code>HABILITACAO</code></td>
-                  <td data-label="Nome"><div class="table-responsive__primary">Habilitação</div></td>
-                  <td data-label="Dono típico"><span class="tag">CRCA</span></td>
-                  <td data-label="Agrupa etapas"><span style="color:var(--text-muted)" aria-label="Não aplicável">—</span></td>
-                  <td data-label="Permite compl."><span class="tag" title="O SiSU veda complementação na habilitação">Não</span></td>
-                  <td data-label="Status"><span class="tag tag--success">Ativa</span></td>
-                  <td class="table-responsive__actions">
-                    <button class="btn btn--tertiary btn--sm" type="button" data-drawer-trigger="drawer-fase" aria-haspopup="dialog" aria-expanded="false" aria-label="Editar Habilitação">Editar</button>
-                    <button class="btn btn--tertiary btn--sm" type="button" data-dialog-trigger="dialog-inativar" aria-haspopup="dialog" aria-expanded="false" aria-label="Inativar Habilitação" data-fill-alvo="HABILITACAO" data-fill-refs="0">Inativar</button>
-                  </td>
-                </tr>
-                <tr data-region="ativa">
-                  <td data-label="Código"><code>HETEROIDENTIFICACAO</code></td>
-                  <td data-label="Nome"><div class="table-responsive__primary">Heteroidentificação</div></td>
-                  <td data-label="Dono típico"><span class="tag">CEPS</span></td>
-                  <td data-label="Agrupa etapas"><span style="color:var(--text-muted)" aria-label="Não aplicável">—</span></td>
-                  <td data-label="Permite compl."><span style="color:var(--text-muted)" aria-label="Não aplicável">—</span></td>
-                  <td data-label="Status"><span class="tag tag--success">Ativa</span></td>
-                  <td class="table-responsive__actions">
-                    <button class="btn btn--tertiary btn--sm" type="button" data-drawer-trigger="drawer-fase" aria-haspopup="dialog" aria-expanded="false" aria-label="Editar Heteroidentificação">Editar</button>
-                    <button class="btn btn--tertiary btn--sm" type="button" data-dialog-trigger="dialog-inativar" aria-haspopup="dialog" aria-expanded="false" aria-label="Inativar Heteroidentificação" data-fill-alvo="HETEROIDENTIFICACAO" data-fill-refs="0">Inativar</button>
-                  </td>
-                </tr>
-                <tr data-region="ativa">
-                  <td data-label="Código"><code>MATRICULA</code></td>
-                  <td data-label="Nome"><div class="table-responsive__primary">Matrícula</div></td>
-                  <td data-label="Dono típico"><span class="tag">CRCA</span></td>
-                  <td data-label="Agrupa etapas"><span style="color:var(--text-muted)" aria-label="Não aplicável">—</span></td>
-                  <td data-label="Permite compl."><span style="color:var(--text-muted)" aria-label="Não aplicável">—</span></td>
-                  <td data-label="Status"><span class="tag tag--success">Ativa</span></td>
-                  <td class="table-responsive__actions">
-                    <button class="btn btn--tertiary btn--sm" type="button" data-drawer-trigger="drawer-fase" aria-haspopup="dialog" aria-expanded="false" aria-label="Editar Matrícula">Editar</button>
-                    <button class="btn btn--tertiary btn--sm" type="button" data-dialog-trigger="dialog-inativar" aria-haspopup="dialog" aria-expanded="false" aria-label="Inativar Matrícula" data-fill-alvo="MATRICULA" data-fill-refs="0">Inativar</button>
-                  </td>
-                </tr>
-                <tr data-region="ativa">
-                  <td data-label="Código"><code>HOMOLOGACAO_RESULTADO_FINAL</code></td>
-                  <td data-label="Nome"><div class="table-responsive__primary">Homologação do Resultado Final</div><div class="table-responsive__meta">Homologação pelo conselho superior</div></td>
-                  <td data-label="Dono típico"><span class="tag" title="Conselho superior (data delegada)">CONSEPE</span></td>
-                  <td data-label="Agrupa etapas"><span style="color:var(--text-muted)" aria-label="Não aplicável">—</span></td>
-                  <td data-label="Permite compl."><span style="color:var(--text-muted)" aria-label="Não aplicável">—</span></td>
-                  <td data-label="Status"><span class="tag tag--success">Ativa</span></td>
-                  <td class="table-responsive__actions">
-                    <button class="btn btn--tertiary btn--sm" type="button" data-drawer-trigger="drawer-fase" aria-haspopup="dialog" aria-expanded="false" aria-label="Editar Homologação do Resultado Final">Editar</button>
-                    <button class="btn btn--tertiary btn--sm" type="button" data-dialog-trigger="dialog-inativar" aria-haspopup="dialog" aria-expanded="false" aria-label="Inativar Homologação do Resultado Final" data-fill-alvo="HOMOLOGACAO_RESULTADO_FINAL" data-fill-refs="0">Inativar</button>
-                  </td>
-                </tr>
-                <tr data-region="ativa">
-                  <td data-label="Código"><code>LISTA_ESPERA</code></td>
-                  <td data-label="Nome"><div class="table-responsive__primary">Lista de Espera</div></td>
-                  <td data-label="Dono típico"><span class="tag">CRCA</span></td>
-                  <td data-label="Agrupa etapas"><span style="color:var(--text-muted)" aria-label="Não aplicável">—</span></td>
-                  <td data-label="Permite compl."><span style="color:var(--text-muted)" aria-label="Não aplicável">—</span></td>
-                  <td data-label="Status"><span class="tag tag--success">Ativa</span></td>
-                  <td class="table-responsive__actions">
-                    <button class="btn btn--tertiary btn--sm" type="button" data-drawer-trigger="drawer-fase" aria-haspopup="dialog" aria-expanded="false" aria-label="Editar Lista de Espera">Editar</button>
-                    <button class="btn btn--tertiary btn--sm" type="button" data-dialog-trigger="dialog-inativar" aria-haspopup="dialog" aria-expanded="false" aria-label="Inativar Lista de Espera" data-fill-alvo="LISTA_ESPERA" data-fill-refs="0">Inativar</button>
-                  </td>
-                </tr>
-                <tr data-region="ativa">
-                  <td data-label="Código"><code>CHAMADA</code></td>
-                  <td data-label="Nome"><div class="table-responsive__primary">Chamada</div></td>
-                  <td data-label="Dono típico"><span class="tag">CRCA</span></td>
-                  <td data-label="Agrupa etapas"><span style="color:var(--text-muted)" aria-label="Não aplicável">—</span></td>
-                  <td data-label="Permite compl."><span style="color:var(--text-muted)" aria-label="Não aplicável">—</span></td>
-                  <td data-label="Status"><span class="tag tag--success">Ativa</span></td>
-                  <td class="table-responsive__actions">
-                    <button class="btn btn--tertiary btn--sm" type="button" data-drawer-trigger="drawer-fase" aria-haspopup="dialog" aria-expanded="false" aria-label="Editar Chamada">Editar</button>
-                    <button class="btn btn--tertiary btn--sm" type="button" data-dialog-trigger="dialog-inativar" aria-haspopup="dialog" aria-expanded="false" aria-label="Inativar Chamada" data-fill-alvo="CHAMADA" data-fill-refs="0">Inativar</button>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-          <div class="empty-state" data-empty hidden>
-            <div class="empty-state__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.5-4.5"/></svg></div>
-            <p class="empty-state__title">Nenhuma fase encontrada</p>
-            <p class="empty-state__desc">Ajuste a busca ou o filtro de dono típico para ver resultados.</p>
-            <button class="btn btn--secondary" type="button" data-filter-clear>Limpar filtros</button>
-          </div>
-          <nav class="pager" aria-label="Paginação de fases canônicas">
-            <button class="pager__btn" type="button" disabled><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg>Anterior</button>
-            <span class="pager__status">Página <span class="pager__page">1</span></span>
-            <button class="pager__btn" type="button" disabled>Próxima<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg></button>
-          </nav>
-        </div>
-      </div>
-    </main>
-  </div>
-</div>
-
-<!-- ========================= DRAWER: Fase Canônica ========================= -->
-<dialog id="drawer-fase" class="uni-drawer uni-drawer--right uni-drawer--form" aria-labelledby="drawer-fase-title">
-  <div class="uni-drawer__panel">
-    <header class="uni-drawer__header">
-      <h2 class="uni-drawer__title" id="drawer-fase-title">Nova fase canônica</h2>
-      <button class="btn btn--tertiary btn--icon-only btn--rect" type="button" data-drawer-close aria-label="Fechar"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M18 6L6 18M6 6l12 12"/></svg></button>
-    </header>
-    <div class="uni-drawer__body uni-drawer__body--form">
-      <form id="form-fase" class="form-body" data-demo-form novalidate>
-        <div class="form-grid">
-          <div class="field">
-            <label class="field__label" for="fase-codigo">Fase canônica (código) <span class="req" aria-hidden="true">*</span><span class="sr-only">(obrigatório)</span></label>
-            <select class="select" id="fase-codigo" name="Código" required aria-describedby="fase-codigo-hint" aria-controls="grupo-agrupa grupo-compl" aria-expanded="false">
-              <option value="">Selecione…</option>
-              <option value="INSCRICAO">INSCRICAO — Inscrição</option>
-              <option value="HOMOLOGACAO">HOMOLOGACAO — Homologação</option>
-              <option value="ENSALAMENTO">ENSALAMENTO — Ensalamento</option>
-              <option value="AVALIACAO">AVALIACAO — Avaliação</option>
-              <option value="CLASSIFICACAO">CLASSIFICACAO — Classificação</option>
-              <option value="RESULTADO_PRELIMINAR">RESULTADO_PRELIMINAR — Resultado Preliminar</option>
-              <option value="RECURSOS">RECURSOS — Recursos</option>
-              <option value="RESULTADO_FINAL">RESULTADO_FINAL — Resultado Final</option>
-              <option value="HABILITACAO">HABILITACAO — Habilitação</option>
-              <option value="HETEROIDENTIFICACAO">HETEROIDENTIFICACAO — Heteroidentificação</option>
-              <option value="MATRICULA">MATRICULA — Matrícula</option>
-              <option value="HOMOLOGACAO_RESULTADO_FINAL">HOMOLOGACAO_RESULTADO_FINAL — Homologação do Resultado Final</option>
-              <option value="LISTA_ESPERA">LISTA_ESPERA — Lista de Espera</option>
-              <option value="CHAMADA">CHAMADA — Chamada</option>
-            </select>
-            <p class="field__hint" id="fase-codigo-hint"><strong>Imutável após criação.</strong> Domínio fechado das 14 fases canônicas (UNI-REQ-0064) — não pode ser renomeado depois de criado.</p>
-          </div>
-          <div class="field">
-            <label class="field__label" for="fase-dono">Dono típico <span class="req" aria-hidden="true">*</span><span class="sr-only">(obrigatório)</span></label>
-            <select class="select" id="fase-dono" name="Dono típico" required aria-describedby="fase-dono-hint">
-              <option value="">Selecione…</option>
-              <option value="CEPS">CEPS — Centro de Processos Seletivos (Seleção)</option>
-              <option value="CRCA">CRCA — Registro e Controle Acadêmico (Ingresso)</option>
-              <option value="MEC">MEC — delegação federal (no SiSU define as datas)</option>
-              <option value="CONSEPE">CONSEPE — conselho superior (recurso de 2ª instância)</option>
-            </select>
-            <p class="field__hint" id="fase-dono-hint">Quem <strong>usualmente</strong> conduz a fase — rótulo orientativo, não vincula o processo. Domínio fechado de 4 valores; <strong>MEC</strong> (data delegada no SiSU) e <strong>CONSEPE</strong> (recurso de 2ª instância) são intencionais e sustentam as invariantes de delegação.</p>
-          </div>
-          <div class="field field--full">
-            <label class="field__label" for="fase-nome">Nome <span class="req" aria-hidden="true">*</span><span class="sr-only">(obrigatório)</span></label>
-            <input class="input" id="fase-nome" name="Nome" placeholder="Ex.: Avaliação" required>
-          </div>
-          <div class="field field--full">
-            <label class="field__label" for="fase-desc">Descrição</label>
-            <textarea class="textarea" id="fase-desc" name="Descrição" placeholder="Texto opcional de apresentação da fase."></textarea>
-          </div>
-          <div class="field field--full">
-            <label class="field__label" for="fase-base-legal">Base legal</label>
-            <input class="input" id="fase-base-legal" name="Base legal" placeholder="Ex.: Lei 9.784/1999, art. 56" aria-describedby="fase-base-legal-hint">
-            <p class="field__hint" id="fase-base-legal-hint">Dispositivo legal aplicável à fase (lei + artigo/parágrafo). Opcional.</p>
-          </div>
-        </div>
-
-        <!-- Condicional: agrupa_etapas — visível somente para AVALIACAO -->
-        <fieldset id="grupo-agrupa" class="cond-group" hidden aria-live="polite" aria-atomic="true">
-          <legend class="cond-group__legend">Agrupamento de etapas <span class="tag tag--info" style="font-size:var(--text-xs)">Somente AVALIACAO</span></legend>
-          <div class="form-grid" style="margin-top:var(--space-3)">
-            <div class="field field--full">
-              <label class="field__label" for="fase-agrupa">Agrupa etapas pontuadas?</label>
-              <select class="select" id="fase-agrupa" name="Agrupa etapas">
-                <option value="nao">Não — etapas independentes</option>
-                <option value="sim">Sim — agrupa as Etapas pontuadas da avaliação</option>
-              </select>
-              <p class="field__hint">A avaliação é a única fase que agrupa as Etapas pontuadas (prova, redação, entrevista). Fase ≠ Etapa: a Etapa pertence a outro cadastro.</p>
+            <div class="a11y-menu__backdrop" hidden aria-hidden="true"></div>
+            <div class="a11y-menu__popover" id="a11y-pop" role="region" aria-label="Preferências de acessibilidade"
+              hidden>
+              <p class="a11y-menu__title">Acessibilidade</p>
+              <div class="a11y-menu__group" role="group" aria-label="Tema"><span
+                  class="a11y-menu__group-label">Tema</span>
+                <div class="a11y-menu__options"><button class="a11y-opt" data-a11y="theme" data-value="light"
+                    aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                      stroke-linecap="round" aria-hidden="true">
+                      <circle cx="12" cy="12" r="4" />
+                      <path
+                        d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41" />
+                    </svg>Claro</button><button class="a11y-opt" data-a11y="theme" data-value="dark"
+                    aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                      stroke-linecap="round" aria-hidden="true">
+                      <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" />
+                    </svg>Escuro</button><button class="a11y-opt" data-a11y="theme" data-value="auto"
+                    aria-pressed="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                      stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                      <rect x="2" y="3" width="20" height="14" rx="2" />
+                      <path d="M8 21h8M12 17v4" />
+                    </svg>Sistema</button></div>
+              </div>
+              <div class="a11y-menu__group" role="group" aria-label="Leitura"><span
+                  class="a11y-menu__group-label">Leitura</span>
+                <div class="a11y-menu__options"><button class="a11y-opt" data-a11y="contrast" data-value="on"
+                    aria-pressed="false"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                      <path d="M12 2a10 10 0 100 20V2z" />
+                      <path d="M12 2a10 10 0 010 20" fill="none" stroke="currentColor" stroke-width="2" />
+                    </svg>Alto contraste</button><button class="a11y-opt" data-a11y="font-mode" data-value="legible"
+                    aria-pressed="false">Fonte legível</button></div>
+              </div>
+              <p class="a11y-menu__hint">Para ampliar o texto, use o zoom do navegador (<kbd>Ctrl</kbd> <kbd>+</kbd> /
+                <kbd>Ctrl</kbd> <kbd>&#8722;</kbd>).</p>
             </div>
           </div>
-        </fieldset>
+        </div>
+      </header>
 
-        <!-- Condicional: permite_complementacao — visível para HOMOLOGACAO e RECURSOS -->
-        <fieldset id="grupo-compl" class="cond-group" hidden aria-live="polite" aria-atomic="true">
-          <legend class="cond-group__legend">Complementação de documentos <span class="tag tag--info" style="font-size:var(--text-xs)">Somente HOMOLOGACAO e RECURSOS</span></legend>
-          <div class="form-grid" style="margin-top:var(--space-3)">
-            <div class="field field--full">
-              <label class="field__label" for="fase-compl">Permite complementação de documentos?</label>
-              <select class="select" id="fase-compl" name="Permite complementação">
-                <option value="nao">Não — sem reenvio de documentos</option>
-                <option value="sim">Sim — candidatos podem reenviar documentos</option>
+      <main id="main" class="page" tabindex="-1">
+
+        <div class="page-header">
+          <div class="page-header__content">
+            <h1 class="page-header__title">Fase Canônica</h1>
+            <p class="page-header__desc">Domínio fechado das 14 fases do ciclo de vida de um processo seletivo — código
+              imutável após criação · UNI-REQ-0064.</p>
+          </div>
+          <div class="page-header__actions"><a class="btn btn--secondary" href="index.html">← Voltar ao kit</a></div>
+        </div>
+
+        <!-- BANNER CRÍTICO: códigos imutáveis -->
+        <div class="alert alert--warning" role="alert">
+          <svg class="alert__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            aria-hidden="true">
+            <path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z" />
+            <line x1="12" y1="9" x2="12" y2="13" />
+            <line x1="12" y1="17" x2="12.01" y2="17" />
+          </svg>
+          <div class="alert__body">
+            <p class="alert__title">Código imutável após criação</p>
+            <p class="alert__msg">O código de uma Fase Canônica <strong>não pode ser alterado</strong> após a criação —
+              pertence ao vocabulário canônico fixo das 14 fases do ciclo (UNI-REQ-0064) e é congelado por snapshot nos
+              cronogramas dos editais. Para corrigir, crie uma nova entrada e inative a anterior.</p>
+          </div>
+        </div>
+
+        <!-- ========== Lista (sem abas — data-scope direto) ========== -->
+        <div data-scope>
+
+          <div class="filter-bar" role="search" aria-label="Filtrar fases canônicas">
+            <div class="filter-bar__row">
+              <div class="input-group">
+                <span class="input-group__addon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+                    <circle cx="11" cy="11" r="7" />
+                    <path d="M21 21l-4.5-4.5" />
+                  </svg></span>
+                <input class="input" type="search" placeholder="Buscar por código ou nome…"
+                  aria-label="Buscar fase canônica" data-search-input>
+              </div>
+              <button class="btn btn--tertiary btn--sm" type="button" data-filter-clear>Limpar</button>
+            </div>
+            <div class="filter-bar__group">
+              <span class="u-eyebrow">Status</span>
+              <div class="filter-chips" role="group" aria-label="Filtrar por status">
+                <button class="filter-chip" type="button" aria-pressed="true" data-chip data-region="">Todas <span
+                    class="filter-chip__count">14</span></button>
+                <button class="filter-chip" type="button" aria-pressed="false" data-chip data-region="ativa">Ativas
+                  <span class="filter-chip__count">14</span></button>
+                <button class="filter-chip" type="button" aria-pressed="false" data-chip data-region="inativa">Inativas
+                  <span class="filter-chip__count">0</span></button>
+              </div>
+            </div>
+            <div class="filter-bar__group">
+              <span class="u-eyebrow" id="filtro-dono-label">Dono típico</span>
+              <select class="select" data-select-filter data-col="2" aria-labelledby="filtro-dono-label"
+                style="min-width:12rem;max-width:16rem">
+                <option value="">Todos os donos</option>
+                <option value="CEPS">CEPS</option>
+                <option value="CRCA">CRCA</option>
+                <option value="MEC">MEC</option>
+                <option value="CONSEPE">CONSEPE</option>
               </select>
-              <p class="field__hint">Só é permitido onde a legislação admite — homologação e recursos. A habilitação é vedada pelo SiSU.</p>
             </div>
           </div>
-        </fieldset>
-      </form>
-    </div>
-    <footer class="uni-drawer__footer">
-      <button class="btn btn--secondary" type="button" data-drawer-close>Cancelar</button>
-      <button class="btn btn--primary" type="submit" form="form-fase"><span class="spinner spinner--sm" aria-hidden="true"></span>Salvar fase</button>
-    </footer>
-  </div>
-</dialog>
 
-<!-- ========================= MODAL: confirmar inativação ========================= -->
-<dialog id="dialog-inativar" class="uni-dialog" aria-labelledby="dialog-inativar-title">
-  <div class="uni-dialog__panel">
-    <div class="uni-dialog__header">
-      <h2 class="uni-dialog__title" id="dialog-inativar-title">Inativar fase canônica?</h2>
+          <div class="panel">
+            <div class="panel-head">
+              <div class="panel-head__title">
+                <h2>Fases canônicas</h2>
+                <span class="list-count" data-count aria-label="Total de fases canônicas">14</span>
+              </div>
+              <button class="btn btn--primary" type="button" data-drawer-trigger="drawer-fase" aria-haspopup="dialog"
+                aria-expanded="false">
+                <svg class="btn__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                  stroke-linecap="round" aria-hidden="true">
+                  <path d="M12 5v14M5 12h14" />
+                </svg>Nova fase
+              </button>
+            </div>
+            <div class="table-responsive">
+              <table data-search-table>
+                <thead>
+                  <tr>
+                    <th scope="col">Código</th>
+                    <th scope="col">Nome</th>
+                    <th scope="col">Dono típico</th>
+                    <th scope="col">Agrupa etapas</th>
+                    <th scope="col">Permite compl.</th>
+                    <th scope="col">Status</th>
+                    <th scope="col"><span class="sr-only">Ações</span></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr data-region="ativa">
+                    <td data-label="Código"><code>INSCRICAO</code></td>
+                    <td data-label="Nome">
+                      <div class="table-responsive__primary">Inscrição</div>
+                      <div class="table-responsive__meta">No SiSU, as datas são definidas pelo MEC e importadas pela
+                        Unifesspa</div>
+                    </td>
+                    <td data-label="Dono típico"><span class="tag"
+                        title="No SiSU o MEC define as datas; a Unifesspa importa (data delegada)">MEC</span></td>
+                    <td data-label="Agrupa etapas"><span style="color:var(--text-muted)"
+                        aria-label="Não aplicável">—</span></td>
+                    <td data-label="Permite compl."><span style="color:var(--text-muted)"
+                        aria-label="Não aplicável">—</span></td>
+                    <td data-label="Status"><span class="tag tag--success">Ativa</span></td>
+                    <td class="table-responsive__actions">
+                      <button class="btn btn--tertiary btn--sm" type="button" data-drawer-trigger="drawer-fase"
+                        aria-haspopup="dialog" aria-expanded="false" aria-label="Editar Inscrição">Editar</button>
+                      <button class="btn btn--tertiary btn--sm" type="button" data-dialog-trigger="dialog-inativar"
+                        aria-haspopup="dialog" aria-expanded="false" aria-label="Inativar Inscrição"
+                        data-fill-alvo="INSCRICAO" data-fill-refs="4">Inativar</button>
+                    </td>
+                  </tr>
+                  <tr data-region="ativa">
+                    <td data-label="Código"><code>HOMOLOGACAO</code></td>
+                    <td data-label="Nome">
+                      <div class="table-responsive__primary">Homologação</div>
+                    </td>
+                    <td data-label="Dono típico"><span class="tag">CEPS</span></td>
+                    <td data-label="Agrupa etapas"><span style="color:var(--text-muted)"
+                        aria-label="Não aplicável">—</span></td>
+                    <td data-label="Permite compl."><span class="tag tag--success">Sim</span></td>
+                    <td data-label="Status"><span class="tag tag--success">Ativa</span></td>
+                    <td class="table-responsive__actions">
+                      <button class="btn btn--tertiary btn--sm" type="button" data-drawer-trigger="drawer-fase"
+                        aria-haspopup="dialog" aria-expanded="false" aria-label="Editar Homologação">Editar</button>
+                      <button class="btn btn--tertiary btn--sm" type="button" data-dialog-trigger="dialog-inativar"
+                        aria-haspopup="dialog" aria-expanded="false" aria-label="Inativar Homologação"
+                        data-fill-alvo="HOMOLOGACAO" data-fill-refs="6">Inativar</button>
+                    </td>
+                  </tr>
+                  <tr data-region="ativa">
+                    <td data-label="Código"><code>ENSALAMENTO</code></td>
+                    <td data-label="Nome">
+                      <div class="table-responsive__primary">Ensalamento</div>
+                    </td>
+                    <td data-label="Dono típico"><span class="tag">CEPS</span></td>
+                    <td data-label="Agrupa etapas"><span style="color:var(--text-muted)"
+                        aria-label="Não aplicável">—</span></td>
+                    <td data-label="Permite compl."><span style="color:var(--text-muted)"
+                        aria-label="Não aplicável">—</span></td>
+                    <td data-label="Status"><span class="tag tag--success">Ativa</span></td>
+                    <td class="table-responsive__actions">
+                      <button class="btn btn--tertiary btn--sm" type="button" data-drawer-trigger="drawer-fase"
+                        aria-haspopup="dialog" aria-expanded="false" aria-label="Editar Ensalamento">Editar</button>
+                      <button class="btn btn--tertiary btn--sm" type="button" data-dialog-trigger="dialog-inativar"
+                        aria-haspopup="dialog" aria-expanded="false" aria-label="Inativar Ensalamento"
+                        data-fill-alvo="ENSALAMENTO" data-fill-refs="0">Inativar</button>
+                    </td>
+                  </tr>
+                  <tr data-region="ativa">
+                    <td data-label="Código"><code>AVALIACAO</code></td>
+                    <td data-label="Nome">
+                      <div class="table-responsive__primary">Avaliação</div>
+                    </td>
+                    <td data-label="Dono típico"><span class="tag">CEPS</span></td>
+                    <td data-label="Agrupa etapas"><span class="tag tag--success">Sim</span></td>
+                    <td data-label="Permite compl."><span style="color:var(--text-muted)"
+                        aria-label="Não aplicável">—</span></td>
+                    <td data-label="Status"><span class="tag tag--success">Ativa</span></td>
+                    <td class="table-responsive__actions">
+                      <button class="btn btn--tertiary btn--sm" type="button" data-drawer-trigger="drawer-fase"
+                        aria-haspopup="dialog" aria-expanded="false" aria-label="Editar Avaliação">Editar</button>
+                      <button class="btn btn--tertiary btn--sm" type="button" data-dialog-trigger="dialog-inativar"
+                        aria-haspopup="dialog" aria-expanded="false" aria-label="Inativar Avaliação"
+                        data-fill-alvo="AVALIACAO" data-fill-refs="8">Inativar</button>
+                    </td>
+                  </tr>
+                  <tr data-region="ativa">
+                    <td data-label="Código"><code>CLASSIFICACAO</code></td>
+                    <td data-label="Nome">
+                      <div class="table-responsive__primary">Classificação</div>
+                    </td>
+                    <td data-label="Dono típico"><span class="tag">CEPS</span></td>
+                    <td data-label="Agrupa etapas"><span style="color:var(--text-muted)"
+                        aria-label="Não aplicável">—</span></td>
+                    <td data-label="Permite compl."><span style="color:var(--text-muted)"
+                        aria-label="Não aplicável">—</span></td>
+                    <td data-label="Status"><span class="tag tag--success">Ativa</span></td>
+                    <td class="table-responsive__actions">
+                      <button class="btn btn--tertiary btn--sm" type="button" data-drawer-trigger="drawer-fase"
+                        aria-haspopup="dialog" aria-expanded="false" aria-label="Editar Classificação">Editar</button>
+                      <button class="btn btn--tertiary btn--sm" type="button" data-dialog-trigger="dialog-inativar"
+                        aria-haspopup="dialog" aria-expanded="false" aria-label="Inativar Classificação"
+                        data-fill-alvo="CLASSIFICACAO" data-fill-refs="0">Inativar</button>
+                    </td>
+                  </tr>
+                  <tr data-region="ativa">
+                    <td data-label="Código"><code>RESULTADO_PRELIMINAR</code></td>
+                    <td data-label="Nome">
+                      <div class="table-responsive__primary">Resultado Preliminar</div>
+                    </td>
+                    <td data-label="Dono típico"><span class="tag">CEPS</span></td>
+                    <td data-label="Agrupa etapas"><span style="color:var(--text-muted)"
+                        aria-label="Não aplicável">—</span></td>
+                    <td data-label="Permite compl."><span style="color:var(--text-muted)"
+                        aria-label="Não aplicável">—</span></td>
+                    <td data-label="Status"><span class="tag tag--success">Ativa</span></td>
+                    <td class="table-responsive__actions">
+                      <button class="btn btn--tertiary btn--sm" type="button" data-drawer-trigger="drawer-fase"
+                        aria-haspopup="dialog" aria-expanded="false"
+                        aria-label="Editar Resultado Preliminar">Editar</button>
+                      <button class="btn btn--tertiary btn--sm" type="button" data-dialog-trigger="dialog-inativar"
+                        aria-haspopup="dialog" aria-expanded="false" aria-label="Inativar Resultado Preliminar"
+                        data-fill-alvo="RESULTADO_PRELIMINAR" data-fill-refs="0">Inativar</button>
+                    </td>
+                  </tr>
+                  <tr data-region="ativa">
+                    <td data-label="Código"><code>RECURSOS</code></td>
+                    <td data-label="Nome">
+                      <div class="table-responsive__primary">Recursos</div>
+                      <div class="table-responsive__meta">Recurso de 2ª instância julgado pelo CONSEPE (INV-D10)</div>
+                    </td>
+                    <td data-label="Dono típico"><span class="tag"
+                        title="Recurso de 2ª instância — conselho superior (data delegada)">CONSEPE</span></td>
+                    <td data-label="Agrupa etapas"><span style="color:var(--text-muted)"
+                        aria-label="Não aplicável">—</span></td>
+                    <td data-label="Permite compl."><span class="tag tag--success">Sim</span></td>
+                    <td data-label="Status"><span class="tag tag--success">Ativa</span></td>
+                    <td class="table-responsive__actions">
+                      <button class="btn btn--tertiary btn--sm" type="button" data-drawer-trigger="drawer-fase"
+                        aria-haspopup="dialog" aria-expanded="false" aria-label="Editar Recursos">Editar</button>
+                      <button class="btn btn--tertiary btn--sm" type="button" data-dialog-trigger="dialog-inativar"
+                        aria-haspopup="dialog" aria-expanded="false" aria-label="Inativar Recursos"
+                        data-fill-alvo="RECURSOS" data-fill-refs="5">Inativar</button>
+                    </td>
+                  </tr>
+                  <tr data-region="ativa">
+                    <td data-label="Código"><code>RESULTADO_FINAL</code></td>
+                    <td data-label="Nome">
+                      <div class="table-responsive__primary">Resultado Final</div>
+                    </td>
+                    <td data-label="Dono típico"><span class="tag">CEPS</span></td>
+                    <td data-label="Agrupa etapas"><span style="color:var(--text-muted)"
+                        aria-label="Não aplicável">—</span></td>
+                    <td data-label="Permite compl."><span style="color:var(--text-muted)"
+                        aria-label="Não aplicável">—</span></td>
+                    <td data-label="Status"><span class="tag tag--success">Ativa</span></td>
+                    <td class="table-responsive__actions">
+                      <button class="btn btn--tertiary btn--sm" type="button" data-drawer-trigger="drawer-fase"
+                        aria-haspopup="dialog" aria-expanded="false" aria-label="Editar Resultado Final">Editar</button>
+                      <button class="btn btn--tertiary btn--sm" type="button" data-dialog-trigger="dialog-inativar"
+                        aria-haspopup="dialog" aria-expanded="false" aria-label="Inativar Resultado Final"
+                        data-fill-alvo="RESULTADO_FINAL" data-fill-refs="0">Inativar</button>
+                    </td>
+                  </tr>
+                  <tr data-region="ativa">
+                    <td data-label="Código"><code>HABILITACAO</code></td>
+                    <td data-label="Nome">
+                      <div class="table-responsive__primary">Habilitação</div>
+                    </td>
+                    <td data-label="Dono típico"><span class="tag">CRCA</span></td>
+                    <td data-label="Agrupa etapas"><span style="color:var(--text-muted)"
+                        aria-label="Não aplicável">—</span></td>
+                    <td data-label="Permite compl."><span class="tag"
+                        title="O SiSU veda complementação na habilitação">Não</span></td>
+                    <td data-label="Status"><span class="tag tag--success">Ativa</span></td>
+                    <td class="table-responsive__actions">
+                      <button class="btn btn--tertiary btn--sm" type="button" data-drawer-trigger="drawer-fase"
+                        aria-haspopup="dialog" aria-expanded="false" aria-label="Editar Habilitação">Editar</button>
+                      <button class="btn btn--tertiary btn--sm" type="button" data-dialog-trigger="dialog-inativar"
+                        aria-haspopup="dialog" aria-expanded="false" aria-label="Inativar Habilitação"
+                        data-fill-alvo="HABILITACAO" data-fill-refs="0">Inativar</button>
+                    </td>
+                  </tr>
+                  <tr data-region="ativa">
+                    <td data-label="Código"><code>HETEROIDENTIFICACAO</code></td>
+                    <td data-label="Nome">
+                      <div class="table-responsive__primary">Heteroidentificação</div>
+                    </td>
+                    <td data-label="Dono típico"><span class="tag">CEPS</span></td>
+                    <td data-label="Agrupa etapas"><span style="color:var(--text-muted)"
+                        aria-label="Não aplicável">—</span></td>
+                    <td data-label="Permite compl."><span style="color:var(--text-muted)"
+                        aria-label="Não aplicável">—</span></td>
+                    <td data-label="Status"><span class="tag tag--success">Ativa</span></td>
+                    <td class="table-responsive__actions">
+                      <button class="btn btn--tertiary btn--sm" type="button" data-drawer-trigger="drawer-fase"
+                        aria-haspopup="dialog" aria-expanded="false"
+                        aria-label="Editar Heteroidentificação">Editar</button>
+                      <button class="btn btn--tertiary btn--sm" type="button" data-dialog-trigger="dialog-inativar"
+                        aria-haspopup="dialog" aria-expanded="false" aria-label="Inativar Heteroidentificação"
+                        data-fill-alvo="HETEROIDENTIFICACAO" data-fill-refs="0">Inativar</button>
+                    </td>
+                  </tr>
+                  <tr data-region="ativa">
+                    <td data-label="Código"><code>MATRICULA</code></td>
+                    <td data-label="Nome">
+                      <div class="table-responsive__primary">Matrícula</div>
+                    </td>
+                    <td data-label="Dono típico"><span class="tag">CRCA</span></td>
+                    <td data-label="Agrupa etapas"><span style="color:var(--text-muted)"
+                        aria-label="Não aplicável">—</span></td>
+                    <td data-label="Permite compl."><span style="color:var(--text-muted)"
+                        aria-label="Não aplicável">—</span></td>
+                    <td data-label="Status"><span class="tag tag--success">Ativa</span></td>
+                    <td class="table-responsive__actions">
+                      <button class="btn btn--tertiary btn--sm" type="button" data-drawer-trigger="drawer-fase"
+                        aria-haspopup="dialog" aria-expanded="false" aria-label="Editar Matrícula">Editar</button>
+                      <button class="btn btn--tertiary btn--sm" type="button" data-dialog-trigger="dialog-inativar"
+                        aria-haspopup="dialog" aria-expanded="false" aria-label="Inativar Matrícula"
+                        data-fill-alvo="MATRICULA" data-fill-refs="0">Inativar</button>
+                    </td>
+                  </tr>
+                  <tr data-region="ativa">
+                    <td data-label="Código"><code>HOMOLOGACAO_RESULTADO_FINAL</code></td>
+                    <td data-label="Nome">
+                      <div class="table-responsive__primary">Homologação do Resultado Final</div>
+                      <div class="table-responsive__meta">Homologação pelo conselho superior</div>
+                    </td>
+                    <td data-label="Dono típico"><span class="tag"
+                        title="Conselho superior (data delegada)">CONSEPE</span></td>
+                    <td data-label="Agrupa etapas"><span style="color:var(--text-muted)"
+                        aria-label="Não aplicável">—</span></td>
+                    <td data-label="Permite compl."><span style="color:var(--text-muted)"
+                        aria-label="Não aplicável">—</span></td>
+                    <td data-label="Status"><span class="tag tag--success">Ativa</span></td>
+                    <td class="table-responsive__actions">
+                      <button class="btn btn--tertiary btn--sm" type="button" data-drawer-trigger="drawer-fase"
+                        aria-haspopup="dialog" aria-expanded="false"
+                        aria-label="Editar Homologação do Resultado Final">Editar</button>
+                      <button class="btn btn--tertiary btn--sm" type="button" data-dialog-trigger="dialog-inativar"
+                        aria-haspopup="dialog" aria-expanded="false"
+                        aria-label="Inativar Homologação do Resultado Final"
+                        data-fill-alvo="HOMOLOGACAO_RESULTADO_FINAL" data-fill-refs="0">Inativar</button>
+                    </td>
+                  </tr>
+                  <tr data-region="ativa">
+                    <td data-label="Código"><code>LISTA_ESPERA</code></td>
+                    <td data-label="Nome">
+                      <div class="table-responsive__primary">Lista de Espera</div>
+                    </td>
+                    <td data-label="Dono típico"><span class="tag">CRCA</span></td>
+                    <td data-label="Agrupa etapas"><span style="color:var(--text-muted)"
+                        aria-label="Não aplicável">—</span></td>
+                    <td data-label="Permite compl."><span style="color:var(--text-muted)"
+                        aria-label="Não aplicável">—</span></td>
+                    <td data-label="Status"><span class="tag tag--success">Ativa</span></td>
+                    <td class="table-responsive__actions">
+                      <button class="btn btn--tertiary btn--sm" type="button" data-drawer-trigger="drawer-fase"
+                        aria-haspopup="dialog" aria-expanded="false" aria-label="Editar Lista de Espera">Editar</button>
+                      <button class="btn btn--tertiary btn--sm" type="button" data-dialog-trigger="dialog-inativar"
+                        aria-haspopup="dialog" aria-expanded="false" aria-label="Inativar Lista de Espera"
+                        data-fill-alvo="LISTA_ESPERA" data-fill-refs="0">Inativar</button>
+                    </td>
+                  </tr>
+                  <tr data-region="ativa">
+                    <td data-label="Código"><code>CHAMADA</code></td>
+                    <td data-label="Nome">
+                      <div class="table-responsive__primary">Chamada</div>
+                    </td>
+                    <td data-label="Dono típico"><span class="tag">CRCA</span></td>
+                    <td data-label="Agrupa etapas"><span style="color:var(--text-muted)"
+                        aria-label="Não aplicável">—</span></td>
+                    <td data-label="Permite compl."><span style="color:var(--text-muted)"
+                        aria-label="Não aplicável">—</span></td>
+                    <td data-label="Status"><span class="tag tag--success">Ativa</span></td>
+                    <td class="table-responsive__actions">
+                      <button class="btn btn--tertiary btn--sm" type="button" data-drawer-trigger="drawer-fase"
+                        aria-haspopup="dialog" aria-expanded="false" aria-label="Editar Chamada">Editar</button>
+                      <button class="btn btn--tertiary btn--sm" type="button" data-dialog-trigger="dialog-inativar"
+                        aria-haspopup="dialog" aria-expanded="false" aria-label="Inativar Chamada"
+                        data-fill-alvo="CHAMADA" data-fill-refs="0">Inativar</button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="empty-state" data-empty hidden>
+              <div class="empty-state__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                  stroke-width="1.75" aria-hidden="true">
+                  <circle cx="11" cy="11" r="7" />
+                  <path d="M21 21l-4.5-4.5" />
+                </svg></div>
+              <p class="empty-state__title">Nenhuma fase encontrada</p>
+              <p class="empty-state__desc">Ajuste a busca ou o filtro de dono típico para ver resultados.</p>
+              <button class="btn btn--secondary" type="button" data-filter-clear>Limpar filtros</button>
+            </div>
+            <nav class="pager" aria-label="Paginação de fases canônicas">
+              <button class="pager__btn" type="button" disabled><svg viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+                  <path d="M15 18l-6-6 6-6" />
+                </svg>Anterior</button>
+              <span class="pager__status">Página <span class="pager__page">1</span></span>
+              <button class="pager__btn" type="button" disabled>Próxima<svg viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+                  <path d="M9 18l6-6-6-6" />
+                </svg></button>
+            </nav>
+          </div>
+        </div>
+      </main>
     </div>
-    <div class="uni-dialog__body">
-      <p>Você está prestes a inativar a fase <strong><code data-slot="alvo">esta fase</code></strong>. A inativação é uma <strong>remoção lógica</strong> (soft-delete): o registro permanece para auditoria e o código continua reservado no vocabulário canônico.</p>
-      <div class="alert alert--warning" data-show-if-positive="refs" hidden>
-        <svg class="alert__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-        <div class="alert__body">
-          <p class="alert__title">Fase usada em cronogramas de editais</p>
-          <p class="alert__msg"><strong data-slot="refs">0</strong> cronogramas de processos já referenciaram esta fase. A inativação impede novos editais de utilizá-la, mas <strong>não altera o que já foi congelado</strong> — a cópia por valor de cada cronograma permanece íntegra (snapshot-copy desacoplado) e <strong>não bloqueia</strong> esta remoção lógica.</p>
+  </div>
+
+  <!-- ========================= DRAWER: Fase Canônica ========================= -->
+  <dialog id="drawer-fase" class="uni-drawer uni-drawer--right uni-drawer--form" aria-labelledby="drawer-fase-title">
+    <div class="uni-drawer__panel">
+      <header class="uni-drawer__header">
+        <h2 class="uni-drawer__title" id="drawer-fase-title">Nova fase canônica</h2>
+        <button class="btn btn--tertiary btn--icon-only btn--rect" type="button" data-drawer-close
+          aria-label="Fechar"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+            stroke-width="2.5" stroke-linecap="round" aria-hidden="true">
+            <path d="M18 6L6 18M6 6l12 12" />
+          </svg></button>
+      </header>
+      <div class="uni-drawer__body uni-drawer__body--form">
+        <form id="form-fase" class="form-body" data-demo-form novalidate>
+          <div class="form-grid">
+            <div class="field">
+              <label class="field__label" for="fase-codigo">Fase canônica (código) <span class="req"
+                  aria-hidden="true">*</span><span class="sr-only">(obrigatório)</span></label>
+              <select class="select" id="fase-codigo" name="Código" required aria-describedby="fase-codigo-hint"
+                aria-controls="grupo-agrupa grupo-compl" aria-expanded="false">
+                <option value="">Selecione…</option>
+                <option value="INSCRICAO">INSCRICAO — Inscrição</option>
+                <option value="HOMOLOGACAO">HOMOLOGACAO — Homologação</option>
+                <option value="ENSALAMENTO">ENSALAMENTO — Ensalamento</option>
+                <option value="AVALIACAO">AVALIACAO — Avaliação</option>
+                <option value="CLASSIFICACAO">CLASSIFICACAO — Classificação</option>
+                <option value="RESULTADO_PRELIMINAR">RESULTADO_PRELIMINAR — Resultado Preliminar</option>
+                <option value="RECURSOS">RECURSOS — Recursos</option>
+                <option value="RESULTADO_FINAL">RESULTADO_FINAL — Resultado Final</option>
+                <option value="HABILITACAO">HABILITACAO — Habilitação</option>
+                <option value="HETEROIDENTIFICACAO">HETEROIDENTIFICACAO — Heteroidentificação</option>
+                <option value="MATRICULA">MATRICULA — Matrícula</option>
+                <option value="HOMOLOGACAO_RESULTADO_FINAL">HOMOLOGACAO_RESULTADO_FINAL — Homologação do Resultado Final
+                </option>
+                <option value="LISTA_ESPERA">LISTA_ESPERA — Lista de Espera</option>
+                <option value="CHAMADA">CHAMADA — Chamada</option>
+              </select>
+              <p class="field__hint" id="fase-codigo-hint"><strong>Imutável após criação.</strong> Domínio fechado das
+                14 fases canônicas (UNI-REQ-0064) — não pode ser renomeado depois de criado.</p>
+            </div>
+            <div class="field">
+              <label class="field__label" for="fase-dono">Dono típico <span class="req" aria-hidden="true">*</span><span
+                  class="sr-only">(obrigatório)</span></label>
+              <select class="select" id="fase-dono" name="Dono típico" required aria-describedby="fase-dono-hint">
+                <option value="">Selecione…</option>
+                <option value="CEPS">CEPS — Centro de Processos Seletivos (Seleção)</option>
+                <option value="CRCA">CRCA — Registro e Controle Acadêmico (Ingresso)</option>
+                <option value="MEC">MEC — delegação federal (no SiSU define as datas)</option>
+                <option value="CONSEPE">CONSEPE — conselho superior (recurso de 2ª instância)</option>
+              </select>
+              <p class="field__hint" id="fase-dono-hint">Quem <strong>usualmente</strong> conduz a fase — rótulo
+                orientativo, não vincula o processo. Domínio fechado de 4 valores; <strong>MEC</strong> (data delegada
+                no SiSU) e <strong>CONSEPE</strong> (recurso de 2ª instância) são intencionais e sustentam as
+                invariantes de delegação.</p>
+            </div>
+            <div class="field field--full">
+              <label class="field__label" for="fase-nome">Nome <span class="req" aria-hidden="true">*</span><span
+                  class="sr-only">(obrigatório)</span></label>
+              <input class="input" id="fase-nome" name="Nome" placeholder="Ex.: Avaliação" required>
+            </div>
+            <div class="field field--full">
+              <label class="field__label" for="fase-desc">Descrição</label>
+              <textarea class="textarea" id="fase-desc" name="Descrição"
+                placeholder="Texto opcional de apresentação da fase."></textarea>
+            </div>
+            <div class="field field--full">
+              <label class="field__label" for="fase-base-legal">Base legal</label>
+              <input class="input" id="fase-base-legal" name="Base legal" placeholder="Ex.: Lei 9.784/1999, art. 56"
+                aria-describedby="fase-base-legal-hint">
+              <p class="field__hint" id="fase-base-legal-hint">Dispositivo legal aplicável à fase (lei +
+                artigo/parágrafo). Opcional.</p>
+            </div>
+          </div>
+
+          <!-- Condicional: agrupa_etapas — visível somente para AVALIACAO -->
+          <fieldset id="grupo-agrupa" class="cond-group" hidden aria-live="polite" aria-atomic="true">
+            <legend class="cond-group__legend">Agrupamento de etapas <span class="tag tag--info"
+                style="font-size:var(--text-xs)">Somente AVALIACAO</span></legend>
+            <div class="form-grid" style="margin-top:var(--space-3)">
+              <div class="field field--full">
+                <label class="field__label" for="fase-agrupa">Agrupa etapas pontuadas?</label>
+                <select class="select" id="fase-agrupa" name="Agrupa etapas">
+                  <option value="nao">Não — etapas independentes</option>
+                  <option value="sim">Sim — agrupa as Etapas pontuadas da avaliação</option>
+                </select>
+                <p class="field__hint">A avaliação é a única fase que agrupa as Etapas pontuadas (prova, redação,
+                  entrevista). Fase ≠ Etapa: a Etapa pertence a outro cadastro.</p>
+              </div>
+            </div>
+          </fieldset>
+
+          <!-- Condicional: permite_complementacao — visível para HOMOLOGACAO e RECURSOS -->
+          <fieldset id="grupo-compl" class="cond-group" hidden aria-live="polite" aria-atomic="true">
+            <legend class="cond-group__legend">Complementação de documentos <span class="tag tag--info"
+                style="font-size:var(--text-xs)">Somente HOMOLOGACAO e RECURSOS</span></legend>
+            <div class="form-grid" style="margin-top:var(--space-3)">
+              <div class="field field--full">
+                <label class="field__label" for="fase-compl">Permite complementação de documentos?</label>
+                <select class="select" id="fase-compl" name="Permite complementação">
+                  <option value="nao">Não — sem reenvio de documentos</option>
+                  <option value="sim">Sim — candidatos podem reenviar documentos</option>
+                </select>
+                <p class="field__hint">Só é permitido onde a legislação admite — homologação e recursos. A habilitação é
+                  vedada pelo SiSU.</p>
+              </div>
+            </div>
+          </fieldset>
+        </form>
+      </div>
+      <footer class="uni-drawer__footer">
+        <button class="btn btn--secondary" type="button" data-drawer-close>Cancelar</button>
+        <button class="btn btn--primary" type="submit" form="form-fase"><span class="spinner spinner--sm"
+            aria-hidden="true"></span>Salvar fase</button>
+      </footer>
+    </div>
+  </dialog>
+
+  <!-- ========================= MODAL: confirmar inativação ========================= -->
+  <dialog id="dialog-inativar" class="uni-dialog" aria-labelledby="dialog-inativar-title">
+    <div class="uni-dialog__panel">
+      <div class="uni-dialog__header">
+        <h2 class="uni-dialog__title" id="dialog-inativar-title">Inativar fase canônica?</h2>
+      </div>
+      <div class="uni-dialog__body">
+        <p>Você está prestes a inativar a fase <strong><code data-slot="alvo">esta fase</code></strong>. A inativação é
+          uma <strong>remoção lógica</strong> (soft-delete): o registro permanece para auditoria e o código continua
+          reservado no vocabulário canônico.</p>
+        <div class="alert alert--warning" data-show-if-positive="refs" hidden>
+          <svg class="alert__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            aria-hidden="true">
+            <circle cx="12" cy="12" r="10" />
+            <line x1="12" y1="8" x2="12" y2="12" />
+            <line x1="12" y1="16" x2="12.01" y2="16" />
+          </svg>
+          <div class="alert__body">
+            <p class="alert__title">Fase usada em cronogramas de editais</p>
+            <p class="alert__msg"><strong data-slot="refs">0</strong> cronogramas de processos já referenciaram esta
+              fase. A inativação impede novos editais de utilizá-la, mas <strong>não altera o que já foi
+                congelado</strong> — a cópia por valor de cada cronograma permanece íntegra (snapshot-copy desacoplado)
+              e <strong>não bloqueia</strong> esta remoção lógica.</p>
+          </div>
         </div>
       </div>
+      <div class="uni-dialog__footer">
+        <button class="btn btn--secondary" type="button" data-dialog-close>Cancelar</button>
+        <button class="btn btn--danger" type="button" data-confirm-toast data-toast-title="Fase inativada"
+          data-toast-message="A fase não estará disponível em novos cronogramas (exemplo do kit — sem persistência real).">Confirmar
+          inativação</button>
+      </div>
     </div>
-    <div class="uni-dialog__footer">
-      <button class="btn btn--secondary" type="button" data-dialog-close>Cancelar</button>
-      <button class="btn btn--danger" type="button" data-confirm-toast data-toast-title="Fase inativada" data-toast-message="A fase não estará disponível em novos cronogramas (exemplo do kit — sem persistência real).">Confirmar inativação</button>
+  </dialog>
+
+  <button class="uni-back-to-top" data-back-to-top aria-label="Voltar ao topo da página" type="button" hidden>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
+      stroke-linejoin="round" aria-hidden="true">
+      <path d="M18 15l-6-6-6 6" />
+    </svg>
+  </button>
+
+  <script src="../../assets/uniplus-a11y.js"></script>
+  <script src="../../assets/uniplus-overlay.js"></script>
+  <script src="../../assets/uniplus-backtotop.js"></script>
+  <script src="../../assets/uniplus-toast.js"></script>
+  <script src="../../assets/uniplus-form.js"></script>
+  <script src="../../assets/uniplus-crud.js"></script>
+
+  <!-- Condicionais do drawer de Fase Canônica (IIFE inline — único JS inline desta página) -->
+  <script>
+    (function () {
+      var sel = document.getElementById('fase-codigo');
+      var grpAgrupa = document.getElementById('grupo-agrupa');
+      var grpCompl = document.getElementById('grupo-compl');
+      if (!sel || !grpAgrupa || !grpCompl) return;
+
+      function toggle() {
+        var v = sel.value;
+        var showAgrupa = v === 'AVALIACAO';
+        var showCompl = v === 'HOMOLOGACAO' || v === 'RECURSOS';
+
+        grpAgrupa.hidden = !showAgrupa;
+        grpCompl.hidden = !showCompl;
+        sel.setAttribute('aria-expanded', String(showAgrupa || showCompl));
+
+        // Campos condicionais têm default ("Não") — não são obrigatórios.
+        if (showAgrupa) { document.getElementById('fase-agrupa')?.focus(); }
+        else if (showCompl) { document.getElementById('fase-compl')?.focus(); }
+      }
+
+      sel.addEventListener('change', toggle);
+      toggle();
+    }());
+  </script>
+
+  <div vw class="enabled">
+    <div vw-access-button class="active"></div>
+    <div vw-plugin-wrapper>
+      <div class="vw-plugin-top-wrapper"></div>
     </div>
   </div>
-</dialog>
-
-<button class="uni-back-to-top" data-back-to-top aria-label="Voltar ao topo da página" type="button" hidden>
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 15l-6-6-6 6"/></svg>
-</button>
-
-<script src="../../assets/uniplus-a11y.js"></script>
-<script src="../../assets/uniplus-overlay.js"></script>
-<script src="../../assets/uniplus-backtotop.js"></script>
-<script src="../../assets/uniplus-toast.js"></script>
-<script src="../../assets/uniplus-form.js"></script>
-<script src="../../assets/uniplus-crud.js"></script>
-
-<!-- Condicionais do drawer de Fase Canônica (IIFE inline — único JS inline desta página) -->
-<script>
-(function () {
-  var sel = document.getElementById('fase-codigo');
-  var grpAgrupa = document.getElementById('grupo-agrupa');
-  var grpCompl = document.getElementById('grupo-compl');
-  if (!sel || !grpAgrupa || !grpCompl) return;
-
-  function toggle() {
-    var v = sel.value;
-    var showAgrupa = v === 'AVALIACAO';
-    var showCompl  = v === 'HOMOLOGACAO' || v === 'RECURSOS';
-
-    grpAgrupa.hidden = !showAgrupa;
-    grpCompl.hidden  = !showCompl;
-    sel.setAttribute('aria-expanded', String(showAgrupa || showCompl));
-
-    // Campos condicionais têm default ("Não") — não são obrigatórios.
-    if (showAgrupa) { document.getElementById('fase-agrupa')?.focus(); }
-    else if (showCompl) { document.getElementById('fase-compl')?.focus(); }
-  }
-
-  sel.addEventListener('change', toggle);
-  toggle();
-}());
-</script>
-
-<div vw class="enabled"><div vw-access-button class="active"></div><div vw-plugin-wrapper><div class="vw-plugin-top-wrapper"></div></div></div>
-<script src="../../assets/uniplus-vlibras.js"></script>
+  <script src="../../assets/uniplus-vlibras.js"></script>
 </body>
+
 </html>
