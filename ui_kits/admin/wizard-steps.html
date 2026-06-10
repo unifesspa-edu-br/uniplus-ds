@@ -467,18 +467,44 @@
     </div>
 
     <div class="bonus-config" id="bonus-config" hidden>
-      <div class="form-grid">
+      <div class="form-grid form-grid--3">
         <div class="form-field">
           <label class="label" for="f-bonus-tipo">Tipo de bônus</label>
           <select class="input" id="f-bonus-tipo">
-            <option value="">Selecione</option>
-            <option value="teste1">Teste 1</option>
-            <option value="teste2">Teste 2</option>
+            <option value="" selected>— escolher —</option>
+            <option value="ADITIVO">Aditivo — nota + (valor × nota)</option>
+            <option value="MULTIPLICATIVO">Multiplicativo — nota × (1 + valor)</option>
           </select>
         </div>
         <div class="form-field">
-          <label class="label" for="f-bonus-perc">Percentual (%)</label>
-          <input class="input" type="number" id="f-bonus-perc" min="0" max="100" placeholder="Ex.: 10">
+          <label class="label" for="f-bonus-valor">Valor (decimal)</label>
+          <input class="input" type="number" id="f-bonus-valor" min="0" max="1" step="0.01" placeholder="0.20">
+          <span class="field-hint">Ex.: 0.20 = 20%</span>
+        </div>
+        <div class="form-field">
+          <label class="label" for="f-bonus-criterio">Critério de elegibilidade</label>
+          <select class="input" id="f-bonus-criterio">
+            <option value="" selected>— escolher —</option>
+            <option value="RESIDENCIA_MUNICIPIO_CONVENIO">Residência no município do convênio</option>
+            <option value="MATRICULA_ESCOLAR_MUNICIPIO">Matrícula escolar no município do convênio</option>
+            <option value="OUTRO">Outro critério (descrever)</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-field" style="margin-top:var(--space-5)">
+        <span class="label">Modalidades aplicáveis</span>
+        <div class="checkbox-grid checkbox-grid--5">
+          <label class="check-item"><input type="checkbox"><span>AC</span></label>
+          <label class="check-item"><input type="checkbox"><span>V</span></label>
+          <label class="check-item"><input type="checkbox"><span>LB_PPI</span></label>
+          <label class="check-item"><input type="checkbox"><span>LB_Q</span></label>
+          <label class="check-item"><input type="checkbox"><span>LB_PcD</span></label>
+          <label class="check-item"><input type="checkbox"><span>LB_EP</span></label>
+          <label class="check-item"><input type="checkbox"><span>LI_PPI</span></label>
+          <label class="check-item"><input type="checkbox"><span>LI_Q</span></label>
+          <label class="check-item"><input type="checkbox"><span>LI_PcD</span></label>
+          <label class="check-item"><input type="checkbox"><span>LI_EP</span></label>
         </div>
       </div>
     </div>
