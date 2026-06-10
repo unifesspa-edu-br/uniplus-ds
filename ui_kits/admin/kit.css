@@ -2089,13 +2089,30 @@ body.has-sidebar-open {
 
 .bonus-config .form-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(3, 1fr);
   gap: var(--space-4);
 }
 
 @media (max-width: 767px) {
   .bonus-config .form-grid {
     grid-template-columns: 1fr;
+  }
+}
+
+.field-hint {
+  display: block;
+  font-size: var(--text-xs);
+  color: var(--text-secondary);
+  margin-top: var(--space-1);
+}
+
+.checkbox-grid--5 {
+  grid-template-columns: repeat(5, 1fr);
+}
+
+@media (max-width: 767px) {
+  .checkbox-grid--5 {
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 

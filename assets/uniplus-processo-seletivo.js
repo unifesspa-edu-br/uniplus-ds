@@ -55,7 +55,11 @@
 
   document.querySelectorAll('#nav-steps .steps__num, #steps-overlay .steps__num').forEach(badge => {
     const num = badge.textContent.trim();
-    badge.innerHTML = `<span class="num-text">${num}</span>${SVG_CHECK}${SVG_HOURGLASS}`;
+    const textSpan = document.createElement('span');
+    textSpan.className = 'num-text';
+    textSpan.textContent = num;
+    badge.innerHTML = SVG_CHECK + SVG_HOURGLASS;
+    badge.prepend(textSpan);
   });
 
   function initCards() {
