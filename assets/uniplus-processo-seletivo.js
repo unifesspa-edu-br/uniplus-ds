@@ -50,6 +50,14 @@
 
   let current = 0; // índice base-0
 
+  const SVG_CHECK = `<svg class="num-icon num-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>`;
+  const SVG_HOURGLASS = `<svg class="num-icon num-hourglass" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 22h14M5 2h14M17 22v-4.172a2 2 0 0 0-.586-1.414L12 12l-4.414 4.414A2 2 0 0 0 7 17.828V22M7 2v4.172a2 2 0 0 0 .586 1.414L12 12l4.414-4.414A2 2 0 0 0 17 6.172V2"/></svg>`;
+
+  document.querySelectorAll('#nav-steps .steps__num, #steps-overlay .steps__num').forEach(badge => {
+    const num = badge.textContent.trim();
+    badge.innerHTML = `<span class="num-text">${num}</span>${SVG_CHECK}${SVG_HOURGLASS}`;
+  });
+
   function initCards() {
     document.querySelectorAll('.type-card').forEach((card) => {
       const input = card.querySelector('input[type="radio"]');
@@ -1071,7 +1079,7 @@
     const div = document.createElement('div');
     div.hidden = true;
     content.appendChild(div);
-    return { el: div, inited: false };
+    return { el: div, inited: false, filled: false };
   });
 
   function goTo(idx) {
@@ -1104,14 +1112,18 @@
 
     // Atualiza stepper desktop
     navItems.forEach((item, i) => {
+      const s = slots[i];
       item.classList.toggle('is-active', i === idx);
-      item.classList.toggle('is-done', slots[i].inited && i !== idx);
+      item.classList.toggle('is-done', s.inited && s.filled && i !== idx);
+      item.classList.toggle('is-pending', s.inited && !s.filled && i !== idx);
     });
 
     // Atualiza stepper mobile overlay
     ovItems.forEach((item, i) => {
+      const s = slots[i];
       item.classList.toggle('is-active', i === idx);
-      item.classList.toggle('is-done', slots[i].inited && i !== idx);
+      item.classList.toggle('is-done', s.inited && s.filled && i !== idx);
+      item.classList.toggle('is-pending', s.inited && !s.filled && i !== idx);
     });
 
     // Atualiza barra mobile
@@ -1130,7 +1142,12 @@
     btnNext.childNodes[0].textContent = isLast ? 'Publicar ' : 'Próximo ';
   }
 
-  btnNext.addEventListener('click', () => { if (current < TOTAL - 1) goTo(current + 1); });
+  btnNext.addEventListener('click', () => {
+    if (current < TOTAL - 1) {
+      slots[current].filled = true;
+      goTo(current + 1);
+    }
+  });
   btnPrev.addEventListener('click', () => { if (current > 0) goTo(current - 1); });
 
   navItems.forEach((item, i) => {
