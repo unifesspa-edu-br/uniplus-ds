@@ -337,32 +337,32 @@
         Adicionar curso
       </button>
     </div>
+    <fieldset class="scroll-tabela">
+      <div class="vagas-table-wrap" id="vagas-table-wrap">
+        <table class="vagas-table" aria-label="Quadro de vagas">
+          <thead>
+            <tr>
+              <th>Curso</th>
+              <th>Campus</th>
+              <th class="vagas-table__turno">Turno</th>
+              <th class="vagas-table__vagas">Vagas</th>
+              <th>Ações</th>
+            </tr>
+          </thead>
+          <tbody id="vagas-tbody"></tbody>
+        </table>
+      </div>
 
-    <div class="vagas-table-wrap" id="vagas-table-wrap">
-      <table class="vagas-table" aria-label="Quadro de vagas">
-        <thead>
-          <tr>
-            <th>Curso</th>
-            <th>Campus</th>
-            <th class="vagas-table__turno">Turno</th>
-            <th class="vagas-table__vagas">Vagas</th>
-            <th>Ações</th>
-          </tr>
-        </thead>
-        <tbody id="vagas-tbody"></tbody>
-      </table>
-    </div>
+      <div class="vagas-cards-wrap" id="vagas-cards-wrap" hidden>
+        <div class="vagas-cards-header">Oferta de curso</div>
+        <div id="vagas-cards"></div>
+      </div>
 
-    <div class="vagas-cards-wrap" id="vagas-cards-wrap" hidden>
-      <div class="vagas-cards-header">Oferta de curso</div>
-      <div id="vagas-cards"></div>
-    </div>
+      <div class="vagas-empty-state desktop-only" id="vagas-empty-state">
+        Nenhum curso adicionado. Clique em "+ Adicionar curso" para começar.
+      </div>
 
-    <div class="vagas-empty-state desktop-only" id="vagas-empty-state">
-      Nenhum curso adicionado. Clique em "+ Adicionar curso" para começar.
-    </div>
-
-    <div class="vagas-total-bar">Total de vagas: <span id="vagas-total">0</span></div>
+      <div class="vagas-total-bar">Total de vagas: <span id="vagas-total">0</span></div>
   </div>
 
   <div class="vagas-modal" id="vagas-modal" hidden role="dialog" aria-modal="true" aria-labelledby="vagas-modal-title">
@@ -385,6 +385,8 @@
       </div>
     </div>
   </div>
+  </fieldset>
+
 </template>
 
 <template id="step-5">
@@ -395,7 +397,9 @@
   <p class="etapas-subtitle">Etapas em ordem cronológica</p>
   <p class="etapas-aceitas">Etapas aceitas.</p>
 
-  <div class="etapas-list" id="etapas-list"></div>
+  <fieldset class="scroll-tabela">
+    <div class="etapas-list" id="etapas-list"></div>
+  </fieldset>
 
   <div class="etapas-add-wrap">
     <button class="btn btn--outline" id="btn-add-etapa" type="button">
@@ -419,17 +423,21 @@
     <div class="form-field">
       <label class="label" for="f-agregacao">Agregação</label>
       <select class="input" id="f-agregacao">
-        <option value="teste1" selected>Teste 1</option>
-        <option value="teste2">Teste 2</option>
+        <option value="MEDIA_PONDERADA" selected>— escolher —</option>
+        <option value="MEDIA_PONDERADA">Média Ponderada — Σ(nota×peso) / Σ pesos</option>
+        <option value="SOMA_PONDERADA_COM_FATOR">Soma Ponderada com Fator — Σ(nota×peso) / fator</option>
+        <option value="MEDIA_SIMPLES">Média Simples — Σ nota / N etapas</option>
+        <option value="MEDIA_PONDERADA_ENEM">Média Ponderada ENEM — pesos por área + grupo de curso</option>
       </select>
     </div>
 
     <div class="form-field" style="margin-top:var(--space-4);max-width:280px">
       <label class="label" for="f-precisao">Precisão</label>
       <select class="input" id="f-precisao">
-        <option value="">Selecione</option>
-        <option value="teste1">Teste 1</option>
-        <option value="teste2">Teste 2</option>
+        <option value="MEDIA_PONDERADA" selected>— escolher —</option>
+        <option value="TRUNCAR_2_CASAS">Truncar 2 casas decimais (PSIQ)</option>
+        <option value="ARREDONDAR_PARA_CIMA_2_CASAS_SE_3A_GTE_5">Arredondar para cima 2 casas se 3ª casa ≥ 5 (PSE, PS
+          Convênios)</option>
       </select>
     </div>
   </div>
@@ -585,7 +593,9 @@
     <p>Marque quais documentos cada modalidade exige. Mesmo documento pode ser obrigatório para algumas modalidades e
       opcional para outras.</p>
   </div>
-  <div id="docs-list"></div>
+  <fieldset class="scroll-tabela">
+    <div id="docs-list"></div>
+  </fieldset>
 </template>
 
 <template id="step-11">
@@ -594,7 +604,9 @@
     <h1>Passo 11: Locais de prova</h1>
     <p>Polos onde o edital aplica prova. Marque os locais usados e ajuste capacidade/sessões por local.</p>
   </div>
-  <div id="polo-list" class="polo-list"></div>
+  <fieldset class="scroll-tabela">
+    <div id="polo-list" class="polo-list"></div>
+  </fieldset>
 </template>
 
 <template id="step-12">
@@ -613,26 +625,29 @@
     oferecer.
   </p>
 
-  <div class="atend-section">
-    <strong class="atend-section__title">Condições aceitas (item 4.2.1)</strong>
-    <p class="atend-section__desc">Categorias de candidato que o edital reconhece para fins de atendimento especializado
-      (PcD, dislexia, TDAH, diabetes, gestante, lactante, idoso, outra condição específica). Ao marcar PCD, aparece
-      sub-bloco para especificar os tipos de deficiência (LBI).</p>
-    <div class="atend-grid" id="atend-cond-grid"></div>
-    <div id="pcd-subblock" class="pcd-subblock" hidden>
-      <strong class="pcd-subblock__title">Tipos de deficiência reconhecidos pelo edital (LBI)</strong>
-      <p class="pcd-subblock__desc">Especifique quais categorias o edital reconhece. O candidato deve indicar o tipo
-        correspondente ao solicitar atendimento.</p>
-      <div class="atend-grid" id="pcd-tipos-grid"></div>
+  <fieldset class="scroll-tabela">
+    <div class="atend-section">
+      <strong class="atend-section__title">Condições aceitas (item 4.2.1)</strong>
+      <p class="atend-section__desc">Categorias de candidato que o edital reconhece para fins de atendimento
+        especializado
+        (PcD, dislexia, TDAH, diabetes, gestante, lactante, idoso, outra condição específica). Ao marcar PCD, aparece
+        sub-bloco para especificar os tipos de deficiência (LBI).</p>
+      <div class="atend-grid" id="atend-cond-grid"></div>
+      <div id="pcd-subblock" class="pcd-subblock" hidden>
+        <strong class="pcd-subblock__title">Tipos de deficiência reconhecidos pelo edital (LBI)</strong>
+        <p class="pcd-subblock__desc">Especifique quais categorias o edital reconhece. O candidato deve indicar o tipo
+          correspondente ao solicitar atendimento.</p>
+        <div class="atend-grid" id="pcd-tipos-grid"></div>
+      </div>
     </div>
-  </div>
 
-  <div class="atend-section">
-    <strong class="atend-section__title">Recursos de acessibilidade oferecidos (item 4.2.2)</strong>
-    <p class="atend-section__desc">Adaptações disponíveis para a aplicação da prova (Edital ENEM 52/2025). Selecione
-      quais o edital oferece — o candidato faz a solicitação no momento da inscrição.</p>
-    <div class="atend-grid" id="atend-rec-grid"></div>
-  </div>
+    <div class="atend-section">
+      <strong class="atend-section__title">Recursos de acessibilidade oferecidos (item 4.2.2)</strong>
+      <p class="atend-section__desc">Adaptações disponíveis para a aplicação da prova (Edital ENEM 52/2025). Selecione
+        quais o edital oferece — o candidato faz a solicitação no momento da inscrição.</p>
+      <div class="atend-grid" id="atend-rec-grid"></div>
+    </div>
+  </fieldset>
 </template>
 
 <template id="step-13">
@@ -642,5 +657,7 @@
     <p>Confira cada passo antes de publicar. Passos não visitados aparecem como pendentes.</p>
   </div>
   <div id="revisao-summary" class="revisao-summary"></div>
-  <div id="revisao-list" class="revisao-list"></div>
+  <fieldset class="scroll-tabela">
+    <div id="revisao-list" class="revisao-list"></div>
+  </fieldset>
 </template>
