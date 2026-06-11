@@ -120,13 +120,13 @@
               </label>`;
         mList.appendChild(li);
       });
-      modal.removeAttribute('hidden');
+      modal.showModal();
       document.body.style.overflow = 'hidden';
       mList.querySelector('input:not([disabled])')?.focus();
     }
 
     function closeModal() {
-      modal.hidden = true;
+      modal.close();
       document.body.style.overflow = '';
       btnAdd.focus();
     }
@@ -135,9 +135,7 @@
     mClose.addEventListener('click', closeModal);
     mCancel.addEventListener('click', closeModal);
     modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && !modal.hidden) closeModal();
-    });
+    modal.addEventListener('cancel', (e) => { e.preventDefault(); closeModal(); });
 
     mConfirm.addEventListener('click', () => {
       const already = addedIds();
@@ -291,13 +289,13 @@
         }
         modalList.appendChild(li);
       });
-      modal.hidden = false;
+      modal.showModal();
       document.body.style.overflow = 'hidden';
       modalClose.focus();
     }
 
     function closeModal() {
-      modal.hidden = true;
+      modal.close();
       document.body.style.overflow = '';
       btnAdd.focus();
     }
@@ -307,6 +305,7 @@
     modalClose.addEventListener('click', closeModal);
     modalCancel.addEventListener('click', closeModal);
     modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
+    modal.addEventListener('cancel', (e) => { e.preventDefault(); closeModal(); });
     modalConfirm.addEventListener('click', () => {
       modalList.querySelectorAll('input[type="checkbox"]:checked:not(:disabled)').forEach(cb => {
         const id = parseInt(cb.id.replace('mc-', ''), 10);
@@ -314,11 +313,6 @@
         if (curso) addCurso(curso);
       });
       closeModal();
-    });
-
-    // Escape fecha o modal
-    document.addEventListener('keydown', function vagasEsc(e) {
-      if (e.key === 'Escape' && modal.isConnected && !modal.hidden) closeModal();
     });
 
     // Delegação de eventos para contadores, selects e exclusão
@@ -551,12 +545,12 @@
         div.innerHTML = `
               <span class="file-badge file-badge--${f.ext}">${f.ext.toUpperCase()}</span>
               <div class="file-info">
-                <span class="file-name">${f.name}</span>
+                <span class="file-name"></span>
                 <div class="file-progress">
                   <div class="file-progress__bar" id="fbar-${i}" style="width:${f.progress}%;background:${color}"></div>
                 </div>
               </div>
-              <button class="file-delete" type="button" data-idx="${i}" aria-label="Remover ${f.name}">
+              <button class="file-delete" type="button" data-idx="${i}">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
                   <polyline points="3 6 5 6 21 6"/>
                   <path d="M19 6l-1 14H6L5 6"/>
@@ -564,6 +558,8 @@
                   <path d="M9 6V4h6v2"/>
                 </svg>
               </button>`;
+        div.querySelector('.file-name').textContent = f.name;
+        div.querySelector('.file-delete').setAttribute('aria-label', 'Remover ' + f.name);
         listEl.appendChild(div);
         if (f.progress < 100) {
           animateBar(document.getElementById('fbar-' + i), i);
@@ -701,13 +697,13 @@
               </label>`;
         mList.appendChild(li);
       });
-      modal.removeAttribute('hidden');
+      modal.showModal();
       document.body.style.overflow = 'hidden';
       mList.querySelector('input:not([disabled])')?.focus();
     }
 
     function closeModal() {
-      modal.hidden = true;
+      modal.close();
       document.body.style.overflow = '';
       btnAdd.focus();
     }
@@ -716,9 +712,7 @@
     mClose.addEventListener('click', closeModal);
     mCancel.addEventListener('click', closeModal);
     modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && !modal.hidden) closeModal();
-    });
+    modal.addEventListener('cancel', (e) => { e.preventDefault(); closeModal(); });
 
     mConfirm.addEventListener('click', () => {
       mList.querySelectorAll('input:checked:not([disabled])').forEach(chk => {
