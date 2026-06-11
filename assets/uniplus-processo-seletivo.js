@@ -14,28 +14,8 @@
   overlay.addEventListener('click', (e) => { if (e.target.closest('.steps__item')) close(); });
 })();
 
-// ---- Wizard navigation (template-based) ----
-(async function () {
-  // Carrega os templates de wizard-steps.html (requer servidor local)
-  try {
-    const res = await fetch('wizard-steps.html');
-    if (!res.ok) throw new Error('HTTP ' + res.status);
-    const html = await res.text();
-    const re = /<template\s[^>]*id="([^"]+)"[^>]*>([\s\S]*?)<\/template>/g;
-    let m;
-    while ((m = re.exec(html)) !== null) {
-      const tpl = document.createElement('template');
-      tpl.id = m[1];
-      tpl.innerHTML = m[2].trim();
-      document.body.appendChild(tpl);
-    }
-  } catch (err) {
-    console.error('[Wizard] Falha ao carregar wizard-steps.html:', err);
-    const c = document.getElementById('step-content');
-    if (c) c.innerHTML = '<p style="color:var(--color-danger-600);padding:var(--space-6)">Erro ao carregar os passos. Abra via servidor local (ex: Live Server no VS Code).</p>';
-    return;
-  }
-
+// ---- Wizard navigation ----
+(function () {
   const TOTAL = 13;
   const LABELS = ['Tipo edital', 'Identificação', 'Modalidades', 'Vagas', 'Etapas',
     'Fórmula e precisão', 'Bônus', 'Desempate', 'Eliminação',
@@ -49,6 +29,7 @@
   const ovItems = document.querySelectorAll('#steps-overlay .steps__item');
 
   let current = 0; // índice base-0
+  let started = false;
 
   const SVG_CHECK = `<svg class="num-icon num-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>`;
   const SVG_HOURGLASS = `<svg class="num-icon num-hourglass" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 22h14M5 2h14M17 22v-4.172a2 2 0 0 0-.586-1.414L12 12l-4.414 4.414A2 2 0 0 0 7 17.828V22M7 2v4.172a2 2 0 0 0 .586 1.414L12 12l4.414-4.414A2 2 0 0 0 17 6.172V2"/></svg>`;
@@ -1106,7 +1087,14 @@
     if (idx === 12) refreshRevisao();
 
     slots.forEach((s, i) => { s.el.hidden = i !== idx; });
-    slot.el.querySelector('[id], input, button, [tabindex]')?.focus();
+    if (started) {
+      const heading = slot.el.querySelector('.step-head h1, .step-head h2, h1, h2');
+      if (heading) {
+        heading.setAttribute('tabindex', '-1');
+        heading.focus({ preventScroll: true });
+      }
+    }
+    started = true;
 
     // Atualiza stepper desktop
     navItems.forEach((item, i) => {
