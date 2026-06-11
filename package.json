@@ -4,8 +4,8 @@
   "private": true,
   "description": "Uni+ Design System static package for Unifesspa selection and admission flows.",
   "scripts": {
-    "lint:css": "stylelint \"*.css\"",
-    "lint:css:fix": "stylelint \"*.css\" --fix",
+    "lint:css": "stylelint \"**/*.css\"",
+    "lint:css:fix": "stylelint \"**/*.css\" --fix",
     "prepare": "husky"
   },
   "devDependencies": {
@@ -15,6 +15,6 @@
     "stylelint-config-standard": "^38.0.0"
   },
   "lint-staged": {
-    "*.css": "stylelint --fix"
+    "**/*.css": "stylelint --fix"
   }
 }

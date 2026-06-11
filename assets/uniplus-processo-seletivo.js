@@ -980,7 +980,7 @@
     let done = 0;
     list.querySelectorAll('.revisao-item').forEach(item => {
       const i = Number(item.dataset.revIdx);
-      const ok = Boolean(slots[i]?.inited);
+      const ok = Boolean(slots[i]?.filled);
       if (ok) done++;
 
       item.classList.toggle('revisao-item--ok', ok);

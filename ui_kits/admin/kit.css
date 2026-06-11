@@ -84,16 +84,6 @@ body.has-sidebar-open {
   }
 }
 
-/* @media (min-width: 1024px) {
-  .sidebar {
-    position: static;
-    transform: none;
-    visibility: visible;
-    pointer-events: auto;
-    box-shadow: none;
-  }
-} */
-
 .sidebar__brand {
   padding: 0 var(--space-5) var(--space-4);
   border-bottom: 1px solid color-mix(in srgb, var(--text-on-inverse) 14%, transparent);
@@ -596,7 +586,7 @@ body.has-sidebar-open {
 .wiz-nav .steps__item.is-active .steps__num {
   background: var(--color-primary);
   border-color: var(--color-primary);
-  color: #fff;
+  color: var(--text-on-inverse);
 }
 .wiz-nav .steps__item.is-active .steps__num .num-text { display: none; }
 .wiz-nav .steps__item.is-active .steps__num .num-hourglass { display: block; }
@@ -609,7 +599,7 @@ body.has-sidebar-open {
 .wiz-nav .steps__item.is-done .steps__num {
   background: var(--color-success-600);
   border-color: var(--color-success-600);
-  color: #fff;
+  color: var(--text-on-inverse);
 }
 .wiz-nav .steps__item.is-done .steps__num .num-text { display: none; }
 .wiz-nav .steps__item.is-done .steps__num .num-check { display: block; }
@@ -621,7 +611,7 @@ body.has-sidebar-open {
 .wiz-nav .steps__item.is-pending .steps__num {
   background: var(--color-warning-500);
   border-color: var(--color-warning-500);
-  color: #fff;
+  color: var(--text-on-inverse);
 }
 .wiz-nav .steps__item.is-pending .steps__num .num-text { display: none; }
 .wiz-nav .steps__item.is-pending .steps__num .num-hourglass { display: block; }
@@ -685,7 +675,7 @@ body.has-sidebar-open {
 .steps-overlay .steps__item.is-active .steps__num {
   background: var(--color-primary);
   border-color: var(--color-primary);
-  color: #fff;
+  color: var(--text-on-inverse);
 }
 .steps-overlay .steps__item.is-active .steps__num .num-text { display: none; }
 .steps-overlay .steps__item.is-active .steps__num .num-hourglass { display: block; }
@@ -805,7 +795,6 @@ body.has-sidebar-open {
 
 .scroll-tabela {
   max-height: calc(100vh - 515px);
-  /* max-height: 400px; */
   overflow-y: auto;
   padding: var(--space-1);
   scrollbar-width: thin;
@@ -1400,7 +1389,7 @@ body.has-sidebar-open {
 .steps-overlay .steps__item.is-done .steps__num {
   background: var(--color-success-600);
   border-color: var(--color-success-600);
-  color: #fff;
+  color: var(--text-on-inverse);
 }
 .steps-overlay .steps__item.is-done .steps__num .num-text { display: none; }
 .steps-overlay .steps__item.is-done .steps__num .num-check { display: block; }
@@ -1413,7 +1402,7 @@ body.has-sidebar-open {
 .steps-overlay .steps__item.is-pending .steps__num {
   background: var(--color-warning-500);
   border-color: var(--color-warning-500);
-  color: #fff;
+  color: var(--text-on-inverse);
 }
 .steps-overlay .steps__item.is-pending .steps__num .num-text { display: none; }
 .steps-overlay .steps__item.is-pending .steps__num .num-hourglass { display: block; }
@@ -1924,7 +1913,7 @@ dialog.vagas-modal::backdrop {
 .etapa-tag.is-active {
   background: var(--color-primary);
   border-color: var(--color-primary);
-  color: #fff;
+  color: var(--text-on-inverse);
 }
 
 /* Botões de ação (↑ ↓ lixeira) */
@@ -2360,7 +2349,7 @@ dialog.vagas-modal::backdrop {
 .doc-item__badge--included {
   background: transparent;
   border-color: transparent;
-  color: var(--color-success, #22c55e);
+  color: var(--color-success-500);
   font-weight: var(--weight-semibold);
 }
 
@@ -2409,13 +2398,13 @@ dialog.vagas-modal::backdrop {
 .doc-expand__all:has(input:checked) {
   background: var(--color-primary);
   border-color: var(--color-primary);
-  color: #fff;
+  color: var(--text-on-inverse);
 }
 
 .doc-expand__all input {
   width: 15px;
   height: 15px;
-  accent-color: #fff;
+  accent-color: var(--text-on-inverse);
   flex-shrink: 0;
 }
 
@@ -2713,7 +2702,7 @@ dialog.vagas-modal::backdrop {
 }
 
 .revisao-summary--done {
-  border-color: var(--color-success, #22c55e);
+  border-color: var(--color-success-500);
 }
 
 .revisao-summary__info {
@@ -2730,7 +2719,7 @@ dialog.vagas-modal::backdrop {
 }
 
 .revisao-summary--done .revisao-summary__count {
-  color: var(--color-success, #22c55e);
+  color: var(--color-success-500);
 }
 
 .revisao-summary__detail {
@@ -2756,7 +2745,7 @@ dialog.vagas-modal::backdrop {
 }
 
 .revisao-summary--done .revisao-progress__bar {
-  background: var(--color-success, #22c55e);
+  background: var(--color-success-500);
 }
 
 .revisao-summary__pct {
@@ -2791,8 +2780,8 @@ dialog.vagas-modal::backdrop {
 }
 
 .revisao-item--ok .revisao-item__icon {
-  background: var(--color-success, #22c55e);
-  color: #fff;
+  background: var(--color-success-500);
+  color: var(--text-on-inverse);
 }
 
 .revisao-item--pending .revisao-item__icon {
@@ -2832,7 +2821,7 @@ dialog.vagas-modal::backdrop {
 }
 
 .revisao-chip--ok {
-  color: var(--color-success, #22c55e);
+  color: var(--color-success-500);
 }
 
 .revisao-chip--pending {
