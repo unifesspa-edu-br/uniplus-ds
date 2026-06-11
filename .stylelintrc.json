@@ -45,7 +45,8 @@
     "node_modules/**",
     "dist/**",
     "preview/**",
-    "ui_kits/**"
+    "ui_kits/**",
+    "!ui_kits/admin/kit.css"
   ],
   "overrides": [
     {
