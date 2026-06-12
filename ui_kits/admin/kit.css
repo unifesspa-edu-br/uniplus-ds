@@ -445,6 +445,7 @@ body.has-sidebar-open {
     left: 0;
     height: 3px;
     background: var(--color-primary);
+    /* stylelint-disable-next-line custom-property-pattern -- valor de runtime definido via JS (proporção do passo atual) */
     width: var(--step-progress, 7.69%);
     transition: width var(--duration-base) var(--ease-standard);
   }
@@ -769,8 +770,12 @@ body.has-sidebar-open {
   grid-template-columns: repeat(3, 1fr);
   gap: var(--space-4);
   border: 0;
-  padding: 0;
   margin: 0;
+  max-height: calc(100vh - 430px);
+  overflow-y: auto;
+  padding: var(--space-1);
+  scrollbar-width: thin;
+  scrollbar-color: var(--border-default) transparent;
 }
 
 @media (max-width: 767px) {
@@ -783,14 +788,6 @@ body.has-sidebar-open {
   .type-grid {
     grid-template-columns: repeat(2, 1fr);
   }
-}
-
-.type-grid {
-  max-height: calc(100vh - 430px);
-  overflow-y: auto;
-  padding: var(--space-1);
-  scrollbar-width: thin;
-  scrollbar-color: var(--border-default) transparent;
 }
 
 .scroll-tabela {
@@ -2647,13 +2644,13 @@ dialog.vagas-modal::backdrop {
 }
 
 .atend-badge--laudo {
-  background: hsl(38 92% 85%);
-  color: hsl(30 80% 25%);
+  background: var(--color-warning-50);
+  color: var(--color-warning-700);
 }
 
 .atend-badge--ext {
-  background: hsl(213 90% 88%);
-  color: hsl(218 80% 35%);
+  background: var(--color-info-100);
+  color: var(--color-info-700);
 }
 
 .pcd-subblock {

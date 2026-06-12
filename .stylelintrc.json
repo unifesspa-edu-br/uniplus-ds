@@ -37,9 +37,7 @@
     "no-duplicate-selectors": true,
     "shorthand-property-no-redundant-values": true,
     "no-descending-specificity": null,
-    "alpha-value-notation": "number",
-    "selector-not-notation": null,
-    "media-feature-range-notation": null
+    "alpha-value-notation": "number"
   },
   "ignoreFiles": [
     "node_modules/**",
