@@ -169,9 +169,7 @@
     function updateEmpty() {
       const hasRows = addedIds.size > 0;
       if (emptyState) emptyState.hidden = hasRows;
-      if (tableWrap) tableWrap.style.borderRadius = hasRows
-        ? 'var(--radius-md) var(--radius-md) 0 0'
-        : 'var(--radius-md) var(--radius-md) 0 0';
+      if (tableWrap) tableWrap.style.borderRadius = 'var(--radius-md) var(--radius-md) 0 0';
       if (cardsSection) cardsSection.hidden = !hasRows;
     }
 
