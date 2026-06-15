@@ -55,81 +55,22 @@
   }
 
   function initCsel() {
-    const MODALIDADES = [
-      { id: 'ac', cod: 'AC', desc: 'Ampla Concorrência' },
-      { id: 'v', cod: 'V', desc: 'Pessoa com Deficiência (Ampla Concorrência)' },
-      { id: 'lb-q', cod: 'LB_Q', desc: 'Baixa Renda + Quilombola' },
-      { id: 'lb-pcd', cod: 'LB_PcD', desc: 'Baixa Renda + Pessoa com Deficiência' },
-      { id: 'li-ppi', cod: 'LI_PPI', desc: 'Independente de Renda + PPI (Pretos, Pardos ou Indígenas)' },
-      { id: 'li-q', cod: 'LI_Q', desc: 'Independente de Renda + Quilombola' },
-      { id: 'li-ep', cod: 'LI_EP', desc: 'Independente de Renda — Demais (Escola Pública)' },
-    ];
-
     const grid = document.getElementById('modalidades-grid');
-    const btnAdd = document.getElementById('btn-add-modalidade');
-    const modal = document.getElementById('modalidade-modal');
-    const mClose = document.getElementById('modalidade-modal-close');
-    const mCancel = document.getElementById('modalidade-modal-cancel');
-    const mConfirm = document.getElementById('modalidade-modal-confirm');
-    const mList = document.getElementById('modalidade-modal-list');
-    if (!grid || !btnAdd || !modal) return;
+    const marcarTodos = document.getElementById('modalidade-marcar-todos');
+    if (!grid || !marcarTodos) return;
 
-    function addedIds() {
-      return [...grid.querySelectorAll('[data-id]')].map(el => el.dataset.id);
+    function getCheckboxes() {
+      return [...grid.querySelectorAll('input[type="checkbox"]')];
     }
 
-    // Remover do grid ao desmarcar o checkbox
-    grid.addEventListener('change', (e) => {
-      if (e.target.type === 'checkbox' && !e.target.checked) {
-        e.target.closest('[data-id]')?.remove();
-      }
+    marcarTodos.addEventListener('change', () => {
+      getCheckboxes().forEach(chk => { chk.checked = marcarTodos.checked; });
     });
 
-    function openModal() {
-      const already = addedIds();
-      mList.innerHTML = '';
-      MODALIDADES.forEach(m => {
-        const isAdded = already.includes(m.id);
-        const li = document.createElement('li');
-        li.innerHTML = `
-              <label class="vagas-modal__item${isAdded ? ' is-disabled' : ''}">
-                <input type="checkbox" value="${m.id}"${isAdded ? ' disabled checked' : ''}>
-                <div class="vagas-modal__item-info">
-                  <span class="vagas-modal__item-nome">${m.cod}</span>
-                  <span class="vagas-modal__item-sub">${m.desc}</span>
-                </div>
-              </label>`;
-        mList.appendChild(li);
-      });
-      modal.showModal();
-      document.body.style.overflow = 'hidden';
-      mList.querySelector('input:not([disabled])')?.focus();
-    }
-
-    function closeModal() {
-      modal.close();
-      document.body.style.overflow = '';
-      btnAdd.focus();
-    }
-
-    btnAdd.addEventListener('click', openModal);
-    mClose.addEventListener('click', closeModal);
-    mCancel.addEventListener('click', closeModal);
-    modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
-    modal.addEventListener('cancel', (e) => { e.preventDefault(); closeModal(); });
-
-    mConfirm.addEventListener('click', () => {
-      const already = addedIds();
-      mList.querySelectorAll('input:checked:not([disabled])').forEach(chk => {
-        const m = MODALIDADES.find(x => x.id === chk.value);
-        if (!m || already.includes(m.id)) return;
-        const label = document.createElement('label');
-        label.className = 'check-item';
-        label.dataset.id = m.id;
-        label.innerHTML = `<input type="checkbox" checked><span>${m.cod} — ${m.desc}</span>`;
-        grid.appendChild(label);
-      });
-      closeModal();
+    grid.addEventListener('change', () => {
+      const all = getCheckboxes();
+      marcarTodos.checked = all.length > 0 && all.every(chk => chk.checked);
+      marcarTodos.indeterminate = !marcarTodos.checked && all.some(chk => chk.checked);
     });
   }
 
