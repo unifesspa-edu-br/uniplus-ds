@@ -95,6 +95,7 @@
     const modalCancel = document.getElementById('vagas-modal-cancel');
     const modalConfirm = document.getElementById('vagas-modal-confirm');
     const modalList = document.getElementById('vagas-modal-list');
+    const marcarTodosVagas = document.getElementById('vagas-modal-marcar-todos');
     const tbody = document.getElementById('vagas-tbody');
     const cardsWrap = document.getElementById('vagas-cards');
     const cardsSection = document.getElementById('vagas-cards-wrap');
@@ -209,6 +210,10 @@
         }
         modalList.appendChild(li);
       });
+      if (marcarTodosVagas) {
+        marcarTodosVagas.checked = false;
+        marcarTodosVagas.indeterminate = false;
+      }
       modal.showModal();
       document.body.style.overflow = 'hidden';
       modalClose.focus();
@@ -218,6 +223,22 @@
       modal.close();
       document.body.style.overflow = '';
       btnAdd.focus();
+    }
+
+    function syncMarcarTodos() {
+      const all = [...modalList.querySelectorAll('input[type="checkbox"]:not(:disabled)')];
+      const nChecked = all.filter(cb => cb.checked).length;
+      marcarTodosVagas.checked = all.length > 0 && nChecked === all.length;
+      marcarTodosVagas.indeterminate = nChecked > 0 && nChecked < all.length;
+    }
+
+    if (marcarTodosVagas) {
+      marcarTodosVagas.addEventListener('change', () => {
+        modalList.querySelectorAll('input[type="checkbox"]:not(:disabled)').forEach(cb => {
+          cb.checked = marcarTodosVagas.checked;
+        });
+      });
+      modalList.addEventListener('change', syncMarcarTodos);
     }
 
     // Eventos do modal

@@ -750,7 +750,7 @@
           Adicionar curso
         </button>
       </div>
-      <fieldset class="scroll-tabela">
+      <div class="vagas-section-wrap">
         <div class="vagas-table-wrap" id="vagas-table-wrap">
           <table class="vagas-table" aria-label="Quadro de vagas">
             <thead>
@@ -776,6 +776,7 @@
         </div>
 
         <div class="vagas-total-bar">Total de vagas: <span id="vagas-total">0</span></div>
+      </div>
     </div>
 
     <dialog class="vagas-modal" id="vagas-modal" aria-labelledby="vagas-modal-title">
@@ -790,6 +791,10 @@
           </button>
         </div>
         <div class="vagas-modal__body">
+          <div class="vagas-modal__item vagas-modal__item--all">
+            <input type="checkbox" id="vagas-modal-marcar-todos">
+            <label for="vagas-modal-marcar-todos"><strong>Marcar todos</strong></label>
+          </div>
           <ul class="vagas-modal__list" id="vagas-modal-list" role="group" aria-labelledby="vagas-modal-title"></ul>
         </div>
         <div class="vagas-modal__footer">
