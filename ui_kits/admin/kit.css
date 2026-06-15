@@ -760,7 +760,12 @@ body.has-sidebar-open {
 .type-search {
   display: block;
   margin-bottom: var(--space-4);
-  max-width: 400px;
+}
+
+@media (min-width: 1100px) {
+  .type-search {
+    max-width: 400px;
+  }
 }
 
 /* Type cards */
@@ -783,7 +788,13 @@ body.has-sidebar-open {
   }
 }
 
-@media (min-width: 768px) and (max-width: 1440px) {
+@media (min-width: 768px) and (max-width: 1099px) {
+  .type-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1100px) and (max-width: 1440px) {
   .type-grid {
     grid-template-columns: repeat(3, 1fr);
   }
