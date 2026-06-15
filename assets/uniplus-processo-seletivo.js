@@ -5,8 +5,27 @@
   const closeBtn = document.getElementById('overlay-close');
   if (!btn || !overlay) return;
 
-  function open() { overlay.hidden = false; btn.setAttribute('aria-expanded', 'true'); document.body.style.overflow = 'hidden'; closeBtn?.focus(); }
-  function close() { overlay.hidden = true; btn.setAttribute('aria-expanded', 'false'); document.body.style.overflow = ''; btn.focus(); }
+  function setBackground(inert) {
+    [...overlay.parentElement.children].forEach(el => { if (el !== overlay) el.inert = inert; });
+    const govBar = document.querySelector('.gov-bar');
+    if (govBar) govBar.inert = inert;
+  }
+
+  function open() {
+    overlay.hidden = false;
+    btn.setAttribute('aria-expanded', 'true');
+    document.body.style.overflow = 'hidden';
+    setBackground(true);
+    closeBtn?.focus();
+  }
+
+  function close() {
+    overlay.hidden = true;
+    btn.setAttribute('aria-expanded', 'false');
+    document.body.style.overflow = '';
+    setBackground(false);
+    btn.focus();
+  }
 
   btn.addEventListener('click', () => { if (overlay.hidden) open(); else close(); });
   closeBtn?.addEventListener('click', close);
