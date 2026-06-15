@@ -1440,8 +1440,17 @@ body.has-sidebar-open {
   margin-bottom: var(--space-3);
 }
 
+.vagas-section-wrap {
+  display: flex;
+  flex-direction: column;
+}
+
 .vagas-table-wrap {
   overflow-x: auto;
+  overflow-y: auto;
+  max-height: calc(100vh - 515px);
+  scrollbar-width: thin;
+  scrollbar-color: var(--border-default) transparent;
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-md) var(--radius-md) 0 0;
   border-bottom: none;
@@ -1454,6 +1463,9 @@ body.has-sidebar-open {
 }
 
 .vagas-table thead th {
+  position: sticky;
+  top: 0;
+  z-index: 1;
   background: var(--surface-subtle);
   padding: var(--space-2) var(--space-4);
   text-align: left;
@@ -1662,7 +1674,18 @@ body.has-sidebar-open {
   }
 
   .vagas-cards-wrap {
-    display: block;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    max-height: calc(100vh - 515px);
+    scrollbar-width: thin;
+    scrollbar-color: var(--border-default) transparent;
+  }
+
+  .vagas-cards-header {
+    position: sticky;
+    top: 0;
+    z-index: 1;
   }
 }
 
@@ -1759,6 +1782,12 @@ dialog.vagas-modal::backdrop {
   opacity: 0.45;
   cursor: not-allowed;
   pointer-events: none;
+}
+
+.vagas-modal__item--all {
+  border-bottom: 1px solid var(--border-subtle);
+  padding-bottom: var(--space-3);
+  margin-bottom: var(--space-1);
 }
 
 .vagas-modal__item input[type="checkbox"] {
