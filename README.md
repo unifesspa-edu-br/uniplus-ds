@@ -112,6 +112,38 @@ Serve o pacote localmente. Acesse:
 - `http://localhost:8000/ui_kits/portal/index.html`
 - `http://localhost:8000/ui_kits/admin/index.html`
 
+## Formatação e Editor
+
+O repositório define um único padrão de formatação para evitar diffs de ruído
+(arquivos que "mudam" sem conteúdo novo por causa de reformatação automática do
+editor). A fonte única de formatação de CSS é o **Stylelint** — a mesma
+ferramenta que roda no `pre-commit` via `lint-staged`.
+
+Arquivos que estabelecem o contrato (não edite ad hoc):
+
+| Arquivo | Papel |
+|---|---|
+| `.editorconfig` | Whitespace, charset UTF-8, fim de linha `LF`, indentação de 2 espaços e newline final — respeitado por qualquer editor. |
+| `.gitattributes` | Normaliza o fim de linha para `LF` no Git, independente do SO. |
+| `.vscode/settings.json` | Desliga o `formatOnSave` de formatadores concorrentes e faz o save aplicar o mesmo `stylelint --fix` do commit. |
+| `.vscode/extensions.json` | Recomenda as extensões Stylelint e EditorConfig. |
+
+### Configuração do VS Code (uma vez)
+
+1. Ao abrir o repositório, aceite as extensões recomendadas (paleta de comandos →
+   **"Extensions: Show Recommended Extensions"**) e instale **Stylelint** e
+   **EditorConfig**.
+2. **Não** use o Prettier neste repositório. Se o Prettier estiver definido como
+   formatador padrão global, o `formatOnSave: false` do workspace já o neutraliza
+   para os arquivos deste repo, mas confira que ele não está reescrevendo CSS no
+   save.
+3. Com isso, save e commit usam a **mesma** ferramenta com as **mesmas** regras,
+   e o ruído de formatação deixa de aparecer nos diffs.
+
+Outros editores precisam apenas de suporte a EditorConfig (nativo ou via plugin)
+para herdar whitespace e fim de linha; a formatação de CSS continua garantida
+pelo `stylelint --fix` no commit.
+
 ## Como Usar
 
 Em HTML estatico, carregue os estilos nesta ordem:

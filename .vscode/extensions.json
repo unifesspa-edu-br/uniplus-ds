@@ -1,0 +1,11 @@
+{
+  "recommendations": [
+    "stylelint.vscode-stylelint",
+    "editorconfig.editorconfig"
+  ],
+  // Prettier não é usado neste repositório: a formatação de CSS é do stylelint.
+  // Mantê-lo ativo aqui reintroduz o cabo de guerra de formatação no save.
+  "unwantedRecommendations": [
+    "esbenp.prettier-vscode"
+  ]
+}

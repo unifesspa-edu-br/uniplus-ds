@@ -1,0 +1,27 @@
+{
+  // Fonte única de formatação CSS = stylelint (mesma ferramenta do pre-commit).
+  // Nenhum outro formatador deve tocar os arquivos automaticamente no save,
+  // para não brigar com o `stylelint --fix` do commit e gerar diffs de ruído.
+  "editor.formatOnSave": false,
+
+  // No save, aplica apenas o stylelint --fix (idêntico ao que roda no commit).
+  "editor.codeActionsOnSave": {
+    "source.fixAll.stylelint": "explicit"
+  },
+  "stylelint.validate": ["css"],
+
+  // Desliga os validadores/formatadores de CSS embutidos do VSCode para que
+  // não conflitem com o stylelint.
+  "css.validate": false,
+  "scss.validate": false,
+  "less.validate": false,
+
+  // Reforça no editor o mesmo contrato do .editorconfig.
+  "files.eol": "\n",
+  "files.insertFinalNewline": true,
+  "files.trimTrailingWhitespace": true,
+
+  "[markdown]": {
+    "files.trimTrailingWhitespace": false
+  }
+}
