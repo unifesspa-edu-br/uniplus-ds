@@ -1,0 +1,848 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="auto">
+
+<head>
+  <meta charset="utf-8">
+  <title>Inscrições — Uni+ Admin</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="../../tokens.css">
+  <link rel="stylesheet" href="../../base.css">
+  <link rel="stylesheet" href="../../components.css">
+  <link rel="stylesheet" href="kit.css">
+</head>
+
+<body>
+
+  <a href="#main" class="skip-link">Pular para o conteúdo principal</a>
+
+  <!-- Gov.br stripe -->
+  <div class="gov-bar" role="region" aria-label="Identificação do Governo Federal">
+    <span class="gov-bar__brand">gov.br</span>
+    <span class="gov-bar__sep" aria-hidden="true">|</span>
+    <span class="gov-bar__org">UNIFESSPA · Administração</span>
+    <span class="gov-bar__links">
+      <a href="#">Mapa do site</a>
+      <a href="../../acessibilidade.html">Acessibilidade</a>
+      <a href="#">Privacidade</a>
+    </span>
+  </div>
+
+  <div class="admin-shell" id="admin-shell">
+    <aside class="sidebar" id="admin-sidebar" aria-label="Painel administrativo">
+      <div class="sidebar__brand">
+        <div class="sidebar__mark" aria-hidden="true">U+</div>
+        <div>
+          <div class="sidebar__brand-title">Uni+ Admin</div>
+          <div class="sidebar__brand-sub">CEPS · Seleção</div>
+        </div>
+        <button class="sidebar__close" type="button" aria-label="Fechar menu lateral" data-sidebar-close><svg width="20"
+            height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
+            aria-hidden="true">
+            <path d="M18 6L6 18M6 6l12 12" />
+          </svg></button>
+      </div>
+
+      <nav aria-label="Navegação administrativa">
+        <div class="sidebar__label">Painéis</div>
+        <a href="./index.html" data-tooltip="Painel de processos" data-tooltip-position="right"
+          aria-label="Painel de processos"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="3" width="7" height="9" />
+            <rect x="14" y="3" width="7" height="5" />
+            <rect x="14" y="12" width="7" height="9" />
+            <rect x="3" y="16" width="7" height="5" />
+          </svg><span>Painel de processos</span></a>
+        <a href="./processo-seletivo.html" data-tooltip="Processo seletivo" data-tooltip-position="right"
+          aria-label="Processo seletivo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" />
+            <polyline points="14 2 14 8 20 8" />
+          </svg><span>Processo seletivo</span></a>
+        <a href="./inscricoes.html" class="is-active" aria-current="page" data-tooltip="Inscrições"
+          data-tooltip-position="right" aria-label="Inscrições"><svg viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2">
+            <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" />
+            <circle cx="9" cy="7" r="4" />
+          </svg><span>Inscrições</span></a>
+        <a href="#" data-tooltip="Homologação" data-tooltip-position="right" aria-label="Homologação"><svg
+            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
+          </svg><span>Homologação</span></a>
+
+        <div class="sidebar__label">Resultados</div>
+        <a href="#" data-tooltip="Classificação" data-tooltip-position="right" aria-label="Classificação"><svg
+            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M3 3v18h18" />
+            <path d="M7 14l4-4 4 4 5-5" />
+          </svg><span>Classificação</span></a>
+        <a href="#" data-tooltip="Recursos" data-tooltip-position="right" aria-label="Recursos"><svg viewBox="0 0 24 24"
+            fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10" />
+            <path d="M9 12l2 2 4-4" />
+          </svg><span>Recursos</span></a>
+        <div class="sidebar__label">Configuração</div>
+        <a href="../configuracao/cidade.html" aria-label="Cidade" data-tooltip="Cidade"
+          data-tooltip-position="right"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" />
+            <circle cx="12" cy="9" r="2.5" />
+          </svg><span>Cidade</span></a>
+        <a href="../configuracao/campus.html" aria-label="Campus" data-tooltip="Campus"
+          data-tooltip-position="right"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 21h18M5 21V8l7-5 7 5v13" />
+            <path d="M9 21v-5h6v5" />
+            <path d="M9 9h.01M15 9h.01M9 13h.01M15 13h.01" />
+          </svg><span>Campus</span></a>
+        <a href="../configuracao/local-oferta.html" aria-label="Local de oferta" data-tooltip="Local de oferta"
+          data-tooltip-position="right"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 10c0 6-9 12-9 12s-9-6-9-12a9 9 0 0118 0z" />
+            <circle cx="12" cy="10" r="3" />
+          </svg><span>Local de oferta</span></a>
+        <a href="../configuracao/instituicao.html" aria-label="Instituição" data-tooltip="Instituição"
+          data-tooltip-position="right"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M3 21h18M6 21V7l6-4 6 4v14M9 21V12h6v9" />
+          </svg><span>Instituição</span></a>
+        <a href="../configuracao/unidade.html" aria-label="Unidade" data-tooltip="Unidade"
+          data-tooltip-position="right"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <rect x="9" y="2" width="6" height="6" rx="1" />
+            <rect x="2" y="16" width="6" height="6" rx="1" />
+            <rect x="16" y="16" width="6" height="6" rx="1" />
+            <path d="M12 8v4M5 16v-4h14v4" />
+          </svg><span>Unidade</span></a>
+        <a href="../configuracao/curso.html" aria-label="Curso" data-tooltip="Curso" data-tooltip-position="right"><svg
+            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z" />
+            <path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z" />
+          </svg><span>Curso</span></a>
+        <a href="../configuracao/oferta-curso.html" aria-label="Oferta de curso" data-tooltip="Oferta de curso"
+          data-tooltip-position="right"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" />
+            <polyline points="14 2 14 8 20 8" />
+            <line x1="8" y1="13" x2="16" y2="13" />
+            <line x1="8" y1="17" x2="16" y2="17" />
+            <line x1="8" y1="9" x2="10" y2="9" />
+          </svg><span>Oferta de curso</span></a>
+        <a href="../configuracao/modalidade.html" aria-label="Modalidade" data-tooltip="Modalidade"
+          data-tooltip-position="right"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" />
+            <circle cx="9" cy="7" r="4" />
+            <path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75" />
+          </svg><span>Modalidade</span></a>
+        <a href="../configuracao/tipo-documento.html" aria-label="Tipo de Documento" data-tooltip="Tipo de Documento"
+          data-tooltip-position="right"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M13 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V9z" />
+            <polyline points="13 2 13 9 20 9" />
+          </svg><span>Tipo de Documento</span></a>
+        <a href="../configuracao/condicao-atendimento.html" aria-label="Condição de Atendimento"
+          data-tooltip="Condição de Atendimento" data-tooltip-position="right"><svg viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2">
+            <path
+              d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z" />
+          </svg><span>Condição de Atendimento</span></a>
+        <a href="../configuracao/recurso-acessibilidade.html" aria-label="Recurso de Acessibilidade"
+          data-tooltip="Recurso de Acessibilidade" data-tooltip-position="right"><svg viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2">
+            <path
+              d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z" />
+          </svg><span>Recurso de Acessibilidade</span></a>
+        <a href="../configuracao/tipo-deficiencia.html" aria-label="Tipo de Deficiência"
+          data-tooltip="Tipo de Deficiência" data-tooltip-position="right"><svg viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="4" r="2" />
+            <path d="M5 8h14M12 8v7M9 21l3-6 3 6" />
+          </svg><span>Tipo de Deficiência</span></a>
+        <a href="../configuracao/fase-canonica.html" aria-label="Fase Canônica" data-tooltip="Fase Canônica"
+          data-tooltip-position="right"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+          </svg><span>Fase Canônica</span></a>
+        <a href="../configuracao/tipo-banca.html" aria-label="Tipo de Banca" data-tooltip="Tipo de Banca"
+          data-tooltip-position="right"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="8" r="6" />
+            <path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11" />
+          </svg><span>Tipo de Banca</span></a>
+        <a href="../configuracao/reserva-demografica.html" aria-label="Reserva Demográfica"
+          data-tooltip="Reserva Demográfica" data-tooltip-position="right"><svg viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2">
+            <path d="M3 3v18h18" />
+            <path d="M7 14l4-4 4 4 5-5" />
+          </svg><span>Reserva Demográfica</span></a>
+        <a href="../configuracao/peso-enem.html" aria-label="Peso ENEM" data-tooltip="Peso ENEM"
+          data-tooltip-position="right"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="4" y1="21" x2="4" y2="14" />
+            <line x1="4" y1="10" x2="4" y2="3" />
+            <line x1="12" y1="21" x2="12" y2="12" />
+            <line x1="12" y1="8" x2="12" y2="3" />
+            <line x1="20" y1="21" x2="20" y2="16" />
+            <line x1="20" y1="12" x2="20" y2="3" />
+            <line x1="1" y1="14" x2="7" y2="14" />
+            <line x1="9" y1="8" x2="15" y2="8" />
+            <line x1="17" y1="16" x2="23" y2="16" />
+          </svg><span>Peso ENEM</span></a>
+      </nav>
+
+      <div class="sidebar__bottom">
+        <div class="avatar avatar--sm">JO</div>
+        <div class="sidebar__user-info" style="min-width:0">
+          <div style="font-size:var(--text-sm);font-weight:var(--weight-semibold);line-height:1.2">Jairo Oliveira</div>
+          <div style="font-size:var(--text-xs);opacity:0.75">Candidato</div>
+        </div>
+      </div>
+    </aside>
+    <div class="sidebar-backdrop" aria-hidden="true" data-sidebar-close></div>
+
+    <div class="admin-main">
+
+      <header class="admin-topbar">
+        <div class="breadcrumb-wrapper">
+          <button class="sidebar-toggle" id="sidebar-toggle" aria-label="Abrir menu lateral" aria-expanded="false"
+            aria-controls="admin-sidebar">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+              stroke-linecap="round" aria-hidden="true">
+              <path d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+          </button>
+          <nav class="breadcrumb" aria-label="Breadcrumb">
+            <ol class="breadcrumb__list">
+              <li class="breadcrumb__item"><a href="./index.html" class="breadcrumb__link">Início</a></li>
+              <li class="breadcrumb__item"><span class="breadcrumb__current" aria-current="page">Inscrições</span></li>
+            </ol>
+          </nav>
+        </div>
+        <div class="topbar-actions">
+          <div class="input-group" style="max-width:280px;flex:1">
+            <span class="input-group__addon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                <circle cx="11" cy="11" r="7" />
+                <path d="M21 21l-4.5-4.5" />
+              </svg></span>
+            <input class="input" placeholder="Buscar" aria-label="Buscar processos seletivos" />
+          </div>
+          <div class="a11y-menu" data-a11y-menu>
+            <button class="a11y-menu__trigger" type="button" aria-expanded="false" aria-controls="a11y-popover-ps"
+              aria-label="Preferências de acessibilidade" data-a11y-menu-trigger>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round"
+                stroke-linejoin="round" aria-hidden="true">
+                <circle cx="12" cy="4" r="2" />
+                <path d="M4 8h16M12 6v14M8 12l-2 8M16 12l2 8" />
+              </svg>
+            </button>
+            <div class="a11y-menu__backdrop" hidden aria-hidden="true"></div>
+            <div class="a11y-menu__popover" id="a11y-popover-ps" role="region"
+              aria-label="Preferências de acessibilidade" hidden>
+              <p class="a11y-menu__title">Acessibilidade</p>
+              <div class="a11y-menu__group" role="group" aria-label="Tema">
+                <span class="a11y-menu__group-label">Tema</span>
+                <div class="a11y-menu__options">
+                  <button class="a11y-opt" data-a11y="theme" data-value="light" aria-pressed="false"><svg
+                      viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                      aria-hidden="true">
+                      <circle cx="12" cy="12" r="4" />
+                      <path
+                        d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41" />
+                    </svg>Claro</button>
+                  <button class="a11y-opt" data-a11y="theme" data-value="dark" aria-pressed="false"><svg
+                      viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                      aria-hidden="true">
+                      <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" />
+                    </svg>Escuro</button>
+                  <button class="a11y-opt" data-a11y="theme" data-value="auto" aria-pressed="true"><svg
+                      viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                      stroke-linejoin="round" aria-hidden="true">
+                      <rect x="2" y="3" width="20" height="14" rx="2" />
+                      <path d="M8 21h8M12 17v4" />
+                    </svg>Sistema</button>
+                </div>
+              </div>
+              <div class="a11y-menu__group" role="group" aria-label="Ajustes de leitura">
+                <span class="a11y-menu__group-label">Leitura</span>
+                <div class="a11y-menu__options">
+                  <button class="a11y-opt" data-a11y="contrast" data-value="on" aria-pressed="false"><svg
+                      viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                      <path d="M12 2a10 10 0 100 20V2z" />
+                      <path d="M12 2a10 10 0 010 20" fill="none" stroke="currentColor" stroke-width="2" />
+                    </svg>Alto contraste</button>
+                  <button class="a11y-opt" data-a11y="font-mode" data-value="legible" aria-pressed="false">Fonte
+                    legível</button>
+                </div>
+              </div>
+              <p class="a11y-menu__hint">Para ampliar o texto, use o zoom do navegador (<kbd>Ctrl</kbd> <kbd>+</kbd> /
+                <kbd>Ctrl</kbd> <kbd>&#8722;</kbd>).
+              </p>
+            </div>
+          </div>
+          <button class="btn btn--tertiary btn--icon-only btn--circle" aria-label="Notificações"
+            style="position:relative">
+            <svg class="btn__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <path d="M18 8a6 6 0 00-12 0c0 7-3 9-3 9h18s-3-2-3-9" />
+              <path d="M13.73 21a2 2 0 01-3.46 0" />
+            </svg>
+          </button>
+          <div class="menu-wrapper">
+            <button class="user-chip" id="user-menu-btn" aria-haspopup="menu" aria-expanded="false"
+              aria-controls="user-menu" aria-label="Abrir menu do usuário">
+              <span class="user-chip__avatar" aria-hidden="true">JF</span>
+              <span style="display:none" class="user-chip__name">Jeferson</span>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                stroke-linecap="round" aria-hidden="true">
+                <path d="M19 9l-7 7-7-7" />
+              </svg>
+            </button>
+            <ul class="menu" role="menu" id="user-menu" aria-labelledby="user-menu-btn" hidden>
+              <li class="menu__group-title" role="presentation">Conta</li>
+              <li role="none"><a class="menu__item" role="menuitem" href="#"><svg viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2">
+                    <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2" />
+                    <circle cx="12" cy="7" r="4" />
+                  </svg>Meu perfil</a></li>
+              <li role="none"><a class="menu__item" role="menuitem" href="#"><svg viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="3" />
+                    <path
+                      d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 11-2.83 2.83l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 11-4 0v-.09a1.65 1.65 0 00-1-1.51 1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 11-2.83-2.83l.06-.06a1.65 1.65 0 00.33-1.82 1.65 1.65 0 00-1.51-1H3a2 2 0 110-4h.09a1.65 1.65 0 001.51-1 1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 112.83-2.83l.06.06a1.65 1.65 0 001.82.33h0a1.65 1.65 0 001-1.51V3a2 2 0 114 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 112.83 2.83l-.06.06a1.65 1.65 0 00-.33 1.82v0a1.65 1.65 0 001.51 1H21a2 2 0 110 4h-.09a1.65 1.65 0 00-1.51 1z" />
+                  </svg>Preferências</a></li>
+              <li class="menu__divider" role="separator"></li>
+              <li role="none"><a class="menu__item menu__item--danger" role="menuitem" href="#"><svg viewBox="0 0 24 24"
+                    fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4M16 17l5-5-5-5M21 12H9" />
+                  </svg>Sair</a></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+
+      <!-- Step bar mobile -->
+      <button class="step-bar" id="step-bar" type="button" aria-expanded="false" aria-controls="steps-overlay"
+        aria-label="Abrir lista de etapas">
+        <div class="step-bar__info">
+          <span class="step-bar__heading">Inscrição do candidato</span>
+          <span class="step-bar__meta" id="step-bar-meta">Etapa 1 de 6 (01 Identificação)</span>
+        </div>
+        <svg class="step-bar__chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+          stroke-width="2.5" stroke-linecap="round" aria-hidden="true">
+          <path d="M19 9l-7 7-7-7" />
+        </svg>
+      </button>
+
+      <!-- Mobile overlay -->
+      <div class="steps-overlay" id="steps-overlay" role="dialog" aria-label="Etapas da inscrição" aria-modal="true"
+        hidden>
+        <div class="steps-overlay__header">
+          <button class="steps-overlay__close" id="overlay-close" type="button" aria-label="Fechar lista de etapas">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+              stroke-linecap="round" aria-hidden="true">
+              <path d="M18 6L6 18M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
+        <ol class="steps">
+          <li class="steps__item is-active" data-step="2"><span class="steps__num" aria-hidden="true">1</span><span
+              class="steps__label">Identificação</span></li>
+          <li class="steps__item" data-step="3"><span class="steps__num" aria-hidden="true">2</span><span
+              class="steps__label">Endereço</span></li>
+          <li class="steps__item" data-step="4"><span class="steps__num" aria-hidden="true">3</span><span
+              class="steps__label">Curso e Cidade</span></li>
+          <li class="steps__item" data-step="5"><span class="steps__num" aria-hidden="true">4</span><span
+              class="steps__label">Atendimento</span></li>
+          <li class="steps__item" data-step="6"><span class="steps__num" aria-hidden="true">5</span><span
+              class="steps__label">Modalidades</span></li>
+          <li class="steps__item" data-step="7"><span class="steps__num" aria-hidden="true">6</span><span
+              class="steps__label">Comprovação</span></li>
+          <li class="steps__item" data-step="8"><span class="steps__num" aria-hidden="true">7</span><span
+              class="steps__label">Revisão</span></li>
+        </ol>
+      </div>
+
+      <main id="main" class="page page--wizard" tabindex="-1">
+
+        <!-- Stepper desktop -->
+        <nav class="wiz-nav" id="wiz-nav" aria-label="Etapas da inscrição">
+          <ol class="steps" id="nav-steps">
+            <li class="steps__item is-active" data-step="2"><span class="steps__num" aria-hidden="true">1</span><span
+                class="steps__label">01 Identificação</span></li>
+            <li class="steps__item" data-step="3"><span class="steps__num" aria-hidden="true">2</span><span
+                class="steps__label">02 Endereço</span></li>
+            <li class="steps__item" data-step="4"><span class="steps__num" aria-hidden="true">3</span><span
+                class="steps__label">03 Curso e Cidade</span></li>
+            <li class="steps__item" data-step="5"><span class="steps__num" aria-hidden="true">4</span><span
+                class="steps__label">04 Atendimento</span></li>
+            <li class="steps__item" data-step="6"><span class="steps__num" aria-hidden="true">5</span><span
+                class="steps__label">05 Modalidades</span></li>
+            <li class="steps__item" data-step="7"><span class="steps__num" aria-hidden="true">6</span><span
+                class="steps__label">06 Comprovação</span></li>
+            <li class="steps__item" data-step="8"><span class="steps__num" aria-hidden="true">7</span><span
+                class="steps__label">07 Revisão</span></li>
+          </ol>
+        </nav>
+
+        <div class="wiz-body">
+          <div class="wiz-content">
+
+            <!-- Passo 1 - Identificação -->
+            <section id="step-2">
+              <div class="step-head">
+                <span class="step-head__badge">Passo 2</span>
+                <h1>Identificação</h1>
+                <p>Campos comuns e dados pessoais, agrupados por seção.</p>
+              </div>
+
+              <div class="insc-notice insc-notice--info" style="margin-bottom:var(--space-5)">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                  stroke-linecap="round" aria-hidden="true" style="flex-shrink:0;margin-top:2px">
+                  <circle cx="12" cy="12" r="10" />
+                  <path d="M12 8v4M12 16h.01" />
+                </svg>
+                <span><strong>LGPD:</strong> raça, deficiência, sexo biológico, identidade de gênero e orientação sexual
+                  são dados pessoais sensíveis. A coleta tem base legal explícita no edital.</span>
+              </div>
+
+              <div class="form-grid">
+                <div>
+                  <label for="nome">Nome Completo *</label>
+                  <input class="input" id="nome" type="text" autocomplete="name">
+                </div>
+                <div>
+                  <label for="desejaNomeSocial">Deseja informar nome social? *</label>
+                  <select class="input" id="desejaNomeSocial" onchange="_toggleNomeSocial()">
+                    <option value="">Selecione</option>
+                    <option>Sim</option>
+                    <option>Não</option>
+                  </select>
+                </div>
+                <div class="form-grid__full" id="divNomeSocial">
+                  <div class="insc-notice insc-notice--warning" style="margin-bottom:var(--space-3)">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                      stroke-linecap="round" aria-hidden="true" style="flex-shrink:0;margin-top:2px">
+                      <path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z" />
+                      <line x1="12" y1="9" x2="12" y2="13" />
+                      <line x1="12" y1="17" x2="12.01" y2="17" />
+                    </svg>
+                    <span>Ficam assegurados às pessoas transexuais e travestis os direitos à identificação pelo nome
+                      social.</span>
+                  </div>
+                  <label for="nomeSocial">Nome Social *</label>
+                  <input class="input" id="nomeSocial" type="text">
+                </div>
+                <div>
+                  <label for="cpf">CPF *</label>
+                  <input class="input" id="cpf" type="text" placeholder="000.000.000-00" autocomplete="off"
+                    oninput="_sincronizarRgComCpf()">
+                </div>
+                <div>
+                  <label for="data_nasc">Data de Nascimento *</label>
+                  <input class="input" id="data_nasc" type="date" onchange="_calcularValidadeCIN()">
+                </div>
+                <div>
+                  <label for="sexo_civil">Sexo Civil *</label>
+                  <select class="input" id="sexo_civil">
+                    <option value="">Selecione</option>
+                    <option>Masculino</option>
+                    <option>Feminino</option>
+                  </select>
+                </div>
+              </div>
+
+              <!-- RG -->
+              <div class="insc-section" style="margin-top:var(--space-5)">
+                <div class="insc-toggle-row">
+                  <div class="insc-toggle-row__info">
+                    <p><strong>RG *</strong></p>
+                    <p class="insc-toggle-row__sub">Informe os dados conforme o modelo do documento.</p>
+                  </div>
+                  <label class="switch" aria-label="Novo modelo de RG">
+                    <input type="checkbox" id="rg_novo_modelo" checked onchange="_toggleModeloRG()">
+                    <span class="switch__track" aria-hidden="true"></span>
+                    <span id="rgModeloTexto">Novo modelo de RG</span>
+                  </label>
+                </div>
+                <div id="rgModeloAntigo" class="form-grid" hidden>
+                  <div>
+                    <label for="rg">Número do RG *</label>
+                    <input class="input" id="rg" type="text">
+                  </div>
+                  <div>
+                    <label for="rg_orgao_expedidor">Órgão Expedidor *</label>
+                    <input class="input" id="rg_orgao_expedidor" placeholder="Ex.: SSP/PA">
+                  </div>
+                  <div>
+                    <label for="rg_data_expedicao">Data de Expedição *</label>
+                    <input class="input" id="rg_data_expedicao" type="date">
+                  </div>
+                </div>
+                <div id="rgModeloNovo" class="form-grid">
+                  <div>
+                    <label for="rg_novo_numero">Número do RG / CPF *</label>
+                    <input class="input" id="rg_novo_numero" type="text" readonly>
+                    <p style="font-size:var(--text-xs);color:var(--text-secondary);margin-top:4px">No novo modelo o
+                      número do RG é o CPF.</p>
+                  </div>
+                  <div>
+                    <label for="rg_novo_orgao_expedidor">Órgão Expedidor *</label>
+                    <input class="input" id="rg_novo_orgao_expedidor" placeholder="Ex.: SENATRAN/UF">
+                  </div>
+                  <div>
+                    <label for="rg_novo_data_emissao">Data de Emissão *</label>
+                    <input class="input" id="rg_novo_data_emissao" type="date" onchange="_calcularValidadeCIN()">
+                  </div>
+                  <div>
+                    <label for="rg_novo_validade">Validade *</label>
+                    <input class="input" id="rg_novo_validade" type="date">
+                    <p style="font-size:var(--text-xs);color:var(--text-secondary);margin-top:4px"
+                      id="rg_novo_validade_hint"></p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Dados sensíveis -->
+              <div class="form-grid" style="margin-top:var(--space-5)">
+                <div>
+                  <label for="raca">Raça/Cor *</label>
+                  <select class="input" id="raca">
+                    <option value="">Selecione</option>
+                    <option value="amarela">Amarela</option>
+                    <option value="branca">Branca</option>
+                    <option value="indigena">Indígena</option>
+                    <option value="preta">Preta</option>
+                    <option value="parda">Parda</option>
+                    <option value="nao_informar">Prefiro Não Informar</option>
+                  </select>
+                </div>
+                <div>
+                  <label for="sexo_biologico">Sexo Biológico Cromossômico *</label>
+                  <select class="input" id="sexo_biologico">
+                    <option value="">Selecione</option>
+                    <option>Masculino</option>
+                    <option>Feminino</option>
+                    <option>Intersexo</option>
+                  </select>
+                </div>
+                <div>
+                  <label for="identidade_genero">Identidade de Gênero *</label>
+                  <select class="input" id="identidade_genero">
+                    <option value="">Selecione</option>
+                    <option>Pessoa Cis</option>
+                    <option>Pessoa Transgênero</option>
+                    <option>Travesti</option>
+                    <option>Transexual</option>
+                    <option>Pessoa não-binária</option>
+                    <option>Queer</option>
+                    <option>Não Informar</option>
+                  </select>
+                </div>
+                <div>
+                  <label for="orientacao_sexual">Orientação Sexual *</label>
+                  <select class="input" id="orientacao_sexual">
+                    <option value="">Selecione</option>
+                    <option>Heterossexual</option>
+                    <option>Homossexual</option>
+                    <option>Bissexual</option>
+                    <option>Assexual</option>
+                    <option>Pansexual</option>
+                    <option>Não Informar</option>
+                  </select>
+                </div>
+              </div>
+
+              <div style="margin-top:var(--space-5)">
+                <p style="font-size:var(--text-sm);font-weight:var(--weight-semibold);margin-bottom:var(--space-3)">Você
+                  possui alguma Deficiência? *</p>
+                <div class="insc-chip-grid" id="deficienciasBox"></div>
+              </div>
+            </section>
+
+            <!-- Passo 3 - Endereço -->
+            <section id="step-3" hidden>
+              <div class="step-head">
+                <span class="step-head__badge">Passo 3</span>
+                <h1>Contatos e Endereço</h1>
+              </div>
+              <div class="form-grid">
+                <div>
+                  <label for="telefone">Telefone/Celular *</label>
+                  <input class="input" id="telefone" type="tel" placeholder="(99) 99999-9999">
+                </div>
+                <div>
+                  <label for="email">E-mail *</label>
+                  <input class="input" id="email" type="email" autocomplete="email">
+                </div>
+                <div>
+                  <label for="confirmar_email">Confirmação de E-mail</label>
+                  <input class="input" id="confirmar_email" type="email">
+                </div>
+                <div>
+                  <label for="cep">CEP *</label>
+                  <input class="input" id="cep" type="text" placeholder="00000-000">
+                </div>
+                <div>
+                  <label for="estado">Estado *</label>
+                  <input class="input" id="estado" type="text">
+                </div>
+                <div>
+                  <label for="cidade">Cidade *</label>
+                  <input class="input" id="cidade" type="text">
+                </div>
+                <div>
+                  <label for="tipoLocalidade">Tipo de Endereço *</label>
+                  <select class="input" id="tipoLocalidade" onchange="_toggleEtnia()">
+                    <option value="">Selecione</option>
+                    <option>URBANO</option>
+                    <option>RURAL</option>
+                    <option>Aldeia</option>
+                    <option>Comunidade</option>
+                    <option>Quilombo</option>
+                    <option>Vila</option>
+                    <option>Outro</option>
+                  </select>
+                </div>
+              </div>
+              <div class="insc-section" style="margin-top:var(--space-5)" id="divEtnia">
+                <div>
+                  <label id="labelEtnia" for="selectEtnia">Etnia/Comunidade *</label>
+                  <select class="input" id="selectEtnia" onchange="_toggleOutraEtnia()"
+                    style="max-width:480px;margin-top:var(--space-1)"></select>
+                </div>
+                <div style="margin-top:var(--space-3)" id="inputOutraEtnia">
+                  <label for="outraEtniaInput">Nome da etnia/comunidade *</label>
+                  <input class="input" id="outraEtniaInput" type="text" placeholder="Digite o nome"
+                    style="max-width:480px;margin-top:var(--space-1)">
+                </div>
+              </div>
+            </section>
+
+            <!-- Passo 4 - Curso e Cidade -->
+            <section id="step-4" hidden>
+              <div class="step-head">
+                <span class="step-head__badge">Passo 4</span>
+                <h1>Curso e Cidade de Prova</h1>
+              </div>
+              <div class="insc-section">
+                <p class="insc-section__title">Opções de Curso</p>
+                <div class="form-grid">
+                  <div>
+                    <label for="curso_opcao_1">Curso Pretendido (1ª Opção) *</label>
+                    <select class="input" id="curso_opcao_1" onchange="_atualizarListaEspera()">
+                      <option value="">Selecione</option>
+                      <option>Medicina</option>
+                      <option>Engenharia Civil</option>
+                      <option>Sistemas de Informação</option>
+                      <option>Educação do Campo</option>
+                      <option>Direito</option>
+                      <option>Pedagogia</option>
+                      <option>Ciências Biológicas</option>
+                    </select>
+                  </div>
+                  <div id="divSegundaOpcao">
+                    <label for="curso_opcao_2">Curso Pretendido (2ª Opção) *</label>
+                    <select class="input" id="curso_opcao_2" onchange="_atualizarListaEspera()">
+                      <option value="">Selecione</option>
+                      <option>Engenharia Civil</option>
+                      <option>Sistemas de Informação</option>
+                      <option>Direito</option>
+                      <option>Pedagogia</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label for="lista_espera">Lista de Espera *</label>
+                    <select class="input" id="lista_espera">
+                      <option value="">Selecione o curso primeiro</option>
+                      <option value="nao_participar">Não Participar</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <div class="insc-section" style="margin-top:var(--space-4)" id="divCidadeProva">
+                <p class="insc-section__title">Cidade de Prova</p>
+                <div style="max-width:360px">
+                  <label for="cidade_prova">Realizar prova na cidade *</label>
+                  <input class="input" id="cidade_prova" type="text" style="margin-top:var(--space-1)">
+                </div>
+              </div>
+            </section>
+
+            <!-- Passo 5 - Atendimento -->
+            <section id="step-5" hidden>
+              <div class="step-head">
+                <span class="step-head__badge">Passo 5</span>
+                <h1>Atendimento Especializado</h1>
+                <p>Selecione os recursos necessários para a realização da prova.</p>
+              </div>
+              <div class="insc-chip-grid" id="atendimentoBox"></div>
+            </section>
+
+            <!-- Passo 6 - Modalidades -->
+            <section id="step-6" hidden>
+              <div class="step-head">
+                <span class="step-head__badge">Passo 6</span>
+                <h1>Modalidades</h1>
+                <p>Campos variam conforme o Processo Seletivo escolhido.</p>
+              </div>
+              <div id="div-cotas">
+                <div class="insc-section">
+                  <p class="insc-section__title">Perfil Social / Modalidades</p>
+                  <div style="display:flex;flex-direction:column;gap:var(--space-4)">
+                    <div class="insc-rowq" id="div-pcd">
+                      <span class="insc-rowq__q">Deseja concorrer às vagas destinadas a PcD? *</span>
+                      <span class="insc-rowq__radios">
+                        <label><input type="radio" name="cota_pcd" value="Sim"> Sim</label>
+                        <label><input type="radio" name="cota_pcd" value="Não"> Não</label>
+                      </span>
+                    </div>
+                    <div class="insc-rowq">
+                      <span class="insc-rowq__q">Estudou todo o Ensino Médio em escola pública? *</span>
+                      <span class="insc-rowq__radios">
+                        <label><input type="radio" name="escola_publica" value="Sim"
+                            onchange="_onEscolaPublicaChange()"> Sim</label>
+                        <label><input type="radio" name="escola_publica" value="Não"
+                            onchange="_onEscolaPublicaChange()"> Não</label>
+                      </span>
+                    </div>
+                    <div class="insc-rowq insc-sub" id="divPerguntaEP">
+                      <span class="insc-rowq__q">Deseja concorrer às vagas reservadas de Escola Pública? *</span>
+                      <span class="insc-rowq__radios">
+                        <label><input type="radio" name="cota_ep" value="Sim"> Sim</label>
+                        <label><input type="radio" name="cota_ep" value="Não"> Não</label>
+                      </span>
+                    </div>
+                    <div class="insc-rowq insc-sub" id="div-quilombola">
+                      <span class="insc-rowq__q">Deseja concorrer às vagas para comunidades quilombolas? *</span>
+                      <span class="insc-rowq__radios">
+                        <label><input type="radio" name="cota_quilombola" value="Sim"> Sim</label>
+                        <label><input type="radio" name="cota_quilombola" value="Não"> Não</label>
+                      </span>
+                    </div>
+                    <div class="insc-rowq" id="div-ppi">
+                      <span class="insc-rowq__q">Deseja concorrer às vagas para pessoas autodeclaradas pretas ou pardas?
+                        *</span>
+                      <span class="insc-rowq__radios">
+                        <label><input type="radio" name="cota_preta_parda" value="Sim"> Sim</label>
+                        <label><input type="radio" name="cota_preta_parda" value="Não"> Não</label>
+                      </span>
+                    </div>
+                    <div class="insc-rowq" id="div-indigena">
+                      <span class="insc-rowq__q">Deseja concorrer às vagas para pessoas autodeclaradas indígenas?
+                        *</span>
+                      <span class="insc-rowq__radios">
+                        <label><input type="radio" name="cota_indigena" value="Sim"> Sim</label>
+                        <label><input type="radio" name="cota_indigena" value="Não"> Não</label>
+                      </span>
+                    </div>
+                    <div class="insc-rowq">
+                      <span class="insc-rowq__q">Sua renda bruta familiar mensal por pessoa é ≤ 1 salário mínimo?
+                        *</span>
+                      <span class="insc-rowq__radios">
+                        <label><input type="radio" name="renda_minima" value="Sim"
+                            onchange="_showByRadio('renda_minima','divPerguntaRenda')"> Sim</label>
+                        <label><input type="radio" name="renda_minima" value="Não"
+                            onchange="_showByRadio('renda_minima','divPerguntaRenda')"> Não</label>
+                      </span>
+                    </div>
+                    <div class="insc-rowq insc-sub" id="divPerguntaRenda">
+                      <span class="insc-rowq__q">Deseja concorrer às vagas reservadas de baixa renda? *</span>
+                      <span class="insc-rowq__radios">
+                        <label><input type="radio" name="cota_renda" value="Sim"> Sim</label>
+                        <label><input type="radio" name="cota_renda" value="Não"> Não</label>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <!-- Passo 7 - Comprovação -->
+            <section id="step-7" hidden>
+              <div class="step-head">
+                <span class="step-head__badge">Passo 7</span>
+                <h1>Comprovação</h1>
+                <p>Envie os documentos exigidos pelo edital.</p>
+              </div>
+              <div id="uploadsDinamicos" style="display:flex;flex-direction:column;gap:var(--space-4)"></div>
+            </section>
+
+            <!-- Passo 8 - Revisão -->
+            <section id="step-8" hidden>
+              <div class="step-head">
+                <span class="step-head__badge">Passo 8</span>
+                <h1>Revisão Final</h1>
+              </div>
+              <p style="font-size:var(--text-sm);font-weight:var(--weight-semibold);margin-bottom:var(--space-2)">Termos
+                e Condições do Edital</p>
+              <div class="insc-terms">
+                Declaro assumir integral responsabilidade pelas informações prestadas, estando ciente de que a
+                falsidade ideológica ou apresentação de documentos falsos acarretará eliminação sumária do Processo
+                Seletivo, sem prejuízo das sanções penais e civis cabíveis, conforme legislação vigente. Declaro ainda
+                que li e compreendi o edital do processo seletivo em sua íntegra.
+              </div>
+              <label
+                style="display:flex;align-items:flex-start;gap:var(--space-2);padding:var(--space-4);background:var(--color-primary-50);border:1px solid var(--color-primary-200);border-radius:var(--radius-md);cursor:pointer">
+                <input type="checkbox" id="aceite_termos"
+                  style="margin-top:2px;accent-color:var(--color-primary);width:16px;height:16px;flex-shrink:0">
+                <span
+                  style="font-size:var(--text-sm);font-weight:var(--weight-semibold);color:var(--color-primary-900)">
+                  Declaro que li e concordo com todas as normas do edital e que as informações fornecidas são
+                  verdadeiras. *
+                </span>
+              </label>
+            </section>
+
+          </div><!-- /.wiz-content -->
+
+          <div class="wiz-footer">
+            <button class="btn btn--tertiary" id="btn-prev" hidden>
+              <svg class="btn__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M19 12H5M12 19l-7-7 7-7" />
+              </svg>
+              Anterior
+            </button>
+            <button class="btn btn--primary" id="btn-next">
+              Próximo
+              <svg class="btn__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M5 12h14M12 5l7 7-7 7" />
+              </svg>
+            </button>
+          </div>
+
+        </div><!-- /.wiz-body -->
+      </main>
+
+    </div><!-- /.admin-main -->
+  </div><!-- /.admin-shell -->
+
+  <!-- Back to top -->
+  <button class="uni-back-to-top" data-back-to-top aria-label="Voltar ao topo da página" type="button" hidden>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
+      stroke-linejoin="round" aria-hidden="true">
+      <path d="M18 15l-6-6-6 6" />
+    </svg>
+  </button>
+
+  <script src="../../assets/uniplus-a11y.js"></script>
+  <script src="../../assets/uniplus-backtotop.js"></script>
+  <script src="../../assets/uniplus-admin-sidebar.js"></script>
+  <script src="../../assets/uniplus-inscricoes.js"></script>
+  <script>
+    (function () {
+      const btn = document.getElementById('user-menu-btn');
+      const menu = document.getElementById('user-menu');
+      if (!btn || !menu) return;
+      function open() { menu.hidden = false; btn.setAttribute('aria-expanded', 'true'); menu.querySelector('[role="menuitem"]')?.focus(); }
+      function close() { menu.hidden = true; btn.setAttribute('aria-expanded', 'false'); }
+      btn.addEventListener('click', e => { e.stopPropagation(); menu.hidden ? open() : close(); });
+      document.addEventListener('click', e => { if (!menu.hidden && !menu.contains(e.target) && e.target !== btn) close(); });
+      document.addEventListener('keydown', e => { if (e.key === 'Escape' && !menu.hidden) { close(); btn.focus(); } });
+    })();
+  </script>
+
+  <!-- VLibras — ADR-0003 -->
+  <div vw class="enabled">
+    <div vw-access-button class="active"></div>
+    <div vw-plugin-wrapper>
+      <div class="vw-plugin-top-wrapper"></div>
+    </div>
+  </div>
+  <script src="../../assets/uniplus-vlibras.js"></script>
+
+</body>
+
+</html>
