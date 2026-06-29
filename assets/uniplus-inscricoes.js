@@ -144,6 +144,9 @@
       if (el) el.hidden = s.id !== currentStep;
     });
 
+    const badge = document.querySelector('#step-' + currentStep + ' .step-head__badge');
+    if (badge) badge.textContent = 'Passo ' + (currentIdx + 1);
+
     const visibleIds = new Set(visible.map(s => s.id));
 
     const allNavItems = document.querySelectorAll('#nav-steps .steps__item');
@@ -153,6 +156,11 @@
       item.classList.remove('is-active', 'is-done');
       if (idx === currentIdx) item.classList.add('is-active');
       else if (idx < currentIdx) item.classList.add('is-done');
+      const numText = item.querySelector('.num-text');
+      if (numText) numText.textContent = idx + 1;
+      const labelEl = item.querySelector('.steps__label');
+      const stepDef = STEPS.find(s => s.id === +item.dataset.step);
+      if (labelEl && stepDef) labelEl.textContent = String(idx + 1).padStart(2, '0') + ' ' + stepDef.label;
     });
 
     const allOverlayItems = document.querySelectorAll('#steps-overlay .steps__item');
@@ -162,6 +170,8 @@
       item.classList.remove('is-active', 'is-done', 'is-pending');
       if (idx === currentIdx) item.classList.add('is-active');
       else if (idx < currentIdx) item.classList.add('is-done');
+      const numText = item.querySelector('.num-text');
+      if (numText) numText.textContent = idx + 1;
     });
 
     const stepBarMeta = document.getElementById('step-bar-meta');
@@ -300,10 +310,8 @@
     if (mesOff < 0 || (mesOff === 0 && emissao.getDate() < nasc.getDate())) idade--;
     if (idade >= 60) {
       validadeField.value = '';
-      validadeField.disabled = true;
       if (hintEl) hintEl.textContent = 'Validade indeterminada (60 anos ou mais na emissão).';
     } else {
-      validadeField.disabled = false;
       const anos = idade <= 11 ? 5 : 10;
       const expiry = new Date(emissao);
       expiry.setFullYear(expiry.getFullYear() + anos);

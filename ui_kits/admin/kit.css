@@ -2995,8 +2995,8 @@ dialog.vagas-modal::backdrop {
 }
 
 .insc-rowq:last-child {
-  border-bottom: none;
-  padding-bottom: 0;
+  /* border-bottom: none;
+  padding-bottom: 0; */
 }
 
 @media (min-width: 640px) {
