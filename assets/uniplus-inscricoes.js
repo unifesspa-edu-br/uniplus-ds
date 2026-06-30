@@ -348,11 +348,22 @@
 
   window._onEscolaPublicaChange = function () {
     const isSim = document.querySelector('input[name="escola_publica"]:checked')?.value === 'Sim';
+
     const divEP = document.getElementById('divPerguntaEP');
     const divQui = document.getElementById('div-quilombola');
+
     if (divEP) divEP.hidden = !isSim;
     if (divQui) divQui.hidden = !isSim;
-    if (!isSim) document.querySelectorAll('input[name="cota_quilombola"]').forEach(r => r.checked = false);
+
+    if (!isSim) {
+      document.querySelectorAll('input[name="cota_ep"]').forEach(r => {
+        r.checked = false;
+      });
+
+      document.querySelectorAll('input[name="cota_quilombola"]').forEach(r => {
+        r.checked = false;
+      });
+    }
   };
 
   window._showByRadio = function (name, id) {
@@ -556,6 +567,15 @@
           if (!req(id)) erros.push(error(id, 'Este campo é obrigatório.'));
         });
 
+      const dataNasc = req('data_nasc');
+
+      if (dataNasc && !validateDateBirth(dataNasc)) {
+        erros.push(error(
+          'data_nasc',
+          'Informe uma data de nascimento válida.'
+        ));
+      }
+
       const cpf = req('cpf');
       if (cpf && !validateCPF(cpf)) {
         erros.push(error('cpf', 'CPF inválido. Verifique os números e tente novamente.'));
@@ -566,15 +586,24 @@
       }
 
       const novoModelo = document.getElementById('rg_novo_modelo')?.checked;
+
       if (novoModelo) {
         _sincronizarRgComCpf();
-        if (!req('cpf')) erros.push(error('cpf', 'Informe o CPF para usar o novo modelo de RG.'));
-        if (!req('rg_novo_orgao_expedidor')) erros.push(error('rg_novo_orgao_expedidor', 'Este campo é obrigatório.'));
-        if (!req('rg_novo_data_emissao')) erros.push(error('rg_novo_data_emissao', 'Este campo é obrigatório.'));
+
+        if (!req('rg_novo_orgao_expedidor'))
+          erros.push(error('rg_novo_orgao_expedidor', 'Este campo é obrigatório.'));
+
+        if (!req('rg_novo_data_emissao'))
+          erros.push(error('rg_novo_data_emissao', 'Este campo é obrigatório.'));
       } else {
-        if (!req('rg')) erros.push(error('rg', 'Este campo é obrigatório.'));
-        if (!req('rg_orgao_expedidor')) erros.push(error('rg_orgao_expedidor', 'Este campo é obrigatório.'));
-        if (!req('rg_data_expedicao')) erros.push(error('rg_data_expedicao', 'Este campo é obrigatório.'));
+        if (!req('rg'))
+          erros.push(error('rg', 'Este campo é obrigatório.'));
+
+        if (!req('rg_orgao_expedidor'))
+          erros.push(error('rg_orgao_expedidor', 'Este campo é obrigatório.'));
+
+        if (!req('rg_data_expedicao'))
+          erros.push(error('rg_data_expedicao', 'Este campo é obrigatório.'));
       }
 
       racaEscolhida = req('raca');
@@ -594,8 +623,17 @@
       if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
         erros.push(error('email', 'Informe um e-mail válido, no formato nome@exemplo.com.'));
       }
+
       if (confirmEmail && email !== confirmEmail) {
         erros.push(error('confirmar_email', 'Os e-mails não coincidem.'));
+      }
+
+      const cep = req('cep');
+      if (cep && !validateZipCode(cep)) {
+        erros.push(error(
+          'cep',
+          'Informe um CEP válido com 8 números.'
+        ));
       }
 
       const telefone = req('telefone');
@@ -792,15 +830,6 @@
   }
 
   window.validateCPF = validateCPF;
-
-  const dataNasc = req('data_nasc');
-
-  if (dataNasc && !validateDateBirth(dataNasc)) {
-    erros.push(error(
-      'data_nasc',
-      'Informe uma data de nascimento válida.'
-    ));
-  }
 
   function phoneMask(input) {
 
