@@ -411,12 +411,14 @@
   }
 
   function labelText(id) {
-    return document
-      .querySelector(`label[for="${id}"]`)
-      ?.textContent
-      ?.replace('*', '')
-      .replace('(obrigatório)', '')
-      .trim() || id.replace(/_/g, ' ');
+    return (
+      document
+        .querySelector(`label[for="${id}"]`)
+        ?.textContent
+        ?.replace(/\*/g, '')
+        .replace(/\(obrigatório\)/g, '')
+        .trim() || id.replace(/_/g, ' ')
+    );
   }
 
   function error(id, mensagem, labelCustom) {
