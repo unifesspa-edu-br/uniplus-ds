@@ -396,83 +396,274 @@
     return el ? el.value.trim() : '';
   }
 
-  function validarPassoAtual() {
+  function error(id, mensagem, labelCustom) {
+    const field = document.getElementById(id);
+    if (!field) return null;
+
+    return {
+      field,
+      label: labelCustom || textoLabel(id),
+      message: mensagem
+    };
+  }
+
+  function errorGrupo(selector, label, mensagem) {
+    const field = document.querySelector(selector);
+    if (!field) return null;
+
+    return {
+      field,
+      label,
+      message: mensagem
+    };
+  }
+
+  function escapeHtml(s) {
+    return String(s).replace(/[&<>"']/g, (c) => ({
+      '&': '&amp;',
+      '<': '&lt;',
+      '>': '&gt;',
+      '"': '&quot;',
+      "'": '&#39;'
+    }[c]));
+  }
+
+  function clearErrorsWizard(root) {
+    if (!root) return;
+
+    root.querySelector('.error-summary')?.remove();
+
+    root.querySelectorAll('[aria-invalid="true"]').forEach(el => {
+      el.setAttribute('aria-invalid', 'false');
+    });
+
+    root.querySelectorAll('.is-error').forEach(el => {
+      el.classList.remove('is-error');
+    });
+
+    root.querySelectorAll('.field__error[data-wizard-error="true"]').forEach(el => {
+      el.remove();
+    });
+  }
+
+  function applyWizardErrors(erros) {
+    const stepEl = document.getElementById('step-' + currentStep);
+    if (!stepEl) return;
+
+    clearErrorsWizard(stepEl);
+
+    const validErrors = erros.filter(Boolean);
+    if (!validErrors.length) return;
+
+    validErrors.forEach((err, index) => {
+      const field = err.field;
+      if (!field) return;
+
+      if (!field.id) field.id = `wizard-error-field-${currentStep}-${index}`;
+
+      field.setAttribute('aria-invalid', 'true');
+
+      const wrapper = field.closest('.field') || field.closest('.insc-rowq') || field.closest('.insc-chip-grid') || field.parentElement;
+      wrapper?.classList.add('is-error');
+
+      const errId = `${field.id}-error`;
+      let errNode = document.getElementById(errId);
+
+      if (!errNode) {
+        errNode = document.createElement('p');
+        errNode.id = errId;
+        errNode.className = 'field__error';
+        errNode.dataset.wizardError = 'true';
+
+        if (field.matches('input[type="checkbox"], input[type="radio"]')) {
+          field.closest('.insc-chip-grid, .insc-rowq, label')?.insertAdjacentElement('afterend', errNode);
+        } else {
+          field.insertAdjacentElement('afterend', errNode);
+        }
+      }
+
+      const describedBy = field.getAttribute('aria-describedby') || '';
+      if (!describedBy.split(/\s+/).includes(errId)) {
+        field.setAttribute('aria-describedby', (describedBy + ' ' + errId).trim());
+      }
+
+      errNode.innerHTML = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>${escapeHtml(err.message)}`;
+      errNode.hidden = false;
+    });
+
+    const summary = document.createElement('div');
+    summary.className = 'error-summary';
+    summary.setAttribute('role', 'alert');
+    summary.setAttribute('aria-labelledby', 'error-summary-title');
+    summary.tabIndex = -1;
+    summary.innerHTML = `
+      <h2 id="error-summary-title" class="error-summary__title">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>
+        Há ${validErrors.length === 1 ? '1 erro' : validErrors.length + ' erros'} no formulário
+      </h2>
+      <ul class="error-summary__list">
+        ${validErrors.map(e => `<li><a href="#${e.field.id}">${escapeHtml(e.label)}: ${escapeHtml(e.message)}</a></li>`).join('')}
+      </ul>
+    `;
+
+    const stepHead = stepEl.querySelector('.step-head');
+    if (stepHead) stepHead.insertAdjacentElement('afterend', summary);
+    else stepEl.prepend(summary);
+
+    summary.querySelectorAll('a').forEach(a => {
+      a.addEventListener('click', (event) => {
+        event.preventDefault();
+        const target = document.getElementById(a.getAttribute('href').slice(1));
+        target?.focus({ preventScroll: false });
+      });
+    });
+
+    summary.focus();
+    summary.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  function validateCurrentStep() {
     const erros = [];
 
     if (currentStep === 2) {
-      ['nome','desejaNomeSocial','cpf','data_nasc','sexo_civil','raca','sexo_biologico','identidade_genero','orientacao_sexual']
-        .forEach(id => { if (!req(id)) erros.push('Preencha: ' + id.replace(/_/g, ' ')); });
-      if (req('desejaNomeSocial') === 'Sim' && !req('nomeSocial')) erros.push('Preencha: Nome Social.');
+      ['nome', 'desejaNomeSocial', 'cpf', 'data_nasc', 'sexo_civil', 'raca', 'sexo_biologico', 'identidade_genero', 'orientacao_sexual']
+        .forEach(id => {
+          if (!req(id)) erros.push(error(id, 'Este campo é obrigatório.'));
+        });
+
+      const cpf = req('cpf');
+      if (cpf && !validateCPF(cpf)) {
+        erros.push(error('cpf', 'CPF inválido. Verifique os números e tente novamente.'));
+      }
+
+      if (req('desejaNomeSocial') === 'Sim' && !req('nomeSocial')) {
+        erros.push(error('nomeSocial', 'Este campo é obrigatório.'));
+      }
+
       const novoModelo = document.getElementById('rg_novo_modelo')?.checked;
       if (novoModelo) {
         _sincronizarRgComCpf();
-        if (!req('cpf')) erros.push('Preencha: CPF para usar o novo modelo de RG.');
-        if (!req('rg_novo_orgao_expedidor')) erros.push('Preencha: Órgão Expedidor (novo RG).');
-        if (!req('rg_novo_data_emissao')) erros.push('Preencha: Data de Emissão (novo RG).');
+        if (!req('cpf')) erros.push(error('cpf', 'Informe o CPF para usar o novo modelo de RG.'));
+        if (!req('rg_novo_orgao_expedidor')) erros.push(error('rg_novo_orgao_expedidor', 'Este campo é obrigatório.'));
+        if (!req('rg_novo_data_emissao')) erros.push(error('rg_novo_data_emissao', 'Este campo é obrigatório.'));
       } else {
-        if (!req('rg')) erros.push('Preencha: Número do RG.');
-        if (!req('rg_orgao_expedidor')) erros.push('Preencha: Órgão Expedidor.');
-        if (!req('rg_data_expedicao')) erros.push('Preencha: Data de Expedição.');
+        if (!req('rg')) erros.push(error('rg', 'Este campo é obrigatório.'));
+        if (!req('rg_orgao_expedidor')) erros.push(error('rg_orgao_expedidor', 'Este campo é obrigatório.'));
+        if (!req('rg_data_expedicao')) erros.push(error('rg_data_expedicao', 'Este campo é obrigatório.'));
       }
+
       racaEscolhida = req('raca');
       deficienciasMarcadas = [...document.querySelectorAll('input[name="deficiencia"]:checked')].map(x => x.value);
-      if (!deficienciasMarcadas.length) erros.push('Marque pelo menos uma opção de deficiência (ou Não Possuo).');
+      if (!deficienciasMarcadas.length) {
+        erros.push(errorGrupo('#def', 'Deficiência', 'Marque pelo menos uma opção de deficiência ou “Não Possuo”.'));
+      }
     }
 
     if (currentStep === 3) {
-      ['telefone','email','cep','estado','cidade','tipoLocalidade'].forEach(id => {
-        if (!req(id)) erros.push('Preencha: ' + id.replace(/_/g, ' '));
+      ['telefone', 'email', 'cep', 'estado', 'cidade', 'tipoLocalidade'].forEach(id => {
+        if (!req(id)) erros.push(error(id, 'Este campo é obrigatório.'));
       });
+
       const email = req('email');
       const confirmEmail = req('confirmar_email');
-      if (confirmEmail && email !== confirmEmail) erros.push('Os e-mails não coincidem.');
+      if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        erros.push(error('email', 'Informe um e-mail válido, no formato nome@exemplo.com.'));
+      }
+      if (confirmEmail && email !== confirmEmail) {
+        erros.push(error('confirmar_email', 'Os e-mails não coincidem.'));
+      }
+
+      const telefone = req('telefone');
+      if (telefone && !validatePhone(telefone)) {
+          erros.push(error(
+              'telefone',
+              'Informe um telefone válido com DDD.'
+          ));
+      }
+
       const loc = req('tipoLocalidade');
-      if (['Aldeia','Comunidade','Quilombo'].includes(loc)) {
-        if (!req('selectEtnia')) erros.push('Selecione etnia/comunidade.');
-        if (req('selectEtnia') === 'Não encontrei minha etnia/comunidade' && !req('inputOutraEtnia')) {
-          erros.push('Digite o nome da etnia/comunidade.');
+      if (['Aldeia', 'Comunidade', 'Quilombo'].includes(loc)) {
+        if (!req('selectEtnia')) erros.push(error('selectEtnia', 'Selecione a etnia ou comunidade.'));
+        if (req('selectEtnia') === 'Não encontrei minha etnia/comunidade' && !req('outraEtniaInput')) {
+          erros.push(error('outraEtniaInput', 'Digite o nome da etnia ou comunidade.'));
         }
       }
     }
 
     if (currentStep === 4) {
-      const temSegunda = ['Vestibular','PSVR'].includes(psEscolhido);
+      const temSegunda = ['Vestibular', 'PSVR'].includes(psEscolhido);
       const semPresencial = ['SISU'];
-      if (!semPresencial.includes(psEscolhido) && !req('cidade_prova')) erros.push('Informe a cidade de prova.');
-      if (!req('curso_opcao_1')) erros.push('Selecione a 1ª opção de curso.');
-      if (temSegunda && !req('curso_opcao_2')) erros.push('Selecione a 2ª opção de curso.');
-      if (temSegunda && req('curso_opcao_1') && req('curso_opcao_2') && req('curso_opcao_1') === req('curso_opcao_2')) {
-        erros.push('A 2ª opção deve ser diferente da 1ª.');
+
+      if (!semPresencial.includes(psEscolhido) && !req('cidade_prova')) {
+        erros.push(error('cidade_prova', 'Informe a cidade de prova.'));
       }
-      if (!req('lista_espera')) erros.push('Selecione a opção de lista de espera.');
+      if (!req('curso_opcao_1')) {
+        erros.push(error('curso_opcao_1', 'Selecione a 1ª opção de curso.'));
+      }
+      if (temSegunda && !req('curso_opcao_2')) {
+        erros.push(error('curso_opcao_2', 'Selecione a 2ª opção de curso.'));
+      }
+      if (temSegunda && req('curso_opcao_1') && req('curso_opcao_2') && req('curso_opcao_1') === req('curso_opcao_2')) {
+        erros.push(error('curso_opcao_2', 'A 2ª opção deve ser diferente da 1ª.'));
+      }
+      if (!req('lista_espera')) {
+        erros.push(error('lista_espera', 'Selecione a opção de lista de espera.'));
+      }
     }
 
     if (currentStep === 5) {
       if (!document.querySelector('input[name="atendimento"]:checked')) {
-        erros.push('Informe se necessita atendimento especializado.');
+        erros.push(errorGrupo('#atendiemntoError', 'Atendimento especializado', 'Informe se necessita de atendimento especializado.'));
       }
     }
 
     if (currentStep === 6 && !isTransferencia()) {
-      if (!document.querySelector('input[name="escola_publica"]:checked')) erros.push('Responda: escola pública.');
-      if (!document.querySelector('input[name="renda_minima"]:checked')) erros.push('Responda: renda familiar.');
+      if (!document.querySelector('input[name="escola_publica"]:checked')) {
+        erros.push(errorGrupo('input[name="escola_publica"]', 'Escola pública', 'Responda se estudou todo o Ensino Médio em escola pública.'));
+      }
+      if (document.querySelector('input[name="escola_publica"]:checked')?.value === 'Sim' && !document.querySelector('input[name="cota_ep"]:checked')) {
+        erros.push(errorGrupo('input[name="cota_ep"]', 'Reserva de Escola Pública', 'Responda se deseja concorrer às vagas reservadas de Escola Pública.'));
+      }
+      if (document.querySelector('input[name="escola_publica"]:checked')?.value === 'Sim' && !document.querySelector('input[name="cota_quilombola"]:checked')) {
+        erros.push(errorGrupo('input[name="cota_quilombola"]', 'Comunidades quilombolas', 'Responda se deseja concorrer às vagas para comunidades quilombolas.'));
+      }
+      if (!document.querySelector('input[name="renda_minima"]:checked')) {
+        erros.push(errorGrupo('input[name="renda_minima"]', 'Renda familiar', 'Responda se sua renda bruta familiar mensal por pessoa é menor ou igual a 1 salário mínimo.'));
+      }
+      if (document.querySelector('input[name="renda_minima"]:checked')?.value === 'Sim' && !document.querySelector('input[name="cota_renda"]:checked')) {
+        erros.push(errorGrupo('input[name="cota_renda"]', 'Reserva de baixa renda', 'Responda se deseja concorrer às vagas reservadas de baixa renda.'));
+      }
+      if (!document.getElementById('div-pcd')?.hidden && !document.querySelector('input[name="cota_pcd"]:checked')) {
+        erros.push(errorGrupo('input[name="cota_pcd"]', 'Vagas destinadas a PcD', 'Responda se deseja concorrer às vagas destinadas a PcD.'));
+      }
+      if (!document.getElementById('div-ppi')?.hidden && !document.querySelector('input[name="cota_preta_parda"]:checked')) {
+        erros.push(errorGrupo('input[name="cota_preta_parda"]', 'Vagas para pessoas pretas ou pardas', 'Responda se deseja concorrer às vagas para pessoas autodeclaradas pretas ou pardas.'));
+      }
+      if (!document.getElementById('div-indigena')?.hidden && !document.querySelector('input[name="cota_indigena"]:checked')) {
+        erros.push(errorGrupo('input[name="cota_indigena"]', 'Vagas para pessoas indígenas', 'Responda se deseja concorrer às vagas para pessoas autodeclaradas indígenas.'));
+      }
     }
 
     if (currentStep === 8) {
-      if (!document.getElementById('aceite_termos')?.checked) erros.push('Aceite os termos para finalizar.');
+      if (!document.getElementById('aceite_termos')?.checked) {
+        erros.push(error('aceite_termos', 'Aceite os termos para finalizar.'));
+      }
     }
 
     if (erros.length) {
-      alert('Atenção:\n\n- ' + [...new Set(erros)].join('\n- '));
+      applyWizardErrors(erros);
       return false;
     }
+
+    const stepEl = document.getElementById('step-' + currentStep);
+    clearErrorsWizard(stepEl);
     return true;
   }
 
   /* ---- navigation ---- */
 
   function nextStep() {
-    if (!validarPassoAtual()) return;
+    if (!validateCurrentStep()) return;
     if (currentStep === getLastStep()) {
       alert('Inscrição enviada com sucesso!');
       return;
@@ -505,6 +696,8 @@
 
     initStatic();
     _toggleModeloRG();
+    configureDateBirth();
+    ConfigureDataFields();
 
     const divNomeSocial = document.getElementById('divNomeSocial');
     if (divNomeSocial) divNomeSocial.hidden = true;
@@ -525,5 +718,160 @@
 
     renderView();
   });
+
+  function cpfMask(input) {
+    let valor = input.value.replace(/\D/g, '');
+
+    valor = valor.substring(0, 11);
+
+    valor = valor.replace(/(\d{3})(\d)/, '$1.$2');
+    valor = valor.replace(/(\d{3})(\d)/, '$1.$2');
+    valor = valor.replace(/(\d{3})(\d{1,2})$/, '$1-$2');
+
+    input.value = valor;
+  }
+
+  window.cpfMask = cpfMask;
+
+  function validateCPF(cpf) {
+
+    cpf = cpf.replace(/\D/g, '');
+
+    if (cpf.length !== 11)
+        return false;
+
+    // Elimina sequências iguais
+    if (/^(\d)\1+$/.test(cpf))
+        return false;
+
+    let soma = 0;
+
+    for (let i = 0; i < 9; i++)
+        soma += parseInt(cpf.charAt(i)) * (10 - i);
+
+    let resto = (soma * 10) % 11;
+    if (resto === 10) resto = 0;
+
+    if (resto !== parseInt(cpf.charAt(9)))
+        return false;
+
+    soma = 0;
+
+    for (let i = 0; i < 10; i++)
+        soma += parseInt(cpf.charAt(i)) * (11 - i);
+
+    resto = (soma * 10) % 11;
+    if (resto === 10) resto = 0;
+
+    return resto === parseInt(cpf.charAt(10));
+  }
+
+  window.validateCPF = validateCPF;
+
+  const dataNasc = req('data_nasc');
+
+  if (dataNasc && !validateDateBirth(dataNasc)) {
+    erros.push(error(
+      'data_nasc',
+      'Informe uma data de nascimento válida.'
+    ));
+  }
+
+  function phoneMask(input) {
+
+    let v = input.value.replace(/\D/g, '');
+
+    v = v.substring(0, 11);
+
+    if (v.length <= 10) {
+        v = v.replace(/^(\d{2})(\d)/, '($1) $2');
+        v = v.replace(/(\d{4})(\d)/, '$1-$2');
+    } else {
+        v = v.replace(/^(\d{2})(\d)/, '($1) $2');
+        v = v.replace(/(\d{5})(\d)/, '$1-$2');
+    }
+
+    input.value = v;
+  }
+
+  function validatePhone(valor) {
+
+    const numero = valor.replace(/\D/g, '');
+
+    if (!(numero.length === 10 || numero.length === 11))
+        return false;
+
+    const ddd = parseInt(numero.substring(0, 2), 10);
+
+    return ddd >= 11 && ddd <= 99;
+  }
+
+  window.phoneMask = phoneMask;
+  window.validatePhone = validatePhone;
+
+  function zipCodeMask(input) {
+
+    let v = input.value.replace(/\D/g, '').slice(0, 8);
+
+    v = v.replace(/^(\d{5})(\d)/, '$1-$2');
+
+    input.value = v;
+  }
+
+  function validateZipCode(valor) {
+
+    const cep = valor.replace(/\D/g, '');
+
+    return cep.length === 8;
+  }
+
+  window.zipCodeMask = zipCodeMask;
+  window.validateZipCode = validateZipCode;
+
+  function configureDateBirth() {
+    const input = document.getElementById('data_nasc');
+    if (!input) return;
+
+    const hoje = new Date();
+    const yyyy = hoje.getFullYear();
+    const mm = String(hoje.getMonth() + 1).padStart(2, '0');
+    const dd = String(hoje.getDate()).padStart(2, '0');
+
+    input.max = `${yyyy}-${mm}-${dd}`;
+    input.min = '1900-01-01';
+  }
+
+  function validateDateBirth(valor) {
+    if (!valor) return false;
+
+    const data = new Date(valor + 'T00:00:00');
+    const hoje = new Date();
+    hoje.setHours(0, 0, 0, 0);
+
+    const minimo = new Date('1900-01-01T00:00:00');
+
+    if (isNaN(data.getTime())) return false;
+    if (data > hoje) return false;
+    if (data < minimo) return false;
+
+    return true;
+  }
+
+  function ConfigureDataFields() {
+    const hoje = new Date().toISOString().split('T')[0];
+
+    [
+      'data_nasc',
+      'rg_data_expedicao',
+      'rg_novo_data_emissao'
+    ].forEach(id => {
+      const campo = document.getElementById(id);
+      if (!campo) return;
+
+      campo.min = '1900-01-01';
+      campo.max = hoje;
+    });
+  }
+
 
 })();

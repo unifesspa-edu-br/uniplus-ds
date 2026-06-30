@@ -1221,7 +1221,7 @@ body.has-sidebar-open {
 }
 
 .input[type="date"]::-webkit-calendar-picker-indicator {
-  display: none;
+  /* display: none; */
 }
 
 /* Upload section */
