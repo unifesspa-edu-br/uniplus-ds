@@ -365,19 +365,33 @@
     const curso1 = document.getElementById('curso_opcao_1')?.value || '';
     const curso2 = document.getElementById('curso_opcao_2')?.value || '';
     const temSegunda = ['Vestibular', 'PSVR'].includes(psEscolhido);
+
     if (!lista) return;
+
     const valorAnterior = lista.value;
-    let opcoes = ['<option value="">Selecione</option>'];
+
+    lista.textContent = '';
+
+    const criarOpcao = (value, texto) => {
+      const option = document.createElement('option');
+      option.value = value;
+      option.textContent = texto;
+      lista.appendChild(option);
+    };
+
     if (curso1) {
-      opcoes.push(`<option value="primeira">PARTICIPAR APENAS DE ${curso1.toUpperCase()}</option>`);
+      criarOpcao('', 'Selecione');
+      criarOpcao('primeira', `PARTICIPAR APENAS DE ${curso1.toUpperCase()}`);
     } else {
-      opcoes = ['<option value="">Selecione o curso primeiro</option>'];
+      criarOpcao('', 'Selecione o curso primeiro');
     }
+
     if (temSegunda && curso2) {
-      opcoes.push(`<option value="segunda">PARTICIPAR APENAS DE ${curso2.toUpperCase()}</option>`);
+      criarOpcao('segunda', `PARTICIPAR APENAS DE ${curso2.toUpperCase()}`);
     }
-    opcoes.push('<option value="nao_participar">Não Participar</option>');
-    lista.innerHTML = opcoes.join('');
+
+    criarOpcao('nao_participar', 'Não Participar');
+
     const validos = [...lista.options].map(o => o.value);
     lista.value = validos.includes(valorAnterior) ? valorAnterior : '';
   };
@@ -396,13 +410,22 @@
     return el ? el.value.trim() : '';
   }
 
+  function labelText(id) {
+    return document
+      .querySelector(`label[for="${id}"]`)
+      ?.textContent
+      ?.replace('*', '')
+      .replace('(obrigatório)', '')
+      .trim() || id.replace(/_/g, ' ');
+  }
+
   function error(id, mensagem, labelCustom) {
     const field = document.getElementById(id);
     if (!field) return null;
 
     return {
       field,
-      label: labelCustom || textoLabel(id),
+      label: labelCustom || labelText(id),
       message: mensagem
     };
   }
