@@ -9,6 +9,7 @@
   <link rel="stylesheet" href="../../base.css">
   <link rel="stylesheet" href="../../components.css">
   <link rel="stylesheet" href="kit.css">
+
 </head>
 
 <body>
@@ -37,31 +38,31 @@
     </div>
   </div>
   <div class="topbar__actions">
-<div class="a11y-menu" data-a11y-menu>
-          <button class="a11y-menu__trigger" type="button" aria-expanded="false" aria-controls="a11y-popover-portal" aria-label="Preferências de acessibilidade" data-a11y-menu-trigger>
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="4" r="2"/><path d="M4 8h16M12 6v14M8 12l-2 8M16 12l2 8"/></svg>
-          </button>
-          <div class="a11y-menu__backdrop" hidden aria-hidden="true"></div>
-          <div class="a11y-menu__popover" id="a11y-popover-portal" role="region" aria-label="Preferências de acessibilidade" hidden>
-            <p class="a11y-menu__title">Acessibilidade</p>
-            <div class="a11y-menu__group" role="group" aria-label="Tema">
-              <span class="a11y-menu__group-label">Tema</span>
-              <div class="a11y-menu__options">
-                <button class="a11y-opt" data-a11y="theme" data-value="light" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>Claro</button>
-                <button class="a11y-opt" data-a11y="theme" data-value="dark" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>Escuro</button>
-                <button class="a11y-opt" data-a11y="theme" data-value="auto" aria-pressed="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>Sistema</button>
-              </div>
-            </div>
-            <div class="a11y-menu__group" role="group" aria-label="Ajustes de leitura">
-              <span class="a11y-menu__group-label">Leitura</span>
-              <div class="a11y-menu__options">
-                <button class="a11y-opt" data-a11y="contrast" data-value="on" aria-pressed="false"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 100 20V2z"/><path d="M12 2a10 10 0 010 20" fill="none" stroke="currentColor" stroke-width="2"/></svg>Alto contraste</button>
-                <button class="a11y-opt" data-a11y="font-mode" data-value="legible" aria-pressed="false">Fonte legível</button>
-              </div>
-            </div>
-            <p class="a11y-menu__hint">Para ampliar o texto, use o zoom do navegador (<kbd>Ctrl</kbd> <kbd>+</kbd> / <kbd>Ctrl</kbd> <kbd>&#8722;</kbd>).</p>
+    <div class="a11y-menu" data-a11y-menu>
+      <button class="a11y-menu__trigger" type="button" aria-expanded="false" aria-controls="a11y-popover-portal" aria-label="Preferências de acessibilidade" data-a11y-menu-trigger>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="4" r="2"/><path d="M4 8h16M12 6v14M8 12l-2 8M16 12l2 8"/></svg>
+      </button>
+      <div class="a11y-menu__backdrop" hidden aria-hidden="true"></div>
+      <div class="a11y-menu__popover" id="a11y-popover-portal" role="region" aria-label="Preferências de acessibilidade" hidden>
+        <p class="a11y-menu__title">Acessibilidade</p>
+        <div class="a11y-menu__group" role="group" aria-label="Tema">
+          <span class="a11y-menu__group-label">Tema</span>
+          <div class="a11y-menu__options">
+            <button class="a11y-opt" data-a11y="theme" data-value="light" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>Claro</button>
+            <button class="a11y-opt" data-a11y="theme" data-value="dark" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>Escuro</button>
+            <button class="a11y-opt" data-a11y="theme" data-value="auto" aria-pressed="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>Sistema</button>
           </div>
         </div>
+        <div class="a11y-menu__group" role="group" aria-label="Ajustes de leitura">
+          <span class="a11y-menu__group-label">Leitura</span>
+          <div class="a11y-menu__options">
+            <button class="a11y-opt" data-a11y="contrast" data-value="on" aria-pressed="false"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 100 20V2z"/><path d="M12 2a10 10 0 010 20" fill="none" stroke="currentColor" stroke-width="2"/></svg>Alto contraste</button>
+            <button class="a11y-opt" data-a11y="font-mode" data-value="legible" aria-pressed="false">Fonte legível</button>
+          </div>
+        </div>
+        <p class="a11y-menu__hint">Para ampliar o texto, use o zoom do navegador (<kbd>Ctrl</kbd> <kbd>+</kbd> / <kbd>Ctrl</kbd> <kbd>&#8722;</kbd>).</p>
+      </div>
+    </div>
     <button class="user-chip" aria-label="Menu do usuário">
       <span class="user-chip__avatar" aria-hidden="true">N</span>
       <span style="display:none" class="user-chip__name">Nalanda</span>
@@ -106,11 +107,10 @@
   <a href="#"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3M12 17h.01"/></svg>Ajuda</a>
 </nav>
 
-
   <div class="admin-shell" id="admin-shell">
-    <aside class="sidebar" id="admin-sidebar" aria-label="Painel administrativo">
-    </aside>
-    <div class="sidebar-backdrop" aria-hidden="true" data-sidebar-close></div>
+    <!-- <aside class="sidebar" id="admin-sidebar" aria-label="Painel administrativo">
+    </aside> -->
+    <!-- <div class="sidebar-backdrop" aria-hidden="true" data-sidebar-close></div> -->
 
     <div class="admin-main">
 
@@ -369,6 +369,7 @@
                   <p id="def"></p>
                 <div class="insc-chip-grid" id="deficienciasBox"></div>
               </div>
+
             </section>
 
             <!-- Passo 3 - Endereço -->
@@ -493,6 +494,7 @@
             </section>
 
             <!-- Passo 5 - Atendimento -->
+             <!-- subistituir pelo codigo das cotas -->
             <section id="step-5" hidden>
               <div class="step-head">
                 <span class="step-head__badge">Passo 5</span>
@@ -500,7 +502,30 @@
                 <p>Selecione os recursos necessários para a realização da prova.</p>
               </div>
               <p id="atendiemntoError"></p>
-              <div class="insc-chip-grid" id="atendimentoBox"></div>
+
+              <div class="atendimento-info" role="note">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" aria-hidden="true">
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <path d="M12 8v4M12 16h.01"></path>
+                </svg>
+                <span>Para cada recurso selecionado, será obrigatório anexar a documentação comprobatória correspondente. Marque <strong>Não Necessito</strong> caso não precise de atendimento especializado.</span>
+              </div>
+
+              <div class="atendimento-layout">
+                <section class="atendimento-opcoes" aria-labelledby="atendimento-opcoes-title">
+                  <h2 class="atendimento-opcoes__title" id="atendimento-opcoes-title">Recursos disponíveis</h2>
+                  <div class="atendimento-opcoes__body">
+                    <div class="insc-chip-grid" id="atendimentoBox"></div>
+                  </div>
+                </section>
+
+                <div class="scroll-cotas">
+                  <section class="atendimento-uploads" id="atendimentoUploadsPanel" aria-labelledby="atendimento-uploads-title" hidden>
+                    <h2 class="atendimento-uploads__title" id="atendimento-uploads-title">Documentos obrigatórios</h2>
+                    <div id="atendimentoUploadsList" class="atendimento-upload-list"></div>
+                  </section>
+                </div>
+              </div>
             </section>
 
             <!-- Passo 6 - Modalidades -->
@@ -511,76 +536,161 @@
                 <p>Campos variam conforme o Processo Seletivo escolhido.</p>
               </div>
               <div id="div-cotas">
-                <div class="insc-section">
-                  <p class="insc-section__title">Perfil Social / Modalidades</p>
-                  <div style="display:flex;flex-direction:column;gap:var(--space-4)">
-                    <div class="insc-rowq" id="div-pcd">
-                      <span class="insc-rowq__q">Deseja concorrer às vagas destinadas a PcD? *</span>
-                      <span class="insc-rowq__radios">
-                        <label><input type="radio" name="cota_pcd" value="Sim"> Sim</label>
-                        <label><input type="radio" name="cota_pcd" value="Não"> Não</label>
-                      </span>
+
+                <div class="cotas-wrap">
+                  <div id="cota-validation-summary" class="cotas-validation-summary" role="alert" aria-live="polite"></div>
+
+                <div class="scroll-cotas">
+
+
+                  <section class="cotas-card">
+                    <div class="cotas-card-title">Perfil Social / Modalidades</div>
+
+                    <div id="cota-pcd1" class="cotas-step is-show">
+                      <div class="cotas-qrow">
+                        <div>
+                          <div class="cotas-question">1.1 Você se autodeclara uma pessoa com deficiência? * <span class="cotas-help-icon" role="button" tabindex="0" onclick="cotaOpenHelp('pcdAuto')" onkeydown="cotaHelpKey(event, 'pcdAuto')" title="Clique para saber mais" aria-label="Ajuda sobre pessoa com deficiência">?</span></div>
+                        </div>
+                        <div class="cotas-options" data-name="pcdAuto"></div>
+                      </div>
                     </div>
-                    <div class="insc-rowq">
-                      <span class="insc-rowq__q">Estudou todo o Ensino Médio em escola pública? *</span>
-                      <span class="insc-rowq__radios">
-                        <label><input type="radio" name="escola_publica" value="Sim"
-                            onchange="_onEscolaPublicaChange()"> Sim</label>
-                        <label><input type="radio" name="escola_publica" value="Não"
-                            onchange="_onEscolaPublicaChange()"> Não</label>
-                      </span>
+
+                    <div id="cota-pcd2" class="cotas-step">
+                      <div class="cotas-qrow">
+                        <div>
+                          <div class="cotas-question">1.2 Você deseja concorrer às vagas de cotas destinadas a pessoas que se autodeclaram com deficiência? * <span class="cotas-help-icon" role="button" tabindex="0" onclick="cotaOpenHelp('pcdCota')" onkeydown="cotaHelpKey(event, 'pcdCota')" title="Clique para saber mais" aria-label="Ajuda sobre cota PcD">?</span></div>
+                          <div class="cotas-hint">Esta pergunta aparece somente quando a autodeclaração PcD for “Sim”.</div>
+                        </div>
+                        <div class="cotas-options" data-name="pcdCota"></div>
+                      </div>
                     </div>
-                    <div class="insc-rowq insc-sub" id="divPerguntaEP">
-                      <span class="insc-rowq__q">Deseja concorrer às vagas reservadas de Escola Pública? *</span>
-                      <span class="insc-rowq__radios">
-                        <label><input type="radio" name="cota_ep" value="Sim"> Sim</label>
-                        <label><input type="radio" name="cota_ep" value="Não"> Não</label>
-                      </span>
+
+                    <div id="cota-eep1" class="cotas-step">
+                      <div class="cotas-qrow">
+                        <div>
+                          <div class="cotas-question">2.1 Você cursou todos os anos do ensino médio em escola pública no Brasil ou em escola comunitária do campo conveniada com o poder público? * <span class="cotas-help-icon" role="button" tabindex="0" onclick="cotaOpenHelp('eepAuto')" onkeydown="cotaHelpKey(event, 'eepAuto')" title="Clique para saber mais" aria-label="Ajuda sobre escola pública">?</span></div>
+                        </div>
+                        <div class="cotas-options" data-name="eepAuto"></div>
+                      </div>
                     </div>
-                    <div class="insc-rowq insc-sub" id="div-quilombola">
-                      <span class="insc-rowq__q">Deseja concorrer às vagas para comunidades quilombolas? *</span>
-                      <span class="insc-rowq__radios">
-                        <label><input type="radio" name="cota_quilombola" value="Sim"> Sim</label>
-                        <label><input type="radio" name="cota_quilombola" value="Não"> Não</label>
-                      </span>
+
+                    <div id="cota-eep2" class="cotas-step">
+                      <div class="cotas-qrow">
+                        <div>
+                          <div class="cotas-question">2.2 Você deseja concorrer às vagas de cotas destinadas a pessoas de escola pública ou escola comunitária do campo conveniada? * <span class="cotas-help-icon" role="button" tabindex="0" onclick="cotaOpenHelp('eepCota')" onkeydown="cotaHelpKey(event, 'eepCota')" title="Clique para saber mais" aria-label="Ajuda sobre cota de escola pública">?</span></div>
+                        </div>
+                        <div class="cotas-options" data-name="eepCota"></div>
+                      </div>
                     </div>
-                    <div class="insc-rowq" id="div-ppi">
-                      <span class="insc-rowq__q">Deseja concorrer às vagas para pessoas autodeclaradas pretas ou pardas?
-                        *</span>
-                      <span class="insc-rowq__radios">
-                        <label><input type="radio" name="cota_preta_parda" value="Sim"> Sim</label>
-                        <label><input type="radio" name="cota_preta_parda" value="Não"> Não</label>
-                      </span>
+
+                    <div id="cota-raca1" class="cotas-step">
+                      <div class="cotas-qrow">
+                        <div>
+                          <div class="cotas-question">3.1 Como você se autodeclara em termos de cor/raça? * <span class="cotas-help-icon" role="button" tabindex="0" onclick="cotaOpenHelp('raca')" onkeydown="cotaHelpKey(event, 'raca')" title="Clique para saber mais" aria-label="Ajuda sobre autodeclaração de cor ou raça">?</span></div>
+                        </div>
+                        <div class="cotas-selectbox">
+                          <select id="cota-raca" class="cotas-select">
+                            <option value="">Selecione...</option>
+                            <option value="amarela">Amarela</option>
+                            <option value="branca">Branca</option>
+                            <option value="indigena">Indígena</option>
+                            <option value="preta">Preta</option>
+                            <option value="parda">Parda</option>
+                          </select>
+                        </div>
+                      </div>
                     </div>
-                    <div class="insc-rowq" id="div-indigena">
-                      <span class="insc-rowq__q">Deseja concorrer às vagas para pessoas autodeclaradas indígenas?
-                        *</span>
-                      <span class="insc-rowq__radios">
-                        <label><input type="radio" name="cota_indigena" value="Sim"> Sim</label>
-                        <label><input type="radio" name="cota_indigena" value="Não"> Não</label>
-                      </span>
+
+                    <div id="cota-ppi2" class="cotas-step">
+                      <div class="cotas-qrow">
+                        <div>
+                          <div class="cotas-question">3.2 Você deseja concorrer às vagas de cotas destinadas a pessoas pretas, pardas ou indígenas? * <span class="cotas-help-icon" role="button" tabindex="0" onclick="cotaOpenHelp('ppiCota')" onkeydown="cotaHelpKey(event, 'ppiCota')" title="Clique para saber mais" aria-label="Ajuda sobre cota PPI">?</span></div>
+                          <div class="cotas-hint">Aparece somente para candidatos autodeclarados indígenas, pretos ou pardos.</div>
+                        </div>
+                        <div class="cotas-options" data-name="ppiCota"></div>
+                      </div>
                     </div>
-                    <div class="insc-rowq">
-                      <span class="insc-rowq__q">Sua renda bruta familiar mensal por pessoa é ≤ 1 salário mínimo?
-                        *</span>
-                      <span class="insc-rowq__radios">
-                        <label><input type="radio" name="renda_minima" value="Sim"
-                            onchange="_showByRadio('renda_minima','divPerguntaRenda')"> Sim</label>
-                        <label><input type="radio" name="renda_minima" value="Não"
-                            onchange="_showByRadio('renda_minima','divPerguntaRenda')"> Não</label>
-                      </span>
+
+                    <div id="cota-q1" class="cotas-step">
+                      <div class="cotas-qrow">
+                        <div>
+                          <div class="cotas-question">4.1 Você se autodeclara uma pessoa quilombola? * <span class="cotas-help-icon" role="button" tabindex="0" onclick="cotaOpenHelp('qAuto')" onkeydown="cotaHelpKey(event, 'qAuto')" title="Clique para saber mais" aria-label="Ajuda sobre pessoa quilombola">?</span></div>
+                          <div class="cotas-hint">Não aparece quando a autodeclaração de cor/raça for indígena.</div>
+                        </div>
+                        <div class="cotas-options" data-name="qAuto"></div>
+                      </div>
                     </div>
-                    <div class="insc-rowq insc-sub" id="divPerguntaRenda">
-                      <span class="insc-rowq__q">Deseja concorrer às vagas reservadas de baixa renda? *</span>
-                      <span class="insc-rowq__radios">
-                        <label><input type="radio" name="cota_renda" value="Sim"> Sim</label>
-                        <label><input type="radio" name="cota_renda" value="Não"> Não</label>
-                      </span>
+
+                    <div id="cota-q2" class="cotas-step">
+                      <div class="cotas-qrow">
+                        <div>
+                          <div class="cotas-question">4.2 Você deseja concorrer às vagas de cotas destinadas a pessoas quilombolas? * <span class="cotas-help-icon" role="button" tabindex="0" onclick="cotaOpenHelp('qCota')" onkeydown="cotaHelpKey(event, 'qCota')" title="Clique para saber mais" aria-label="Ajuda sobre cota quilombola">?</span></div>
+                        </div>
+                        <div class="cotas-options" data-name="qCota"></div>
+                      </div>
                     </div>
+
+                    <div id="cota-renda1" class="cotas-step">
+                      <div class="cotas-qrow">
+                        <div>
+                          <div class="cotas-question">5.1 Sua família possui renda per capita inferior a 1 salário mínimo? * <span class="cotas-help-icon" role="button" tabindex="0" onclick="cotaOpenHelp('rendaAuto')" onkeydown="cotaHelpKey(event, 'rendaAuto')" title="Clique para saber mais" aria-label="Ajuda sobre renda familiar per capita">?</span></div>
+                        </div>
+                        <div class="cotas-options" data-name="rendaAuto"></div>
+                      </div>
+                    </div>
+
+                    <div id="cota-renda2" class="cotas-step">
+                      <div class="cotas-qrow">
+                        <div>
+                          <div class="cotas-question">5.2 Você deseja concorrer às vagas destinadas a pessoas com renda per capita inferior a 1 salário mínimo? * <span class="cotas-help-icon" role="button" tabindex="0" onclick="cotaOpenHelp('rendaCota')" onkeydown="cotaHelpKey(event, 'rendaCota')" title="Clique para saber mais" aria-label="Ajuda sobre cota de baixa renda">?</span></div>
+                        </div>
+                        <div class="cotas-options" data-name="rendaCota"></div>
+                      </div>
+                    </div>
+                  </section>
+
+                  <section class="cotas-result" id="cota-resultado">
+                    <h2>Modalidades calculadas</h2>
+                    <div id="cota-badges" class="cotas-badges"></div>
+                    <div id="cota-status" class="cotas-status">Responda as perguntas para calcular as modalidades.</div>
+                    <ul id="cota-explain" class="cotas-explain"></ul>
+                    <div class="cotas-actions">
+                      <button class="cotas-button" type="button" onclick="cotaResetForm()">Limpar respostas</button>
+                    </div>
+                  </section>
+                </div>
+                </div>
+
+                <div id="cota-helpModal" aria-hidden="true" onclick="cotaModalOutsideClick(event)">
+                  <div class="cotas-help-modal-content" role="dialog" aria-modal="true" aria-labelledby="cota-helpTitle">
+                    <button type="button" class="cotas-help-modal-close" onclick="cotaCloseHelp()" aria-label="Fechar ajuda">&times;</button>
+                    <h3 id="cota-helpTitle">Ajuda</h3>
+                    <p id="cota-helpText"></p>
                   </div>
                 </div>
+
+                <div id="cotas-compatibilidade-wizard" class="cotas-compat" aria-hidden="true">
+                  <input type="radio" name="cota_pcd" value="Sim">
+                  <input type="radio" name="cota_pcd" value="Não">
+                  <input type="radio" name="escola_publica" value="Sim">
+                  <input type="radio" name="escola_publica" value="Não">
+                  <input type="radio" name="cota_ep" value="Sim">
+                  <input type="radio" name="cota_ep" value="Não">
+                  <input type="radio" name="cota_quilombola" value="Sim">
+                  <input type="radio" name="cota_quilombola" value="Não">
+                  <input type="radio" name="cota_preta_parda" value="Sim">
+                  <input type="radio" name="cota_preta_parda" value="Não">
+                  <input type="radio" name="cota_indigena" value="Sim">
+                  <input type="radio" name="cota_indigena" value="Não">
+                  <input type="radio" name="renda_minima" value="Sim">
+                  <input type="radio" name="renda_minima" value="Não">
+                  <input type="radio" name="cota_renda" value="Sim">
+                  <input type="radio" name="cota_renda" value="Não">
+                </div>
+
               </div>
             </section>
+            <!-- subistituir pelo codigo das cotas -->
 
             <!-- Passo 7 - Comprovação -->
             <section id="step-7" hidden>
@@ -597,7 +707,73 @@
               <div class="step-head">
                 <span class="step-head__badge">Passo 8</span>
                 <h1>Revisão Final</h1>
+                <p>Confira um resumo das principais informações antes de finalizar.</p>
               </div>
+
+              <div class="review-alert">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" aria-hidden="true">
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <path d="M12 8v4M12 16h.01"></path>
+                </svg>
+                <span>Este é um resumo para conferência. Caso encontre alguma informação incorreta, volte ao passo correspondente e ajuste antes de finalizar.</span>
+              </div>
+
+              <div class="review-summary" id="reviewSummary">
+                <section class="review-card">
+                  <div class="review-card__head">
+                    <h2 class="review-card__title">Identificação</h2>
+                  </div>
+                  <div class="review-card__body">
+                    <div class="review-list" id="review-identificacao"></div>
+                  </div>
+                </section>
+
+                <section class="review-card">
+                  <div class="review-card__head">
+                    <h2 class="review-card__title">Contato e endereço</h2>
+                  </div>
+                  <div class="review-card__body">
+                    <div class="review-list" id="review-contato"></div>
+                  </div>
+                </section>
+
+                <section class="review-card">
+                  <div class="review-card__head">
+                    <h2 class="review-card__title">Curso e prova</h2>
+                  </div>
+                  <div class="review-card__body">
+                    <div class="review-list" id="review-curso"></div>
+                  </div>
+                </section>
+
+                <section class="review-card">
+                  <div class="review-card__head">
+                    <h2 class="review-card__title">Atendimento especializado</h2>
+                  </div>
+                  <div class="review-card__body">
+                    <div id="review-atendimento"></div>
+                  </div>
+                </section>
+
+                <section class="review-card review-card--full">
+                  <div class="review-card__head">
+                    <h2 class="review-card__title">Modalidades calculadas</h2>
+                  </div>
+                  <div class="review-card__body">
+                    <div id="review-modalidades"></div>
+                  </div>
+                </section>
+
+                <section class="review-card review-card--full">
+                  <div class="review-card__head">
+                    <h2 class="review-card__title">Documentos anexados</h2>
+                  </div>
+                  <div class="review-card__body">
+                    <div id="review-documentos"></div>
+                  </div>
+                </section>
+              </div>
+
               <p style="font-size:var(--text-sm);font-weight:var(--weight-semibold);margin-bottom:var(--space-2)">Termos
                 e Condições do Edital</p>
               <div class="insc-terms">
@@ -655,6 +831,7 @@
   <script src="../../assets/uniplus-backtotop.js"></script>
   <script src="../../assets/uniplus-admin-sidebar.js"></script>
   <script src="../../assets/uniplus-inscricoes.js"></script>
+
 
   <!-- VLibras — ADR-0003 -->
   <div vw class="enabled">

@@ -224,7 +224,7 @@
     container.innerHTML = itens.length
       ? itens.map((label, i) => `
           <div class="upload-section">
-            <p class="label">${label}</p>
+            <p class="label">${escapeHtml(label)}</p>
             <label class="upload-zone">
               <input id="upload_${i}" type="file" class="sr-only">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M17 8l-5-5-5 5M12 3v12"/></svg>
@@ -237,25 +237,51 @@
   }
 
   function initStatic() {
+
     const defBox = document.getElementById('deficienciasBox');
+
     if (defBox) {
       defBox.innerHTML = deficiencias.map(x => `
         <label class="insc-chip">
-          <input type="checkbox" name="deficiencia" value="${x}" onchange="_controleNaoPossuo(this,'deficiencia','Não Possuo')">
-          <span>${x}</span>
+          <input
+            type="checkbox"
+            name="deficiencia"
+            value="${escapeHtml(x)}">
+          <span>${escapeHtml(x)}</span>
         </label>
       `).join('');
     }
 
     const atendBox = document.getElementById('atendimentoBox');
+
     if (atendBox) {
       atendBox.innerHTML = atendimentos.map(x => `
         <label class="insc-chip">
-          <input type="checkbox" name="atendimento" value="${x}" onchange="_controleNaoPossuo(this,'atendimento','Não Necessito')">
-          <span>${x}</span>
+          <input
+            type="checkbox"
+            name="atendimento"
+            value="${escapeHtml(x)}">
+          <span>${escapeHtml(x)}</span>
         </label>
       `).join('');
     }
+
+    if (defBox) {
+      defBox.querySelectorAll('input[name="deficiencia"]').forEach(input => {
+        input.addEventListener('change', () => {
+          window._controleNaoPossuo(input, 'deficiencia', 'Não Possuo');
+        });
+      });
+    }
+
+    if (atendBox) {
+      atendBox.querySelectorAll('input[name="atendimento"]').forEach(input => {
+        input.addEventListener('change', () => {
+          window._controleNaoPossuo(input, 'atendimento', 'Não Necessito');
+        });
+      });
+    }
+
   }
 
   /* ---- public helpers (called by inline onchange) ---- */
@@ -335,7 +361,19 @@
     }
     if (div) div.hidden = !lista.length;
     if (sel && lista.length) {
-      sel.innerHTML = '<option value="">Selecione</option>' + lista.map(x => `<option>${x}</option>`).join('');
+      sel.textContent = '';
+
+      const opcaoInicial = document.createElement('option');
+      opcaoInicial.value = '';
+      opcaoInicial.textContent = 'Selecione';
+      sel.appendChild(opcaoInicial);
+
+      lista.forEach(x => {
+        const option = document.createElement('option');
+        option.value = x;
+        option.textContent = x;
+        sel.appendChild(option);
+      });
     }
     _toggleOutraEtnia();
   };
@@ -532,15 +570,42 @@
     summary.setAttribute('role', 'alert');
     summary.setAttribute('aria-labelledby', 'error-summary-title');
     summary.tabIndex = -1;
-    summary.innerHTML = `
-      <h2 id="error-summary-title" class="error-summary__title">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>
-        Há ${validErrors.length === 1 ? '1 erro' : validErrors.length + ' erros'} no formulário
-      </h2>
-      <ul class="error-summary__list">
-        ${validErrors.map(e => `<li><a href="#${e.field.id}">${escapeHtml(e.label)}: ${escapeHtml(e.message)}</a></li>`).join('')}
-      </ul>
+
+    summary.replaceChildren();
+
+    const title = document.createElement('h2');
+    title.id = 'error-summary-title';
+    title.className = 'error-summary__title';
+
+    title.innerHTML = `
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true">
+        <circle cx="12" cy="12" r="10"/>
+        <path d="M12 8v4M12 16h.01"/>
+      </svg>
     `;
+
+    title.appendChild(
+      document.createTextNode(
+        `Há ${validErrors.length === 1 ? '1 erro' : validErrors.length + ' erros'} no formulário`
+      )
+    );
+
+    const list = document.createElement('ul');
+    list.className = 'error-summary__list';
+
+    validErrors.forEach(e => {
+      const li = document.createElement('li');
+
+      const a = document.createElement('a');
+      a.href = `#${e.field.id}`;
+      a.textContent = `${e.label}: ${e.message}`;
+
+      li.appendChild(a);
+      list.appendChild(li);
+    });
+
+    summary.appendChild(title);
+    summary.appendChild(list);
 
     const stepHead = stepEl.querySelector('.step-head');
     if (stepHead) stepHead.insertAdjacentElement('afterend', summary);
@@ -1141,3 +1206,1077 @@
   });
 
 })();
+
+// ============================================================================
+// COTAS — fluxo novo integrado ao wizard original
+// ----------------------------------------------------------------------------
+// Este bloco foi isolado no final para não alterar a navegação original.
+// Ele valida visualmente o novo bloco de cotas e sincroniza os radios antigos
+// usados pela validação existente do wizard.
+// ============================================================================
+(function () {
+  'use strict';
+
+  const cotaHelpTexts = {
+    pcdAuto: {
+      titulo: 'Pessoa com deficiência',
+      texto: 'Marque “Sim” se o candidato se autodeclara pessoa com deficiência, considerando impedimento de longo prazo de natureza física, mental, intelectual ou sensorial, conforme a legislação aplicável.'
+    },
+    pcdCota: {
+      titulo: 'Concorrer às vagas PcD',
+      texto: 'Marque “Sim” se, além de se autodeclarar pessoa com deficiência, o candidato deseja utilizar essa condição para concorrer às vagas reservadas para PcD.'
+    },
+    eepAuto: {
+      titulo: 'Ensino médio em escola pública',
+      texto: 'Marque “Sim” se o candidato cursou integralmente o ensino médio em escola pública no Brasil ou em escola comunitária do campo conveniada com o poder público, conforme as regras do edital.'
+    },
+    eepCota: {
+      titulo: 'Concorrer às vagas de escola pública',
+      texto: 'Marque “Sim” se o candidato deseja concorrer às vagas reservadas para quem cursou integralmente o ensino médio em escola pública ou escola comunitária do campo conveniada.'
+    },
+    raca: {
+      titulo: 'Autodeclaração de cor/raça',
+      texto: 'Selecione a opção com a qual o candidato se autodeclara. Para as modalidades PPI, são considerados candidatos autodeclarados pretos, pardos ou indígenas.'
+    },
+    ppiCota: {
+      titulo: 'Concorrer às vagas PPI',
+      texto: 'Marque “Sim” se o candidato se autodeclara preto, pardo ou indígena e deseja concorrer às vagas reservadas para PPI. Caso o candidato também seja quilombola e se autodeclare preto ou pardo, as modalidades podem acumular.'
+    },
+    qAuto: {
+      titulo: 'Pessoa quilombola',
+      texto: 'Marque “Sim” se o candidato se autodeclara quilombola, conforme as regras e documentos exigidos no edital do processo seletivo.'
+    },
+    qCota: {
+      titulo: 'Concorrer às vagas quilombolas',
+      texto: 'Marque “Sim” se o candidato, além de se autodeclarar quilombola, deseja concorrer às vagas reservadas para pessoas quilombolas.'
+    },
+    rendaAuto: {
+      titulo: 'Renda familiar per capita',
+      texto: 'Marque “Sim” se a renda familiar bruta mensal por pessoa for inferior a 1 salário mínimo, conforme cálculo e documentação exigidos no edital.'
+    },
+    rendaCota: {
+      titulo: 'Concorrer às vagas de baixa renda',
+      texto: 'Marque “Sim” se o candidato deseja concorrer às vagas reservadas para pessoas com renda familiar per capita inferior a 1 salário mínimo. Pela regra aplicada, candidatos LB também concorrem às modalidades LI correspondentes.'
+    }
+  };
+
+  const cotaState = {
+    pcdAuto: null,
+    pcdCota: null,
+    eepAuto: null,
+    eepCota: null,
+    raca: null,
+    ppiCota: null,
+    qAuto: null,
+    qCota: null,
+    rendaAuto: null,
+    rendaCota: null
+  };
+
+  const cotaDesc = {
+    AC: 'Ampla Concorrência.',
+    AC_PcD: 'Ampla Concorrência - Pessoas com Deficiência.',
+    LI_EP: 'Escola Pública, independente de renda.',
+    LI_PcD: 'Escola Pública e Pessoa com Deficiência, independente de renda.',
+    LI_PPI: 'Escola Pública e PPI, independente de renda.',
+    LI_Q: 'Escola Pública e Quilombola, independente de renda.',
+    LB_EP: 'Escola Pública, com renda familiar per capita inferior a 1 salário mínimo.',
+    LB_PcD: 'Escola Pública e Pessoa com Deficiência, com renda familiar per capita inferior a 1 salário mínimo.',
+    LB_PPI: 'Escola Pública e PPI, com renda familiar per capita inferior a 1 salário mínimo.',
+    LB_Q: 'Escola Pública e Quilombola, com renda familiar per capita inferior a 1 salário mínimo.'
+  };
+
+  const cotaRoot = () => document.getElementById('div-cotas');
+  const cota$ = selector => cotaRoot() ? cotaRoot().querySelector(selector) : null;
+  const cota$$ = selector => cotaRoot() ? cotaRoot().querySelectorAll(selector) : [];
+
+  function cotaModuleExists() {
+    const root = cotaRoot();
+    return Boolean(root && root.querySelector('.cotas-step'));
+  }
+
+  function cotaIsYes(value) {
+    return value === 'sim';
+  }
+
+  function cotaIsPPI(raca) {
+    return ['indigena', 'preta', 'parda'].includes(raca);
+  }
+
+  function cotaShow(id, visible = true) {
+    const el = document.getElementById(`cota-${id}`);
+    if (!el) return;
+
+    el.classList.toggle('is-show', visible);
+
+    if (!visible) {
+      cotaClearFieldError(el);
+    }
+  }
+
+  function cotaClearFields(names) {
+    names.forEach(name => {
+      cotaState[name] = null;
+
+      cota$$(`[name="${name}"]`).forEach(input => {
+        input.checked = false;
+      });
+
+      if (name === 'raca') {
+        const select = document.getElementById('cota-raca');
+        if (select) select.value = '';
+      }
+
+      const field = document.getElementById(`cota-field-${name}`);
+      if (field) cotaClearFieldError(field);
+    });
+  }
+
+  function cotaCreateRadioOptions() {
+    cota$$('.cotas-options[data-name]').forEach(box => {
+
+      const name = box.dataset.name;
+
+      if (!name || box.dataset.cotaRadiosCreated === 'true') {
+        return;
+      }
+
+      box.dataset.cotaRadiosCreated = 'true';
+
+      // Remove qualquer conteúdo existente
+      box.replaceChildren();
+
+      [
+        { value: 'sim', texto: 'Sim' },
+        { value: 'nao', texto: 'Não' }
+      ].forEach(item => {
+
+        const label = document.createElement('label');
+        label.className = 'cotas-opt';
+
+        const input = document.createElement('input');
+        input.type = 'radio';
+        input.name = name;
+        input.value = item.value;
+
+        label.appendChild(input);
+        label.appendChild(document.createTextNode(' ' + item.texto));
+
+        box.appendChild(label);
+
+      });
+
+    });
+  }
+
+  function cotaBindEvents() {
+    cota$$('input[type="radio"]').forEach(input => {
+      if (input.dataset.cotaBinded === 'true') return;
+
+      input.dataset.cotaBinded = 'true';
+      input.addEventListener('change', event => {
+        cotaState[event.target.name] = event.target.value;
+        cotaClearFieldError(event.target.closest('.cotas-step'));
+        cotaClearValidationSummary();
+        cotaFlow();
+      });
+    });
+
+    const racaSelect = document.getElementById('cota-raca');
+
+    if (racaSelect && racaSelect.dataset.cotaBinded !== 'true') {
+      racaSelect.dataset.cotaBinded = 'true';
+
+      racaSelect.addEventListener('change', event => {
+        cotaState.raca = event.target.value || null;
+        cotaClearFieldError(event.target.closest('.cotas-step'));
+        cotaClearValidationSummary();
+        cotaFlow();
+      });
+    }
+  }
+
+  function cotaSetCompatRadio(name, value) {
+    let radio = document.querySelector(`#cotas-compatibilidade-wizard input[name="${name}"][value="${value}"]`);
+
+    // Fallback: permite funcionar mesmo se os radios antigos não estiverem
+    // dentro de #cotas-compatibilidade-wizard, desde que ainda existam no HTML.
+    if (!radio) {
+      radio = document.querySelector(`input[name="${name}"][value="${value}"]`);
+    }
+
+    if (!radio) return;
+
+    if (!radio.checked) {
+      radio.checked = true;
+      radio.dispatchEvent(new Event('change', { bubbles: true }));
+    }
+  }
+
+  function cotaSyncCompatibility() {
+    if (!cotaModuleExists()) return;
+
+    const pcd = cotaIsYes(cotaState.pcdAuto) && cotaIsYes(cotaState.pcdCota);
+    const escolaDeclarada = cotaIsYes(cotaState.eepAuto);
+    const escolaCota = escolaDeclarada && cotaIsYes(cotaState.eepCota);
+    const ppi = cotaIsPPI(cotaState.raca) && cotaIsYes(cotaState.ppiCota);
+    const quilombola = cotaState.raca !== 'indigena' && cotaIsYes(cotaState.qAuto) && cotaIsYes(cotaState.qCota);
+    const baixaRendaDeclarada = cotaIsYes(cotaState.rendaAuto);
+    const baixaRendaCota = baixaRendaDeclarada && cotaIsYes(cotaState.rendaCota);
+
+    cotaSetCompatRadio('cota_pcd', pcd ? 'Sim' : 'Não');
+    cotaSetCompatRadio('escola_publica', escolaDeclarada ? 'Sim' : 'Não');
+    cotaSetCompatRadio('cota_ep', escolaCota ? 'Sim' : 'Não');
+    cotaSetCompatRadio('cota_quilombola', quilombola ? 'Sim' : 'Não');
+    cotaSetCompatRadio('cota_preta_parda', (ppi && ['preta', 'parda'].includes(cotaState.raca)) ? 'Sim' : 'Não');
+    cotaSetCompatRadio('cota_indigena', (ppi && cotaState.raca === 'indigena') ? 'Sim' : 'Não');
+    cotaSetCompatRadio('renda_minima', baixaRendaDeclarada ? 'Sim' : 'Não');
+    cotaSetCompatRadio('cota_renda', baixaRendaCota ? 'Sim' : 'Não');
+  }
+
+  function cotaFlow() {
+    if (!cotaModuleExists()) return;
+
+    const pcdDeclarado = cotaIsYes(cotaState.pcdAuto);
+    cotaShow('pcd2', pcdDeclarado);
+
+    if (!pcdDeclarado) {
+      cotaClearFields(['pcdCota']);
+    }
+
+    const pcdOk = cotaState.pcdAuto === 'nao' || (pcdDeclarado && cotaState.pcdCota);
+    cotaShow('eep1', Boolean(pcdOk));
+
+    const escolaPublicaDeclarada = cotaIsYes(cotaState.eepAuto);
+    cotaShow('eep2', escolaPublicaDeclarada);
+
+    if (!escolaPublicaDeclarada) {
+      cotaClearFields(['eepCota', 'raca', 'ppiCota', 'qAuto', 'qCota', 'rendaAuto', 'rendaCota']);
+    }
+
+    const escolaPublicaCota = escolaPublicaDeclarada && cotaIsYes(cotaState.eepCota);
+    const eepOk = cotaState.eepAuto === 'nao' || escolaPublicaCota;
+
+    cotaShow('raca1', escolaPublicaCota && eepOk);
+
+    if (!escolaPublicaCota) {
+      cotaClearFields(['raca', 'ppiCota', 'qAuto', 'qCota', 'rendaAuto', 'rendaCota']);
+    }
+
+    const candidatoPPI = cotaIsPPI(cotaState.raca);
+    cotaShow('ppi2', escolaPublicaCota && candidatoPPI);
+
+    if (!candidatoPPI) {
+      cotaClearFields(['ppiCota']);
+    }
+
+    const racaOk = cotaState.raca && (!candidatoPPI || cotaState.ppiCota);
+    const podeVerQuilombola = escolaPublicaCota && racaOk && cotaState.raca !== 'indigena';
+
+    cotaShow('q1', Boolean(podeVerQuilombola));
+
+    if (!podeVerQuilombola) {
+      cotaClearFields(['qAuto', 'qCota']);
+    }
+
+    const quilombolaDeclarado = cotaIsYes(cotaState.qAuto) && podeVerQuilombola;
+    cotaShow('q2', quilombolaDeclarado);
+
+    if (!quilombolaDeclarado) {
+      cotaClearFields(['qCota']);
+    }
+
+    const qOk = !podeVerQuilombola || cotaState.qAuto === 'nao' || (quilombolaDeclarado && cotaState.qCota);
+    cotaShow('renda1', Boolean(escolaPublicaCota && racaOk && qOk));
+
+    const baixaRendaDeclarada = cotaIsYes(cotaState.rendaAuto);
+    cotaShow('renda2', baixaRendaDeclarada);
+
+    if (!baixaRendaDeclarada) {
+      cotaClearFields(['rendaCota']);
+    }
+
+    cotaSyncCompatibility();
+    cotaCalculate();
+  }
+
+  function cotaCalculate() {
+    const modalidades = ['AC'];
+
+    const addModalidade = modalidade => {
+      if (!modalidades.includes(modalidade)) {
+        modalidades.push(modalidade);
+      }
+    };
+
+    const pcd = cotaIsYes(cotaState.pcdAuto) && cotaIsYes(cotaState.pcdCota);
+    const escola = cotaIsYes(cotaState.eepAuto) && cotaIsYes(cotaState.eepCota);
+    const baixaRenda = cotaIsYes(cotaState.rendaAuto) && cotaIsYes(cotaState.rendaCota);
+
+    const prefixos = baixaRenda ? ['LB', 'LI'] : ['LI'];
+    const candidatoPPI = cotaIsPPI(cotaState.raca) && cotaIsYes(cotaState.ppiCota);
+    const quilombola = cotaState.raca !== 'indigena' && cotaIsYes(cotaState.qAuto) && cotaIsYes(cotaState.qCota);
+
+    if (pcd && !escola) {
+      addModalidade('AC_PcD');
+    }
+
+    if (escola) {
+      prefixos.forEach(prefixo => {
+        // EP é acumulado com PPI/PcD/Quilombola, não substituído.
+        addModalidade(`${prefixo}_EP`);
+
+        if (pcd) {
+          addModalidade(`${prefixo}_PcD`);
+        }
+
+        if (candidatoPPI) {
+          addModalidade(`${prefixo}_PPI`);
+        }
+
+        if (quilombola) {
+          addModalidade(`${prefixo}_Q`);
+        }
+      });
+    }
+
+    cotaRender(modalidades);
+  }
+
+  function cotaRender(modalidades) {
+    const badges = document.getElementById('cota-badges');
+    const status = document.getElementById('cota-status');
+    const explain = document.getElementById('cota-explain');
+
+    if (!badges || !status || !explain) return;
+
+    badges.replaceChildren();
+
+    modalidades.forEach((modalidade, index) => {
+      const span = document.createElement('span');
+      span.className = index === 0 ? 'cotas-badge primary' : 'cotas-badge';
+      span.textContent = modalidade;
+      badges.appendChild(span);
+    });
+
+    status.textContent = modalidades.length === 1
+      ? 'Até agora, o candidato concorre somente à Ampla Concorrência.'
+      : 'Modalidades possíveis conforme as respostas atuais.';
+
+    explain.replaceChildren();
+
+    modalidades.forEach(modalidade => {
+      const li = document.createElement('li');
+
+      const strong = document.createElement('strong');
+      strong.textContent = `${modalidade}:`;
+
+      li.appendChild(strong);
+      li.appendChild(
+        document.createTextNode(' ' + (cotaDesc[modalidade] || 'Descrição não cadastrada.'))
+      );
+
+      explain.appendChild(li);
+    });
+  }
+
+  function cotaClearValidationSummary() {
+    const summary = document.getElementById('cota-validation-summary');
+    if (!summary) return;
+
+    summary.textContent = '';
+    summary.classList.remove('is-show');
+  }
+
+  function cotaClearFieldError(stepEl) {
+    if (!stepEl) return;
+
+    stepEl.classList.remove('is-invalid');
+    stepEl.querySelectorAll('.cotas-field-error').forEach(error => error.remove());
+    stepEl.querySelectorAll('.is-invalid').forEach(field => field.classList.remove('is-invalid'));
+    stepEl.querySelectorAll('[aria-invalid="true"]').forEach(field => field.removeAttribute('aria-invalid'));
+  }
+
+  function cotaSetFieldError(stepEl, message) {
+    if (!stepEl) return;
+
+    cotaClearFieldError(stepEl);
+    stepEl.classList.add('is-invalid');
+
+    const inputArea = stepEl.querySelector('.cotas-options, .cotas-select');
+    if (inputArea) {
+      inputArea.classList.add('is-invalid');
+      inputArea.setAttribute('aria-invalid', 'true');
+    }
+
+    const error = document.createElement('p');
+    error.className = 'cotas-field-error';
+    error.textContent = message;
+
+    const questionArea = stepEl.querySelector('.cotas-qrow > div:first-child') || stepEl;
+    questionArea.appendChild(error);
+  }
+
+  function cotaFieldIsFilled(stepEl) {
+    const radioBox = stepEl.querySelector('.cotas-options[data-name]');
+
+    if (radioBox) {
+      const name = radioBox.dataset.name;
+      return Boolean(cotaState[name] || stepEl.querySelector(`input[name="${name}"]:checked`));
+    }
+
+    const select = stepEl.querySelector('select');
+
+    if (select) {
+      return Boolean(select.value);
+    }
+
+    return true;
+  }
+
+  function cotaValidate(showErrors = true) {
+    if (!cotaModuleExists()) return true;
+
+    const visibleSteps = [...cota$$('.cotas-step.is-show')];
+    const invalidSteps = visibleSteps.filter(stepEl => !cotaFieldIsFilled(stepEl));
+
+    if (showErrors) {
+      visibleSteps.forEach(stepEl => cotaClearFieldError(stepEl));
+
+      invalidSteps.forEach(stepEl => {
+        const hasSelect = Boolean(stepEl.querySelector('select'));
+        const message = hasSelect
+          ? 'Campo obrigatório: selecione uma opção para continuar.'
+          : 'Campo obrigatório: marque Sim ou Não para continuar.';
+
+        cotaSetFieldError(stepEl, message);
+      });
+
+      const summary = document.getElementById('cota-validation-summary');
+
+      if (summary) {
+        if (invalidSteps.length) {
+          summary.textContent = invalidSteps.length === 1
+            ? 'Existe 1 campo obrigatório pendente nas modalidades. Preencha antes de avançar.'
+            : `Existem ${invalidSteps.length} campos obrigatórios pendentes nas modalidades. Preencha antes de avançar.`;
+
+          summary.classList.add('is-show');
+        } else {
+          cotaClearValidationSummary();
+        }
+      }
+
+      if (invalidSteps.length) {
+        invalidSteps[0].scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+        const focusable = invalidSteps[0].querySelector('input, select, button, [tabindex]:not([tabindex="-1"])');
+        if (focusable) {
+          focusable.focus({ preventScroll: true });
+        }
+      }
+    }
+
+    return invalidSteps.length === 0;
+  }
+
+  function cotaStepIsVisible() {
+    const step = document.getElementById('step-6');
+    return Boolean(step && !step.hidden && getComputedStyle(step).display !== 'none');
+  }
+
+  function cotaInstallNextValidation() {
+    const nextButton = document.getElementById('btn-next');
+
+    if (!nextButton || nextButton.dataset.cotaValidationInstalled === 'true') return;
+
+    nextButton.dataset.cotaValidationInstalled = 'true';
+
+    nextButton.addEventListener('click', event => {
+      if (!cotaModuleExists() || !cotaStepIsVisible()) return;
+
+      const cotasOk = cotaValidate(true);
+
+      if (!cotasOk) {
+        event.preventDefault();
+        event.stopImmediatePropagation();
+        return;
+      }
+
+      cotaSyncCompatibility();
+      cotaClearValidationSummary();
+
+      // Não altera currentStep, não chama renderView e não pula etapa manualmente.
+      // O wizard original continua responsável pela navegação.
+    }, true);
+  }
+
+  function cotaResetForm() {
+    if (!cotaModuleExists()) return;
+
+    Object.keys(cotaState).forEach(key => {
+      cotaState[key] = null;
+    });
+
+    cota$$('input[type="radio"]').forEach(input => {
+      input.checked = false;
+    });
+
+    const raca = document.getElementById('cota-raca');
+    if (raca) raca.value = '';
+
+    ['pcd2', 'eep1', 'eep2', 'raca1', 'ppi2', 'q1', 'q2', 'renda1', 'renda2'].forEach(id => cotaShow(id, false));
+
+    cota$$('.cotas-step').forEach(stepEl => cotaClearFieldError(stepEl));
+    cotaClearValidationSummary();
+    cotaSyncCompatibility();
+    cotaRender(['AC']);
+  }
+
+  let cotaLastFocus = null;
+
+  function cotaOpenHelp(chave) {
+    const info = cotaHelpTexts[chave];
+    if (!info) return;
+
+    const modal = document.getElementById('cota-helpModal');
+    const title = document.getElementById('cota-helpTitle');
+    const text = document.getElementById('cota-helpText');
+
+    if (!modal || !title || !text) return;
+
+    cotaLastFocus = document.activeElement;
+
+    title.textContent = info.titulo;
+    text.textContent = info.texto;
+
+    modal.classList.add('is-show');
+    modal.setAttribute('aria-hidden', 'false');
+
+    const closeButton = modal.querySelector('.cotas-help-modal-close');
+    if (closeButton) closeButton.focus();
+  }
+
+  function cotaCloseHelp() {
+    const modal = document.getElementById('cota-helpModal');
+    if (!modal) return;
+
+    if (modal.contains(document.activeElement)) {
+      document.activeElement.blur();
+    }
+
+    modal.classList.remove('is-show');
+    modal.setAttribute('aria-hidden', 'true');
+
+    if (cotaLastFocus && typeof cotaLastFocus.focus === 'function') {
+      cotaLastFocus.focus();
+    }
+
+    cotaLastFocus = null;
+  }
+
+  function cotaModalOutsideClick(event) {
+    if (event.target && event.target.id === 'cota-helpModal') {
+      cotaCloseHelp();
+    }
+  }
+
+  function cotaHelpKey(event, chave) {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault();
+      cotaOpenHelp(chave);
+    }
+  }
+
+  window.cotaOpenHelp = cotaOpenHelp;
+  window.cotaCloseHelp = cotaCloseHelp;
+  window.cotaModalOutsideClick = cotaModalOutsideClick;
+  window.cotaHelpKey = cotaHelpKey;
+  window.cotaResetForm = cotaResetForm;
+  window.cotaValidate = cotaValidate;
+  window.cotaSyncCompatibility = cotaSyncCompatibility;
+
+  document.addEventListener('keydown', event => {
+    if (event.key === 'Escape') {
+      cotaCloseHelp();
+    }
+  });
+
+  let cotaInitialized = false;
+
+  function cotaInit() {
+    if (cotaInitialized) return;
+    if (!cotaModuleExists()) return;
+
+    cotaInitialized = true;
+
+    cotaCreateRadioOptions();
+    cotaBindEvents();
+    cotaInstallNextValidation();
+    cotaSyncCompatibility();
+    cotaRender(['AC']);
+  }
+
+  window.cotaInit = cotaInit;
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', cotaInit);
+  } else {
+    cotaInit();
+  }
+
+// ============================================================================
+// ATENDIMENTO ESPECIALIZADO — uploads obrigatórios por recurso selecionado
+// ============================================================================
+  (function () {
+    'use strict';
+
+    const NONE_VALUE = 'Não Necessito';
+    const MAX_FILE_SIZE = 5 * 1024 * 1024;
+
+    const docs = {
+      'Prova Ampliada de 18 até 24': {
+        titulo: 'Prova Ampliada de 18 até 24',
+        descricao: 'Anexe o laudo médico que comprove a necessidade de prova ampliada.'
+      },
+      'Tempo Adicional (até 1 hora)': {
+        titulo: 'Tempo Adicional (até 1 hora)',
+        descricao: 'Anexe o laudo médico que comprove a necessidade de tempo adicional.'
+      },
+      'Prova em Braile': {
+        titulo: 'Prova em Braile',
+        descricao: 'Anexe o laudo médico que comprove a necessidade de prova em Braile.'
+      },
+      'Intérprete de Língua de Sinais': {
+        titulo: 'Intérprete de Língua de Sinais',
+        descricao: 'Anexe documento que comprove a necessidade de intérprete de Libras.'
+      },
+      'Ledor/Transcritor': {
+        titulo: 'Ledor/Transcritor',
+        descricao: 'Anexe o laudo médico que comprove a necessidade de ledor/transcritor.'
+      },
+      'Lactante': {
+        titulo: 'Lactante',
+        descricao: 'Anexe documento comprobatório conforme exigência do edital.'
+      }
+    };
+
+    function slug(text) {
+      return text
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '')
+        .replace(/[^a-zA-Z0-9]+/g, '-')
+        .replace(/^-|-$/g, '')
+        .toLowerCase();
+    }
+
+    function selectedAtendimentos() {
+      return [...document.querySelectorAll('input[name="atendimento"]:checked')]
+        .map(input => input.value)
+        .filter(value => value !== NONE_VALUE);
+    }
+
+    function getPanel() {
+      return document.getElementById('atendimentoUploadsPanel');
+    }
+
+    function getList() {
+      return document.getElementById('atendimentoUploadsList');
+    }
+
+    function fileIsValid(file) {
+      if (!file) return false;
+
+      const allowed = [
+        'application/pdf',
+        'image/jpeg',
+        'image/png'
+      ];
+
+      return allowed.includes(file.type) && file.size <= MAX_FILE_SIZE;
+    }
+
+    function formatFileSize(bytes) {
+      if (!bytes) return '';
+      if (bytes < 1024 * 1024) return `${Math.round(bytes / 1024)} KB`;
+      return `${(bytes / (1024 * 1024)).toFixed(1).replace('.', ',')} MB`;
+    }
+
+    function createUploadCard(value) {
+      const item = docs[value] || {
+        titulo: value,
+        descricao: 'Anexe a documentação comprobatória correspondente.'
+      };
+
+      const id = `atendimento-upload-${slug(value)}`;
+
+      const card = document.createElement('article');
+      card.className = 'atendimento-upload-card';
+      card.dataset.atendimento = value;
+      card.innerHTML = `
+        <div class="atendimento-upload-info">
+          <span class="atendimento-upload-icon" aria-hidden="true">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+              <path d="M14 2v6h6"></path>
+            </svg>
+          </span>
+          <div>
+            <p class="atendimento-upload-name">${item.titulo}</p>
+            <span class="atendimento-upload-badge">Obrigatório</span>
+            <p class="atendimento-upload-desc">${item.descricao}</p>
+          </div>
+        </div>
+
+        <div>
+          <label class="atendimento-file-zone" for="${id}">
+            <input id="${id}" type="file" accept=".pdf,.jpg,.jpeg,.png,application/pdf,image/jpeg,image/png" data-atendimento-file="${value}">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+              <path d="M17 8l-5-5-5 5"></path>
+              <path d="M12 3v12"></path>
+            </svg>
+            <span class="atendimento-file-main">Arraste ou selecione um arquivo</span>
+            <span class="atendimento-file-hint">PDF, JPG ou PNG • até 2 MB</span>
+          </label>
+          <div class="atendimento-file-selected" data-file-name></div>
+          <p class="atendimento-upload-error" data-upload-error></p>
+        </div>
+      `;
+
+      return card;
+    }
+
+    function syncAtendimentoUploads() {
+      const panel = getPanel();
+      const list = getList();
+
+      if (!panel || !list) return;
+
+      const selected = selectedAtendimentos();
+
+      [...list.querySelectorAll('.atendimento-upload-card')].forEach(card => {
+        if (!selected.includes(card.dataset.atendimento)) {
+          card.remove();
+        }
+      });
+
+      selected.forEach(value => {
+        const exists = list.querySelector(`.atendimento-upload-card[data-atendimento="${CSS.escape(value)}"]`);
+        if (!exists) {
+          list.appendChild(createUploadCard(value));
+        }
+      });
+
+      panel.hidden = selected.length === 0;
+    }
+
+    function clearUploadError(card) {
+      card.classList.remove('is-error');
+
+      const error = card.querySelector('[data-upload-error]');
+      if (error) {
+        error.textContent = '';
+        error.classList.remove('is-show');
+      }
+    }
+
+    function setUploadError(card, message) {
+      card.classList.add('is-error');
+
+      const error = card.querySelector('[data-upload-error]');
+      if (error) {
+        error.textContent = message;
+        error.classList.add('is-show');
+      }
+    }
+
+    function validateAtendimentoUploads(showErrors = true) {
+      const selected = selectedAtendimentos();
+
+      if (!selected.length) return true;
+
+      syncAtendimentoUploads();
+
+      const cards = [...document.querySelectorAll('#atendimentoUploadsList .atendimento-upload-card')];
+      let valid = true;
+      let firstInvalid = null;
+
+      cards.forEach(card => {
+        const input = card.querySelector('input[type="file"]');
+        const file = input?.files?.[0];
+
+        clearUploadError(card);
+
+        if (!file) {
+          valid = false;
+          firstInvalid = firstInvalid || card;
+
+          if (showErrors) {
+            setUploadError(card, 'Anexe o documento obrigatório para este atendimento.');
+          }
+
+          return;
+        }
+
+        if (!fileIsValid(file)) {
+          valid = false;
+          firstInvalid = firstInvalid || card;
+
+          if (showErrors) {
+            setUploadError(card, 'Arquivo inválido. Envie PDF, JPG ou PNG com até 5 MB.');
+          }
+        }
+      });
+
+      if (!valid && showErrors && firstInvalid) {
+        firstInvalid.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        firstInvalid.querySelector('input[type="file"]')?.focus({ preventScroll: true });
+      }
+
+      return valid;
+    }
+
+    function initAtendimentoUploads() {
+      const atendimentoBox = document.getElementById('atendimentoBox');
+      if (!atendimentoBox || atendimentoBox.dataset.uploadsInstalled === 'true') return;
+
+      atendimentoBox.dataset.uploadsInstalled = 'true';
+
+      atendimentoBox.addEventListener('change', event => {
+        if (event.target.matches('input[name="atendimento"]')) {
+          setTimeout(syncAtendimentoUploads, 0);
+        }
+      });
+
+      document.addEventListener('change', event => {
+        const input = event.target;
+
+        if (!input.matches('input[data-atendimento-file]')) return;
+
+        const card = input.closest('.atendimento-upload-card');
+        const selectedBox = card?.querySelector('[data-file-name]');
+        const file = input.files?.[0];
+
+        clearUploadError(card);
+
+        if (selectedBox) {
+          if (file) {
+            selectedBox.textContent = `${file.name} • ${formatFileSize(file.size)}`;
+            selectedBox.classList.add('is-show');
+          } else {
+            selectedBox.textContent = '';
+            selectedBox.classList.remove('is-show');
+          }
+        }
+      });
+
+      const nextButton = document.getElementById('btn-next');
+
+      if (nextButton && nextButton.dataset.atendimentoUploadValidation !== 'true') {
+        nextButton.dataset.atendimentoUploadValidation = 'true';
+
+        nextButton.addEventListener('click', event => {
+          const step5 = document.getElementById('step-5');
+          const step5Visible = step5 && !step5.hidden && getComputedStyle(step5).display !== 'none';
+
+          if (!step5Visible) return;
+
+          if (!validateAtendimentoUploads(true)) {
+            event.preventDefault();
+            event.stopImmediatePropagation();
+          }
+        }, true);
+      }
+
+      syncAtendimentoUploads();
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initAtendimentoUploads);
+    } else {
+      initAtendimentoUploads();
+    }
+
+    window.validateAtendimentoUploads = validateAtendimentoUploads;
+    window.syncAtendimentoUploads = syncAtendimentoUploads;
+  })();
+
+  // ============================================================================
+  // Revisão de inscrição — resumo final
+  // ============================================================================
+  (function () {
+    'use strict';
+
+    function val(id) {
+      const el = document.getElementById(id);
+      if (!el) return '';
+
+      if (el.tagName === 'SELECT') {
+        return el.options[el.selectedIndex]?.textContent?.trim() || '';
+      }
+
+      return el.value?.trim() || '';
+    }
+
+    function checked(name) {
+      return [...document.querySelectorAll(`input[name="${name}"]:checked`)]
+        .map(i => i.value);
+    }
+
+    function clear(el) {
+      if (el) el.replaceChildren();
+    }
+
+    function item(label, value) {
+      const div = document.createElement('div');
+      div.className = 'review-item';
+
+      const labelSpan = document.createElement('span');
+      labelSpan.className = 'review-label';
+      labelSpan.textContent = label;
+
+      const valueSpan = document.createElement('span');
+      valueSpan.className = 'review-value';
+      valueSpan.textContent = value || 'Não informado';
+
+      div.appendChild(labelSpan);
+      div.appendChild(valueSpan);
+
+      return div;
+    }
+
+    function empty(text) {
+      const p = document.createElement('p');
+      p.className = 'review-empty';
+      p.textContent = text;
+      return p;
+    }
+
+    function tags(values) {
+      if (!values.length) {
+        return empty('Nenhum item selecionado.');
+      }
+
+      const div = document.createElement('div');
+      div.className = 'review-tags';
+
+      values.forEach(v => {
+        const span = document.createElement('span');
+        span.className = 'review-tag';
+        span.textContent = v;
+        div.appendChild(span);
+      });
+
+      return div;
+    }
+
+    function filesResumo() {
+      const fragment = document.createDocumentFragment();
+      let total = 0;
+
+      document.querySelectorAll('input[type="file"]').forEach(input => {
+        const file = input.files?.[0];
+        if (!file) return;
+
+        total += 1;
+
+        const label =
+          input.dataset.atendimentoFile ||
+          input.closest('.upload-section')?.querySelector('.label')?.textContent?.trim() ||
+          'Documento';
+
+        const div = document.createElement('div');
+        div.className = 'review-file';
+
+        const info = document.createElement('span');
+        info.textContent = `${label}: ${file.name}`;
+
+        const status = document.createElement('span');
+        status.textContent = 'Anexado';
+
+        div.appendChild(info);
+        div.appendChild(status);
+
+        fragment.appendChild(div);
+      });
+
+      if (!total) {
+        fragment.appendChild(empty('Nenhum documento anexado.'));
+      }
+
+      return fragment;
+    }
+
+    function appendAll(el, nodes) {
+      if (!el) return;
+
+      clear(el);
+
+      nodes.forEach(node => {
+        el.appendChild(node);
+      });
+    }
+
+    function renderReviewSummary() {
+      if (document.getElementById('step-8')?.hidden) return;
+
+      appendAll(document.getElementById('review-identificacao'), [
+        item('Nome', val('nome')),
+        item('CPF', val('cpf')),
+        item('Nascimento', val('data_nasc')),
+        item('Raça/Cor', val('raca')),
+        item('Deficiência', checked('deficiencia').join(', '))
+      ]);
+
+      appendAll(document.getElementById('review-contato'), [
+        item('Telefone', val('telefone')),
+        item('E-mail', val('email')),
+        item('Cidade/UF', `${val('cidade')} / ${val('estado')}`),
+        item('Tipo de endereço', val('tipoLocalidade'))
+      ]);
+
+      appendAll(document.getElementById('review-curso'), [
+        item('1ª opção', val('curso_opcao_1')),
+        item('2ª opção', val('curso_opcao_2')),
+        item('Cidade de prova', val('cidade_prova')),
+        item('Lista de espera', val('lista_espera'))
+      ]);
+
+      appendAll(document.getElementById('review-atendimento'), [
+        tags(checked('atendimento'))
+      ]);
+
+      const modalidades = [...document.querySelectorAll('#cota-badges .cotas-badge')]
+        .map(b => b.textContent.trim());
+
+      appendAll(document.getElementById('review-modalidades'), [
+        tags(modalidades)
+      ]);
+
+      appendAll(document.getElementById('review-documentos'), [
+        filesResumo()
+      ]);
+    }
+
+    document.getElementById('btn-next')?.addEventListener('click', () => {
+      setTimeout(renderReviewSummary, 0);
+    });
+
+    document.getElementById('btn-prev')?.addEventListener('click', () => {
+      setTimeout(renderReviewSummary, 0);
+    });
+
+    const step8 = document.getElementById('step-8');
+
+    if (step8) {
+      new MutationObserver(renderReviewSummary)
+        .observe(step8, { attributes: true, attributeFilter: ['hidden'] });
+    }
+
+    window.renderReviewSummary = renderReviewSummary;
+  })();
+  // ============================================================================
+  // Revisão de inscrição — resumo final
+  // ============================================================================
+})();
+
