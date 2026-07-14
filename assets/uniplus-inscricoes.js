@@ -1,3 +1,16 @@
+// ============================================================================
+// Utilitários compartilhados
+// ============================================================================
+function escapeHtml(s) {
+  return String(s).replace(/[&<>"']/g, (c) => ({
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#39;'
+  }[c]));
+}
+
 // ---- Mobile step overlay ----
 (function () {
   const btn = document.getElementById('step-bar');
@@ -492,15 +505,7 @@
     };
   }
 
-  function escapeHtml(s) {
-    return String(s).replace(/[&<>"']/g, (c) => ({
-      '&': '&amp;',
-      '<': '&lt;',
-      '>': '&gt;',
-      '"': '&quot;',
-      "'": '&#39;'
-    }[c]));
-  }
+
 
   function clearErrorsWizard(root) {
     if (!root) return;
@@ -1317,7 +1322,6 @@
   };
 
   const cotaRoot = () => document.getElementById('div-cotas');
-  const cota$ = selector => cotaRoot() ? cotaRoot().querySelector(selector) : null;
   const cota$$ = selector => cotaRoot() ? cotaRoot().querySelectorAll(selector) : [];
 
   function cotaModuleExists() {
@@ -1951,9 +1955,9 @@
             </svg>
           </span>
           <div>
-            <p class="atendimento-upload-name">${item.titulo}</p>
+            <p class="atendimento-upload-name">${escapeHtml(item.titulo)}</p>
             <span class="atendimento-upload-badge">Obrigatório</span>
-            <p class="atendimento-upload-desc">${item.descricao}</p>
+            <p class="atendimento-upload-desc">${escapeHtml(item.descricao)}</p>
           </div>
         </div>
 

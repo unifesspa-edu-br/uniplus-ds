@@ -3584,7 +3584,6 @@ dialog.vagas-modal::backdrop {
  * Edge adiciona padding interno que quebra o alinhamento com
  * inputs type="text". */
 .input {
-  display: inline-flex;
   align-items: center;
   height: var(--touch-comfortable); /* 48px */
 }
