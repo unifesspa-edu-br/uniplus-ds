@@ -619,8 +619,23 @@
       });
     });
 
-    summary.focus();
-    summary.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    /*
+    * Não usamos scrollIntoView no resumo porque ele pode
+    * movimentar a página inteira e esconder os cabeçalhos.
+    */
+    summary.focus({ preventScroll: true });
+
+    const wizBody = document.querySelector('.wiz-body');
+
+    if (wizBody) {
+      requestAnimationFrame(() => {
+        wizBody.scrollTo({
+          top: 0,
+          left: 0,
+          behavior: 'smooth'
+        });
+      });
+    }
   }
 
   function validateCurrentStep() {
@@ -790,6 +805,21 @@
 
   /* ---- navigation ---- */
 
+  /* Retorna o scroll interno do formulário para o topo */
+  function scrollWizardToTop() {
+    const wizBody = document.querySelector('.wiz-body');
+
+    if (!wizBody) return;
+
+    requestAnimationFrame(() => {
+      wizBody.scrollTo({
+        top: 0,
+        left: 0,
+        behavior: 'auto'
+      });
+    });
+  }
+
   function nextStep() {
     if (!validateCurrentStep()) return;
     if (currentStep === getLastStep()) {
@@ -798,7 +828,7 @@
     }
     currentStep = getNextStep();
     renderView();
-    window.scrollTo(0, 0);
+    scrollWizardToTop();
   }
 
   function prevStep() {
@@ -2118,6 +2148,20 @@
       return el.value?.trim() || '';
     }
 
+    function dateFormat(value) {
+      if (!value) return '';
+
+      const partes = value.split('-');
+
+      if (partes.length !== 3) {
+        return value;
+      }
+
+      const [ano, mes, dia] = partes;
+
+      return `${dia}-${mes}-${ano}`;
+    }
+
     function checked(name) {
       return [...document.querySelectorAll(`input[name="${name}"]:checked`)]
         .map(i => i.value);
@@ -2221,25 +2265,25 @@
       if (document.getElementById('step-8')?.hidden) return;
 
       appendAll(document.getElementById('review-identificacao'), [
-        item('Nome', val('nome')),
-        item('CPF', val('cpf')),
-        item('Nascimento', val('data_nasc')),
-        item('Raça/Cor', val('raca')),
-        item('Deficiência', checked('deficiencia').join(', '))
+        item('Nome:', val('nome')),
+        item('CPF:', val('cpf')),
+        item('Nascimento:', dateFormat(val('data_nasc'))),
+        item('Raça/Cor:', val('raca')),
+        item('Deficiência:', checked('deficiencia').join(', '))
       ]);
 
       appendAll(document.getElementById('review-contato'), [
-        item('Telefone', val('telefone')),
-        item('E-mail', val('email')),
-        item('Cidade/UF', `${val('cidade')} / ${val('estado')}`),
-        item('Tipo de endereço', val('tipoLocalidade'))
+        item('Telefone:', val('telefone')),
+        item('E-mail:', val('email')),
+        item('Cidade/UF:', `${val('cidade')} / ${val('estado')}`),
+        item('Tipo de endereço:', val('tipoLocalidade'))
       ]);
 
       appendAll(document.getElementById('review-curso'), [
-        item('1ª opção', val('curso_opcao_1')),
-        item('2ª opção', val('curso_opcao_2')),
-        item('Cidade de prova', val('cidade_prova')),
-        item('Lista de espera', val('lista_espera'))
+        item('1ª opção:', val('curso_opcao_1')),
+        item('2ª opção:', val('curso_opcao_2')),
+        item('Cidade de prova:', val('cidade_prova')),
+        item('Lista de espera:', val('lista_espera'))
       ]);
 
       appendAll(document.getElementById('review-atendimento'), [

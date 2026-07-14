@@ -1,15 +1,34 @@
+html {
+  height: 100%;
+  overflow: hidden;
+
+  /* Evita espaço reservado por alguma regra do CSS-base */
+  scrollbar-gutter: auto;
+}
+
 body {
   background: var(--surface-page);
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
+
+  /* Limita o documento à altura da janela */
+  height: 100vh;
+  height: 100dvh;
+  min-height: 0;
+
+  /* Impede o scroll gigante no body */
+  overflow: hidden;
 }
 
 .admin-shell {
   display: grid;
   grid-template-columns: 1fr;
-  flex: 1;
+
+  flex: 1 1 auto;
   min-height: 0;
+
+  /* Impede o conteúdo interno de aumentar o body */
+  overflow: hidden;
 }
 
 @media (min-width: 1024px) {
@@ -29,7 +48,13 @@ body {
 .admin-main {
   display: flex;
   flex-direction: column;
+
+  flex: 1 1 auto;
   min-width: 0;
+  min-height: 0;
+
+  /* Não deixa o formulário expandir este contêiner */
+  overflow: hidden;
 }
 
 @media (min-width: 480px) {
@@ -55,8 +80,12 @@ body {
 .page--wizard {
   padding: 0 !important;
   gap: 0 !important;
-  flex: 1;
+
+  flex: 1 1 auto;
   flex-direction: row;
+
+  min-height: 0;
+  overflow: hidden;
 }
 
 /* Step bar mobile */
@@ -175,7 +204,7 @@ body {
 /* Desktop */
 .wiz-nav .steps__item {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   gap: var(--space-3);
   padding: var(--space-2) var(--space-5);
   position: relative;
@@ -187,7 +216,7 @@ body {
 .wiz-nav .steps__item+.steps__item::before {
   content: '';
   position: absolute;
-  left: calc(var(--space-5) + 9px);
+  left: calc(var(--space-5) + 14px);
   top: 0;
   height: var(--space-2);
   width: 2px;
@@ -198,22 +227,22 @@ body {
 .wiz-nav .steps__item:not(:last-child)::after {
   content: '';
   position: absolute;
-  left: calc(var(--space-5) + 9px);
-  top: calc(var(--space-2) + 20px);
+  left: calc(var(--space-5) + 14px);
+  top: calc(var(--space-2) + 30px);
   bottom: 0;
   width: 2px;
   background: var(--border-default);
 }
 
 .wiz-nav .steps__num {
-  width: 20px;
-  height: 20px;
+  width: 30px;
+  height: 30px;
   border-radius: 50%;
   border: 2px solid var(--border-default);
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  font-size: 10px;
+  font-size: 14px;
   font-weight: var(--weight-bold);
   color: var(--text-muted);
   background: var(--surface-card);
@@ -227,7 +256,12 @@ body {
 }
 
 /* Badge icons: hidden by default, shown via state classes */
-.steps__num .num-icon { display: none; width: 0.9em; height: 0.9em; flex-shrink: 0; }
+.steps__num .num-icon {
+  display: none;
+  width: 1.5em;
+  height: 1.5em;
+  flex-shrink: 0;
+}
 
 .wiz-nav .steps__item.is-active .steps__num {
   background: var(--color-primary);
@@ -243,7 +277,8 @@ body {
 }
 
 .wiz-nav .steps__item.is-done .steps__num {
-  background: var(--color-success-600);
+  background: #168821;
+  /* background: var(--color-success-600); */
   border-color: var(--color-success-600);
   color: var(--text-on-inverse);
 }
@@ -333,13 +368,67 @@ body {
 
 /* Wizard body */
 .wiz-body {
-  flex: 1;
+  flex: 1 1 auto;
   display: flex;
   flex-direction: column;
+
   min-width: 0;
+  min-height: 0;
+
+  /* Scroll principal do formulário */
   overflow-y: auto;
   overflow-x: hidden;
+  overscroll-behavior: contain;
+
+  /* Firefox */
+  scrollbar-width: thin;
+  scrollbar-color:
+    color-mix(in srgb, var(--text-muted) 45%, transparent)
+    transparent;
 }
+/* // ============== */
+/* ajuste para scroll */
+/* Chrome, Edge e Safari */
+.wiz-body::-webkit-scrollbar {
+  width: 7px;
+}
+
+.wiz-body::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.wiz-body::-webkit-scrollbar-thumb {
+  background-color:
+    color-mix(in srgb, var(--text-muted) 42%, transparent);
+
+  border-radius: 999px;
+
+  /* Faz a parte visível ficar ainda mais fina */
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+
+.wiz-body::-webkit-scrollbar-thumb:hover {
+  background-color:
+    color-mix(in srgb, var(--color-primary) 65%, transparent);
+
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+
+/* Remove as setas das extremidades */
+.wiz-body::-webkit-scrollbar-button {
+  display: none;
+  width: 0;
+  height: 0;
+  -webkit-appearance: none;
+}
+
+.wiz-body::-webkit-scrollbar-corner {
+  background: transparent;
+}
+/* // ============== */
+/* ajuste para scroll */
 
 .wiz-content {
   flex: 1;
@@ -564,8 +653,12 @@ body {
   align-items: center;
   justify-content: flex-end;
   gap: var(--space-3);
+
   position: sticky;
   bottom: 0;
+
+  flex-shrink: 0;
+  z-index: 10;
 }
 
 @media (max-width: 767px) {
@@ -731,7 +824,7 @@ body {
 .form-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: var(--space-4) var(--space-5);
+  gap: var(--space-4) var(--space-4);
   align-items: start;
 }
 
@@ -1045,7 +1138,8 @@ body {
 
 /* Overlay — is-done */
 .steps-overlay .steps__item.is-done .steps__num {
-  background: var(--color-success-600);
+  background: #168821;
+  /* background: var(--color-success-600); */
   border-color: var(--color-success-600);
   color: var(--text-on-inverse);
 }
@@ -2536,6 +2630,18 @@ dialog.vagas-modal::backdrop {
    Inscrições wizard
    ======================================== */
 
+.termos-edital {
+  font-size:var(--text-sm);
+  font-weight:var(--weight-semibold);
+  margin-bottom:var(--space-2)"
+}
+
+.termo-aceite {
+  font-size:var(--text-sm);
+  font-weight:var(--weight-semibold);
+  color: var(--text-primary);
+}
+
 .insc-notice {
   display: flex;
   gap: var(--space-2);
@@ -2548,7 +2654,7 @@ dialog.vagas-modal::backdrop {
 .insc-notice--info {
   background: var(--color-primary-50);
   border-color: var(--color-primary-200);
-  color: var(--color-primary-900);
+  color: var(--text-primary);
 }
 
 .insc-notice--warning {
@@ -2596,14 +2702,21 @@ dialog.vagas-modal::backdrop {
 }
 
 .insc-chip {
+  position: relative;
   display: block;
   cursor: pointer;
 }
 
 .insc-chip input {
   position: absolute;
+  inset: 0;
+
+  width: 100%;
+  height: 100%;
+  margin: 0;
+
   opacity: 0;
-  pointer-events: none;
+  cursor: pointer;
 }
 
 .insc-chip span {
@@ -2681,7 +2794,6 @@ dialog.vagas-modal::backdrop {
 }
 
 .insc-terms {
-  height: 8rem;
   overflow-y: auto;
   background: var(--surface-raised);
   border: 1px solid var(--border-subtle);
@@ -2700,7 +2812,7 @@ dialog.vagas-modal::backdrop {
     color: var(--text-on-inverse);
     padding: var(--space-2) var(--space-4);
     gap: var(--space-1); align-items: center;
-    overflow-x: auto; scrollbar-width: thin;
+    /* overflow-x: auto; scrollbar-width: thin; */
     border-bottom: 1px solid color-mix(in srgb, var(--text-on-inverse) 16%, transparent);
 }
 @media (min-width: 1024px) { .subnav { display: flex; } }
@@ -3025,32 +3137,6 @@ dialog.vagas-modal::backdrop {
     #div-cotas .cotas-step{padding:18px 16px}
     #div-cotas .cotas-card-title{padding:16px}
   }
-
-  .scroll-cotas {
-    height: 600px;
-    overflow-y: auto;
-    scrollbar-width: thin;       /* Firefox */
-    scrollbar-color: #888 transparent;
-  }
-
-  /* Chrome, Edge e Safari */
-  .scroll-cotas::-webkit-scrollbar {
-    width: 4px;
-  }
-
-  .scroll-cotas::-webkit-scrollbar-track {
-    background: transparent;
-  }
-
-  .scroll-cotas::-webkit-scrollbar-thumb {
-    background: #888;
-    border-radius: 10px;
-  }
-
-  .scroll-cotas::-webkit-scrollbar-thumb:hover {
-    background: #666;
-  }
-
 
   /* Atendimento especializado — uploads por recurso selecionado */
   #step-5 .atendimento-info{
@@ -3494,3 +3580,21 @@ dialog.vagas-modal::backdrop {
   }
     /* Módulo de cotas */
 /* ================================== */
+ /* Normaliza altura do date picker — o shadow DOM do Chrome/
+ * Edge adiciona padding interno que quebra o alinhamento com
+ * inputs type="text". */
+.input {
+  display: inline-flex;
+  align-items: center;
+  height: var(--touch-comfortable); /* 48px */
+}
+
+.input::-webkit-datetime-edit {
+  padding: 0;
+  line-height: var(--leading-snug);
+}
+
+.input::-webkit-inner-spin-button,
+.input::-webkit-calendar-picker-indicator {
+  /* mantém o ícone visível, mas não interfere no height */
+}
