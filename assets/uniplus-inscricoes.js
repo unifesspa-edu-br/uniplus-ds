@@ -1963,7 +1963,7 @@ function escapeHtml(s) {
 
         <div>
           <label class="atendimento-file-zone" for="${id}">
-            <input id="${id}" type="file" accept=".pdf,.jpg,.jpeg,.png,application/pdf,image/jpeg,image/png" data-atendimento-file="${value}">
+            <input id="${id}" type="file" accept=".pdf,.jpg,.jpeg,.png,application/pdf,image/jpeg,image/png" data-atendimento-file="${escapeHtml(value)}">
             <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
               <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
               <path d="M17 8l-5-5-5 5"></path>
