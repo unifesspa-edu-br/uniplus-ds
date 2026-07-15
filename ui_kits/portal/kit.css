@@ -1,8 +1,6 @@
 html {
   height: 100%;
   overflow: hidden;
-
-  /* Evita espaço reservado por alguma regra do CSS-base */
   scrollbar-gutter: auto;
 }
 
@@ -16,7 +14,6 @@ body {
   height: 100dvh;
   min-height: 0;
 
-  /* Impede o scroll gigante no body */
   overflow: hidden;
 }
 
@@ -27,7 +24,6 @@ body {
   flex: 1 1 auto;
   min-height: 0;
 
-  /* Impede o conteúdo interno de aumentar o body */
   overflow: hidden;
 }
 
@@ -53,7 +49,6 @@ body {
   min-width: 0;
   min-height: 0;
 
-  /* Não deixa o formulário expandir este contêiner */
   overflow: hidden;
 }
 
@@ -368,23 +363,16 @@ body {
 
 /* Wizard body */
 .wiz-body {
-  flex: 1 1 auto;
+  flex: 1 1 0;
   display: flex;
   flex-direction: column;
 
   min-width: 0;
   min-height: 0;
 
-  /* Scroll principal do formulário */
-  overflow-y: auto;
-  overflow-x: hidden;
-  overscroll-behavior: contain;
-
-  /* Firefox */
-  scrollbar-width: thin;
-  scrollbar-color:
-    color-mix(in srgb, var(--text-muted) 45%, transparent)
-    transparent;
+  /* A wiz-body não deve rolar */
+  overflow: hidden;
+  overflow: clip;
 }
 /* // ============== */
 /* ajuste para scroll */
@@ -431,12 +419,32 @@ body {
 /* ajuste para scroll */
 
 .wiz-content {
-  flex: 1;
+  flex: 1 1 0;
+  min-height: 0;
+
+  /* Único scroll do formulário */
+  overflow-y: auto;
+  overflow-x: hidden;
+  overscroll-behavior: contain;
+
+  scroll-padding-block: 24px;
+  scrollbar-gutter: stable;
+
   padding: var(--space-8);
 }
 
 @media (max-width: 767px) {
   .wiz-content {
+     flex: 1 1 0;
+  min-height: 0;
+
+  /* Único scroll do formulário */
+  overflow-y: auto;
+  overflow-x: hidden;
+  overscroll-behavior: contain;
+
+  scroll-padding-block: 24px;
+  scrollbar-gutter: stable;
     padding: var(--space-5) var(--space-4);
   }
 }
@@ -649,21 +657,33 @@ body {
   background: var(--surface-card);
   border-top: 1px solid var(--border-subtle);
   padding: var(--space-4) var(--space-8);
+
   display: flex;
   align-items: center;
   justify-content: flex-end;
   gap: var(--space-3);
 
-  position: sticky;
-  bottom: 0;
-
-  flex-shrink: 0;
+  /* Não precisa mais ser sticky */
+  position: relative;
+  flex: 0 0 auto;
   z-index: 10;
 }
 
 @media (max-width: 767px) {
   .wiz-footer {
+    background: var(--surface-card);
+    border-top: 1px solid var(--border-subtle);
     padding: var(--space-3) var(--space-4);
+
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: var(--space-3);
+
+    /* Não precisa mais ser sticky */
+    position: relative;
+    flex: 0 0 auto;
+    z-index: 10;
   }
 
   .wiz-footer .btn {
