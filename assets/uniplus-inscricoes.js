@@ -297,6 +297,28 @@ function escapeHtml(s) {
 
   }
 
+  /* ---- scroll helpers ---- */
+
+  let isKeyboardNavigating = false;
+
+  /** Retorna o elemento que é o scroll container do wizard */
+  function getWizardScroller() {
+    return document.querySelector('.wiz-content');
+  }
+
+  function scrollWizardToTop() {
+    const scroller = getWizardScroller();
+    if (!scroller) return;
+
+    requestAnimationFrame(() => {
+      scroller.scrollTo({
+        top: 0,
+        left: 0,
+        behavior: isKeyboardNavigating ? 'auto' : 'smooth'
+      });
+    });
+  }
+
   /* ---- public helpers (called by inline onchange) ---- */
 
   window._controleNaoPossuo = function (cb, name, noneVal) {
@@ -538,11 +560,18 @@ function escapeHtml(s) {
       const field = err.field;
       if (!field) return;
 
-      if (!field.id) field.id = `wizard-error-field-${currentStep}-${index}`;
+      if (!field.id) {
+        field.id = `wizard-error-field-${currentStep}-${index}`;
+      }
 
       field.setAttribute('aria-invalid', 'true');
 
-      const wrapper = field.closest('.field') || field.closest('.insc-rowq') || field.closest('.insc-chip-grid') || field.parentElement;
+      const wrapper =
+        field.closest('.field') ||
+        field.closest('.insc-rowq') ||
+        field.closest('.insc-chip-grid') ||
+        field.parentElement;
+
       wrapper?.classList.add('is-error');
 
       const errId = `${field.id}-error`;
@@ -555,35 +584,67 @@ function escapeHtml(s) {
         errNode.dataset.wizardError = 'true';
 
         if (field.matches('input[type="checkbox"], input[type="radio"]')) {
-          field.closest('.insc-chip-grid, .insc-rowq, label')?.insertAdjacentElement('afterend', errNode);
+          const groupWrapper = field.closest(
+            '.insc-chip-grid, .insc-rowq, label'
+          );
+
+          groupWrapper?.insertAdjacentElement('afterend', errNode);
         } else {
           field.insertAdjacentElement('afterend', errNode);
         }
       }
 
       const describedBy = field.getAttribute('aria-describedby') || '';
-      if (!describedBy.split(/\s+/).includes(errId)) {
-        field.setAttribute('aria-describedby', (describedBy + ' ' + errId).trim());
+      const describedByIds = describedBy.split(/\s+/).filter(Boolean);
+
+      if (!describedByIds.includes(errId)) {
+        describedByIds.push(errId);
+        field.setAttribute('aria-describedby', describedByIds.join(' '));
       }
 
-      errNode.innerHTML = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>${escapeHtml(err.message)}`;
+      errNode.innerHTML = `
+        <svg
+          width="14"
+          height="14"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2.5"
+          stroke-linecap="round"
+          aria-hidden="true"
+        >
+          <circle cx="12" cy="12" r="10"/>
+          <path d="M12 8v4M12 16h.01"/>
+        </svg>
+        ${escapeHtml(err.message)}
+      `;
+
       errNode.hidden = false;
     });
 
     const summary = document.createElement('div');
+
     summary.className = 'error-summary';
     summary.setAttribute('role', 'alert');
     summary.setAttribute('aria-labelledby', 'error-summary-title');
     summary.tabIndex = -1;
 
-    summary.replaceChildren();
-
     const title = document.createElement('h2');
+
     title.id = 'error-summary-title';
     title.className = 'error-summary__title';
 
     title.innerHTML = `
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true">
+      <svg
+        width="20"
+        height="20"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2.5"
+        stroke-linecap="round"
+        aria-hidden="true"
+      >
         <circle cx="12" cy="12" r="10"/>
         <path d="M12 8v4M12 16h.01"/>
       </svg>
@@ -591,21 +652,23 @@ function escapeHtml(s) {
 
     title.appendChild(
       document.createTextNode(
-        `Há ${validErrors.length === 1 ? '1 erro' : validErrors.length + ' erros'} no formulário`
+        validErrors.length === 1
+          ? 'Há 1 erro no formulário'
+          : `Há ${validErrors.length} erros no formulário`
       )
     );
 
     const list = document.createElement('ul');
     list.className = 'error-summary__list';
 
-    validErrors.forEach(e => {
+    validErrors.forEach(errorItem => {
       const li = document.createElement('li');
+      const link = document.createElement('a');
 
-      const a = document.createElement('a');
-      a.href = `#${e.field.id}`;
-      a.textContent = `${e.label}: ${e.message}`;
+      link.href = `#${errorItem.field.id}`;
+      link.textContent = `${errorItem.label}: ${errorItem.message}`;
 
-      li.appendChild(a);
+      li.appendChild(link);
       list.appendChild(li);
     });
 
@@ -613,34 +676,84 @@ function escapeHtml(s) {
     summary.appendChild(list);
 
     const stepHead = stepEl.querySelector('.step-head');
-    if (stepHead) stepHead.insertAdjacentElement('afterend', summary);
-    else stepEl.prepend(summary);
 
-    summary.querySelectorAll('a').forEach(a => {
-      a.addEventListener('click', (event) => {
-        event.preventDefault();
-        const target = document.getElementById(a.getAttribute('href').slice(1));
-        target?.focus({ preventScroll: false });
-      });
-    });
+    if (stepHead) {
+      stepHead.insertAdjacentElement('afterend', summary);
+    } else {
+      stepEl.prepend(summary);
+    }
 
     /*
-    * Não usamos scrollIntoView no resumo porque ele pode
-    * movimentar a página inteira e esconder os cabeçalhos.
+    * Links do resumo:
+    * coloca o foco no campo e movimenta somente a .wiz-content.
     */
-    summary.focus({ preventScroll: true });
+    summary.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', event => {
+        event.preventDefault();
 
-    const wizBody = document.querySelector('.wiz-body');
+        const targetId = link.getAttribute('href')?.slice(1);
+        const target = targetId
+          ? document.getElementById(targetId)
+          : null;
 
-    if (wizBody) {
-      requestAnimationFrame(() => {
-        wizBody.scrollTo({
-          top: 0,
+        if (!target) return;
+
+        const scroller = getWizardScroller();
+
+        target.focus({
+          preventScroll: true
+        });
+
+        if (!scroller) return;
+
+        const scrollerRect = scroller.getBoundingClientRect();
+        const targetRect = target.getBoundingClientRect();
+
+        const targetTop =
+          scroller.scrollTop +
+          targetRect.top -
+          scrollerRect.top -
+          24;
+
+        scroller.scrollTo({
+          top: Math.max(0, targetTop),
           left: 0,
           behavior: 'smooth'
         });
       });
-    }
+    });
+
+    /*
+    * Aguarda a inserção e o cálculo da altura dos erros.
+    * Depois movimenta somente o scroll interno e coloca
+    * o foco no resumo sem permitir scroll automático externo.
+    */
+    requestAnimationFrame(() => {
+      const scroller = getWizardScroller();
+
+      if (scroller) {
+        scroller.scrollTo({
+          top: 0,
+          left: 0,
+          behavior: 'auto'
+        });
+      }
+
+      summary.focus({
+        preventScroll: true
+      });
+
+      /*
+      * Garante novamente o topo após o foco,
+      * pois alguns navegadores recalculam o scroll.
+      */
+      requestAnimationFrame(() => {
+        if (scroller) {
+          scroller.scrollTop = 0;
+          scroller.scrollLeft = 0;
+        }
+      });
+    });
   }
 
   function validateCurrentStep() {
@@ -810,21 +923,6 @@ function escapeHtml(s) {
 
   /* ---- navigation ---- */
 
-  /* Retorna o scroll interno do formulário para o topo */
-  function scrollWizardToTop() {
-    const wizBody = document.querySelector('.wiz-body');
-
-    if (!wizBody) return;
-
-    requestAnimationFrame(() => {
-      wizBody.scrollTo({
-        top: 0,
-        left: 0,
-        behavior: 'auto'
-      });
-    });
-  }
-
   function nextStep() {
     if (!validateCurrentStep()) return;
     if (currentStep === getLastStep()) {
@@ -839,13 +937,15 @@ function escapeHtml(s) {
   function prevStep() {
     currentStep = getPrevStep();
     renderView();
-    window.scrollTo(0, 0);
+    scrollWizardToTop();
   }
 
   /* ---- init ---- */
 
   const SVG_CHECK = `<svg class="num-icon num-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>`;
   const SVG_HOURGLASS = `<svg class="num-icon num-hourglass" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 22h14M5 2h14M17 22v-4.172a2 2 0 0 0-.586-1.414L12 12l-4.414 4.414A2 2 0 0 0 7 17.828V22M7 2v4.172a2 2 0 0 0 .586 1.414L12 12l4.414-4.414A2 2 0 0 0 17 6.172V2"/></svg>`;
+
+  /* ---- keyboard detection ---- */
 
   document.addEventListener('DOMContentLoaded', function () {
     document.querySelectorAll('#nav-steps .steps__num, #steps-overlay .steps__num').forEach(badge => {
@@ -2326,5 +2426,54 @@ function escapeHtml(s) {
   // ============================================================================
   // Revisão de inscrição — resumo final
   // ============================================================================
+
+  let outerScrollFrame = 0;
+
+function resetOuterWizardScroll() {
+  const allowedScroller = document.querySelector('.wiz-content');
+
+  const containers = [
+    document.scrollingElement,
+    document.documentElement,
+    document.body,
+    document.querySelector('.admin-shell'),
+    document.querySelector('.admin-main'),
+    document.querySelector('.page--wizard'),
+    document.querySelector('.wiz-body')
+  ];
+
+  containers.forEach(container => {
+    if (!container || container === allowedScroller) return;
+
+    container.scrollTop = 0;
+    container.scrollLeft = 0;
+  });
+
+  if (window.scrollX !== 0 || window.scrollY !== 0) {
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: 'auto'
+    });
+  }
+}
+
+function scheduleOuterScrollReset() {
+  if (outerScrollFrame) return;
+
+  outerScrollFrame = requestAnimationFrame(() => {
+    outerScrollFrame = 0;
+    resetOuterWizardScroll();
+  });
+}
+
+document.addEventListener(
+  'focusin',
+  event => {
+    if (!event.target.closest('.wiz-content')) return;
+    scheduleOuterScrollReset();
+  },
+  true
+);
 })();
 
