@@ -3618,3 +3618,831 @@ dialog.vagas-modal::backdrop {
 .input::-webkit-calendar-picker-indicator {
   /* mantém o ícone visível, mas não interfere no height */
 }
+
+/* comprovante inscrição candidato */
+/* =============================================== */
+.comprovante-pdf {
+  position: fixed;
+  top: 0;
+  left: -10000px;
+
+  box-sizing: border-box;
+  width: 794px;
+  min-height: 1123px;
+  padding: 48px 52px;
+
+  background: #ffffff;
+  color: #1f2937;
+
+  font-family:
+    Arial,
+    Helvetica,
+    sans-serif;
+
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+/* =========================================================
+   CABEÇALHO
+   ========================================================= */
+
+.comprovante__header {
+  padding-bottom: 22px;
+
+  border-bottom: 3px solid #174a72;
+}
+
+.comprovante__identidade {
+  display: flex;
+  align-items: center;
+
+  gap: 20px;
+}
+
+.comprovante__marca {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 64px;
+  height: 64px;
+
+  flex-shrink: 0;
+
+  background: #174a72;
+  color: #ffffff;
+
+  border-radius: 4px;
+
+  font-size: 24px;
+  font-weight: 700;
+  letter-spacing: -1px;
+}
+
+.comprovante__instituicao {
+  flex: 1;
+}
+
+.comprovante__governo {
+  margin: 0 0 4px;
+
+  color: #4b5563;
+
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+}
+
+.comprovante__universidade {
+  margin: 0;
+
+  color: #172b3a;
+
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.comprovante__sistema {
+  margin: 5px 0 0;
+
+  color: #64748b;
+
+  font-size: 11px;
+}
+
+/* =========================================================
+   TÍTULO
+   ========================================================= */
+
+.comprovante__documento {
+  padding: 30px 0 24px;
+
+  text-align: center;
+}
+
+.comprovante__documento-tipo {
+  margin: 0 0 5px;
+
+  color: #64748b;
+
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1.8px;
+}
+
+.comprovante__titulo {
+  margin: 0;
+
+  color: #174a72;
+
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+.comprovante__documento-descricao {
+  max-width: 540px;
+  margin: 9px auto 0;
+
+  color: #64748b;
+
+  font-size: 11px;
+}
+
+/* =========================================================
+   PROTOCOLO
+   ========================================================= */
+
+.comprovante__protocolo {
+  display: grid;
+  grid-template-columns:
+    1.3fr
+    1fr
+    1fr;
+
+  margin-bottom: 28px;
+
+  border: 1px solid #cbd5e1;
+  border-left: 4px solid #174a72;
+
+  background: #f8fafc;
+}
+
+.comprovante__protocolo
+.comprovante__campo {
+  padding: 14px 16px;
+
+  border-right: 1px solid #e2e8f0;
+}
+
+.comprovante__protocolo
+.comprovante__campo:last-child {
+  border-right: 0;
+}
+
+/* =========================================================
+   SEÇÕES
+   ========================================================= */
+
+.comprovante__secao {
+  margin-top: 26px;
+}
+
+.comprovante__secao-titulo {
+  margin: 0 0 14px;
+  padding-bottom: 7px;
+
+  color: #174a72;
+
+  border-bottom: 1px solid #cbd5e1;
+
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.4px;
+}
+
+.comprovante__grid {
+  display: grid;
+  grid-template-columns:
+    repeat(2, minmax(0, 1fr));
+
+  gap: 0;
+
+  border: 1px solid #dbe2ea;
+}
+
+.comprovante__grid
+.comprovante__campo {
+  min-height: 48px;
+  padding: 11px 14px;
+
+  border-right: 1px solid #e2e8f0;
+}
+
+.comprovante__grid
+.comprovante__campo:last-child {
+  border-right: none;
+}
+
+.comprovante__campo {
+  display: flex;
+  flex-direction: column;
+
+  gap: 3px;
+}
+
+.comprovante__campo-label {
+  color: #64748b;
+
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.comprovante__campo-valor {
+  color: #172b3a;
+
+  font-size: 12px;
+  font-weight: 600;
+}
+
+/* =========================================================
+   REVISÃO
+   ========================================================= */
+
+.comprovante__review {
+  color: #1f2937;
+}
+
+.comprovante__review .review-section,
+.comprovante__review .review-card,
+.comprovante__review section {
+  break-inside: avoid;
+}
+
+.comprovante__review h2,
+.comprovante__review h3,
+.comprovante__review h4 {
+  color: #174a72;
+}
+
+.comprovante__review button,
+.comprovante__review .btn {
+  display: none;
+}
+
+/* ==========================================================================
+   COMPROVANTE DE INSCRIÇÃO
+   ========================================================================== */
+
+.comprovante-pdf {
+  position: fixed;
+  top: 0;
+  left: -10000px;
+
+  display: flex;
+  flex-direction: column;
+
+  box-sizing: border-box;
+
+  width: 794px;
+  min-height: 1123px;
+
+  padding: 52px 60px 42px;
+
+  background: #ffffff;
+  color: #1f2937;
+
+  font-family:
+    Arial,
+    Helvetica,
+    sans-serif;
+
+  font-size: 13px;
+  line-height: 1.45;
+}
+
+
+/* ==========================================================================
+   CABEÇALHO INSTITUCIONAL
+   ========================================================================== */
+
+.comprovante__header {
+  display: flex;
+  align-items: center;
+
+  gap: 20px;
+
+  padding-bottom: 20px;
+
+  border-bottom: 3px solid #123b5d;
+}
+
+.comprovante__marca {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 62px;
+  height: 62px;
+
+  flex: 0 0 62px;
+
+  border-radius: 5px;
+
+  background: #123b5d;
+  color: #ffffff;
+
+  font-size: 23px;
+  font-weight: 700;
+
+  letter-spacing: -1px;
+}
+
+.comprovante__instituicao {
+  display: flex;
+  flex-direction: column;
+
+  min-width: 0;
+}
+
+.comprovante__ministerio {
+  margin-bottom: 5px;
+
+  color: #667085;
+
+  font-size: 9px;
+  font-weight: 700;
+
+  letter-spacing: 1.5px;
+}
+
+.comprovante__universidade {
+  margin: 0;
+
+  color: #1f2937;
+
+  font-size: 19px;
+  font-weight: 700;
+
+  line-height: 1.2;
+}
+
+.comprovante__sistema {
+  margin-top: 5px;
+
+  color: #667085;
+
+  font-size: 10px;
+}
+
+
+/* ==========================================================================
+   TÍTULO DO DOCUMENTO
+   ========================================================================== */
+
+.comprovante__documento {
+  padding: 29px 0 23px;
+
+  text-align: center;
+}
+
+.comprovante__documento-tipo {
+  display: block;
+
+  margin-bottom: 8px;
+
+  color: #667085;
+
+  font-size: 9px;
+  font-weight: 700;
+
+  letter-spacing: 2px;
+}
+
+.comprovante__titulo {
+  margin: 0;
+
+  color: #123b5d;
+
+  font-size: 25px;
+  font-weight: 700;
+
+  line-height: 1.15;
+}
+
+.comprovante__descricao {
+  margin: 9px auto 0;
+
+  color: #667085;
+
+  font-size: 10px;
+}
+
+
+/* ==========================================================================
+   PROTOCOLO
+   ========================================================================== */
+
+.comprovante__protocolo {
+  position: relative;
+
+  display: grid;
+
+  grid-template-columns:
+    1.25fr
+    1fr
+    1fr;
+
+  margin-bottom: 29px;
+
+  overflow: hidden;
+
+  border: 1px solid #d7dee7;
+  border-left: 4px solid #1d5c89;
+
+  border-radius: 3px;
+
+  background: #f6f8fb;
+}
+
+.comprovante__protocolo
+.comprovante__campo {
+  min-height: 55px;
+
+  padding: 14px 16px;
+
+  border-right: 1px solid #d7dee7;
+}
+
+.comprovante__protocolo
+.comprovante__campo:last-child {
+  border-right: 0;
+}
+
+.comprovante__campo--status
+.comprovante__campo-valor {
+  color: #157347;
+}
+
+
+/* ==========================================================================
+   CAMPOS
+   ========================================================================== */
+
+.comprovante__campo {
+  display: flex;
+  flex-direction: column;
+
+  box-sizing: border-box;
+
+  gap: 5px;
+}
+
+.comprovante__campo-label {
+  color: #667085;
+
+  font-size: 8px;
+  font-weight: 700;
+
+  letter-spacing: 0.7px;
+
+  text-transform: uppercase;
+}
+
+.comprovante__campo-valor {
+  color: #1f2937;
+
+  font-size: 12px;
+  font-weight: 600;
+
+  line-height: 1.35;
+
+  overflow-wrap: anywhere;
+}
+
+
+/* ==========================================================================
+   SEÇÕES
+   ========================================================================== */
+
+.comprovante__secao {
+  margin-top: 24px;
+}
+
+.comprovante__secao:first-of-type {
+  margin-top: 0;
+}
+
+.comprovante__secao-header {
+  margin-bottom: 13px;
+
+  padding-bottom: 8px;
+
+  border-bottom: 1px solid #d7dee7;
+}
+
+.comprovante__secao-titulo {
+  margin: 0;
+
+  color: #1d5c89;
+
+  font-size: 11px;
+  font-weight: 700;
+
+  letter-spacing: 0.4px;
+}
+
+
+/* ==========================================================================
+   IDENTIFICAÇÃO PRINCIPAL
+   ========================================================================== */
+
+.comprovante__identificacao-grid {
+  display: grid;
+
+  grid-template-columns:
+    1fr
+    1fr;
+
+  overflow: hidden;
+
+  border: 1px solid #d7dee7;
+
+  border-radius: 3px;
+
+  background: #ffffff;
+}
+
+.comprovante__identificacao-grid
+.comprovante__campo {
+  min-height: 50px;
+
+  padding: 12px 14px;
+}
+
+.comprovante__identificacao-grid
+.comprovante__campo:first-child {
+  border-right: 1px solid #d7dee7;
+}
+
+
+/* ==========================================================================
+   GRID DOS CARDS
+   ========================================================================== */
+
+.comprovante__cards-grid {
+  display: grid;
+
+  grid-template-columns:
+    repeat(
+      2,
+      minmax(0, 1fr)
+    );
+
+  align-items: stretch;
+
+  gap: 15px;
+}
+
+
+/* ==========================================================================
+   CARDS
+   ========================================================================== */
+
+.comprovante__card {
+  display: flex;
+  flex-direction: column;
+
+  overflow: hidden;
+
+  border: 1px solid #d7dee7;
+
+  border-radius: 5px;
+
+  background: #ffffff;
+
+  break-inside: avoid;
+}
+
+.comprovante__card-header {
+  padding: 11px 14px;
+
+  background: #f6f8fb;
+
+  border-bottom: 1px solid #e4e9ef;
+}
+
+.comprovante__card-title {
+  margin: 0;
+
+  color: #123b5d;
+
+  font-size: 10px;
+  font-weight: 700;
+
+  line-height: 1.3;
+
+  letter-spacing: 0.4px;
+}
+
+.comprovante__card-body {
+  flex: 1;
+
+  padding: 0 14px;
+}
+
+.comprovante__card-body
+.comprovante__campo {
+  padding: 9px 0;
+
+  border-bottom: 1px solid #e9edf2;
+}
+
+.comprovante__card-body
+.comprovante__campo:last-child {
+  border-bottom: 0;
+}
+
+
+/* ==========================================================================
+   DECLARAÇÃO
+   ========================================================================== */
+
+.comprovante__declaracao {
+  margin-top: 21px;
+
+  padding: 15px 18px;
+
+  border: 1px solid #d7dee7;
+
+  border-radius: 4px;
+
+  background: #f6f8fb;
+
+  break-inside: avoid;
+}
+
+.comprovante__declaracao-titulo {
+  margin: 0 0 8px;
+
+  color: #123b5d;
+
+  font-size: 10px;
+  font-weight: 700;
+
+  letter-spacing: 0.5px;
+}
+
+.comprovante__declaracao-texto {
+  margin: 0;
+
+  color: #475467;
+
+  font-size: 10px;
+
+  line-height: 1.55;
+}
+
+
+/* ==========================================================================
+   RODAPÉ
+   ========================================================================== */
+
+.comprovante__footer {
+  margin-top: auto;
+
+  padding-top: 24px;
+}
+
+.comprovante__footer::before {
+  display: block;
+
+  width: 100%;
+  height: 1px;
+
+  margin-bottom: 13px;
+
+  background: #c5ccd6;
+
+  content: '';
+}
+
+.comprovante__footer-principal {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  color: #667085;
+
+  font-size: 9px;
+  font-weight: 700;
+}
+
+.comprovante__footer-aviso {
+  margin: 9px 0 0;
+
+  color: #667085;
+
+  font-size: 8px;
+
+  line-height: 1.4;
+
+  text-align: center;
+}
+
+/* ============================================
+   Modal de busca de CEP
+   ============================================ */
+
+.form-cep {
+  display: contents;
+}
+
+.cep-modal {
+  border: 0;
+  border-radius: var(--radius-lg);
+  padding: 0;
+  max-width: 480px;
+  width: calc(100% - var(--space-4));
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.15);
+  background: var(--surface-card);
+  color: var(--text-body);
+}
+
+.cep-modal::backdrop {
+  background: rgba(0, 0, 0, 0.4);
+}
+
+.cep-modal__panel {
+  display: flex;
+  flex-direction: column;
+}
+
+.cep-modal__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-4) var(--space-5);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.cep-modal__title {
+  font-size: var(--text-lg);
+  font-weight: var(--weight-semibold);
+  margin: 0;
+  color: var(--text-heading);
+}
+
+.cep-modal__body {
+  padding: var(--space-5);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.cep-modal__desc {
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+  margin: 0;
+  line-height: 1.5;
+}
+
+.cep-modal__form {
+  display: flex;
+  gap: var(--space-2);
+  align-items: flex-end;
+}
+
+.cep-modal__field {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.cep-modal__field label {
+  font-size: var(--text-sm);
+  font-weight: var(--weight-medium);
+  color: var(--text-body);
+}
+
+.cep-modal__hint {
+  font-size: var(--text-xs);
+  color: var(--text-tertiary);
+  margin: 0;
+  line-height: 1.4;
+}
+
+.cep-modal__form .btn {
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+/* Botão Buscar CEP no formulário */
+#btnBuscarCep {
+  justify-content: center;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-4);
+  width: 100%;
+  max-width: 320px;
+}
+
+/* Animação de abertura do modal */
+.cep-modal[open] {
+  animation: cep-modal-enter 0.2s ease-out;
+}
+
+@keyframes cep-modal-enter {
+  from {
+    opacity: 0;
+    transform: translateY(-20px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
