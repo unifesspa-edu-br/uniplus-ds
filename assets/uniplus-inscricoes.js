@@ -553,7 +553,6 @@ function escapeHtml(s) {
     };
   }
 
-
   function clearErrorsWizard(root) {
     if (!root) return;
 
