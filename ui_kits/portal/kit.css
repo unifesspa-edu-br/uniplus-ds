@@ -113,7 +113,7 @@ body {
     bottom: 0;
     left: 0;
     height: 3px;
-    background: var(--color-primary);
+    background: var(--color-primary-500);
     /* stylelint-disable-next-line custom-property-pattern -- valor de runtime definido via JS (proporção do passo atual) */
     width: var(--step-progress, 7.69%);
     transition: width var(--duration-base) var(--ease-standard);
