@@ -192,6 +192,8 @@ function escapeHtml(s) {
       const num = String(currentIdx + 1).padStart(2, '0');
       stepBarMeta.textContent = `Etapa ${currentIdx + 1} de ${totalSteps} (${num} ${currentLabel})`;
     }
+    document.querySelector('.step-bar')
+      ?.style.setProperty('--step-progress', ((currentIdx + 1) / totalSteps * 100).toFixed(2) + '%');
 
     const btnPrev = document.getElementById('btn-prev');
     const btnNext = document.getElementById('btn-next');
@@ -338,18 +340,42 @@ function escapeHtml(s) {
   };
 
   window._toggleModeloRG = function () {
-    const novoModelo = document.getElementById('rg_novo_modelo')?.checked;
-    const divAntigo = document.getElementById('rgModeloAntigo');
-    const divNovo = document.getElementById('rgModeloNovo');
-    const textoModelo = document.getElementById('rgModeloTexto');
-    if (divAntigo) divAntigo.hidden = !!novoModelo;
-    if (divNovo) divNovo.hidden = !novoModelo;
-    if (textoModelo) textoModelo.textContent = novoModelo ? 'Novo modelo de RG' : 'Modelo antigo de RG';
-    if (novoModelo) _sincronizarRgComCpf();
+    const modeloAntigo =
+      document.getElementById('rg_novo_modelo')?.checked;
+
+    const divAntigo =
+      document.getElementById('rgModeloAntigo');
+
+    const divNovo =
+      document.getElementById('rgModeloNovo');
+
+    const textoModelo =
+      document.getElementById('rgModeloTexto');
+
+    if (divAntigo) {
+      divAntigo.hidden = !modeloAntigo;
+    }
+
+    if (divNovo) {
+      divNovo.hidden = modeloAntigo;
+    }
+
+    if (textoModelo) {
+      textoModelo.textContent =
+        modeloAntigo
+          ? 'Modelo antigo de RG'
+          : 'Novo modelo de RG';
+    }
+
+    // Se mudou para o modelo novo
+    if (!modeloAntigo) {
+      _sincronizarRgComCpf();
+      _calcularValidadeCIN();
+    }
   };
 
   window._sincronizarRgComCpf = function () {
-    const novoModelo = document.getElementById('rg_novo_modelo')?.checked;
+    const novoModelo = !document.getElementById('rg_novo_modelo')?.checked;
     const cpfValue = document.getElementById('cpf')?.value || '';
     if (novoModelo) {
       const el = document.getElementById('rg_novo_numero');
@@ -358,7 +384,7 @@ function escapeHtml(s) {
   };
 
   window._calcularValidadeCIN = function () {
-    const novoModelo = document.getElementById('rg_novo_modelo')?.checked;
+    const novoModelo = !document.getElementById('rg_novo_modelo')?.checked;
     if (!novoModelo) return;
     const dataNasc = document.getElementById('data_nasc')?.value;
     const dataEmissao = document.getElementById('rg_novo_data_emissao')?.value;
@@ -526,8 +552,6 @@ function escapeHtml(s) {
       message: mensagem
     };
   }
-
-
 
   function clearErrorsWizard(root) {
     if (!root) return;
@@ -760,7 +784,7 @@ function escapeHtml(s) {
     const erros = [];
 
     if (currentStep === 2) {
-      ['nome', 'desejaNomeSocial', 'cpf', 'data_nasc', 'sexo_civil', 'raca', 'sexo_biologico', 'identidade_genero', 'orientacao_sexual']
+      ['nome', 'desejaNomeSocial', 'cpf', 'data_nasc', 'sexo_civil', 'sexo_biologico', 'identidade_genero', 'orientacao_sexual']
         .forEach(id => {
           if (!req(id)) erros.push(error(id, 'Este campo é obrigatório.'));
         });
@@ -783,7 +807,7 @@ function escapeHtml(s) {
         erros.push(error('nomeSocial', 'Este campo é obrigatório.'));
       }
 
-      const novoModelo = document.getElementById('rg_novo_modelo')?.checked;
+      const novoModelo = !document.getElementById('rg_novo_modelo')?.checked;
 
       if (novoModelo) {
         _sincronizarRgComCpf();
@@ -804,7 +828,6 @@ function escapeHtml(s) {
           erros.push(error('rg_data_expedicao', 'Este campo é obrigatório.'));
       }
 
-      racaEscolhida = req('raca');
       deficienciasMarcadas = [...document.querySelectorAll('input[name="deficiencia"]:checked')].map(x => x.value);
       if (!deficienciasMarcadas.length) {
         erros.push(errorGrupo('#def', 'Deficiência', 'Marque pelo menos uma opção de deficiência ou “Não Possuo”.'));
@@ -812,9 +835,25 @@ function escapeHtml(s) {
     }
 
     if (currentStep === 3) {
-      ['telefone', 'email', 'cep', 'estado', 'cidade', 'tipoLocalidade'].forEach(id => {
+      // Campos sempre obrigatórios
+      ['telefone', 'email', 'tipoLocalidade'].forEach(id => {
         if (!req(id)) erros.push(error(id, 'Este campo é obrigatório.'));
       });
+
+      // Campos de endereço: só obrigatórios se foram buscados via CEP
+      const enderecoFields = document.getElementById('enderecoFields');
+      const enderecoVisivel = enderecoFields && !enderecoFields.hidden;
+      if (enderecoVisivel) {
+        ['cep', 'endereco_completo', 'estado', 'cidade'].forEach(id => {
+          if (!req(id)) erros.push(error(id, 'Este campo é obrigatório.'));
+        });
+      } else {
+        // Se endereço não foi buscado, valida se ao menos clicou no botão
+        const btnCep = document.getElementById('btnBuscarCep');
+        if (btnCep && !btnCep.closest('.form-grid__full')?.hidden) {
+          erros.push(error('btnBuscarCep', 'Clique em "Buscar CEP" e informe o CEP para preencher os dados de endereço.', 'Endereço'));
+        }
+      }
 
       const email = req('email');
       const confirmEmail = req('confirmar_email');
@@ -926,6 +965,8 @@ function escapeHtml(s) {
   function nextStep() {
     if (!validateCurrentStep()) return;
     if (currentStep === getLastStep()) {
+
+      baixarComprovanteInscricao();
       alert('Inscrição enviada com sucesso!');
       return;
     }
@@ -980,6 +1021,7 @@ function escapeHtml(s) {
     document.getElementById('btn-prev')?.addEventListener('click', prevStep);
 
     renderView();
+
   });
 
   function cpfMask(input) {
@@ -2263,7 +2305,7 @@ function escapeHtml(s) {
 
       const [ano, mes, dia] = partes;
 
-      return `${dia}-${mes}-${ano}`;
+      return `${dia}/${mes}/${ano}`;
     }
 
     function checked(name) {
@@ -2372,13 +2414,13 @@ function escapeHtml(s) {
         item('Nome:', val('nome')),
         item('CPF:', val('cpf')),
         item('Nascimento:', dateFormat(val('data_nasc'))),
-        item('Raça/Cor:', val('raca')),
         item('Deficiência:', checked('deficiencia').join(', '))
       ]);
 
       appendAll(document.getElementById('review-contato'), [
         item('Telefone:', val('telefone')),
         item('E-mail:', val('email')),
+        item('Endereço:', val('endereco_completo')),
         item('Cidade/UF:', `${val('cidade')} / ${val('estado')}`),
         item('Tipo de endereço:', val('tipoLocalidade'))
       ]);
@@ -2477,3 +2519,1411 @@ document.addEventListener(
 );
 })();
 
+// ============================================================================
+// COMPROVANTE DE INSCRIÇÃO
+// ============================================================================
+
+function criarElemento(tag, {
+  className = '',
+  text = '',
+  attributes = {}
+} = {}) {
+  const elemento = document.createElement(tag);
+
+  if (className) {
+    elemento.className = className;
+  }
+
+  if (text !== null && text !== undefined) {
+    elemento.textContent = text;
+  }
+
+  Object.entries(attributes).forEach(([nome, valor]) => {
+    if (valor !== null && valor !== undefined) {
+      elemento.setAttribute(nome, String(valor));
+    }
+  });
+
+  return elemento;
+}
+
+
+// ============================================================================
+// LEITURA DOS DADOS DO FORMULÁRIO
+// ============================================================================
+
+function obterValorCampo(id, fallback = 'Não informado') {
+  const campo = document.getElementById(id);
+
+  if (!campo) {
+    return fallback;
+  }
+
+  // Select: usa o texto visível da opção selecionada.
+  if (campo instanceof HTMLSelectElement) {
+    const opcaoSelecionada =
+      campo.options[campo.selectedIndex];
+
+    const texto =
+      opcaoSelecionada
+        ?.textContent
+        ?.trim();
+
+    return (
+      texto &&
+      campo.value
+    )
+      ? texto
+      : fallback;
+  }
+
+  const valor =
+    campo.value
+      ?.trim();
+
+  return valor || fallback;
+}
+
+
+function obterDataFormatada(id, fallback = 'Não informado') {
+  const valor =
+    document
+      .getElementById(id)
+      ?.value
+      ?.trim();
+
+  if (!valor) {
+    return fallback;
+  }
+
+  const partes =
+    valor.split('-');
+
+  if (partes.length !== 3) {
+    return valor;
+  }
+
+  const [ano, mes, dia] =
+    partes;
+
+  return `${dia}/${mes}/${ano}`;
+}
+
+
+function obterCamposMarcados(
+  name,
+  fallback = 'Nenhum item selecionado'
+) {
+  const valores = [
+    ...document.querySelectorAll(
+      `input[name="${name}"]:checked`
+    )
+  ]
+    .map(input =>
+      input.value.trim()
+    )
+    .filter(Boolean);
+
+  return valores.length
+    ? valores.join(', ')
+    : fallback;
+}
+
+
+function obterModalidadesCalculadas() {
+  const modalidades = [
+    ...document.querySelectorAll(
+      '#cota-badges .cotas-badge'
+    )
+  ]
+    .map(badge =>
+      badge.textContent.trim()
+    )
+    .filter(Boolean);
+
+  return modalidades.length
+    ? modalidades.join(' · ')
+    : 'AC';
+}
+
+
+function obterDocumentosAnexados() {
+  const documentos = [];
+
+  document
+    .querySelectorAll(
+      'input[type="file"]'
+    )
+    .forEach(input => {
+      const arquivos = [
+        ...(input.files || [])
+      ];
+
+      arquivos.forEach(arquivo => {
+        const label =
+          input.dataset.atendimentoFile ||
+          input
+            .closest('.upload-section')
+            ?.querySelector('.label')
+            ?.textContent
+            ?.trim() ||
+          'Documento';
+
+        documentos.push({
+          label,
+          nome: arquivo.name
+        });
+      });
+    });
+
+  return documentos;
+}
+
+
+// ============================================================================
+// UTILITÁRIOS
+// ============================================================================
+
+function normalizarNomeArquivo(nome) {
+  return nome
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(
+      /[\u0300-\u036f]/g,
+      ''
+    )
+    .replace(
+      /[^a-z0-9]+/g,
+      '-'
+    )
+    .replace(
+      /^-+|-+$/g,
+      ''
+    );
+}
+
+
+function gerarProtocoloTemporario() {
+  /*
+   * Substitua posteriormente pelo protocolo
+   * retornado pelo backend.
+   */
+
+  return (
+    `UNI-${
+      Date.now()
+        .toString()
+        .slice(-10)
+    }`
+  );
+}
+
+
+// ============================================================================
+// COMPONENTES DO COMPROVANTE
+// ============================================================================
+
+function criarCampoComprovante(
+  rotulo,
+  valor
+) {
+  const campo =
+    criarElemento(
+      'div',
+      {
+        className:
+          'comprovante__campo'
+      }
+    );
+
+  const label =
+    criarElemento(
+      'span',
+      {
+        className:
+          'comprovante__campo-label',
+
+        text:
+          rotulo
+      }
+    );
+
+  const conteudo =
+    criarElemento(
+      'span',
+      {
+        className:
+          'comprovante__campo-valor',
+
+        text:
+          valor ||
+          'Não informado'
+      }
+    );
+
+  campo.append(
+    label,
+    conteudo
+  );
+
+  return campo;
+}
+
+
+function criarTituloSecao(
+  numero,
+  titulo
+) {
+  const header =
+    criarElemento(
+      'header',
+      {
+        className:
+          'comprovante__secao-header'
+      }
+    );
+
+  const heading =
+    criarElemento(
+      'h3',
+      {
+        className:
+          'comprovante__secao-titulo',
+
+        text:
+          `${numero}. ${titulo}`
+      }
+    );
+
+  header.appendChild(
+    heading
+  );
+
+  return header;
+}
+
+
+function criarCardComprovante(
+  titulo,
+  campos
+) {
+  const card =
+    criarElemento(
+      'section',
+      {
+        className:
+          'comprovante__card'
+      }
+    );
+
+  const header =
+    criarElemento(
+      'header',
+      {
+        className:
+          'comprovante__card-header'
+      }
+    );
+
+  const tituloCard =
+    criarElemento(
+      'h4',
+      {
+        className:
+          'comprovante__card-title',
+
+        text:
+          titulo
+      }
+    );
+
+  header.appendChild(
+    tituloCard
+  );
+
+  const body =
+    criarElemento(
+      'div',
+      {
+        className:
+          'comprovante__card-body'
+      }
+    );
+
+  campos.forEach(
+    ({ label, valor }) => {
+      body.appendChild(
+        criarCampoComprovante(
+          label,
+          valor
+        )
+      );
+    }
+  );
+
+  card.append(
+    header,
+    body
+  );
+
+  return card;
+}
+
+
+// ============================================================================
+// ESTRUTURA DO COMPROVANTE
+// ============================================================================
+
+function criarEstruturaComprovante({
+  nome,
+  cpf,
+  dataInscricao
+}) {
+  const comprovante =
+    criarElemento(
+      'article',
+      {
+        className:
+          'comprovante-pdf'
+      }
+    );
+
+
+  // ==========================================================================
+  // CABEÇALHO INSTITUCIONAL
+  // ==========================================================================
+
+  const cabecalho =
+    criarElemento(
+      'header',
+      {
+        className:
+          'comprovante__header'
+      }
+    );
+
+
+  const marca =
+    criarElemento(
+      'div',
+      {
+        className:
+          'comprovante__marca',
+
+        text:
+          'U+'
+      }
+    );
+
+
+  const instituicao =
+    criarElemento(
+      'div',
+      {
+        className:
+          'comprovante__instituicao'
+      }
+    );
+
+
+  const ministerio =
+    criarElemento(
+      'span',
+      {
+        className:
+          'comprovante__ministerio',
+
+        text:
+          'MINISTÉRIO DA EDUCAÇÃO'
+      }
+    );
+
+
+  const universidade =
+    criarElemento(
+      'h1',
+      {
+        className:
+          'comprovante__universidade',
+
+        text:
+          'UNIVERSIDADE FEDERAL DO SUL E SUDESTE DO PARÁ'
+      }
+    );
+
+
+  const sistema =
+    criarElemento(
+      'span',
+      {
+        className:
+          'comprovante__sistema',
+
+        text:
+          'Sistema Uni+ · Portal do Candidato'
+      }
+    );
+
+
+  instituicao.append(
+    ministerio,
+    universidade,
+    sistema
+  );
+
+
+  cabecalho.append(
+    marca,
+    instituicao
+  );
+
+
+  // ==========================================================================
+  // TÍTULO DO DOCUMENTO
+  // ==========================================================================
+
+  const documento =
+    criarElemento(
+      'section',
+      {
+        className:
+          'comprovante__documento'
+      }
+    );
+
+
+  const tipoDocumento =
+    criarElemento(
+      'span',
+      {
+        className:
+          'comprovante__documento-tipo',
+
+        text:
+          'PROCESSO SELETIVO'
+      }
+    );
+
+
+  const tituloDocumento =
+    criarElemento(
+      'h2',
+      {
+        className:
+          'comprovante__titulo',
+
+        text:
+          'COMPROVANTE DE INSCRIÇÃO'
+      }
+    );
+
+
+  const descricao =
+    criarElemento(
+      'p',
+      {
+        className:
+          'comprovante__descricao',
+
+        text:
+          'Documento comprobatório dos dados registrados pelo candidato no ato da inscrição.'
+      }
+    );
+
+
+  documento.append(
+    tipoDocumento,
+    tituloDocumento,
+    descricao
+  );
+
+
+  // ==========================================================================
+  // PROTOCOLO
+  // ==========================================================================
+
+  const protocolo =
+    gerarProtocoloTemporario();
+
+
+  const blocoProtocolo =
+    criarElemento(
+      'section',
+      {
+        className:
+          'comprovante__protocolo'
+      }
+    );
+
+
+  const campoProtocolo =
+    criarCampoComprovante(
+      'Número do protocolo',
+      protocolo
+    );
+
+
+  const campoStatus =
+    criarCampoComprovante(
+      'Situação da inscrição',
+      'INSCRIÇÃO CONFIRMADA'
+    );
+
+
+  campoStatus.classList.add(
+    'comprovante__campo--status'
+  );
+
+
+  const campoData =
+    criarCampoComprovante(
+      'Data e horário',
+      dataInscricao
+    );
+
+
+  blocoProtocolo.append(
+    campoProtocolo,
+    campoStatus,
+    campoData
+  );
+
+
+  // ==========================================================================
+  // IDENTIFICAÇÃO PRINCIPAL
+  // ==========================================================================
+
+  const identificacao =
+    criarElemento(
+      'section',
+      {
+        className:
+          'comprovante__secao'
+      }
+    );
+
+
+  identificacao.appendChild(
+    criarTituloSecao(
+      '1',
+      'IDENTIFICAÇÃO DO CANDIDATO'
+    )
+  );
+
+
+  const identificacaoGrid =
+    criarElemento(
+      'div',
+      {
+        className:
+          'comprovante__identificacao-grid'
+      }
+    );
+
+
+  identificacaoGrid.append(
+    criarCampoComprovante(
+      'Nome completo',
+      nome
+    ),
+
+    criarCampoComprovante(
+      'CPF',
+      cpf
+    )
+  );
+
+
+  identificacao.appendChild(
+    identificacaoGrid
+  );
+
+
+  // ==========================================================================
+  // DADOS DA INSCRIÇÃO
+  // ==========================================================================
+
+  const dadosInscricao =
+    criarElemento(
+      'section',
+      {
+        className:
+          'comprovante__secao'
+      }
+    );
+
+
+  dadosInscricao.appendChild(
+    criarTituloSecao(
+      '2',
+      'DADOS DA INSCRIÇÃO'
+    )
+  );
+
+
+  const cardsGrid =
+    criarElemento(
+      'div',
+      {
+        className:
+          'comprovante__cards-grid'
+      }
+    );
+
+
+  // ==========================================================================
+  // CARD — IDENTIFICAÇÃO
+  // ==========================================================================
+
+  const cardIdentificacao =
+    criarCardComprovante(
+      'IDENTIFICAÇÃO',
+      [
+        {
+          label:
+            'Nome',
+
+          valor:
+            nome
+        },
+
+        {
+          label:
+            'CPF',
+
+          valor:
+            cpf
+        },
+
+        {
+          label:
+            'Nascimento',
+
+          valor:
+            obterDataFormatada(
+              'data_nasc'
+            )
+        },
+
+        {
+          label:
+            'Deficiência',
+
+          valor:
+            obterCamposMarcados(
+              'deficiencia'
+            )
+        }
+      ]
+    );
+
+
+  // ==========================================================================
+  // CARD — CONTATO E ENDEREÇO
+  // ==========================================================================
+
+  const cidade =
+    obterValorCampo(
+      'cidade'
+    );
+
+
+  const estado =
+    obterValorCampo(
+      'estado'
+    );
+
+
+  const endereco_completo =
+    obterValorCampo(
+      'endereco_completo'
+    );
+
+
+  const cardContato =
+    criarCardComprovante(
+      'CONTATO E ENDEREÇO',
+      [
+        {
+          label:
+            'Telefone',
+
+          valor:
+            obterValorCampo(
+              'telefone'
+            )
+        },
+
+        {
+          label:
+            'E-mail',
+
+          valor:
+            obterValorCampo(
+              'email'
+            )
+        },
+
+        {
+          label:
+            'Endereço',
+
+          valor:
+            endereco_completo
+        },
+
+        {
+          label:
+            'Cidade / UF',
+
+          valor:
+            `${cidade} / ${estado}`
+        },
+
+        {
+          label:
+            'Tipo de endereço',
+
+          valor:
+            obterValorCampo(
+              'tipoLocalidade'
+            )
+        }
+      ]
+    );
+
+
+  // ==========================================================================
+  // CARD — CURSO E PROVA
+  // ==========================================================================
+
+  const cardCurso =
+    criarCardComprovante(
+      'CURSO E PROVA',
+      [
+        {
+          label:
+            '1ª opção',
+
+          valor:
+            obterValorCampo(
+              'curso_opcao_1'
+            )
+        },
+
+        {
+          label:
+            '2ª opção',
+
+          valor:
+            obterValorCampo(
+              'curso_opcao_2',
+              'Não se aplica'
+            )
+        },
+
+        {
+          label:
+            'Cidade de prova',
+
+          valor:
+            obterValorCampo(
+              'cidade_prova',
+              'Não se aplica'
+            )
+        },
+
+        {
+          label:
+            'Lista de espera',
+
+          valor:
+            obterValorCampo(
+              'lista_espera',
+              'Não informado'
+            )
+        }
+      ]
+    );
+
+
+  // ==========================================================================
+  // CARD — ATENDIMENTO, MODALIDADES E DOCUMENTOS
+  // ==========================================================================
+
+  const documentos =
+    obterDocumentosAnexados();
+
+
+  const camposAtendimento = [
+    {
+      label:
+        'Atendimento especializado',
+
+      valor:
+        obterCamposMarcados(
+          'atendimento'
+        )
+    },
+
+    {
+      label:
+        'Modalidades calculadas',
+
+      valor:
+        obterModalidadesCalculadas()
+    }
+  ];
+
+
+  if (documentos.length) {
+    documentos.forEach(
+      documentoAnexado => {
+        camposAtendimento.push({
+          label:
+            documentoAnexado.label,
+
+          valor:
+            `${documentoAnexado.nome} — Anexado`
+        });
+      }
+    );
+  } else {
+    camposAtendimento.push({
+      label:
+        'Documentos anexados',
+
+      valor:
+        'Nenhum documento anexado'
+    });
+  }
+
+
+  const cardAtendimento =
+    criarCardComprovante(
+      'ATENDIMENTO, MODALIDADES E DOCUMENTOS',
+      camposAtendimento
+    );
+
+
+  cardsGrid.append(
+    cardIdentificacao,
+    cardContato,
+    cardCurso,
+    cardAtendimento
+  );
+
+
+  dadosInscricao.appendChild(
+    cardsGrid
+  );
+
+
+  // ==========================================================================
+  // DECLARAÇÃO
+  // ==========================================================================
+
+  const declaracao =
+    criarElemento(
+      'section',
+      {
+        className:
+          'comprovante__declaracao'
+      }
+    );
+
+
+  const tituloDeclaracao =
+    criarElemento(
+      'h3',
+      {
+        className:
+          'comprovante__declaracao-titulo',
+
+        text:
+          'DECLARAÇÃO'
+      }
+    );
+
+
+  const textoDeclaracao =
+    criarElemento(
+      'p',
+      {
+        className:
+          'comprovante__declaracao-texto',
+
+        text:
+          'Este comprovante registra as informações declaradas pelo candidato no Sistema Uni+ e confirma a realização da inscrição no processo seletivo correspondente.'
+      }
+    );
+
+
+  declaracao.append(
+    tituloDeclaracao,
+    textoDeclaracao
+  );
+
+
+  // ==========================================================================
+  // RODAPÉ
+  // ==========================================================================
+
+  const rodape =
+    criarElemento(
+      'footer',
+      {
+        className:
+          'comprovante__footer'
+      }
+    );
+
+
+  const rodapePrincipal =
+    criarElemento(
+      'div',
+      {
+        className:
+          'comprovante__footer-principal'
+      }
+    );
+
+
+  rodapePrincipal.append(
+    criarElemento(
+      'span',
+      {
+        text:
+          'Universidade Federal do Sul e Sudeste do Pará'
+      }
+    ),
+
+    criarElemento(
+      'span',
+      {
+        text:
+          'Sistema Uni+'
+      }
+    )
+  );
+
+
+  const avisoRodape =
+    criarElemento(
+      'p',
+      {
+        className:
+          'comprovante__footer-aviso',
+
+        text:
+          'Documento emitido eletronicamente. A guarda deste comprovante é de responsabilidade do candidato.'
+      }
+    );
+
+
+  rodape.append(
+    rodapePrincipal,
+    avisoRodape
+  );
+
+
+  // ==========================================================================
+  // MONTA O DOCUMENTO
+  // ==========================================================================
+
+  comprovante.append(
+    cabecalho,
+    documento,
+    blocoProtocolo,
+    identificacao,
+    dadosInscricao,
+    declaracao,
+    rodape
+  );
+
+
+  return comprovante;
+}
+
+
+// ============================================================================
+// GERAÇÃO DO PDF
+// ============================================================================
+
+async function baixarComprovanteInscricao() {
+  if (
+    typeof window.html2canvas !==
+    'function'
+  ) {
+    console.error(
+      'A biblioteca html2canvas não está disponível.'
+    );
+
+    return;
+  }
+
+
+  if (
+    !window.jspdf?.jsPDF
+  ) {
+    console.error(
+      'A biblioteca jsPDF não está disponível.'
+    );
+
+    return;
+  }
+
+
+  /*
+   * Atualiza a Revisão Final antes de coletar
+   * os dados, caso a função esteja disponível.
+   */
+  if (
+    typeof window.renderReviewSummary ===
+    'function'
+  ) {
+    window.renderReviewSummary();
+  }
+
+
+  const nome =
+    document
+      .getElementById('nome')
+      ?.value
+      ?.trim() ||
+    'candidato';
+
+
+  const cpf =
+    document
+      .getElementById('cpf')
+      ?.value
+      ?.trim() ||
+    'Não informado';
+
+
+  const dataInscricao =
+    new Intl.DateTimeFormat(
+      'pt-BR',
+      {
+        dateStyle:
+          'short',
+
+        timeStyle:
+          'medium'
+      }
+    ).format(
+      new Date()
+    );
+
+
+  const comprovante =
+    criarEstruturaComprovante({
+      nome,
+      cpf,
+      dataInscricao
+    });
+
+
+  document.body.appendChild(
+    comprovante
+  );
+
+
+  try {
+    /*
+     * Aguarda o navegador finalizar
+     * o cálculo do layout.
+     */
+    await new Promise(resolve => {
+      requestAnimationFrame(() => {
+        requestAnimationFrame(
+          resolve
+        );
+      });
+    });
+
+
+    const canvas =
+      await window.html2canvas(
+        comprovante,
+        {
+          scale:
+            2,
+
+          backgroundColor:
+            '#ffffff',
+
+          useCORS:
+            true,
+
+          logging:
+            false,
+
+          scrollX:
+            0,
+
+          scrollY:
+            0,
+
+          windowWidth:
+            comprovante.scrollWidth,
+
+          windowHeight:
+            comprovante.scrollHeight
+        }
+      );
+
+
+    /*
+     * PNG mantém textos e linhas
+     * mais nítidos que JPEG.
+     */
+    const imagem =
+      canvas.toDataURL(
+        'image/png'
+      );
+
+
+    const {
+      jsPDF
+    } =
+      window.jspdf;
+
+
+    const pdf =
+      new jsPDF({
+        orientation:
+          'portrait',
+
+        unit:
+          'mm',
+
+        format:
+          'a4',
+
+        compress:
+          true
+      });
+
+
+    const larguraPagina =
+      pdf
+        .internal
+        .pageSize
+        .getWidth();
+
+
+    const alturaPagina =
+      pdf
+        .internal
+        .pageSize
+        .getHeight();
+
+
+    /*
+     * Margem menor para aproveitar melhor
+     * a folha A4.
+     */
+    const margem =
+      6;
+
+
+    const larguraDisponivel =
+      larguraPagina -
+      margem * 2;
+
+
+    const alturaDisponivel =
+      alturaPagina -
+      margem * 2;
+
+
+    /*
+     * Calcula a escala pela largura
+     * e pela altura.
+     *
+     * Usa a menor escala para garantir
+     * que o comprovante caiba inteiro
+     * em uma página A4.
+     */
+    const escalaLargura =
+      larguraDisponivel /
+      canvas.width;
+
+
+    const escalaAltura =
+      alturaDisponivel /
+      canvas.height;
+
+
+    const escala =
+      Math.min(
+        escalaLargura,
+        escalaAltura
+      );
+
+
+    const larguraImagem =
+      canvas.width *
+      escala;
+
+
+    const alturaImagem =
+      canvas.height *
+      escala;
+
+
+    /*
+     * Centraliza o documento na folha.
+     */
+    const posicaoX =
+      (
+        larguraPagina -
+        larguraImagem
+      ) / 2;
+
+
+    const posicaoY =
+      (
+        alturaPagina -
+        alturaImagem
+      ) / 2;
+
+
+    pdf.addImage(
+      imagem,
+      'PNG',
+      posicaoX,
+      posicaoY,
+      larguraImagem,
+      alturaImagem
+    );
+
+
+    const nomeArquivo =
+      normalizarNomeArquivo(
+        nome
+      );
+
+
+    pdf.save(
+      `comprovante-inscricao-${nomeArquivo}.pdf`
+    );
+
+  } catch (erro) {
+    console.error(
+      'Erro ao gerar o comprovante de inscrição.',
+      erro
+    );
+
+  } finally {
+    comprovante.remove();
+  }
+}
+
+// ============================================================================
+// MODAL DE BUSCA DE CEP
+// ============================================================================
+
+/** Abre o modal de busca de CEP */
+function abrirModalCep() {
+  const modal = document.getElementById('cepModal');
+  const input = document.getElementById('cepInput');
+  if (modal) {
+    modal.showModal();
+    setTimeout(() => input?.focus(), 100);
+  }
+}
+
+/** Fecha o modal de busca de CEP */
+function fecharModalCep() {
+  const modal = document.getElementById('cepModal');
+  modal?.close();
+}
+
+/**
+ * Confirma o CEP informado no modal, preenche os campos
+ * e exibe a seção de endereço.
+ */
+function confirmarCep() {
+  const cep = document.getElementById('cepInput')?.value.trim();
+  if (!cep) {
+    alert('Informe um CEP antes de buscar.');
+    return;
+  }
+
+  const cepLimpo = cep.replace(/\D/g, '');
+  if (cepLimpo.length !== 8) {
+    alert('CEP inválido. Informe um CEP com 8 dígitos.');
+    return;
+  }
+
+  // --- Dados simulados de endereço ---
+  // Em produção, substituir por consulta à API de CEP (ex.: ViaCEP)
+  const enderecosSimulados = {
+    '68500000': { estado: 'PA', cidade: 'Marabá', logradouro: 'Rua Principal, 123, Centro' },
+    '68501000': { estado: 'PA', cidade: 'Marabá', logradouro: 'Av. Antônio Maia, 500, Cidade Nova' },
+    '68502000': { estado: 'PA', cidade: 'Marabá', logradouro: 'Rua do Comércio, 200, Bairro do Líder' },
+    '68503000': { estado: 'PA', cidade: 'Marabá', logradouro: 'Av. João Pinheiro Franco, 300, Folha 32' },
+    '68504000': { estado: 'PA', cidade: 'Marabá', logradouro: 'Rua Cinco, 50, Jardim Nova Vida' },
+    '68505000': { estado: 'PA', cidade: 'Marabá', logradouro: 'Av. Mutirão, 100, Novo Horizonte' },
+    '68506000': { estado: 'PA', cidade: 'Marabá', logradouro: 'Rua das Flores, 300, Bairro do Amapá' },
+    '68507000': { estado: 'PA', cidade: 'Marabá', logradouro: 'Rua São Paulo, 400, Bairro Independência' },
+    '68508000': { estado: 'PA', cidade: 'Marabá', logradouro: 'Av. Getúlio Vargas, 150, Centro' },
+    '66000000': { estado: 'PA', cidade: 'Belém', logradouro: 'Av. Presidente Vargas, 500, Centro' },
+    '69000000': { estado: 'AM', cidade: 'Manaus', logradouro: 'Av. Eduardo Ribeiro, 600, Centro' }
+  };
+
+  const dados = enderecosSimulados[cepLimpo];
+
+  if (!dados) {
+    alert('CEP não encontrado na base de dados. Preencha os campos manualmente.');
+    // Mesmo assim exibe os campos para preenchimento manual
+    exibirCamposEndereco(cep);
+    fecharModalCep();
+    return;
+  }
+
+  // Preenche os campos
+  document.getElementById('cep').value = cep;
+  document.getElementById('estado').value = dados.estado;
+  document.getElementById('cidade').value = dados.cidade;
+  document.getElementById('endereco_completo').value = dados.logradouro;
+
+  exibirCamposEndereco(cep);
+  fecharModalCep();
+}
+
+/** Exibe a seção de campos de endereço e limpa o input do modal */
+function exibirCamposEndereco(cep) {
+  const div = document.getElementById('enderecoFields');
+  if (div) {
+    div.removeAttribute('hidden');
+    div.style.display = ''; // garante que o form-grid funcione
+  }
+
+  // Esconde o botão de busca
+  const btn = document.getElementById('btnBuscarCep');
+  if (btn) {
+    btn.closest('.form-grid__full')?.remove();
+  }
+
+  // Limpa o input do modal
+  const input = document.getElementById('cepInput');
+  if (input) input.value = '';
+}
+
+/** Fecha modal ao clicar fora (backdrop) */
+document.addEventListener('click', function (e) {
+  const modal = document.getElementById('cepModal');
+  if (modal && e.target === modal) {
+    fecharModalCep();
+  }
+});
+
+// ============================================================================
+// EXPÕE A FUNÇÃO GLOBALMENTE
+// ============================================================================
+
+window.baixarComprovanteInscricao = baixarComprovanteInscricao;

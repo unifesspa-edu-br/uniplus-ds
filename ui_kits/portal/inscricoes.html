@@ -265,7 +265,12 @@
                     <p class="insc-toggle-row__sub">Informe os dados conforme o modelo do documento.</p>
                   </div>
                   <label class="switch" aria-label="Novo modelo de RG">
-                    <input type="checkbox" id="rg_novo_modelo" checked onchange="_toggleModeloRG()">
+                    <input
+                      type="checkbox"
+                      id="rg_novo_modelo"
+                      checked
+                      onchange="_toggleModeloRG()"
+                    >
                     <span class="switch__track" aria-hidden="true"></span>
                     <span id="rgModeloTexto">Novo modelo de RG</span>
                   </label>
@@ -316,18 +321,6 @@
               <!-- Dados sensíveis -->
               <div class="form-grid" style="margin-top:var(--space-5)">
                 <div>
-                  <label for="raca">Raça/Cor *</label>
-                  <select class="input" id="raca">
-                    <option value="">Selecione</option>
-                    <option value="amarela">Amarela</option>
-                    <option value="branca">Branca</option>
-                    <option value="indigena">Indígena</option>
-                    <option value="preta">Preta</option>
-                    <option value="parda">Parda</option>
-                    <option value="nao_informar">Prefiro Não Informar</option>
-                  </select>
-                </div>
-                <div>
                   <label for="sexo_biologico">Sexo Biológico Cromossômico *</label>
                   <select class="input" id="sexo_biologico">
                     <option value="">Selecione</option>
@@ -345,7 +338,6 @@
                     <option>Travesti</option>
                     <option>Transexual</option>
                     <option>Pessoa não-binária</option>
-                    <option>Queer</option>
                     <option>Não Informar</option>
                   </select>
                 </div>
@@ -397,30 +389,13 @@
                   <label for="confirmar_email">Confirmação de E-mail</label>
                   <input class="input" id="confirmar_email" type="email">
                 </div>
-                <div>
-                    <label for="cep">CEP *</label>
-                    <input
-                        class="input"
-                        id="cep"
-                        type="text"
-                        placeholder="00000-000"
-                        maxlength="9"
-                        oninput="zipCodeMask(this)">
-                </div>
-                <div>
-                  <label for="estado">Estado *</label>
-                  <input class="input" id="estado" type="text">
-                </div>
-                <div>
-                  <label for="cidade">Cidade *</label>
-                  <input class="input" id="cidade" type="text">
-                </div>
-                <div>
+
+                 <div>
                   <label for="tipoLocalidade">Tipo de Endereço *</label>
                   <select class="input" id="tipoLocalidade" onchange="_toggleEtnia()">
                     <option value="">Selecione</option>
-                    <option>URBANO</option>
-                    <option>RURAL</option>
+                    <option>Urbano</option>
+                    <option>Rural</option>
                     <option>Aldeia</option>
                     <option>Comunidade</option>
                     <option>Quilombo</option>
@@ -428,6 +403,42 @@
                     <option>Outro</option>
                   </select>
                 </div>
+
+                <div class="form-grid__full">
+                  <button type="button" class="btn btn--secondary" id="btnBuscarCep" onclick="abrirModalCep()">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" aria-hidden="true">
+                      <circle cx="11" cy="11" r="8"/>
+                      <path d="M21 21l-4.35-4.35"/>
+                    </svg>
+                    Buscar CEP
+                  </button>
+                </div>
+
+                <div class="form-cep" id="enderecoFields" hidden>
+                  <div>
+                      <label for="cep">CEP *</label>
+                      <input
+                          class="input"
+                          id="cep"
+                          type="text"
+                          placeholder="00000-000"
+                          maxlength="9"
+                          oninput="zipCodeMask(this)">
+                  </div>
+                  <div>
+                    <label for="estado">Estado *</label>
+                    <input class="input" id="estado" type="text">
+                  </div>
+                  <div>
+                    <label for="cidade">Cidade *</label>
+                    <input class="input" id="cidade" type="text">
+                  </div>
+                  <div class="">
+                    <label for="endereco_completo">Endereço *</label>
+                    <input class="input" id="endereco_completo" type="text" placeholder="Rua, número, bairro, complemento">
+                  </div>
+                </div>
+
               </div>
               <div class="insc-section" style="margin-top:var(--space-5)" id="divEtnia">
                 <div>
@@ -488,7 +499,10 @@
                 <p class="insc-section__title">Cidade de Prova</p>
                 <div style="max-width:360px">
                   <label for="cidade_prova">Realizar prova na cidade *</label>
-                  <input class="input" id="cidade_prova" type="text" style="margin-top:var(--space-1)">
+                  <select class="input" id="cidade_prova" style="margin-top:var(--space-1)">
+                    <option value="">Selecione</option>
+                    <option>Marabá</option>
+                  </select>
                 </div>
               </div>
             </section>
@@ -558,8 +572,9 @@
                     <div id="cota-pcd2" class="cotas-step">
                       <div class="cotas-qrow">
                         <div>
-                          <div class="cotas-question">1.2 Você deseja concorrer às vagas de cotas destinadas a pessoas que se autodeclaram com deficiência? * <span class="cotas-help-icon" role="button" tabindex="0" onclick="cotaOpenHelp('pcdCota')" onkeydown="cotaHelpKey(event, 'pcdCota')" title="Clique para saber mais" aria-label="Ajuda sobre cota PcD">?</span></div>
-                          <div class="cotas-hint">Esta pergunta aparece somente quando a autodeclaração PcD for “Sim”.</div>
+                          <div class="cotas-question">1.2 Você deseja concorrer às vagas de cotas destinadas a pessoas que se autodeclaram com deficiência? *
+                            <span class="cotas-help-icon" role="button" tabindex="0" onclick="cotaOpenHelp('pcdCota')" onkeydown="cotaHelpKey(event, 'pcdCota')" title="Clique para saber mais" aria-label="Ajuda sobre cota PcD">?</span>
+                          </div>
                         </div>
                         <div class="cotas-options" data-name="pcdCota"></div>
                       </div>
@@ -614,8 +629,9 @@
                     <div id="cota-q1" class="cotas-step">
                       <div class="cotas-qrow">
                         <div>
-                          <div class="cotas-question">4.1 Você se autodeclara uma pessoa quilombola? * <span class="cotas-help-icon" role="button" tabindex="0" onclick="cotaOpenHelp('qAuto')" onkeydown="cotaHelpKey(event, 'qAuto')" title="Clique para saber mais" aria-label="Ajuda sobre pessoa quilombola">?</span></div>
-                          <div class="cotas-hint">Não aparece quando a autodeclaração de cor/raça for indígena.</div>
+                          <div class="cotas-question">4.1 Você se autodeclara uma pessoa quilombola? *
+                            <span class="cotas-help-icon" role="button" tabindex="0" onclick="cotaOpenHelp('qAuto')" onkeydown="cotaHelpKey(event, 'qAuto')" title="Clique para saber mais" aria-label="Ajuda sobre pessoa quilombola">?</span>
+                          </div>
                         </div>
                         <div class="cotas-options" data-name="qAuto"></div>
                       </div>
@@ -647,6 +663,22 @@
                         <div class="cotas-options" data-name="rendaCota"></div>
                       </div>
                     </div>
+
+                    <div id="cota-enem" class="cotas-step is-show">
+                      <div class="cotas-qrow">
+                        <div>
+                          <div class="cotas-question">6. Qual ano de referência do ENEM será utilizado? *</div>
+                        </div>
+                        <div class="cotas-selectbox">
+                          <select id="cota-enem-ano" class="cotas-select">
+                            <option value="">Selecione</option>
+                            <option value="2025">2025</option>
+                            <option value="2026">2026</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+
                   </section>
 
                   <section class="cotas-result" id="cota-resultado">
@@ -825,9 +857,50 @@
     </svg>
   </button>
 
+  <!-- Modal de busca de CEP -->
+  <dialog class="cep-modal" id="cepModal" aria-labelledby="cepModalTitle">
+    <div class="cep-modal__panel">
+      <div class="cep-modal__header">
+        <h2 id="cepModalTitle" class="cep-modal__title">Buscar CEP</h2>
+        <button type="button" class="btn btn--tertiary btn--icon-only btn--rect" aria-label="Fechar" onclick="fecharModalCep()">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true">
+            <path d="M18 6L6 18M6 6l12 12"/>
+          </svg>
+        </button>
+      </div>
+      <div class="cep-modal__body">
+        <p class="cep-modal__desc">Informe um CEP para preencher automaticamente os dados de endereço.</p>
+        <div class="cep-modal__form">
+          <div class="cep-modal__field">
+            <label for="cepInput">CEP *</label>
+            <input
+              class="input"
+              id="cepInput"
+              type="text"
+              placeholder="00000-000"
+              maxlength="9"
+              oninput="zipCodeMask(this)">
+          </div>
+          <button type="button" class="btn btn--primary" onclick="confirmarCep()">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true">
+              <circle cx="11" cy="11" r="8"/>
+              <path d="M21 21l-4.35-4.35"/>
+            </svg>
+            Buscar
+          </button>
+        </div>
+        <p class="cep-modal__hint">Após preencher, os campos ficarão disponíveis para ajustes manuais.</p>
+      </div>
+    </div>
+  </dialog>
+
   <script src="../../assets/uniplus-a11y.js"></script>
   <script src="../../assets/uniplus-backtotop.js"></script>
   <script src="../../assets/uniplus-admin-sidebar.js"></script>
+
+  <script src="../../assets/html2canvas.min.js"></script>
+  <script src="../../assets/jspdf.umd.min.js"></script>
+
   <script src="../../assets/uniplus-inscricoes.js"></script>
 
 

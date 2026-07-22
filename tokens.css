@@ -198,6 +198,7 @@
   --border-subtle:   light-dark(#e2e8f0, #3f4d65);  /* F-032 bumped in dark */
   --border-default:  light-dark(#cbd5e1, #475569);
   --border-strong:   light-dark(#64748b, #94a3b8);  /* F-006 fixed — light was #94a3b8 (2.7:1), now 4.4:1 */
+  --border-card:      light-dark(#E6E6E6, #94A3B82E);  /* F-012 new — card border (dark 3.1:1) */
 
   /* ============================ TEXT ============================ */
   --text-primary:     light-dark(#333333, #f1f5f9);  /* corpo */
