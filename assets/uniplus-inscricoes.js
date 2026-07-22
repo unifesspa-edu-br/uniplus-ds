@@ -1020,6 +1020,8 @@ function escapeHtml(s) {
     document.getElementById('btn-next')?.addEventListener('click', nextStep);
     document.getElementById('btn-prev')?.addEventListener('click', prevStep);
 
+    renderView();
+
   });
 
   function cpfMask(input) {
