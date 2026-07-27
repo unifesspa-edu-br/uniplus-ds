@@ -259,20 +259,15 @@
 
               <!-- RG -->
               <div class="insc-section" style="margin-top:var(--space-5)">
-                <div class="insc-toggle-row">
-                  <div class="insc-toggle-row__info">
-                    <p><strong>RG *</strong></p>
-                    <p class="insc-toggle-row__sub">Informe os dados conforme o modelo do documento.</p>
-                  </div>
-                  <label class="switch" aria-label="Novo modelo de RG">
-                    <input
-                      type="checkbox"
-                      id="rg_novo_modelo"
-                      checked
-                      onchange="_toggleModeloRG()"
-                    >
-                    <span class="switch__track" aria-hidden="true"></span>
-                    <span id="rgModeloTexto">Novo modelo de RG</span>
+                <p style="font-size:var(--text-base);font-weight:var(--weight-semibold);margin-bottom:var(--space-3)">Qual o modelo do seu RG? *</p>
+                <div class="insc-radio-group" id="rgModeloGroup" role="radiogroup" aria-label="Modelo do RG">
+                  <label class="insc-radio">
+                    <input type="radio" name="rgModelo" value="novo" onchange="_toggleModeloRG()">
+                    <span>Novo modelo de RG (Carteira de Identidade Nacional - CIN)</span>
+                  </label>
+                  <label class="insc-radio">
+                    <input type="radio" name="rgModelo" value="antigo" onchange="_toggleModeloRG()">
+                    <span>Modelo antigo de RG</span>
                   </label>
                 </div>
                 <div id="rgModeloAntigo" class="form-grid" hidden>
@@ -294,7 +289,7 @@
                       max="">
                   </div>
                 </div>
-                <div id="rgModeloNovo" class="form-grid">
+                <div id="rgModeloNovo" class="form-grid" hidden>
                   <div>
                     <label for="rg_novo_numero">Número do RG / CPF *</label>
                     <input class="input" id="rg_novo_numero" type="text" readonly>
@@ -357,7 +352,7 @@
 
               <div style="margin-top:var(--space-5)">
                 <p style="font-size:var(--text-sm);font-weight:var(--weight-semibold);margin-bottom:var(--space-3)">Você
-                  possui alguma Deficiência? *</p>
+                  é uma pessoa com Deficiência? *</p>
                   <p id="def"></p>
                 <div class="insc-chip-grid" id="deficienciasBox"></div>
               </div>
@@ -682,7 +677,7 @@
                   </section>
 
                   <section class="cotas-result" id="cota-resultado">
-                    <h2>Modalidades calculadas</h2>
+                    <h2>Você irá concorrer a estas modalidades:</h2>
                     <div id="cota-badges" class="cotas-badges"></div>
                     <div id="cota-status" class="cotas-status">Responda as perguntas para calcular as modalidades.</div>
                     <ul id="cota-explain" class="cotas-explain"></ul>
@@ -788,7 +783,7 @@
 
                 <section class="review-card review-card--full">
                   <div class="review-card__head">
-                    <h2 class="review-card__title">Modalidades calculadas</h2>
+                    <h2 class="review-card__title">Você irá concorrer a estas modalidades</h2>
                   </div>
                   <div class="review-card__body">
                     <div id="review-modalidades"></div>

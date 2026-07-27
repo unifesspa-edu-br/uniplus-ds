@@ -340,52 +340,50 @@ function escapeHtml(s) {
   };
 
   window._toggleModeloRG = function () {
-    const modeloAntigo =
-      document.getElementById('rg_novo_modelo')?.checked;
-
+    const rgRadio = document.querySelector('input[name="rgModelo"]:checked');
     const divAntigo =
       document.getElementById('rgModeloAntigo');
 
     const divNovo =
       document.getElementById('rgModeloNovo');
 
-    const textoModelo =
-      document.getElementById('rgModeloTexto');
+    if (!rgRadio) {
+      // Nenhum radio selecionado: esconde ambos os forms
+      if (divAntigo) divAntigo.hidden = true;
+      if (divNovo) divNovo.hidden = true;
+      return;
+    }
+
+    const isNovo = rgRadio.value === 'novo';
 
     if (divAntigo) {
-      divAntigo.hidden = !modeloAntigo;
+      divAntigo.hidden = isNovo;
     }
 
     if (divNovo) {
-      divNovo.hidden = modeloAntigo;
+      divNovo.hidden = !isNovo;
     }
 
-    if (textoModelo) {
-      textoModelo.textContent =
-        modeloAntigo
-          ? 'Modelo antigo de RG'
-          : 'Novo modelo de RG';
-    }
-
-    // Se mudou para o modelo novo
-    if (!modeloAntigo) {
+    if (isNovo) {
       _sincronizarRgComCpf();
       _calcularValidadeCIN();
     }
   };
 
   window._sincronizarRgComCpf = function () {
-    const novoModelo = !document.getElementById('rg_novo_modelo')?.checked;
+    const rgNovo = document.querySelector('input[name="rgModelo"]:checked')?.value;
+    const isNovo = rgNovo === 'novo';
     const cpfValue = document.getElementById('cpf')?.value || '';
-    if (novoModelo) {
+    if (isNovo) {
       const el = document.getElementById('rg_novo_numero');
       if (el) el.value = cpfValue;
     }
   };
 
   window._calcularValidadeCIN = function () {
-    const novoModelo = !document.getElementById('rg_novo_modelo')?.checked;
-    if (!novoModelo) return;
+    const rgNovo = document.querySelector('input[name="rgModelo"]:checked')?.value;
+    const isNovo = rgNovo === 'novo';
+    if (!isNovo) return;
     const dataNasc = document.getElementById('data_nasc')?.value;
     const dataEmissao = document.getElementById('rg_novo_data_emissao')?.value;
     const validadeField = document.getElementById('rg_novo_validade');
@@ -807,9 +805,10 @@ function escapeHtml(s) {
         erros.push(error('nomeSocial', 'Este campo é obrigatório.'));
       }
 
-      const novoModelo = !document.getElementById('rg_novo_modelo')?.checked;
-
-      if (novoModelo) {
+      const rgModeloRadio = document.querySelector('input[name="rgModelo"]:checked');
+      if (!rgModeloRadio) {
+        erros.push(errorGrupo('#rgModeloGroup', 'Modelo do RG', 'Selecione o modelo do seu RG.'));
+      } else if (rgModeloRadio.value === 'novo') {
         _sincronizarRgComCpf();
 
         if (!req('rg_novo_orgao_expedidor'))
@@ -986,6 +985,23 @@ function escapeHtml(s) {
   const SVG_CHECK = `<svg class="num-icon num-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>`;
   const SVG_HOURGLASS = `<svg class="num-icon num-hourglass" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 22h14M5 2h14M17 22v-4.172a2 2 0 0 0-.586-1.414L12 12l-4.414 4.414A2 2 0 0 0 7 17.828V22M7 2v4.172a2 2 0 0 0 .586 1.414L12 12l4.414-4.414A2 2 0 0 0 17 6.172V2"/></svg>`;
 
+  /* ---- Modo de zoom compacto -----------------------------------------
+ * Ativa a classe `zoom-compact` em dispositivos desktop quando a
+ * largura efetiva da viewport fica inferior a 800px, cenário comum
+ * em altos níveis de zoom do navegador.
+ *
+ * A detecção é baseada na largura da viewport e no tipo de dispositivo
+ * (desktop), não no percentual de zoom do navegador.
+ * ------------------------------------------------------------------- */
+
+  function updateZoomClass() {
+    const isDesktop = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+
+    const compact = isDesktop && window.innerWidth < 800;
+
+    document.documentElement.classList.toggle("zoom-compact", compact);
+  }
+
   /* ---- keyboard detection ---- */
 
   document.addEventListener('DOMContentLoaded', function () {
@@ -1021,8 +1037,11 @@ function escapeHtml(s) {
     document.getElementById('btn-prev')?.addEventListener('click', prevStep);
 
     renderView();
+    updateZoomClass();
 
   });
+
+  window.addEventListener('resize', updateZoomClass);
 
   function cpfMask(input) {
     let valor = input.value.replace(/\D/g, '');
@@ -2007,7 +2026,7 @@ function escapeHtml(s) {
     'use strict';
 
     const NONE_VALUE = 'Não Necessito';
-    const MAX_FILE_SIZE = 5 * 1024 * 1024;
+    const MAX_FILE_SIZE = 2 * 1024 * 1024;
 
     const docs = {
       'Prova Ampliada de 18 até 24': {
@@ -2077,6 +2096,12 @@ function escapeHtml(s) {
       return `${(bytes / (1024 * 1024)).toFixed(1).replace('.', ',')} MB`;
     }
 
+    function createSvgEl(html) {
+      const template = document.createElement('template');
+      template.innerHTML = html.trim();
+      return template.content.firstChild;
+    }
+
     function createUploadCard(value) {
       const item = docs[value] || {
         titulo: value,
@@ -2085,39 +2110,121 @@ function escapeHtml(s) {
 
       const id = `atendimento-upload-${slug(value)}`;
 
+      // --- SVG icons (criados uma vez como fragmentos estáticos) ---
+      const fileIconSvg = createSvgEl(
+        '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' +
+          '<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>' +
+          '<path d="M14 2v6h6"/>' +
+        '</svg>'
+      );
+
+      const uploadSvg = createSvgEl(
+        '<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' +
+          '<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>' +
+          '<path d="M17 8l-5-5-5 5"/>' +
+          '<path d="M12 3v12"/>' +
+        '</svg>'
+      );
+
+      const trashSvg = createSvgEl(
+        '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' +
+          '<polyline points="3 6 5 6 21 6"/>' +
+          '<path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>' +
+          '<line x1="10" y1="11" x2="10" y2="17"/>' +
+          '<line x1="14" y1="11" x2="14" y2="17"/>' +
+        '</svg>'
+      );
+
+      // ---- card principal ----
       const card = document.createElement('article');
       card.className = 'atendimento-upload-card';
       card.dataset.atendimento = value;
-      card.innerHTML = `
-        <div class="atendimento-upload-info">
-          <span class="atendimento-upload-icon" aria-hidden="true">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
-              <path d="M14 2v6h6"></path>
-            </svg>
-          </span>
-          <div>
-            <p class="atendimento-upload-name">${escapeHtml(item.titulo)}</p>
-            <span class="atendimento-upload-badge">Obrigatório</span>
-            <p class="atendimento-upload-desc">${escapeHtml(item.descricao)}</p>
-          </div>
-        </div>
 
-        <div>
-          <label class="atendimento-file-zone" for="${id}">
-            <input id="${id}" type="file" accept=".pdf,.jpg,.jpeg,.png,application/pdf,image/jpeg,image/png" data-atendimento-file="${escapeHtml(value)}">
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-              <path d="M17 8l-5-5-5 5"></path>
-              <path d="M12 3v12"></path>
-            </svg>
-            <span class="atendimento-file-main">Arraste ou selecione um arquivo</span>
-            <span class="atendimento-file-hint">PDF, JPG ou PNG • até 2 MB</span>
-          </label>
-          <div class="atendimento-file-selected" data-file-name></div>
-          <p class="atendimento-upload-error" data-upload-error></p>
-        </div>
-      `;
+      // ---- coluna info ----
+      const infoCol = document.createElement('div');
+      infoCol.className = 'atendimento-upload-info';
+
+      const iconSpan = document.createElement('span');
+      iconSpan.className = 'atendimento-upload-icon';
+      iconSpan.setAttribute('aria-hidden', 'true');
+      iconSpan.appendChild(fileIconSvg.cloneNode(true));
+      infoCol.appendChild(iconSpan);
+
+      const infoContent = document.createElement('div');
+
+      const nameP = document.createElement('p');
+      nameP.className = 'atendimento-upload-name';
+      nameP.textContent = item.titulo;
+      infoContent.appendChild(nameP);
+
+      const badgeSpan = document.createElement('span');
+      badgeSpan.className = 'atendimento-upload-badge';
+      badgeSpan.textContent = 'Obrigatório';
+      infoContent.appendChild(badgeSpan);
+
+      const descP = document.createElement('p');
+      descP.className = 'atendimento-upload-desc';
+      descP.textContent = item.descricao;
+      infoContent.appendChild(descP);
+
+      infoCol.appendChild(infoContent);
+      card.appendChild(infoCol);
+
+      // ---- coluna upload ----
+      const uploadCol = document.createElement('div');
+
+      // ---- label / zona de upload ----
+      const label = document.createElement('label');
+      label.className = 'atendimento-file-zone';
+      label.setAttribute('for', id);
+
+      const fileInput = document.createElement('input');
+      fileInput.id = id;
+      fileInput.type = 'file';
+      fileInput.accept = '.pdf,.jpg,.jpeg,.png,application/pdf,image/jpeg,image/png';
+      fileInput.dataset.atendimentoFile = value;
+      label.appendChild(fileInput);
+
+      label.appendChild(uploadSvg.cloneNode(true));
+
+      const mainSpan = document.createElement('span');
+      mainSpan.className = 'atendimento-file-main';
+      mainSpan.textContent = 'Arraste ou selecione um arquivo';
+      label.appendChild(mainSpan);
+
+      const hintSpan = document.createElement('span');
+      hintSpan.className = 'atendimento-file-hint';
+      hintSpan.textContent = 'PDF, JPG ou PNG • até 2 MB';
+      label.appendChild(hintSpan);
+
+      uploadCol.appendChild(label);
+
+      // ---- selected file area ----
+      const selectedBox = document.createElement('div');
+      selectedBox.className = 'atendimento-file-selected';
+      selectedBox.dataset.fileName = '';
+
+      const selectedText = document.createElement('span');
+      selectedText.className = 'atendimento-file-selected__text';
+      selectedBox.appendChild(selectedText);
+
+      const removeBtn = document.createElement('button');
+      removeBtn.type = 'button';
+      removeBtn.className = 'atendimento-file-remove';
+      removeBtn.dataset.fileRemove = '';
+      removeBtn.setAttribute('aria-label', 'Remover arquivo');
+      removeBtn.appendChild(trashSvg.cloneNode(true));
+      selectedBox.appendChild(removeBtn);
+
+      uploadCol.appendChild(selectedBox);
+
+      // ---- error area ----
+      const errorP = document.createElement('p');
+      errorP.className = 'atendimento-upload-error';
+      errorP.dataset.uploadError = '';
+      uploadCol.appendChild(errorP);
+
+      card.appendChild(uploadCol);
 
       return card;
     }
@@ -2199,7 +2306,7 @@ function escapeHtml(s) {
           firstInvalid = firstInvalid || card;
 
           if (showErrors) {
-            setUploadError(card, 'Arquivo inválido. Envie PDF, JPG ou PNG com até 5 MB.');
+            setUploadError(card, 'Arquivo inválido. Envie PDF, JPG ou PNG com até 2 MB.');
           }
         }
       });
@@ -2234,16 +2341,49 @@ function escapeHtml(s) {
         const file = input.files?.[0];
 
         clearUploadError(card);
+        selectedBox?.classList.remove('is-show');
 
-        if (selectedBox) {
-          if (file) {
-            selectedBox.textContent = `${file.name} • ${formatFileSize(file.size)}`;
-            selectedBox.classList.add('is-show');
-          } else {
-            selectedBox.textContent = '';
-            selectedBox.classList.remove('is-show');
-          }
+        if (!file) {
+          return;
         }
+
+        // Valida o arquivo imediatamente
+        if (!fileIsValid(file)) {
+          // Limpa o input para não ficar com arquivo inválido selecionado
+          input.value = '';
+          setUploadError(card, 'Arquivo inválido. Envie PDF, JPG ou PNG com até 2 MB.');
+          return;
+        }
+
+        // Arquivo válido: exibe a confirmação
+        if (selectedBox) {
+          const textEl = selectedBox.querySelector('.atendimento-file-selected__text');
+          if (textEl) {
+            textEl.textContent = `Arquivo adicionado: ${file.name} • ${formatFileSize(file.size)}`;
+          }
+          selectedBox.classList.add('is-show');
+        }
+      });
+
+      // Botão remover arquivo
+      document.addEventListener('click', event => {
+        const btn = event.target.closest('[data-file-remove]');
+        if (!btn) return;
+
+        const card = btn.closest('.atendimento-upload-card');
+        if (!card) return;
+
+        const input = card.querySelector('input[type="file"]');
+        if (input) input.value = '';
+
+        const selectedBox = card.querySelector('[data-file-name]');
+        if (selectedBox) {
+          selectedBox.classList.remove('is-show');
+          const textEl = selectedBox.querySelector('.atendimento-file-selected__text');
+          if (textEl) textEl.textContent = '';
+        }
+
+        clearUploadError(card);
       });
 
       const nextButton = document.getElementById('btn-next');
@@ -3368,7 +3508,7 @@ function criarEstruturaComprovante({
 
     {
       label:
-        'Modalidades calculadas',
+        'Você irá concorrer a estas modalidades',
 
       valor:
         obterModalidadesCalculadas()
